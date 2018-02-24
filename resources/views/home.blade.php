@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-10">
             <div class="panel panel-primary">
-                <div style="color:white" class="panel-heading"><center>Welcome to ASDP Work Environment</center></div>
+                <div style="color:white" class="panel-heading"><center>Welcome to Work Environment</center></div>
 
                 <div class="panel-body">
                    
