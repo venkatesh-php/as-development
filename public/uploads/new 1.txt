@@ -1,0 +1,40 @@
+  public function index(Request $request)
+    { 
+        // switch case==1;
+        $cop_str='review';
+        //$i;
+        
+
+        $assign_tasks = DB::table('assign_tasks')
+                            ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
+                            ->join('user_tasks','user_tasks.assigntask_id','assign_tasks.id')
+                            ->where('assign_tasks.user_id',Auth::user()->id)
+                            ->where('user_tasks.request_for', $cop_str)
+                            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription',
+                            'admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads',
+                            'user_tasks.request_for')->orderBy('user_tasks.date', 'desc')->get();
+                            // 
+                            
+        // $user_tasks = DB::table('user_tasks')
+
+                    //    return  
+                        //    var_dump($assign_tasks);        
+                            return view('UserTasks.index',compact('assign_tasks'));
+                                
+    }
+
+
+
+
+ <!-- <td>{{ $task->request_for}}</td> -->
+ 
+ 
+ 
+ @if($task->request_for === 'drop')
+                        <h1>Task Dropped</h1>
+
+                        @elseif($task->request_for === 'approved')
+                        <h1>Task Approved</h1>
+
+
+                        @else
