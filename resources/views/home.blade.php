@@ -12,8 +12,8 @@
             <div class="panel panel-primary">
                 <div style="color:white" class="panel-heading">
                 <center>Welcome to Work Environment</center>
-                <h1>Change for test at 12:21am</h1>
-                                <h1>Change for test at 3:11pm</h1>
+                <!-- <h1>Change for test at 12:21am</h1>
+                                <h1>Change for test at 3:11pm</h1> -->
 
                 </div>
 
