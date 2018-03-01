@@ -52,7 +52,7 @@ class AdminTasksController extends Controller
         $subjects = DB::table('subjects')
                     ->where('subjects.user_id',Auth::user()->id)
                     ->select('subjects.*')->get();
-        $work_nature = DB::table('work_natures')->get();
+        $work_nature = DB::table('work_nature')->get();
 
 
         return view('AdminTasks.create',compact('subjects','work_nature'));

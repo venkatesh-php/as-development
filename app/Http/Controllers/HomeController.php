@@ -44,7 +44,7 @@ class HomeController extends Controller
         {
             //Total Assigned Tasks of all Users assigned by teacher
             $assign_tasks = DB::table('assign_tasks')
-            ->where('assign_tasks.assign_user_id',Auth::user()->id)
+            ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
             ->orderBy('assign_tasks.updated_at','desc')->get();
 
             $assign_chart = Charts::database($assign_tasks, 'line', 'highcharts')
@@ -58,7 +58,7 @@ class HomeController extends Controller
             // Total Completed Tasks of all Users assigned by teacher
             $completedtasks = DB::table('assign_tasks')
             ->where('assign_tasks.status','approved')
-            ->where('assign_tasks.assign_user_id',Auth::user()->id)
+            ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
             ->orderBy('assign_tasks.updated_at','desc')->get();
 
             $completed_chart = Charts::database($completedtasks, 'line', 'highcharts')
@@ -73,9 +73,9 @@ class HomeController extends Controller
             // Pregress Line graph all Registerd user Count
 
             $progress = DB::table('assign_tasks') 
-            ->where('assign_tasks.assign_user_id',Auth::user()->id)
+            ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
             ->where('assign_tasks.status','approved')
-            ->orderBy('assign_tasks.updated_at','desc')->select('assign_tasks.updated_at','assign_tasks.obtained_marks')->get()->toArray();
+            ->orderBy('assign_tasks.updated_at','desc')->select('assign_tasks.updated_at','assign_tasks.user_credits')->get()->toArray();
 
             if (empty($progress)) 
             {
@@ -98,7 +98,7 @@ class HomeController extends Controller
             }
            
 
-            $marksarray = array_column($progress,'obtained_marks');
+            $marksarray = array_column($progress,'user_credits');
 
             $count_array[0] = $marksarray[0];
             for($i=1;$i<count($marksarray);$i++)
@@ -119,7 +119,7 @@ class HomeController extends Controller
 
             $droptasks = DB::table('assign_tasks')
             ->where('assign_tasks.status','drop')
-            ->where('assign_tasks.assign_user_id',Auth::user()->id)
+            ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
             ->orderBy('assign_tasks.created_at','desc')->get();
 
 
@@ -136,8 +136,8 @@ class HomeController extends Controller
             // Total comments of Teacher assigned tasks
             $totalcomments = DB::table('user_tasks')
             ->join('assign_tasks','user_tasks.assigntask_id','assign_tasks.id')
-            ->join('users','assign_tasks.assign_user_id','users.id')
-            ->where('assign_tasks.assign_user_id',Auth::User()->id)
+            ->join('users','assign_tasks.assigned_by_userid','users.id')
+            ->where('assign_tasks.assigned_by_userid',Auth::User()->id)
             ->count();
 
             $totalcredits = $completedtasks->sum('obtained_marks');
@@ -192,7 +192,7 @@ class HomeController extends Controller
                         $progress = DB::table('assign_tasks')
                         ->where('assign_tasks.user_id',Auth::user()->id)
                         ->where('assign_tasks.status','approved')
-                        ->orderBy('assign_tasks.updated_at','desc')->select('assign_tasks.updated_at','assign_tasks.obtained_marks')->get()->toArray();
+                        ->orderBy('assign_tasks.updated_at','desc')->select('assign_tasks.updated_at','assign_tasks.user_credits')->get()->toArray();
 
                         if (empty($progress)) 
                         {
@@ -215,7 +215,7 @@ class HomeController extends Controller
                         }
                        
 
-                        $marksarray = array_column($progress,'obtained_marks');
+                        $marksarray = array_column($progress,'user_credits');
 
                         $count_array[0] = $marksarray[0];
                         for($i=1;$i<count($marksarray);$i++)

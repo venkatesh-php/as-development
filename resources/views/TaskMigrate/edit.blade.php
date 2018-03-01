@@ -1,6 +1,20 @@
 @extends('layouts.app')
 @section('content')
 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#role").change(function () {
+            if ($(this).val() == "drop" || "approved") {
+                $("#bb").show();
+            } else {
+                $("#bb").hide();
+            }
+        });
+    });
+</script>
+
+
 
 <div class="row">
     <div class="col-lg-12 margin-tb">
@@ -69,15 +83,16 @@
                                     {!! Form::open(array('route' => 'TaskMigrate.store','method' => 'POST','files' => true)) !!}
 
 
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-12 col-sm-12 col-md-12" style="display:none">
                                             <div class="form-group">
                                                 <strong>Assigned Task Id:</strong>
                                                 {!! Form::text('assigntask_id', $assign_tasks->id) !!}
-                                                <!-- {!! $assign_tasks->id !!} -->
+                                                
                                         </div>
                                     </div>
 
                                     @if(Auth::user()->role_id <= 5) 
+                                    <div id="role">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>Request For:</strong>
@@ -88,11 +103,15 @@
                                                     array('class' => 'form-control')) !!}
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                            <strong>Marks :</strong>
-                                                {!! Form::text('obtained_marks', null, array('placeholder' => 'if drop or approved only')) !!}
+
+                                        <div id="bb" style="display:none">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                <strong>Marks :</strong>
+                                                    {!! Form::text('obtained_marks', null, array('placeholder' => 'Give the marks to Student','class' => 'form-control')) !!}
+                                                </div>
                                             </div>
                                         </div>
                                         @else
@@ -106,10 +125,18 @@
                                                 </div>
                                         </div>
                                     @endif
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12" style="display:none">
+                                            <div class="form-group">
+                                                <strong>Request By :</strong>
+                                                {!! Form::text('request_by', Auth::user()->id) !!}
+                                            </div>
+                                    </div>
+
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>Message :</strong>
-                                                {!! Form::text('message', null, array('placeholder' => 'Message ','class' => 'form-control')) !!}
+                                                {!! Form::textarea('message', null, array('placeholder' => 'Message ','class' => 'form-control')) !!}
                                             </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">

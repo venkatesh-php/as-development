@@ -94,6 +94,15 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
+                                        <strong>Target Date :</strong>
+                                        {!! Form::date('target_at',Null ,array('placeholder' => 'Choose Target Date')) !!}
+                        
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
                                         <strong style="color:green">User Name</strong><br>
                                         <!-- <select name="user_id" class="form-control"> -->
                                             @foreach ($users as $key => $user)
@@ -122,9 +131,7 @@
                                             @foreach ($teachers as $teacher)
                                                 <option value="{{$teacher->name}}">{{$teacher->name}} , {{$teacher->email}}</option>                
                                             @endforeach
-                                        </select>
-                                
-                                                    
+                                        </select>              
                                     </div>
                                 </div>
 

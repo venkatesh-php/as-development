@@ -20,8 +20,7 @@ class AssignTasksController extends Controller
     public function index(Request $request)
     {
         $assign_tasks = AssignTasks::orderBy('id','DESC')
-        ->where('assign_tasks.assign_user_id',Auth::user()->id)
-        
+        ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
         ->paginate(15);
         return view('AssignTasks.index',compact('assign_tasks'))
             ->with('i', ($request->input('page', 1) - 1) * 15);

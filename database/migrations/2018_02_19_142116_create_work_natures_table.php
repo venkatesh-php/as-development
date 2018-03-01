@@ -27,6 +27,6 @@ class CreateWorkNaturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('work_natures');
+        Schema::dropIfExists('work_nature');
     }
 }

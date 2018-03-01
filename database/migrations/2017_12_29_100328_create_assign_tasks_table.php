@@ -15,14 +15,17 @@ class CreateAssignTasksTable extends Migration
     {
         Schema::create('assign_tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('assign_user_id');
-            $table->string('task_id');
-            $table->string('user_id');
-            $table->string('guide_id');
-            $table->string('reviewer_id');           
+            $table->string('assigned_by_userid');
+            $table->integer('task_id');
+            $table->integer('user_id');
+            $table->integer('guide_id');
+            $table->integer('reviewer_id');           
             $table->string('status')->nullable();
-            $table->string('obtained_marks')->nullable();
-
+            $table->float('user_credits')->nullable();
+            $table->float('guide_credits')->nullable();
+            $table->float('reviewer_credits')->nullable();
+            $table->date('target_at')->nullable();
+            $table->date('completed_at')->nullable();
             $table->timestamps();
         });
     }

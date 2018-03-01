@@ -72,6 +72,7 @@ class TaskMigrateController extends Controller
             $this->validate($request, [
                 'assigntask_id' => 'required',
                 'request_for' => 'required',
+                'request_by' => 'required',
                 'obtained_marks' => 'nullable',
                 'message' => '',
                 'uploads' => '',
@@ -102,12 +103,15 @@ class TaskMigrateController extends Controller
             }
 
             DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-            ->update(['obtained_marks' => $requestData['obtained_marks']]);
+            ->update(['user_credits' => $requestData['obtained_marks']]);
+
+            
         }
         else{
             $this->validate($request, [
                 'assigntask_id' => 'required',
                 'request_for' => 'required',
+                'request_by' => 'required',
                 'message' => '',
                 'uploads' => '',
                 'created_at' => '',
@@ -137,23 +141,17 @@ class TaskMigrateController extends Controller
             }
         }
        
-
         DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
         ->update(['status' => $requestData['request_for']]);
-
-        
+   
 
         UserTasks::create($requestData);
-        
-       
-        
+
         DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-        ->update(['updated_at' => date('Y-m-d H:i:s')]);
+            ->update(['completed_at' => date('Y-m-d H:i:s')]);
 
-        
-
-        return redirect()->route('TaskMigrate.index')
-                        ->with('success','AdminTasks created successfully');
+        return redirect()->route('TaskMigrate.index');
+                       
     }
     
     /**
@@ -202,6 +200,7 @@ class TaskMigrateController extends Controller
         ->where( 'assign_tasks.id',$id)
         ->select('user_tasks.*')->get();
         $assign_tasks = AssignTasks::find($id);
+
         // echo($id);
         return view('TaskMigrate.edit',compact('user_tasks','assign_tasks',$id));
     }
