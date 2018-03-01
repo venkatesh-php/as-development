@@ -17,6 +17,7 @@ class CreateUserTasksTable extends Migration
             $table->increments('id');
             $table->integer('assigntask_id');
             $table->string('request_for');
+            $table->string('request_by');
             $table->string('message');
             $table->string('uploads')->nullable();
             $table->string('obtained_marks')->nullable();
