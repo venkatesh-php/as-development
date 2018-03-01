@@ -17,7 +17,7 @@
                 <h1>
                 
                 <a class="btn btn-primary btn-lg" href="{{ route('TaskMigrate.index') }}">To get Started</a>
-                <a class="btn btn-info btn-lg" value='review' href="{{ route('TaskMigrate.show','review') }}">For Reviewed</a>
+                <a class="btn btn-info btn-lg" value='review' href="{{ route('TaskMigrate.show','review') }}">To be Reviewed</a>
                 <a class="btn btn-warning btn-lg" value='redo' href="{{ route('TaskMigrate.show','redo') }}">To be Refined</a>
                 <a class="btn btn-success btn-lg" value='approved' href="{{ route('TaskMigrate.show','approved') }}">Completed</a>
                 <a class="btn btn-danger btn-lg" value='drop' href="{{ route('TaskMigrate.show','drop') }}"> Dropped</a>

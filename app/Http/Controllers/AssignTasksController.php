@@ -21,7 +21,28 @@ class AssignTasksController extends Controller
     {
         $assign_tasks = AssignTasks::orderBy('id','DESC')
         ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
+        ->join('users as users_u','users_u.id','assign_tasks.user_id')
+        ->join('users as users_g','users_g.id','assign_tasks.guide_id')
+        ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
+        ->select('assign_tasks.*','users_u.name','users_g.name as gname','users_r.name as rname')
         ->paginate(15);
+
+        // $assign_tasks = AssignTasks::
+        // orderBy('id','DESC')->
+        // where('assign_tasks.assigned_by_userid',Auth::user()->id)
+        // ->leftJoin('users', function($join)
+        // {
+        //     $join->on('users.id', '=', 'assign_tasks.user_id')
+        //     // ->on('users.id', '=', 'assign_tasks.guide_id')
+        //     ;
+        // })
+        // ->select('assign_tasks.*','users.name')
+        // ->paginate(15)
+        // ;
+
+        // $gids=$assign_tasks ->toArray();
+        // return $gids;
+        // $gnames = User::whereIn('id', $gids)->select('name')->get();
         return view('AssignTasks.index',compact('assign_tasks'))
             ->with('i', ($request->input('page', 1) - 1) * 15);
     }

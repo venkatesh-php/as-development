@@ -29,7 +29,7 @@
                     <tr>
                         <th>No</th>
                         <th>Task ID</th>
-                        <th>User ID</th>
+                        <th>User Name</th>
                         <th>Guide Name</th>
                         <th>Reviewer Name</th>
                         <th>Assigned Date</th>
@@ -41,9 +41,9 @@
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $task->task_id }}</td>
-                            <td>{{ $task->user_id }}</td>
-                            <td>{{ $task->guide_id }}</td>
-                            <td>{{ $task->reviewer_id}}</td>
+                            <td>{{ $task->name }}</td>
+                            <td>{{ $task->gname }}</td>
+                            <td>{{ $task->rname}}</td>
                             <td>{{ $task->created_at}}</td>
                             <td>{{ $task->updated_at}}</td>
                            <!--  <td>

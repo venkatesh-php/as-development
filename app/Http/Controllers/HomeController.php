@@ -140,7 +140,7 @@ class HomeController extends Controller
             ->where('assign_tasks.assigned_by_userid',Auth::User()->id)
             ->count();
 
-            $totalcredits = $completedtasks->sum('obtained_marks');
+            $totalcredits = $completedtasks->sum('reviewer_credits');
             $completedtasks = $completedtasks->count();
             $droptasks = $droptasks->count();
 
@@ -240,7 +240,7 @@ class HomeController extends Controller
 
            
             $totaltasks = $assign_tasks->count();
-            $totalcredits = $completedtasks->sum('obtained_marks');
+            $totalcredits = $completedtasks->sum('user_credits');
             $completedtasks = $completedtasks->count();
             $droptasks = $droptasks->count();
 
