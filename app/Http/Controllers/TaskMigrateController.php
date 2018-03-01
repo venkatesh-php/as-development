@@ -28,7 +28,7 @@ class TaskMigrateController extends Controller
         {
             $assign_tasks = DB::table('assign_tasks')
             ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
-            ->where('assign_tasks.assign_user_id',Auth::user()->id)
+            ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
             ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads')
             ->whereNull('assign_tasks.status')->orderBy('assign_tasks.task_id','desc')->get();    
         }
@@ -73,7 +73,7 @@ class TaskMigrateController extends Controller
                 'assigntask_id' => 'required',
                 'request_for' => 'required',
                 'request_by' => 'required',
-                'obtained_marks' => 'nullable',
+                'user_credits' => 'nullable',
                 'message' => '',
                 'uploads' => '',
                 'created_at' => '',
@@ -102,8 +102,7 @@ class TaskMigrateController extends Controller
                 $requestData = $request->all();
             }
 
-            DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-            ->update(['user_credits' => $requestData['obtained_marks']]);
+            
 
             
         }
@@ -141,16 +140,19 @@ class TaskMigrateController extends Controller
             }
         }
        
+        
+       
+        // DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
+        // ->update(['user_credits' => $requestData['obtained_marks']]);
         DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-        ->update(['status' => $requestData['request_for']]);
-   
-
+        ->update(['user_credits' => $requestData['obtained_marks'],'status' => $requestData['request_for']]);
+        
+        unset($requestData['obtained_marks']);//removed as there is no column of obtained marks 
         UserTasks::create($requestData);
-
-        DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-            ->update(['completed_at' => date('Y-m-d H:i:s')]);
-
-        return redirect()->route('TaskMigrate.index');
+        // DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
+        //     ->update(['completed_at' => date('Y-m-d H:i:s')]);
+        return $requestData;
+        // return redirect()->route('TaskMigrate.index');
                        
     }
     
@@ -168,7 +170,7 @@ class TaskMigrateController extends Controller
             $assign_tasks = DB::table('assign_tasks')
             ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
             ->where('assign_tasks.status',$cop_str)
-            ->where('assign_tasks.assign_user_id',Auth::user()->id)
+            ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
             ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads')
             ->orderBy('assign_tasks.task_id','desc')->get();
            
