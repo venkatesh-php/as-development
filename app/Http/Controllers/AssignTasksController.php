@@ -8,6 +8,7 @@ use App\User;
 use App\AdminTasks;
 use App\AssignTasks;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 
 class AssignTasksController extends Controller
@@ -120,7 +121,8 @@ class AssignTasksController extends Controller
                 ->get();
       
         $works = AdminTasks::find($id);
-        return view('AssignTasks.create',compact('users','works','teachers',$id));
+        $targetdate=Carbon::now('Asia/Kolkata')->addDays(5);
+        return view('AssignTasks.create',compact('users','works','teachers','targetdate',$id));
     }
 
     /**
