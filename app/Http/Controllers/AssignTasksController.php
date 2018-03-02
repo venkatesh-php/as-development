@@ -73,7 +73,7 @@ class AssignTasksController extends Controller
             {
                 $record = [
                     'task_id' => $request->task_id,
-                    'assign_user_id' => $request->assign_user_id,
+                    'assigned_by_userid' => $request->assign_user_id,
                     'user_id' =>$ids[0][$i],
                     'guide_id' => $request->guide_id,
                     'reviewer_id' => $request->reviewer_id,
