@@ -20,8 +20,8 @@ class CreateUserTasksTable extends Migration
             $table->string('request_by');
             $table->string('message');
             $table->string('uploads')->nullable();
-            $table->string('obtained_marks')->nullable();
-            $table->timestamps();
+            // $table->string('obtained_marks')->nullable();
+            $table->timestamp('created_at');
         });
     }  
 

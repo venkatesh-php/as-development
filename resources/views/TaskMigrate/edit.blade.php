@@ -34,7 +34,7 @@
             <th>Message</th>
             <th>Files</th>
             <th>Date</th>
-            <th>Obtained Marks</th>
+            {{--  <th>Obtained Marks</th>  --}}
                         
         </tr>
         @foreach ($user_tasks as $task)
@@ -48,7 +48,7 @@
             <td>Nill</td>
             @endif
             <td>{{ $task->created_at }}</td>
-            <td>{{ $task->obtained_marks }}</td>
+            {{--  <td>{{ $task->obtained_marks }}</td>  --}}
         </tr>
         
          @endforeach
