@@ -111,7 +111,7 @@
                                                 <div class="form-group">
                                                 <strong>Rate Your Student Work:</strong>
                                                     {{--  {!! Form::text('obtained_marks', null, array('placeholder' => 'Give the marks to Student','class' => 'form-control')) !!}  --}}
-                                                    {!!  Form::input('number', 'rating_to_user', null, ['id' => 'weight', 'class' => 'form-control', 'min' => 1, 'max' => 10, 'required' => 'required']) !!}
+                                                    {!!  Form::input('number', 'rating_to_user', null, ['id' => 'weight', 'class' => 'form-control', 'min' => 1, 'max' => 10]) !!}
                                                 </div>
                                             </div>
                                         </div>
