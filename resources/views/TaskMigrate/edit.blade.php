@@ -110,7 +110,8 @@
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                 <strong>Marks :</strong>
-                                                    {!! Form::text('obtained_marks', null, array('placeholder' => 'Give the marks to Student','class' => 'form-control')) !!}
+                                                    {{--  {!! Form::text('obtained_marks', null, array('placeholder' => 'Give the marks to Student','class' => 'form-control')) !!}  --}}
+                                                    {!!  Form::input('number', 'weight', null, ['id' => 'weight', 'class' => 'form-control', 'min' => 1, 'max' => 10, 'required' => 'required']) !!}
                                                 </div>
                                             </div>
                                         </div>

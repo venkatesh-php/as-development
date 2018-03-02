@@ -143,11 +143,11 @@ class TaskMigrateController extends Controller
         
        
         // DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-        // ->update(['user_credits' => $requestData['obtained_marks']]);
+        // ->update(['user_credits' => $requestData['user_credits']]);
         DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-        ->update(['user_credits' => $requestData['obtained_marks'],'status' => $requestData['request_for']]);
+        ->update(['user_credits' => $requestData['user_credits'],'status' => $requestData['request_for']]);
         
-        unset($requestData['obtained_marks']);//removed as there is no column of obtained marks 
+        unset($requestData['user_credits']);//removed as there is no column of obtained marks 
         UserTasks::create($requestData);
         // DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
         //     ->update(['completed_at' => date('Y-m-d H:i:s')]);
