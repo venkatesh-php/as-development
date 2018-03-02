@@ -67,6 +67,7 @@ class TaskMigrateController extends Controller
      */
     public function store(Request $request)
     {
+        $reserved_credits=0;
         if(Auth::user()->role_id <= 5)
         {
             $this->validate($request, [
@@ -81,7 +82,7 @@ class TaskMigrateController extends Controller
             ]);
     
             $product = new UserTasks($request->file());
-         
+            $requestData = $request->all();
             if($file = $request->hasFile('uploads')) {
                
                $file = $request->file('uploads');           
@@ -91,17 +92,20 @@ class TaskMigrateController extends Controller
     
                $file = $fileName;
     
-                $requestData = $request->all();
+                
                 $requestData['uploads'] = $file;
                 // $product->uploads = $file;
           
              
             }
-            else
-            {
-                $requestData = $request->all();
-            }
 
+
+            if($requestData['request_for']=='approved'){
+                $reserved_credits=DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
+                ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
+                ->select('admin_tasks.usercredits')->get()->pluck('usercredits')[0];
+            }
+            
             
 
             
@@ -138,21 +142,25 @@ class TaskMigrateController extends Controller
             {
                 $requestData = $request->all();
             }
+            $requestData['rating_to_user']=Null;
         }
        
         
        
         // DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-        // ->update(['user_credits' => $requestData['user_credits']]);
-        DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-        ->update(['user_credits' => $requestData['user_credits'],'status' => $requestData['request_for']]);
+        // ->update(['user_credits' => $requestData['rating_to_user']]);
+
         
-        unset($requestData['user_credits']);//removed as there is no column of obtained marks 
+
+        DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
+        ->update(['user_credits' => $requestData['rating_to_user']*$reserved_credits/10,'status' => $requestData['request_for']]);
+        
+        unset($requestData['rating_to_user']);//removed as there is no column of obtained marks 
         UserTasks::create($requestData);
-        // DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-        //     ->update(['completed_at' => date('Y-m-d H:i:s')]);
-        return $requestData;
-        // return redirect()->route('TaskMigrate.index');
+        // // DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
+        // //     ->update(['completed_at' => date('Y-m-d H:i:s')]);
+        // return $reserved_credits*9;
+        return redirect()->route('TaskMigrate.index');
                        
     }
     
