@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->date('dob')->nullable();  
             $table->string('qualification')->nullable();  
             $table->string('specialization')->nullable();  
-            $table->float('marks');
+            $table->float('marks')->nullable(); 
             $table->date('passout')->nullable();  
             $table->text('collegeaddress')->nullable();  
             $table->text('homeaddress')->nullable();

@@ -121,7 +121,7 @@ class ProfileController extends Controller
         $progress = DB::table('assign_tasks')
         ->where('assign_tasks.user_id',$id)
         ->where('assign_tasks.status','approved')
-        ->orderBy('assign_tasks.updated_at','desc')->select('assign_tasks.updated_at','assign_tasks.obtained_marks')->get()->toArray();
+        ->orderBy('assign_tasks.updated_at','desc')->select('assign_tasks.updated_at','assign_tasks.user_credits')->get()->toArray();
 
         if (empty($progress)) 
             {
@@ -146,7 +146,7 @@ class ProfileController extends Controller
             }
         
 
-            $marksarray = array_column($progress,'obtained_marks');
+            $marksarray = array_column($progress,'user_credits');
 
             $count_array[0] = $marksarray[0];
             for($i=1;$i<count($marksarray);$i++)
@@ -171,7 +171,7 @@ class ProfileController extends Controller
 
 
                     $totaltasks = $assign_tasks->count();
-                    $totalcredits = $completedtasks->sum('obtained_marks');
+                    $totalcredits = $completedtasks->sum('user_credits');
                     $completedtasks = $completedtasks->count();
                     $droptasks = $droptasks->count();
 

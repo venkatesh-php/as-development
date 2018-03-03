@@ -80,51 +80,27 @@
                                         <div class="col-sm-4"></div>
                                     <div class="col-sm-4" style="background-color:lavender;">
 
-                                    {!! Form::open(array('route' => 'TaskMigrate.store','method' => 'POST','files' => true)) !!}
+                                    {!! Form::open(array('route' => 'UserTasks.store','method' => 'POST','files' => true)) !!}
 
 
                                     <div class="col-xs-12 col-sm-12 col-md-12" style="display:none">
                                             <div class="form-group">
                                                 <strong>Assigned Task Id:</strong>
-                                                {!! Form::text('assigntask_id', $assign_tasks->task_id) !!}
+                                                {!! Form::text('assigntask_id', $assign_tasks->id) !!}
                                                 
                                         </div>
                                     </div>
 
-                                    @if(Auth::user()->role_id <= 5) 
-                                    <div id="role">
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>Request For:</strong>
-                                                    {!! Form::select('request_for', [
-                                                    '1' => ['redo' => 'redo'],
-                                                    '2' => ['drop' => 'drop'],
-                                                    '3' => ['approved' => 'approved']],
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>Request For:</strong>
+                                                {!! Form::select('request_for', [
+                                                    '1' => ['review' => 'review']],
                                                     array('class' => 'form-control')) !!}
                                             </div>
-                                        </div>
                                     </div>
-
-
-                                        <div id="bb" style="display:none">
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                <strong>Marks :</strong>
-                                                    {!! Form::text('obtained_marks', null, array('placeholder' => 'Give the marks to Student','class' => 'form-control')) !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @else
-
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Request For:</strong>
-                                                        {!! Form::select('request_for', [
-                                                        '1' => ['review' => 'review']],
-                                                        array('class' => 'form-control')) !!}
-                                                </div>
-                                        </div>
-                                    @endif
+                                    
 
                                     <div class="col-xs-12 col-sm-12 col-md-12" style="display:none">
                                             <div class="form-group">

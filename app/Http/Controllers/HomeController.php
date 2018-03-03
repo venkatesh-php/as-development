@@ -127,6 +127,11 @@ class HomeController extends Controller
                             ->where('admin_tasks.user_id',Auth::user()->id);                           
             $totaltasks = $admin_tasks->count();
 
+            $user_tasks = DB::table('assign_tasks')
+                        ->where('assign_tasks.user_id',Auth::user()->id)
+                        ->orderBy('assign_tasks.updated_at')->get();
+            $total_user_tasks =  $user_tasks->count();
+
             $totalassigntasks = $assign_tasks->count();
 
             $users = User::orderBy('id','asc')
@@ -257,7 +262,7 @@ class HomeController extends Controller
              
         }
         
-        return view('home', ['assign_chart' => $assign_chart,'completed_chart' => $completed_chart,'progress_chart' => $progress_chart])->with(compact('totaltasks','totalassigntasks','totalusers','totalcomments','totalcredits','days','completedtasks','droptasks','institute_name','role'));
+        return view('home', ['assign_chart' => $assign_chart,'completed_chart' => $completed_chart,'progress_chart' => $progress_chart])->with(compact('total_user_tasks','totaltasks','totalassigntasks','totalusers','totalcomments','totalcredits','days','completedtasks','droptasks','institute_name','role'));
 
     }
 
