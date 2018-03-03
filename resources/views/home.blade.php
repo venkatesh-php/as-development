@@ -85,6 +85,41 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="panel panel-primary text-center no-boder">
+                                        <a style="text-decoration:none;" href="{{ route('UserTasks.index') }}">
+                                            <div class="alert alert-info">                                     
+                                                <i class="fa fa-pencil-square-o fa-3x"></i>
+                                                <h3>User Tasks </h3>
+                                            </div>
+                                        </a>
+                                        <div class="panel-footer">
+                                            <span class="panel-eyecandy-title">Total Tasks : {{ $total_user_tasks }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>                               
+                        
+
+                                
+                                <div class="col-lg-3">
+                                    <div class="panel panel-primary text-center no-boder">
+                                        <a style="text-decoration:none;" href="{{ route('viewprofile.index') }}">
+                                            <div class="alert alert-warning">
+                                                <i class="fa fa-cogs fa-3x"></i>
+                                                
+                                                <h3>Profile</h3>
+                                            </div>
+                                        </a>
+                                            <div class="panel-footer">
+                                                <span class="panel-eyecandy-title">See And Update your profile
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         
                         <!--end quick info section -->
                         
@@ -97,7 +132,7 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="panel panel-primary text-center no-boder">
-                                    <a style="text-decoration:none;" href="{{ route('TaskMigrate.index') }}">
+                                    <a style="text-decoration:none;" href="{{ route('UserTasks.index') }}">
                                         <div class="alert alert-info">                                     
                                             <i class="fa fa-pencil-square-o fa-3x"></i>
                                             <h3>User Tasks </h3>

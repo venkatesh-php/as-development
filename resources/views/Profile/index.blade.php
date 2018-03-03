@@ -66,7 +66,9 @@
                         </tr>
                     @endforeach
                 </table>
+
                 {!!$users->render()!!}
+
             </div>
         </div>
     </div>

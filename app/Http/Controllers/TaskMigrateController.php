@@ -24,25 +24,14 @@ class TaskMigrateController extends Controller
      */
     public function index(Request $request)
     {
-        if(Auth::user()->role_id <= 5)
-        {
+        
             $assign_tasks = DB::table('assign_tasks')
             ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
             ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
             ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads')
             ->whereNull('assign_tasks.status')->orderBy('assign_tasks.task_id','desc')->get();    
-        }
-        else
-        {
-           
-            $assign_tasks = DB::table('assign_tasks')
-            ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
-            ->where('assign_tasks.user_id',Auth::user()->id)
-            ->whereNull('assign_tasks.status')
-            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads')
-            ->orderBy('assign_tasks.task_id','desc')->get();
-           
-        }
+        
+       
         return view('TaskMigrate.index',compact('assign_tasks'));
             
         
@@ -56,7 +45,7 @@ class TaskMigrateController extends Controller
      */
     public function create()
     {
-        //
+     //   
     }
 
     /**
@@ -67,9 +56,7 @@ class TaskMigrateController extends Controller
      */
     public function store(Request $request)
     {
-        $reserved_credits=0;
-        if(Auth::user()->role_id <= 5)
-        {
+
             $this->validate($request, [
                 'assigntask_id' => 'required',
                 'request_for' => 'required',
@@ -77,7 +64,6 @@ class TaskMigrateController extends Controller
                 'user_credits' => 'nullable',
                 'message' => '',
                 'uploads' => '',
-                'created_at' => '',
     
             ]);
     
@@ -100,66 +86,13 @@ class TaskMigrateController extends Controller
             }
 
 
-            if($requestData['request_for']=='approved'){
-                $reserved_credits=DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
-                ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
-                ->select('admin_tasks.usercredits')->get()->pluck('usercredits')[0];
-            }
-            
-            
-
-            
-        }
-        else{
-            $this->validate($request, [
-                'assigntask_id' => 'required',
-                'request_for' => 'required',
-                'request_by' => 'required',
-                'message' => '',
-                'uploads' => '',
-                'created_at' => '',
-    
-            ]);
-    
-            $product = new UserTasks($request->file());
-         
-            if($file = $request->hasFile('uploads')) {
-               
-               $file = $request->file('uploads');           
-               $fileName = $file->getClientOriginalName();
-               $destinationPath = public_path().'/uploads/';
-               $file->move($destinationPath,$fileName);
-    
-               $file = $fileName;
-    
-                $requestData = $request->all();
-                $requestData['uploads'] = $file;
-                // $product->uploads = $file;
-          
-             
-            }
-            else
-            {
-                $requestData = $request->all();
-            }
-            $requestData['rating_to_user']=Null;
-        }
-       
-        
-       
-        // DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-        // ->update(['user_credits' => $requestData['rating_to_user']]);
-
-        
-
         DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
         ->update(['user_credits' => $requestData['rating_to_user']*$reserved_credits/10,'status' => $requestData['request_for']]);
         
         unset($requestData['rating_to_user']);//removed as there is no column of obtained marks 
         UserTasks::create($requestData);
-        // // DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-        // //     ->update(['completed_at' => date('Y-m-d H:i:s')]);
-        // return $reserved_credits*9;
+
+  
         return redirect()->route('TaskMigrate.index');
                        
     }
@@ -173,8 +106,7 @@ class TaskMigrateController extends Controller
     public function show($cop_str)
     {
  
-        if(Auth::user()->role_id <= 5)
-        {
+       
             $assign_tasks = DB::table('assign_tasks')
             ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
             ->where('assign_tasks.status',$cop_str)
@@ -182,17 +114,6 @@ class TaskMigrateController extends Controller
             ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads')
             ->orderBy('assign_tasks.task_id','desc')->get();
            
-        }
-        else
-        {      
-            $assign_tasks = DB::table('assign_tasks')
-            ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
-            ->where('assign_tasks.user_id',Auth::user()->id)
-            ->where('assign_tasks.status',$cop_str)
-            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads')
-            ->orderBy('assign_tasks.task_id','desc')->get();
-             
-        }
         return view('TaskMigrate.index',compact('assign_tasks'));
         
     }

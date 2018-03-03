@@ -23,6 +23,7 @@ Route::resource('AssignTasks','AssignTasksController');
 Route::resource('Profile','ProfileController');
 Route::resource('viewprofile','ViewprofileController');
 Route::resource('TaskMigrate','TaskMigrateController');
+Route::resource('UserTasks','UserTasksController');
 Route::resource('Charts','ChartController');
 Route::resource('Subject','SubjectController');
 Route::resource('institutes','InstitutesController');
