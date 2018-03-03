@@ -56,7 +56,7 @@ class TaskMigrateController extends Controller
      */
     public function store(Request $request)
     {
-       
+
             $this->validate($request, [
                 'assigntask_id' => 'required',
                 'request_for' => 'required',
@@ -68,7 +68,7 @@ class TaskMigrateController extends Controller
             ]);
     
             $product = new UserTasks($request->file());
-         
+            $requestData = $request->all();
             if($file = $request->hasFile('uploads')) {
                
                $file = $request->file('uploads');           
@@ -78,25 +78,21 @@ class TaskMigrateController extends Controller
     
                $file = $fileName;
     
-                $requestData = $request->all();
+                
                 $requestData['uploads'] = $file;
                 // $product->uploads = $file;
           
              
             }
-            else
-            {
-                $requestData = $request->all();
-            }
 
-        DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-        ->update(['user_credits' => $requestData['obtained_marks'],'status' => $requestData['request_for']]);
+
+        DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
+        ->update(['user_credits' => $requestData['rating_to_user']*$reserved_credits/10,'status' => $requestData['request_for']]);
         
-        unset($requestData['obtained_marks']);//removed as there is no column of obtained marks 
-
+        unset($requestData['rating_to_user']);//removed as there is no column of obtained marks 
         UserTasks::create($requestData);
 
-        // return $requestData;
+  
         return redirect()->route('TaskMigrate.index');
                        
     }

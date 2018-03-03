@@ -8,6 +8,7 @@ use App\User;
 use App\AdminTasks;
 use App\AssignTasks;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 
 class AssignTasksController extends Controller
@@ -73,13 +74,14 @@ class AssignTasksController extends Controller
             {
                 $record = [
                     'task_id' => $request->task_id,
-                    'assign_user_id' => $request->assign_user_id,
+                    'assigned_by_userid' => $request->assign_user_id,
                     'user_id' =>$ids[0][$i],
                     'guide_id' => $request->guide_id,
                     'reviewer_id' => $request->reviewer_id,
 
                 ];    
                 AssignTasks::create( $record );
+                // return $record;
                 
             }
             catch (Exception $e)
@@ -120,7 +122,8 @@ class AssignTasksController extends Controller
                 ->get();
       
         $works = AdminTasks::find($id);
-        return view('AssignTasks.create',compact('users','works','teachers',$id));
+        $targetdate=Carbon::now('Asia/Kolkata')->addDays(5);
+        return view('AssignTasks.create',compact('users','works','teachers','targetdate',$id));
     }
 
     /**

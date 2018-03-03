@@ -1,7 +1,14 @@
 @extends('layouts.app')
 @section('content')
 
-
+<script>
+    $('#myDatepicker').datepicker({
+        'formatDate': 'Y-m-d H:i:s'
+    });
+    $('#myDatepicker2').datepicker({
+        'formatDate': 'Y-m-d H:i:s'
+    });
+</script>
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-right">
@@ -95,8 +102,9 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Target Date :</strong>
-                                        {!! Form::date('target_at',Null ,array('placeholder' => 'Choose Target Date')) !!}
-                        
+
+                                        {!! Form::date('target_at', $targetdate ) !!}
+
                                     </div>
                                 </div>
 
@@ -106,7 +114,7 @@
                                         <strong style="color:green">User Name</strong><br>
                                         <!-- <select name="user_id" class="form-control"> -->
                                             @foreach ($users as $key => $user)
-                                                <input type ="checkbox" name='user_id[]' value = "{{ $user->id}}.{{$user->name}}">{{ $user->id}} . {{$user->name}} , {{$user->email}}<br>                                                <!-- <option value="{{$user->id}}">{{$user->name}} , {{$user->email}}</option>                 -->
+                                                <input type ="checkbox" name='user_id[]' value = "{{ $user->id}}">{{ $user->id}} . {{$user->name}} , {{$user->email}}<br>                                                <!-- <option value="{{$user->id}}">{{$user->name}} , {{$user->email}}</option>                 -->
                                             @endforeach
                                         <!-- </select> -->
                                 
@@ -118,7 +126,7 @@
                                         <strong>Guide Name</strong>
                                         <select name="guide_id" class="form-control">
                                             @foreach ($teachers as $teacher)
-                                                <option value="{{$teacher->name}}">{{$teacher->name}} , {{$teacher->email}}</option>                
+                                                <option value="{{$teacher->id}}">{{$teacher->name}} , {{$teacher->email}}</option>                
                                             @endforeach
                                         </select>    
                                     </div>
@@ -129,7 +137,7 @@
                                         <strong>Reviewer Name</strong>
                                         <select name="reviewer_id" class="form-control">
                                             @foreach ($teachers as $teacher)
-                                                <option value="{{$teacher->name}}">{{$teacher->name}} , {{$teacher->email}}</option>                
+                                                <option value="{{$teacher->id}}">{{$teacher->name}} , {{$teacher->email}}</option>                
                                             @endforeach
                                         </select>              
                                     </div>
