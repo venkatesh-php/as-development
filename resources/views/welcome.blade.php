@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
     <head>
-        <!-- <meta charset="utf-8"> -->
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -49,6 +49,10 @@
                 font-size: 84px;
             }
 
+            .title small {
+                font-size: 60px;
+            }
+
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
@@ -65,8 +69,6 @@
         </style>
     </head>
     <body>
-
-
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -78,12 +80,11 @@
                     @endif
                 </div>
             @endif
-
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    @lang('titles.app')<br />
+                    <small>@lang('titles.app2')</small>
                 </div>
-
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
