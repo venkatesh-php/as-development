@@ -14,6 +14,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use App\TaskMigrate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\View;
+use Carbon\Carbon;
 
 class TaskMigrateController extends Controller
 {
@@ -56,19 +57,20 @@ class TaskMigrateController extends Controller
      */
     public function store(Request $request)
     {
-
+        $reserved_credits=0;
             $this->validate($request, [
                 'assigntask_id' => 'required',
                 'request_for' => 'required',
                 'request_by' => 'required',
-                'user_credits' => 'nullable',
+                'rating_to_user' => 'nullable',
                 'message' => '',
                 'uploads' => '',
+                'created_at' => '',
     
             ]);
     
             $product = new UserTasks($request->file());
-            $requestData = $request->all();
+      
             if($file = $request->hasFile('uploads')) {
                
                $file = $request->file('uploads');           
@@ -80,18 +82,28 @@ class TaskMigrateController extends Controller
     
                 
                 $requestData['uploads'] = $file;
-                // $product->uploads = $file;
-          
-             
+
+            }
+            else
+            {
+                $requestData = $request->all();
             }
 
+            if($requestData['request_for']=='approved'){
+                $reserved_credits=DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
+                ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
+                ->select('admin_tasks.usercredits')->get()->pluck('usercredits')[0];
+            }
 
-        DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
-        ->update(['user_credits' => $requestData['rating_to_user']*$reserved_credits/10,'status' => $requestData['request_for']]);
-        
-        unset($requestData['rating_to_user']);//removed as there is no column of obtained marks 
-        UserTasks::create($requestData);
+           
 
+            DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
+            ->update(['user_credits' => $requestData['rating_to_user']*$reserved_credits/10,
+            'status' => $requestData['request_for'],'completed_at' => Carbon::now('Asia/Kolkata')]);
+            
+            unset($requestData['rating_to_user']);//removed as there is no column of obtained marks 
+           
+            UserTasks::create($requestData);
   
         return redirect()->route('TaskMigrate.index');
                        
@@ -107,12 +119,12 @@ class TaskMigrateController extends Controller
     {
  
        
-            $assign_tasks = DB::table('assign_tasks')
-            ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
-            ->where('assign_tasks.status',$cop_str)
-            ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
-            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads')
-            ->orderBy('assign_tasks.task_id','desc')->get();
+        $assign_tasks = DB::table('assign_tasks')
+        ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
+        ->where('assign_tasks.status',$cop_str)
+        ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
+        ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads')
+        ->orderBy('assign_tasks.task_id','desc')->get();
            
         return view('TaskMigrate.index',compact('assign_tasks'));
         

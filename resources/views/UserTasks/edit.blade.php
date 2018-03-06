@@ -1,20 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $("#role").change(function () {
-            if ($(this).val() == "drop" || "approved") {
-                $("#bb").show();
-            } else {
-                $("#bb").hide();
-            }
-        });
-    });
-</script>
-
-
 
 <div class="row">
     <div class="col-lg-12 margin-tb">
@@ -34,7 +20,6 @@
             <th>Message</th>
             <th>Files</th>
             <th>Date</th>
-            {{--  <th>Obtained Marks</th>  --}}
                         
         </tr>
         @foreach ($user_tasks as $task)
@@ -48,7 +33,6 @@
             <td>Nill</td>
             @endif
             <td>{{ $task->created_at }}</td>
-            {{--  <td>{{ $task->obtained_marks }}</td>  --}}
         </tr>
         
          @endforeach
@@ -56,11 +40,74 @@
     </table>
 
     
-@if($assign_tasks->status === 'drop')
+                    @if($assign_tasks->status === 'drop')
                         <h1>Task Dropped</h1>
 
                         @elseif($assign_tasks->status === 'approved')
                         <h1>Task Approved</h1>
+
+
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>User Marks</th>
+                                        <th>Guide Marks</th>
+                                        <th>Reviewer Marks</th>                
+                                    </tr>
+                               
+                                    <tr> 
+                                        <td>{{ $assign_tasks->user_credits }}</td>
+                                        <td>{{ $assign_tasks->guide_credits }}</td>
+                                        <td>{{ $assign_tasks->reviewer_credits }}</td>
+                                    </tr>
+
+                                </table>
+                            </div>
+
+
+
+                        
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-4"></div>
+                                    <div class="col-sm-4" style="background-color:lavender;">
+                                    <h3><center>Give Rating To your Teachers</center></h3>
+
+                                    {!! Form::model($assign_tasks, ['method' => 'PATCH','route' => ['UserTasks.update', $assign_tasks->id]]) !!}
+
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12" style="display:none">
+                                                <div class="form-group">
+                                                    <strong>Assigned Task Id:</strong>
+                                                    {!! Form::text('assigntask_id', $assign_tasks->id) !!}
+                                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                <strong>Rate Your Guide Work:</strong>
+                                                    {!!  Form::input('number', 'rating_to_guide', null, ['id' => 'weight', 'class' => 'form-control', 'min' => 1, 'max' => 10]) !!}
+                                                </div>
+                                            </div>
+                                      
+
+
+                                         
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                <strong>Rate Your Reviewer Work:</strong>
+                                                    {!!  Form::input('number', 'rating_to_reviewer', null, ['id' => 'weight', 'class' => 'form-control', 'min' => 1, 'max' => 10]) !!}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>
+                      
 
 
                         @else

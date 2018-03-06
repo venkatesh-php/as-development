@@ -36,6 +36,9 @@
                         <th>Completion Date</th>
                         <!-- <th width="280px">Action</th>  -->
                         <th>Status</th>
+                        <th>User Marks</th>
+                        <th>Guide Marks</th>
+                        <th>Reviewer Marks</th>
                     </tr>
                     @foreach ($assign_tasks as $key => $task)
                         <tr>
@@ -54,6 +57,9 @@
                                 {!! Form::close() !!} 
                             </td>-->
                             <td>{{ $task->status}}</td>
+                            <td>{{ $task->user_credits }}</td>
+                            <td>{{ $task->guide_credits }}</td>
+                            <td>{{ $task->reviewer_credits }}</td>
                         </tr>
                     @endforeach
                 </table>

@@ -54,20 +54,26 @@ class RegisterController extends Controller
             'role_id' => 'required',
             'institutes_id' => 'required',
             'branch_id' => 'required',
-            'batch_id' => 'required',            
-            'name' => 'required|string|max:255',
+            'batch_id' => 'required',                     
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'name' => 'required|string|max:255|unique:users',
+            'phone_number' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'phone_number' => 'required', ]);
+            'password' => 'required|string|min:6|confirmed'
+             ]);
 
          } else{
                 return Validator::make($data, [
             'role_id' => 'required',
             'institutes_id' => 'required',           
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:users',
+            'phone_number' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'phone_number' => 'required',           
+            'password' => 'required|string|min:6|confirmed'
+                       
                 ]);
                 
             }      
@@ -94,10 +100,11 @@ class RegisterController extends Controller
             'branch_id' => $data['branch_id'],
             'batch_id' => $data['batch_id'],
             'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'phone_number' => $data['phone_number'],
-            
-        ]);
+            'email' => $data['email'],
+            'password' => bcrypt($data['password'])
+            ]);
     }
 }

@@ -14,8 +14,9 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username')->nullable();
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('email');
             $table->string('password');
             $table->string('remember_token')->nullable();
@@ -31,7 +32,16 @@ class CreateUsersTable extends Migration
             $table->date('passout')->nullable();  
             $table->text('collegeaddress')->nullable();  
             $table->text('homeaddress')->nullable();
-            $table->string('profilepic')->nullable();  
+            $table->string('profilepic')->nullable();
+            $table->tinyInteger('activated')->default(0);
+            $table->string('token')->nullable();
+            $table->string('signup_ip_address')->nullable();  
+            $table->string('signup_confirmation_ip_address')->nullable();  
+            $table->string('signup_sm_ip_address')->nullable();  
+            $table->string('admin_ip_address')->nullable();  
+            $table->string('updated_ip_address')->nullable();  
+            $table->string('deleted_ip_address')->nullable();  
+            $table->dateTime('deleted_at')->nullable();  
             $table->timestamps();
         });
     }

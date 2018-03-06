@@ -22,7 +22,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-primary">
                 <div class="panel-heading"><center><h2>Ameyem Skills Registration</h2></center></div>
-                <div class="panel-body">
+                <div class="panel-body" style="color:#006699">
 
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
@@ -63,7 +63,7 @@
                             use Spatie\Permission\Models\Role;
                             
                             $roles = Role::all(); ?>
-                            <option value="" disabled="disabled" selected="selected">Select Your Role</option>
+                            <option value="" disabled="disabled" selected="selected">Select Your Role </option>
                                 @foreach ($roles as $role)
 
                                     @if($role->id >= 3)
@@ -125,14 +125,43 @@
 
                         </div>
 
-                     
-              
                         
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label"> Full Name</label>
+                        <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                            <label for="first_name" class="col-md-4 control-label"> First Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="first_name" type="text" class="form-control" name="first_name" placeholder="Enter Your First name" required>
+
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('first_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+
+                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                            <label for="last_name" class="col-md-4 control-label"> Last Name</label>
+
+                            <div class="col-md-6">
+                                <input id="last_name" type="text" class="form-control" name="last_name" placeholder="Enter Your Last name" required>
+
+                                 @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('last_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label"> User Name </label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="User Name Should be Unique" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -142,11 +171,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="password-confirm" class="col-md-4 control-label">Mobile Number</label>
+
+                            <div class="col-md-6">
+                                <input id="phone_number" type="text" class="form-control" name="phone_number" placeholder="Enter Your Mobile Number" required>
+                            </div>
+                        </div>
+
+
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Enter Your Email Addredd" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -156,19 +194,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Mobile Number</label>
-
-                            <div class="col-md-6">
-                                <input id="password-phone_number" type="text" class="form-control" name="phone_number" required>
-                            </div>
-                        </div>
+                        
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" name="password" placeholder="Enter Your Password" required>
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -179,10 +211,10 @@
                         </div>
  
                         <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password*</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Enter Your Password Conformation"required>
                             </div>
                         </div>
 
@@ -194,6 +226,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
+                                <h4>Note : All Fields are required</h4>
                             </div>
                         </div>
                     </form>

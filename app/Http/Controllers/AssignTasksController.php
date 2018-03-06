@@ -78,6 +78,7 @@ class AssignTasksController extends Controller
                     'user_id' =>$ids[0][$i],
                     'guide_id' => $request->guide_id,
                     'reviewer_id' => $request->reviewer_id,
+                    'target_at' => $request->target_at,
 
                 ];    
                 AssignTasks::create( $record );

@@ -23,6 +23,25 @@
                     
                         <!--quick info section -->
                             <div class="row">
+
+
+                                <div class="col-lg-3">
+                                    <div class="panel panel-primary text-center no-boder">
+                                    <a style="text-decoration:none;" href="{{ route('TaskMigrate.index') }}">
+                                        <div class="alert alert-danger">
+                                            <i class="fa fa-users fa-3x"></i>
+                                            <h3>Tasks Progress</h3>
+                                        </div>
+                                    </a>
+                                        <div class="panel-footer">
+                                            <span class="panel-eyecandy-title">Total Comments : {{ $totalcomments }}
+                                            
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
                                     <a style="text-decoration:none;" href="{{ route('AdminTasks.index') }}">
@@ -69,21 +88,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3">
-                                    <div class="panel panel-primary text-center no-boder">
-                                    <a style="text-decoration:none;" href="{{ route('TaskMigrate.index') }}">
-                                        <div class="alert alert-danger">
-                                            <i class="fa fa-users fa-3x"></i>
-                                            <h3>Tasks Progress</h3>
-                                        </div>
-                                    </a>
-                                        <div class="panel-footer">
-                                            <span class="panel-eyecandy-title">Total Comments : {{ $totalcomments }}
-                                            
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
 
                             <div class="row">
