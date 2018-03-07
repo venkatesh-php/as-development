@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
             <div class="pull-left">
-                <h2 style="color:#2471A3">Hello, Welcome to User Tasks</h2>
+                <h2 style="color:#2471A3">Hello, Welcome to Teacher And Student Interaction Environment</h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-success" href="{{ url('/') }}">Back</a>
