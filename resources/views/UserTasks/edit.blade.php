@@ -14,7 +14,8 @@
 <div class="table-responsive">
     <table class="table table-striped">
         <tr>
-            <th>Assign Task Id</th> 
+            <th>Assign Task Id</th>
+            <th>Request By</th>
             <th>Request</th>
             <th>Message</th>
             <th>Files</th>
@@ -25,6 +26,7 @@
         @foreach ($user_tasks as $task)
         <tr>
             <td>{{ $task->assigntask_id }}</td> 
+            <td>{{ $task->name}}</td>
             <td>{{ $task->request_for }}</td>
             <td>{{ $task->message }}</td>
             @if ($task->uploads)

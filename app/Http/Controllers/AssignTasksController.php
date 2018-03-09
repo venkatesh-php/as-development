@@ -110,12 +110,25 @@ class AssignTasksController extends Controller
      */
     public function show($id)
     {
-        $users = DB::table('users')
-                ->where('users.institutes_id',Auth::User()->institutes_id)
-                ->where('users.role_id','<>',5)
-                ->select('users.*')
-                ->get();
-
+        // if(Auth::user()->role_id = 1)
+        // {
+        //     $users = DB::table('users')
+        //     ->select('users.*')
+        //     ->get();
+        // }
+        // else
+        // {// }
+            $users = DB::table('users')
+            ->where('users.institutes_id',Auth::User()->institutes_id)
+            ->where('users.role_id','<>',5)
+            ->where('users.role_id','<>',1)
+            ->select('users.*')
+            ->get();
+        
+        
+         
+       
+     
         $teachers = DB::table('users')
                 ->where('users.institutes_id',Auth::User()->institutes_id)        
                 ->where('users.role_id','=',5)

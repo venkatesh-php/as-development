@@ -35,13 +35,14 @@
             <div class="table-responsive">
                 <table class="table table-striped">
                     <tr style="color:#2471A3">
-                        <th>User ID</th>
+                        <th>User Name</th>
                         <th>Task Id</th> 
                         <th>Work Title</th>
                         <th>Work Description</th>
                         <th>What In IT For Me</th>
                         <th>User Credits</th>
                         <th>Set By</th>
+                        <th>Guide By</th>
                         <th>Review By</th>
                         <th>Assigned Date</th>
                         <th>Updated Date</th>
@@ -54,14 +55,15 @@
                     @foreach ($assign_tasks as $task)
                     
                     <tr style="color:454545">
-                        <td>{{ $task->user_id}}</td>
+                        <td>{{ $task->name}}</td>
                         <td>{{ $task->task_id }}</td> 
                         <td>{{ $task->worktitle }}</td>
                         <td>{{ $task->workdescription }}</td>
                         <td>{{ $task->whatinitforme }}</td>
                         <td>{{ $task->usercredits}}</td>
-                        <td>{{ $task->guide_id }}</td>
-                        <td>{{ $task->reviewer_id}}</td>
+                        <td>{{ $task->sname}}</td>
+                        <td>{{ $task->sname }}</td>
+                        <td>{{ $task->rname}}</td>
                         <td>{{ $task->created_at}}</td>
                         <td>{{ $task->updated_at}}</td>
                         @if ($task->uploads)

@@ -101,7 +101,7 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>Target Date :</strong>
+                                        <strong style="color:green">Target Date :</strong>
 
                                         {!! Form::date('target_at', $targetdate ) !!}
 
@@ -113,9 +113,41 @@
                                     <div class="form-group">
                                         <strong style="color:green">User Name</strong><br>
                                         <!-- <select name="user_id" class="form-control"> -->
-                                            @foreach ($users as $key => $user)
-                                                <input type ="checkbox" name='user_id[]' value = "{{ $user->id}}">{{ $user->id}} . {{$user->name}} , {{$user->email}}<br>                                                <!-- <option value="{{$user->id}}">{{$user->name}} , {{$user->email}}</option>                 -->
-                                            @endforeach
+                                            
+                                                
+
+                                                <table class="table table-striped">
+                                                    <tr style="color:#336699">
+                                                        <th>select</th>
+                                                        <th>User ID</th>   
+                                                        <th>Institute </th>
+                                                        <th>Role</th>
+                                                        <th>Branch</th>
+                                                        <th>Batch</th>
+                                                        <th>User Name </th>
+                                                        <th>User Email</th>
+                                                    </tr>
+                                                    @foreach ($users as $user)
+                                                    <tr>
+                                                    
+                                                        <td><input type ="checkbox" name='user_id[]' value = "{{ $user->id}}"></td>
+                                                        <td>{{ $user->id }}</td>
+                                                        <td>{{ $user->institutes_id }}</td>
+                                                        <td>{{ $user->role_id }}</td>
+                                                        <td>{{ $user->branch_id }}</td>
+                                                        <td>{{ $user->batch_id }}</td>
+                                                        <td>{{ $user->name }}</td>
+                                                        <td>{{ $user->email }}</td>
+                                                    
+                                                            
+                                                    </tr>
+                                                    @endforeach
+                                                
+                                                </table>
+
+                                                <!-- {{ $user->id}} . {{$user->name}} , {{$user->email}}<br>                                              -->
+                                                   <!-- <option value="{{$user->id}}">{{$user->name}} , {{$user->email}}</option>                 -->
+                                            
                                         <!-- </select> -->
                                 
                                     </div>
