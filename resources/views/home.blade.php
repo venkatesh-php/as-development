@@ -1,6 +1,6 @@
 <!-- @inject('request', 'Illuminate\Http\Request') -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-@extends('layouts.auth')
+@extends('layouts.app')
 @section('content')
 
 <!--<h1>{{Auth::user()->id }}</h1>
