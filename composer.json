@@ -35,7 +35,8 @@
         "socialiteproviders/instagram": "^3.0",
         "socialiteproviders/twitch": "^3.0",
         "socialiteproviders/youtube": "^3.0",
-        "symfony/translation": "^2.8"
+        "symfony/translation": "^2.8",
+        "symfony/css-selector": "^2.8"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
