@@ -5,7 +5,7 @@
 <script type="text/javascript">
     $(function () {
         $("#role").change(function () {
-            if ($(this).val() == "approved" || "drop") {
+            if ($(this).val() == "drop" || "approved") {
                 $("#bb").show();
             } else {
                 $("#bb").hide();
@@ -34,6 +34,7 @@
             <th>Message</th>
             <th>Files</th>
             <th>Date</th>
+      
                         
         </tr>
         @foreach ($user_tasks as $task)
@@ -47,6 +48,7 @@
             <td>Nill</td>
             @endif
             <td>{{ $task->created_at }}</td>
+          
         </tr>
         
          @endforeach
@@ -89,7 +91,6 @@
                                         </div>
                                     </div>
 
-                                 
                                     <div id="role">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
@@ -108,13 +109,12 @@
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                 <strong>Rate Your Student Work:</strong>
+                                                    {{--  {!! Form::text('obtained_marks', null, array('placeholder' => 'Give the marks to Student','class' => 'form-control')) !!}  --}}
                                                     {!!  Form::input('number', 'rating_to_user', null, ['id' => 'weight', 'class' => 'form-control', 'min' => 1, 'max' => 10]) !!}
                                                 </div>
                                             </div>
                                         </div>
-                                      
 
-                                    
 
                                     <div class="col-xs-12 col-sm-12 col-md-12" style="display:none">
                                             <div class="form-group">

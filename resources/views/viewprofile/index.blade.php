@@ -9,7 +9,7 @@
 
     
 <div class="pull-right">
-      <a class="btn btn-success" href="{{ url('/') }}">Back</a>
+      <a class="btn btn-success" href="{{ url('/home') }}">Back</a>
                 
 </div>
 <div class="container" style="padding-top: 60px;">

@@ -114,8 +114,7 @@
                                         <strong style="color:green">User Name</strong><br>
                                         <!-- <select name="user_id" class="form-control"> -->
                                             @foreach ($users as $key => $user)
-                                                <input type ="checkbox" name='user_id[]' value = "{{ $user->id}}">{{ $user->id}} . {{$user->name}} , {{$user->email}}<br>                                            
-                                                <!-- <option value="{{$user->id}}">{{$user->name}} , {{$user->email}}</option>                 -->
+                                                <input type ="checkbox" name='user_id[]' value = "{{ $user->id}}">{{ $user->id}} . {{$user->name}} , {{$user->email}}<br>                                                <!-- <option value="{{$user->id}}">{{$user->name}} , {{$user->email}}</option>                 -->
                                             @endforeach
                                         <!-- </select> -->
                                 

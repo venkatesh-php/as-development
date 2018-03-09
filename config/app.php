@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Roles-Permissions Manager',
+    'name' => 'Ameyem ASDP',
 
     /*
     |--------------------------------------------------------------------------
@@ -191,14 +191,30 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
 
         // Jenssegers\Date\DateServiceProvider::class,
         // Jrean\UserVerification\UserVerificationServiceProvider::class,
 
-        App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+
+        SocialiteProviders\Manager\ServiceProvider::class,
+        SocialiteProviders\Generators\GeneratorsServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
+        App\Providers\MacroServiceProvider::class,
+        jeremykenedy\LaravelRoles\RolesServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
+        Creativeorange\Gravatar\GravatarServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        App\Providers\LocalEnvironmentServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        jeremykenedy\laravelexceptionnotifier\LaravelExceptionNotifier::class,
+        jeremykenedy\LaravelLogger\LaravelLoggerServiceProvider::class,
 
 
         
@@ -261,8 +277,12 @@ return [
          */
         'Image'        => Intervention\Image\Facades\Image::class,
         'Form'         => Collective\Html\FormFacade::class,
-        'Html'         => Collective\Html\HtmlFacade::class,
+        'HTML'         => Collective\Html\HtmlFacade::class,
         // 'Date'         => Jenssegers\Date\Date::class,
+        'Socialite'    => Laravel\Socialite\Facades\Socialite::class,
+        'Input'        => Illuminate\Support\Facades\Input::class,
+        'Gravatar'     => Creativeorange\Gravatar\Facades\Gravatar::class,
+        'Uuid'         => Webpatser\Uuid\Uuid::class,
         
         
     ],

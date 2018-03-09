@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
@@ -20,6 +19,7 @@
             <th>Message</th>
             <th>Files</th>
             <th>Date</th>
+  
                         
         </tr>
         @foreach ($user_tasks as $task)
@@ -33,6 +33,7 @@
             <td>Nill</td>
             @endif
             <td>{{ $task->created_at }}</td>
+
         </tr>
         
          @endforeach
@@ -40,14 +41,13 @@
     </table>
 
     
-                    @if($assign_tasks->status === 'drop')
+@if($assign_tasks->status === 'drop')
                         <h1>Task Dropped</h1>
 
                         @elseif($assign_tasks->status === 'approved')
                         <h1>Task Approved</h1>
 
-
-                            <div class="table-responsive">
+                         <div class="table-responsive">
                                 <table class="table table-striped">
                                     <tr>
                                         <th>User Marks</th>
