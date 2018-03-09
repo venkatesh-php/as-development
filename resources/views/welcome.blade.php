@@ -87,11 +87,11 @@
                     <small>@lang('titles.app2')</small>
                 </div>
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="http://skills.ameyem.com">Ameyem Skill Labs</a>
+                    <a href="http://skills.ameyem.com/quiz">Ameyem Quiz</a>
+                    <a href="http://skills.ameyem.com/apps_games">Ameyem Apps and Games</a>
+                    <a href="http://skills.ameyem.com/book_seminar">Ameyem Seminar Booking</a>
+                    <a href="http://sthali.in/">Sthali</a>
                     <!-- <h6>Don't have in this list </h6> -->
                     <a href="{{ route('institutes.index') }}" class="btn btn-success btn-xs">Add New</a> 
                             <!-- Here We are adding New Institute deatails, Controller is going to -->
