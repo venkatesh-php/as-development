@@ -14,6 +14,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use App\TaskMigrate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\View;
+use Carbon\Carbon;
 
 class TaskMigrateController extends Controller
 {
@@ -56,45 +57,56 @@ class TaskMigrateController extends Controller
      */
     public function store(Request $request)
     {
+        $reserved_credits=0;
+        $this->validate($request, [
+            'assigntask_id' => 'required',
+            'request_for' => 'required',
+            'request_by' => 'required',
+            'rating_to_user' => 'nullable',
+            'message' => '',
+            'uploads' => '',
+            'created_at' => '',
 
-            $this->validate($request, [
-                'assigntask_id' => 'required',
-                'request_for' => 'required',
-                'request_by' => 'required',
-                'user_credits' => 'nullable',
-                'message' => '',
-                'uploads' => '',
-    
-            ]);
-    
-            $product = new UserTasks($request->file());
+        ]);
+
+        $product = new UserTasks($request->file());
+  
+        if($file = $request->hasFile('uploads')) {
+           
+           $file = $request->file('uploads');           
+           $fileName = $file->getClientOriginalName();
+           $destinationPath = public_path().'/uploads/';
+           $file->move($destinationPath,$fileName);
+
+           $file = $fileName;
+
+            
+            $requestData['uploads'] = $file;
+
+        }
+        else
+        {
             $requestData = $request->all();
-            if($file = $request->hasFile('uploads')) {
-               
-               $file = $request->file('uploads');           
-               $fileName = $file->getClientOriginalName();
-               $destinationPath = public_path().'/uploads/';
-               $file->move($destinationPath,$fileName);
-    
-               $file = $fileName;
-    
-                
-                $requestData['uploads'] = $file;
-                // $product->uploads = $file;
-          
-             
-            }
+        }
 
+        if($requestData['request_for']=='approved'){
+            $reserved_credits=DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
+            ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
+            ->select('admin_tasks.usercredits')->get()->pluck('usercredits')[0];
+        }
+
+       
 
         DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
-        ->update(['user_credits' => $requestData['rating_to_user']*$reserved_credits/10,'status' => $requestData['request_for']]);
+        ->update(['user_credits' => $requestData['rating_to_user']*$reserved_credits/10,
+        'status' => $requestData['request_for'],'completed_at' => Carbon::now('Asia/Kolkata')]);
         
         unset($requestData['rating_to_user']);//removed as there is no column of obtained marks 
+       
         UserTasks::create($requestData);
 
-  
-        return redirect()->route('TaskMigrate.index');
-                       
+    return redirect()->route('TaskMigrate.index');
+                   
     }
     
     /**

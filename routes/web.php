@@ -3,6 +3,7 @@
 
 // Homepage Route
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
+// Route::get('/', function () { return redirect('/admin/home'); });
 Route::resource('institutes','InstitutesController');
 // Authentication Routes
 Auth::routes();
@@ -60,6 +61,14 @@ Route::resource('Charts','ChartController');
 Route::resource('Subject','SubjectController');
 Route::resource('institutes','InstitutesController');
 });
+
+
+
+
+//Download a file
+Route::get('/download/{file}', 'DownloadsController@download');
+
+
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     // Route::get('/home', 'HomeController@index');

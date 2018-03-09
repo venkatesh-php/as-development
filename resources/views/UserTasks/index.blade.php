@@ -8,7 +8,7 @@
                 <h2 style="color:#2471A3">Hello, Welcome to User Tasks</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ url('/') }}">Back</a>
+                <a class="btn btn-success" href="{{ url('/home') }}">Back</a>
             </div>
         </div>
     
@@ -41,8 +41,8 @@
                         <th>Work Description</th>
                         <th>What In IT For Me</th>
                         <th>User Credits</th>
-                        <th>Set By</th>
-                        <th>Review By</th>
+                        <th>Set By ID</th>
+                        <th>Review By ID</th>
                         <th>Assigned Date</th>
                         <th>Updated Date</th>
                         <th>File Link</th>                    

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use jeremykenedy\LaravelRoles\Models\Role;
 
+
 class RegisterController extends Controller
 {
     /*
@@ -146,7 +147,7 @@ class RegisterController extends Controller
         }
         // $role = Role::where('slug', '=', 'unverified')->first();
 
-        $user = App\User::create([
+        $user = User::create([
 
                 'role_id' => $data['role_id'],
                 'institutes_id' =>  $data['institutes_id'],

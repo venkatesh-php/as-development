@@ -7,7 +7,7 @@
                 <h2>Assigned Tasks</h2>
             </div>
              <div class="pull-right">
-                <a class="btn btn-success" href="{{ url('/') }}">Back</a>
+                <a class="btn btn-success" href="{{ url('/home') }}">Back</a>
             </div> 
         </div>
     </div>
@@ -32,10 +32,12 @@
                         <th>User Name</th>
                         <th>Guide Name</th>
                         <th>Reviewer Name</th>
+                        <th>Status</th>
+                        <th>User Marks</th>
+                        <th>Guide Marks</th>
+                        <th>Reviewer Marks</th>
                         <th>Assigned Date</th>
                         <th>Completion Date</th>
-                        <!-- <th width="280px">Action</th>  -->
-                        <th>Status</th>
                     </tr>
                     @foreach ($assign_tasks as $key => $task)
                         <tr>
@@ -44,16 +46,19 @@
                             <td>{{ $task->name }}</td>
                             <td>{{ $task->gname }}</td>
                             <td>{{ $task->rname}}</td>
+                            <td>{{ $task->status}}</td>
+                            <td>{{ $task->user_credits }}</td>
+                            <td>{{ $task->guide_credits }}</td>
+                            <td>{{ $task->reviewer_credits }}</td>
                             <td>{{ $task->created_at}}</td>
-                            <td>{{ $task->updated_at}}</td>
-                           <!--  <td>
+                            <td>{{ $task->completed_at}}</td>
+                             <!--  <td>
                                 <a class="btn btn-info" href="{{ route('AssignTasks.show',$task->id) }}">Show</a> 
                                 <a class="btn btn-primary btn-xs" href="{{ route('AssignTasks.edit',$task->id) }}">Edit</a> 
                                 {!! Form::open(['method' => 'DELETE','route' => ['AssignTasks.destroy', $task->id],'style'=>'display:inline']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                 {!! Form::close() !!} 
                             </td>-->
-                            <td>{{ $task->status}}</td>
                         </tr>
                     @endforeach
                 </table>

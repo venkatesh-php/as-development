@@ -34,7 +34,7 @@
             <th>Message</th>
             <th>Files</th>
             <th>Date</th>
-            {{--  <th>Obtained Marks</th>  --}}
+      
                         
         </tr>
         @foreach ($user_tasks as $task)
@@ -48,7 +48,7 @@
             <td>Nill</td>
             @endif
             <td>{{ $task->created_at }}</td>
-            {{--  <td>{{ $task->obtained_marks }}</td>  --}}
+          
         </tr>
         
          @endforeach
@@ -86,12 +86,11 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12" style="display:none">
                                             <div class="form-group">
                                                 <strong>Assigned Task Id:</strong>
-                                                {!! Form::text('assigntask_id', $assign_tasks->task_id) !!}
+                                                {!! Form::text('assigntask_id', $assign_tasks->id) !!}
                                                 
                                         </div>
                                     </div>
 
-                                    @if(Auth::user()->role_id <= 5) 
                                     <div id="role">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
@@ -115,17 +114,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @else
 
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Request For:</strong>
-                                                        {!! Form::select('request_for', [
-                                                        '1' => ['review' => 'review']],
-                                                        array('class' => 'form-control')) !!}
-                                                </div>
-                                        </div>
-                                    @endif
 
                                     <div class="col-xs-12 col-sm-12 col-md-12" style="display:none">
                                             <div class="form-group">

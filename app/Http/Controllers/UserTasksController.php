@@ -141,9 +141,35 @@ class UserTasksController extends Controller
      * @param  \App\institutes  $institutes
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, institutes $institutes)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'assigntask_id' => '',
+            'rating_to_guide' => '',
+            'rating_to_reviewer' => '',
+        ]);
+            $requestData = $request->all();
+
+            $g_c1 = DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
+            ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
+            ->select('admin_tasks.guidecredits')->get()->pluck('guidecredits')[0];
+
+            $r_c2 = DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
+            ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
+            ->select('admin_tasks.reviewercredits')->get()->pluck('reviewercredits')[0];
+
+            DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
+            ->update(['guide_credits' => $requestData['rating_to_guide']*$g_c1/10,'reviewer_credits' => $requestData['rating_to_reviewer']*$r_c2/10]);
+
+            $assign_tasks = DB::table('assign_tasks')
+            ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
+            ->where('assign_tasks.user_id',Auth::user()->id)
+            ->where('assign_tasks.status','approved')
+            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads')
+            ->orderBy('assign_tasks.task_id','desc')->get();
+
+            return view('UserTasks.index',compact('assign_tasks'));
+
     }
 
     /**

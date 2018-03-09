@@ -11,7 +11,7 @@
                 </h4>          
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ url('/') }}">Back</a>
+                <a class="btn btn-success" href="{{ url('/home') }}">Back</a>
                 <a class="btn btn-success" href="{{ route('AdminTasks.create') }}"> Create New Task</a>
             </div>
         </div>

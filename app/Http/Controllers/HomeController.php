@@ -75,7 +75,7 @@ class HomeController extends Controller
             $progress = DB::table('assign_tasks') 
             ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
             ->where('assign_tasks.status','approved')
-            ->orderBy('assign_tasks.updated_at','desc')->select('assign_tasks.updated_at','assign_tasks.user_credits')->get()->toArray();
+            ->orderBy('assign_tasks.updated_at','desc')->select('assign_tasks.updated_at','assign_tasks.guide_credits')->get()->toArray();
 
             if (empty($progress)) 
             {
@@ -98,7 +98,7 @@ class HomeController extends Controller
             }
            
 
-            $marksarray = array_column($progress,'user_credits');
+            $marksarray = array_column($progress,'guide_credits');
 
             $count_array[0] = $marksarray[0];
             for($i=1;$i<count($marksarray);$i++)

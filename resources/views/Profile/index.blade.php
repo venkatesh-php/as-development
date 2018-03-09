@@ -7,7 +7,7 @@
                 <h2 style="color:#2471A3">User Profile</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ url('/') }}">Back</a>
+                <a class="btn btn-success" href="{{ url('/home') }}">Back</a>
             </div> 
         </div>
     </div>

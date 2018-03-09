@@ -74,6 +74,7 @@
                 <div class="top-right links">
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/logout') }}">logout</a>
                     @else
                         <a href="{{ url('/login') }}">Login</a>
                         <a href="{{ url('/register') }}">Register</a>
@@ -91,6 +92,9 @@
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <!-- <h6>Don't have in this list </h6> -->
+                    <a href="{{ route('institutes.index') }}" class="btn btn-success btn-xs">Add New</a> 
+                            <!-- Here We are adding New Institute deatails, Controller is going to -->
                 </div>
             </div>
         </div>
