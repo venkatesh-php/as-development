@@ -32,35 +32,37 @@
 <div class="app">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-10">
-                <div class="panel panel-primary">
-                    <div style="color:white" class="panel-heading">
-                        <center>Task Details</center>
-                    </div>
-                    <div class="panel-body" style="color:green">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
 
-                    <table class="table table-striped">
-                    <tr>
-                        <th>Task Id</th>
-                        <th>Work Nature </th>
-                        <th>Work Title</th>
-                        <th>Work Description</th>
-                    </tr>
-                    
-                    <tr>
-                        <td>{{ $works->id }}</td>
-                        <td>{{ $works->worknature }}</td>
-                        <td>{{ $works->worktitle }}</td>
-                        <td>{{ $works->workdescription }}</td>
+                <div class="table-responsive">
+                    <div class="panel panel-primary">
+                        <div style="color:white" class="panel-heading">
+                            <center>Task Details</center>
+                        </div>
+                            <div class="panel-body" style="color:green">
+
+                                <table class="table table-striped">
+                                <tr>
+                                    <th>Task Id</th>
+                                    <th>Work Nature </th>
+                                    <th>Work Title</th>
+                                    <th>Work Description</th>
+                                </tr>
+                                
+                                <tr>
+                                    <td>{{ $works->id }}</td>
+                                    <td>{{ $works->worknature }}</td>
+                                    <td>{{ $works->worktitle }}</td>
+                                    <td>{{ $works->workdescription }}</td>
+                                        
+                                </tr>
                             
-                    </tr>
-                   
-                </table>
-                    
+                                </table>
+                        
 
+                            </div>
                     </div>
-                    
-                 </div>
+                </div>
             </div>
         </div>
     </div>
@@ -72,7 +74,8 @@
 <div class="app">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+            
                 <div class="panel panel-primary">
                     <div style="color:white" class="panel-heading">
                         <center>Welcome to New Assign Task Environment</center>
@@ -114,7 +117,7 @@
                                         <strong style="color:green">User Name</strong><br>
                                         <!-- <select name="user_id" class="form-control"> -->
                                             
-                                                
+                                            <div class="table-responsive">   
 
                                                 <table class="table table-striped">
                                                     <tr style="color:#336699">
@@ -130,10 +133,38 @@
                                                     @foreach ($users as $user)
                                                     <tr>
                                                     
-                                                        <td><input type ="checkbox" name='user_id[]' value = "{{ $user->id}}"></td>
+                                                        <td><input type ="checkbox" name='user_id[]' value = "{{ $user->id }}"></td>
                                                         <td>{{ $user->id }}</td>
-                                                        <td>{{ $user->institutes_id }}</td>
-                                                        <td>{{ $user->role_id }}</td>
+                                                        <td>
+                                                            <?php
+                                                                // use App\institutes;
+                                                                $institute_name = DB::table('institutes')
+                                                                ->join('users','institutes.id','=','users.institutes_id')
+                                                                ->where('users.id',$user->id)
+                                                                ->select('institutes.*')->get();
+
+
+                                                                ?>
+                                                                @foreach($institute_name as $ii)
+                                                                    {{$ii->name}}
+                                                                @endforeach
+                                                                
+                                                        </td>
+                                                        <td>
+                                                            <?php 
+                                                                $role = DB::table('roles')
+                                                                ->join('users','roles.id','=','users.role_id')
+                                                                ->where('users.id',$user->id)
+                                                                ->select('roles.*')->get();
+                                                            
+                                                            ?>
+                                                            @foreach($role as $rr)
+                                                                {{$rr->name}}
+                                                            @endforeach
+                                                        
+                                                        
+                                                        
+                                                        </td>
                                                         <td>{{ $user->branch_id }}</td>
                                                         <td>{{ $user->batch_id }}</td>
                                                         <td>{{ $user->name }}</td>
@@ -144,7 +175,7 @@
                                                     @endforeach
                                                 
                                                 </table>
-
+                                            </div>
                                                 <!-- {{ $user->id}} . {{$user->name}} , {{$user->email}}<br>                                              -->
                                                    <!-- <option value="{{$user->id}}">{{$user->name}} , {{$user->email}}</option>                 -->
                                             

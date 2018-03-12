@@ -29,15 +29,10 @@
                         <th>Sr.No</th>
                         <th>ID</th>
                         <th>Name</th><br>
-                        <th>Email</th>
-                        <th>Mobile Number</th>
-                        <th>Date Of Birth</th>
-                        <th>Qualification</th>
-                        <th>Specialization</th>
-                        <th>Marks</th>
-                        <th>Passed Out</th>
-                        <th>College Address</th>
-                        <th>Home Address</th>
+                        <th>College Name</th>
+                        <th>No.of Tasks Assigned</th>
+                        <th>No.of Tasks Completed</th>
+                        <th>Total Credits</th>
                         <th width="280px">Action</th>
                     </tr>
                     @foreach ($users as $key => $details)
@@ -45,15 +40,59 @@
                             <td>{{ ++$i }}</td>
                             <td>{{ $details->id }}</td> 
                             <td>{{ $details->name }}</td>
-                            <td>{{ $details->email }}</td>
-                            <td>{{ $details->phone_number }}</td>
-                            <td>{{ $details->dob}}</td>
-                            <td>{{ $details->qualification}}</td>
-                            <td>{{ $details->specialization}}</td>
-                            <td>{{ $details->marks}}</td>
-                            <td>{{ $details->passout}}</td>
-                            <td>{{ $details->collegeaddress}}</td>
-                            <td>{{ $details->homeaddress}}</td>
+                            <td>
+                                <?php
+                                $institute_name = DB::table('institutes')
+                                ->join('users','institutes.id','=','users.institutes_id')
+                                ->where('users.id',$details->id)
+                                ->select('institutes.*')->get();
+
+
+                                ?>
+                                 @foreach($institute_name as $ii)
+                                    {{$ii->name}}
+                                @endforeach
+
+
+                            
+                            
+                            </td>
+                            <td>
+                                <?php
+
+                                    $assign_tasks = DB::table('assign_tasks')
+                                    ->where('assign_tasks.user_id',$details->id)
+                                    ->orderBy('assign_tasks.updated_at')->count();
+
+                                ?>
+                                {{$assign_tasks}}
+                            </td>
+
+                            <td>
+                                <?php
+
+                                    $completedtasks = DB::table('assign_tasks')
+                                    ->where('assign_tasks.user_id',$details->id)
+                                    ->where('assign_tasks.status','approved')
+                                    ->orderBy('assign_tasks.updated_at')->count();
+                                ?>
+                                {{$completedtasks}}
+                            </td>
+
+                            <td>
+
+                                <?php
+
+                                    $completedtasks = DB::table('assign_tasks')
+                                    ->where('assign_tasks.user_id',$details->id)
+                                    ->where('assign_tasks.status','approved')
+                                    ->orderBy('assign_tasks.updated_at')->get();
+                                                        
+                                    $totalcredits = $completedtasks->sum('user_credits'); 
+                                ?>
+                                {{ $totalcredits }}
+                            </td>
+                            
                             <td>
                                 <a class="btn btn-info" href="{{ route('Profile.show',$details->id) }}">Show</a>
                                 <a class="btn btn-primary" href="{{ route('Profile.edit',$details->id) }}">Edit</a>

@@ -120,18 +120,13 @@ class AssignTasksController extends Controller
         // {// }
             $users = DB::table('users')
             ->where('users.institutes_id',Auth::User()->institutes_id)
-            ->where('users.role_id','<>',5)
-            ->where('users.role_id','<>',1)
+            ->where('users.role_id','>',5)
             ->select('users.*')
             ->get();
-        
-        
-         
-       
      
         $teachers = DB::table('users')
                 ->where('users.institutes_id',Auth::User()->institutes_id)        
-                ->where('users.role_id','=',5)
+                ->where('users.role_id','<=',5) 
                 ->select('users.*')
                 ->get();
       
