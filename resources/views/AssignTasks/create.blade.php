@@ -28,7 +28,7 @@
         </div>
     @endif
 
-
+<br>
 <div class="app">
     <div class="container-fluid">
         <div class="row">
@@ -69,7 +69,34 @@
 </div>
 
 
+<!-- {!! Form::open(array('url' => 'AssignTasks.show','method'=>'POST')) !!}
 
+
+<div class="row">
+    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+        <select id='branch_id' name="branch_id" class="form-control">
+            <option value="" disabled="disabled" selected="selected">Select Your Branch</option>
+                @foreach ($branches as $branch)            
+                    <option value="{{$branch->name}}">{{$branch->name}} </option>                
+                @endforeach
+        </select>
+      
+    </div>
+         <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Task Name:</strong>
+                    {!! Form::text('id', $works->id,array('class' => 'form-control')) !!}
+                        
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+</div>
+
+     
+{!! Form::close() !!} -->
+ 
 
 <div class="app">
     <div class="container-fluid">
@@ -104,7 +131,7 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong style="color:green">Target Date :</strong>
+                                        <strong style="color:green">Sorting Users:</strong>
 
                                         {!! Form::date('target_at', $targetdate ) !!}
 
@@ -137,7 +164,7 @@
                                                         <td>{{ $user->id }}</td>
                                                         <td>
                                                             <?php
-                                                                // use App\institutes;
+                                                               
                                                                 $institute_name = DB::table('institutes')
                                                                 ->join('users','institutes.id','=','users.institutes_id')
                                                                 ->where('users.id',$user->id)
@@ -165,8 +192,34 @@
                                                         
                                                         
                                                         </td>
-                                                        <td>{{ $user->branch_id }}</td>
-                                                        <td>{{ $user->batch_id }}</td>
+                                                        <td>
+                                                        
+                                                            <?php 
+                                                                $branch = DB::table('branches')
+                                                                ->join('users','branches.id','=','users.branch_id')
+                                                                ->where('users.id',$user->id)
+                                                                ->select('branches.*')->get();
+                                                                
+                                                            ?>
+                                                            @foreach($branch as $bb)
+                                                                {{$bb->name}}
+                                                            @endforeach
+                                                        
+                                                        </td>
+                                                        <td>
+                                                            <?php 
+                                                                $batch = DB::table('batches')
+                                                                ->join('users','batches.id','=','users.batch_id')
+                                                                ->where('users.id',$user->id)
+                                                                ->select('batches.*')->get();
+                                                                
+                                                            ?>
+                                                            @foreach($batch as $bat)
+                                                                {{$bat->name}}
+                                                            @endforeach
+                                                        
+                                                        
+                                                        </td>
                                                         <td>{{ $user->name }}</td>
                                                         <td>{{ $user->email }}</td>
                                                     

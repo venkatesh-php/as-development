@@ -2,8 +2,8 @@
 
 return [
 
-    'app'               => 'Laravel',
-    'app2'              => 'Auth 4.0',
+    'app'               => 'Ameyem Skill Development Portal',
+    'app2'              => 'ASDP 1.0',
     'home'              => 'Home',
     'login'             => 'Login',
     'logout'            => 'Logout',

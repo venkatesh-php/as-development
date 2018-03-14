@@ -65,7 +65,7 @@ class UserTasksController extends Controller
             'assigntask_id' => 'required',
             'request_for' => 'required',
             'request_by' => 'required',
-            'message' => '',
+            'message' => 'required',
             'uploads' => '',
             'created_at' => '',
 
@@ -138,7 +138,7 @@ class UserTasksController extends Controller
      */
     public function edit($id)
     {
-        $user_tasks = UserTasks::orderBy('id','DESC')
+        $user_tasks = UserTasks::orderBy('id','ASC')
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')
 
         ->join('users as users_u','users_u.id','user_tasks.request_by')

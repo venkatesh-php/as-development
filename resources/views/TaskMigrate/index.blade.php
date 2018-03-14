@@ -52,7 +52,7 @@
                         
                          
                     </tr>
-                    @foreach ($assign_tasks as $task)
+                    @foreach ($assign_tasks as $key => $task)
                     
                     <tr style="color:454545">
                         <td>{{ $task->name}}</td>
@@ -62,7 +62,7 @@
                         <td>{{ $task->whatinitforme }}</td>
                         <td>{{ $task->usercredits}}</td>
                         <td>{{ $task->sname}}</td>
-                        <td>{{ $task->sname }}</td>
+                        <td>{{ $task->gname }}</td>
                         <td>{{ $task->rname}}</td>
                         <td>{{ $task->created_at}}</td>
                         <td>{{ $task->updated_at}}</td>

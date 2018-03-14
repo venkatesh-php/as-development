@@ -71,7 +71,7 @@ class TaskMigrateController extends Controller
             'request_for' => 'required',
             'request_by' => 'required',
             'rating_to_user' => 'nullable',
-            'message' => '',
+            'message' => 'required',
             'uploads' => '',
             'created_at' => '',
 
@@ -151,7 +151,7 @@ class TaskMigrateController extends Controller
      */
     public function edit($id)
     {
-        $user_tasks = UserTasks::orderBy('id','DESC')
+        $user_tasks = UserTasks::orderBy('id','ASC')
         
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')
 

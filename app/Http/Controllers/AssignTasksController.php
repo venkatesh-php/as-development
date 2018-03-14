@@ -28,22 +28,7 @@ class AssignTasksController extends Controller
         ->select('assign_tasks.*','users_u.name','users_g.name as gname','users_r.name as rname')
         ->paginate(15);
 
-        // $assign_tasks = AssignTasks::
-        // orderBy('id','DESC')->
-        // where('assign_tasks.assigned_by_userid',Auth::user()->id)
-        // ->leftJoin('users', function($join)
-        // {
-        //     $join->on('users.id', '=', 'assign_tasks.user_id')
-        //     // ->on('users.id', '=', 'assign_tasks.guide_id')
-        //     ;
-        // })
-        // ->select('assign_tasks.*','users.name')
-        // ->paginate(15)
-        // ;
-
-        // $gids=$assign_tasks ->toArray();
-        // return $gids;
-        // $gnames = User::whereIn('id', $gids)->select('name')->get();
+        
         return view('AssignTasks.index',compact('assign_tasks'))
             ->with('i', ($request->input('page', 1) - 1) * 15);
     }
@@ -108,31 +93,35 @@ class AssignTasksController extends Controller
      * @param  \App\AssignTasks  $assignTasks
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        // if(Auth::user()->role_id = 1)
-        // {
-        //     $users = DB::table('users')
-        //     ->select('users.*')
-        //     ->get();
-        // }
-        // else
-        // {// }
-            $users = DB::table('users')
-            ->where('users.institutes_id',Auth::User()->institutes_id)
-            ->where('users.role_id','>',5)
+        $this->validate($request, [
+            'name' =>'required',
+            'id' => 'required',
+        ]);
+
+        $requestData = $request->all();
+        // AssignTasks::create($request->all());
+
+        $users = User::orderBy('id','ASC')
+        ->join('users as users_u','users_u.branch_id','branches.id')
+        ->where('users.institutes_id',Auth::User()->institutes_id)
+        ->where('users_u.name',$requestData['name'])
+        ->select('users.*')
+        ->get();
+ 
+        $teachers = DB::table('users')
+            ->where('users.institutes_id',Auth::User()->institutes_id)        
+            ->where('users.role_id','<=',5) 
             ->select('users.*')
             ->get();
-     
-        $teachers = DB::table('users')
-                ->where('users.institutes_id',Auth::User()->institutes_id)        
-                ->where('users.role_id','<=',5) 
-                ->select('users.*')
-                ->get();
-      
-        $works = AdminTasks::find($id);
-        $targetdate=Carbon::now('Asia/Kolkata')->addDays(5);
-        return view('AssignTasks.create',compact('users','works','teachers','targetdate',$id));
+
+        $branches = DB::table('branches')
+            ->select('branches.*')->get();
+
+    $works = AdminTasks::find($requestData['id']);
+    $targetdate=Carbon::now('Asia/Kolkata')->addDays(5);
+    return view('AssignTasks.create',compact('users','works','teachers','targetdate','branches',$id));
     }
 
     /**
@@ -143,7 +132,24 @@ class AssignTasksController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = DB::table('users')
+            ->where('users.institutes_id',Auth::User()->institutes_id)
+            ->where('users.role_id','>',5)
+            ->select('users.*')
+            ->get();
+     
+        $teachers = DB::table('users')
+                ->where('users.institutes_id',Auth::User()->institutes_id)        
+                ->where('users.role_id','<=',5) 
+                ->select('users.*')
+                ->get();
+
+        $branches = DB::table('branches')
+            ->select('branches.*')->get();
+    
+        $works = AdminTasks::find($id);
+        $targetdate=Carbon::now('Asia/Kolkata')->addDays(5);
+        return view('AssignTasks.create',compact('users','works','teachers','targetdate','branches',$id));
     }
 
     /**

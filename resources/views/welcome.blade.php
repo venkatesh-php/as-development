@@ -15,7 +15,7 @@
             html, body {
                 background-color: #fff;
                 color: #636b6f;
-                font-family: "Times New Roman", Times, serif;
+                font-family: 'Raleway', sans-serif;
                 font-weight: 100;
                 height: 100vh;
                 margin: 0;
@@ -68,7 +68,7 @@
             }
         </style>
     </head>
-    <body bgcolor="#336699">
+    <body>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -87,14 +87,12 @@
                     <small>@lang('titles.app2')</small>
                 </div>
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                    <!-- <h6>Don't have in this list </h6> -->
-                    <a href="{{ route('institutes.index') }}" class="btn btn-success btn-xs">Add New</a> 
-                            <!-- Here We are adding New Institute deatails, Controller is going to -->
+                    <a href="http://skills.ameyem.com">Ameyem Skill Labs</a>
+                    <a href="http://skills.ameyem.com/quiz">Ameyem Quiz</a>
+                    <a href="http://skills.ameyem.com/apps_games">Ameyem Apps and Games</a>
+                    <a href="http://skills.ameyem.com/book_seminar">Ameyem Seminar Booking</a>
+                    <a href="http://sthali.in/">Sthali</a>
+                   
                 </div>
             </div>
         </div>
