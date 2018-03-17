@@ -10,6 +10,7 @@ Auth::routes();
 
 // Public Routes
 Route::group(['middleware' => ['web', 'activity']], function () {
+    app('debugbar')->disable();
 
     // Activation Routes
     Route::get('/activate', ['as' => 'activate', 'uses' => 'Auth\ActivateController@initial']);
@@ -37,7 +38,7 @@ Route::group(['middleware' => ['auth', 'activated', 'activity']], function () {
 
 // Registered and Activated User Routes
 Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep']], function () {
-
+    app('debugbar')->disable();
     //  Homepage Route - Redirect based on user role is in controller.
     // Route::get('/home', ['as' => 'public.home',   'uses' => 'UserController@index']);
      // Change Password Routes...
