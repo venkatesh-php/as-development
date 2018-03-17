@@ -43,8 +43,8 @@
                                 @endforeach
                                 
                             </select>
-                            <!-- <h6>Don't have in this list </h6> -->
-                            <a href="{{ route('institutes.index') }}" class="btn btn-success btn-xs">Add New</a> 
+                            <h6>Don't have in this list, Call US to Register </h6>
+                            <!-- <a href="{{ route('institutes.index') }}" class="btn btn-success btn-xs">Add New</a>  -->
                             <!-- Here We are adding New Institute deatails, Controller is going to -->
                             
                            

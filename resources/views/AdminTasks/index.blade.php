@@ -77,11 +77,11 @@
                         <td>
                             <!-- <a class="btn btn-info btn-xs" href="{{ route('AdminTasks.show',$task->id) }}">Show</a> -->
                             <a class="btn btn-primary btn-xs" href="{{ route('AdminTasks.edit',$task->id) }}">Edit</a>
-                            <a class="btn btn-success btn-xs" href="{{ route('AssignTasks.show',$task->id) }}">Assign Task</a>
+                            <a class="btn btn-success btn-xs" href="{{ route('AssignTasks.edit',$task->id) }}">Assign Task</a>
 
-                            {!! Form::open(['method' => 'DELETE','route' => ['AdminTasks.destroy', $task->id],'style'=>'display:inline']) !!}
+                            {{--  {!! Form::open(['method' => 'DELETE','route' => ['AdminTasks.destroy', $task->id],'style'=>'display:inline']) !!}
                             {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!} 
-                            {!! Form::close() !!}
+                            {!! Form::close() !!}  --}}
                         </td>
                         @if ($task->uploads)
                         <td><a class="btn btn-info btn-xs" href="/download/{{ $task->uploads}}" download="{{ $task->uploads}}">FileLinks</a></td>
