@@ -26,11 +26,17 @@ class UserTasksController extends Controller
      */
     public function index()
     {
-        $assign_tasks = DB::table('assign_tasks')
+        $assign_tasks = AssignTasks::orderBy('id','DESC')
         ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
+
+        ->join('users as users_u','users_u.id','assign_tasks.user_id')
+        ->join('users as users_s','users_s.id','assign_tasks.assigned_by_userid')
+        ->join('users as users_g','users_g.id','assign_tasks.guide_id')
+        ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
+
         ->where('assign_tasks.user_id',Auth::user()->id)
         ->whereNull('assign_tasks.status')
-        ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads')
+        ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
         ->orderBy('assign_tasks.task_id','desc')->get();
 
         return view('UserTasks.index',compact('assign_tasks'));
@@ -59,7 +65,7 @@ class UserTasksController extends Controller
             'assigntask_id' => 'required',
             'request_for' => 'required',
             'request_by' => 'required',
-            'message' => '',
+            'message' => 'required',
             'uploads' => '',
             'created_at' => '',
 
@@ -106,11 +112,18 @@ class UserTasksController extends Controller
      */
     public function show($cop_str)
     {
-        $assign_tasks = DB::table('assign_tasks')
+        $assign_tasks = AssignTasks::orderBy('id','DESC')
             ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
+
+            ->join('users as users_u','users_u.id','assign_tasks.user_id')
+            ->join('users as users_s','users_s.id','assign_tasks.assigned_by_userid')
+            ->join('users as users_g','users_g.id','assign_tasks.guide_id')
+            ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
+
+
             ->where('assign_tasks.user_id',Auth::user()->id)
             ->where('assign_tasks.status',$cop_str)
-            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads')
+            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
             ->orderBy('assign_tasks.task_id','desc')->get();
              
         
@@ -125,10 +138,13 @@ class UserTasksController extends Controller
      */
     public function edit($id)
     {
-        $user_tasks = DB::table('user_tasks')
+        $user_tasks = UserTasks::orderBy('id','ASC')
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')
+
+        ->join('users as users_u','users_u.id','user_tasks.request_by')
+
         ->where( 'assign_tasks.id',$id)
-        ->select('user_tasks.*')->get();
+        ->select('user_tasks.*','users_u.name')->get();
         $assign_tasks = AssignTasks::find($id);
 
         return view('UserTasks.edit',compact('user_tasks','assign_tasks',$id));

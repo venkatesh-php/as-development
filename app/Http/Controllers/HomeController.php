@@ -145,7 +145,7 @@ class HomeController extends Controller
             ->where('assign_tasks.assigned_by_userid',Auth::User()->id)
             ->count();
 
-            $totalcredits = $completedtasks->sum('reviewer_credits');
+            $totalcredits = $completedtasks->sum('guide_credits');
             $completedtasks = $completedtasks->count();
             $droptasks = $droptasks->count();
 

@@ -92,9 +92,7 @@
                     <a href="http://skills.ameyem.com/apps_games">Ameyem Apps and Games</a>
                     <a href="http://skills.ameyem.com/book_seminar">Ameyem Seminar Booking</a>
                     <a href="http://sthali.in/">Sthali</a>
-                    <!-- <h6>Don't have in this list </h6> -->
-                    <a href="{{ route('institutes.index') }}" class="btn btn-success btn-xs">Add New</a> 
-                            <!-- Here We are adding New Institute deatails, Controller is going to -->
+                   
                 </div>
             </div>
         </div>
