@@ -50,7 +50,7 @@
                         <th>Subjects or Language</th>
                         <th>Work Title</th>
                         <th>Work Description</th>
-                        <th>What In IT For Me</th>
+                        <th>What Is In It For Me</th>
                         <th>User</th>
                         <th>Guide</th>
                         <th>Reviewer</th>           

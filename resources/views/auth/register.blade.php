@@ -28,24 +28,30 @@
                         {{ csrf_field() }}
 
                         
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('institutes_id') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label"> Institute Name</label>
 
                             <div class="col-md-6">
                             
-                            <select name="institutes_id" class="form-control">
-                            <?php 
-                            use App\institute;
-                            $institutes = institute::all(); ?>
-                            <option value="" disabled="disabled" selected="selected">Select Your Institute</option>
-                                @foreach ($institutes as $institute)
-                                    <option value="{{$institute->id}}">{{$institute->name}} </option>                
-                                @endforeach
-                                
-                            </select>
-                            <h6>Don't have in this list, Call US to Register </h6>
-                            <!-- <a href="{{ route('institutes.index') }}" class="btn btn-success btn-xs">Add New</a>  -->
-                            <!-- Here We are adding New Institute deatails, Controller is going to -->
+                                <select name="institutes_id" class="form-control">
+                                <?php 
+                                use App\institute;
+                                $institutes = institute::all(); ?>
+                                <option value="" disabled="disabled" selected="selected">Select Your Institute</option>
+                                    @foreach ($institutes as $institute)
+                                        <option value="{{$institute->id}}">{{$institute->name}} </option>                
+                                    @endforeach
+                                    
+                                </select>
+
+                                    @if ($errors->has('institutes_id'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('institutes_id') }}</strong>
+                                        </span>
+                                    @endif
+                                <h6>Don't have in this list, Call US to Register (Arun(MD)8800197778) </h6>
+                                <!-- <a href="{{ route('institutes.index') }}" class="btn btn-success btn-xs">Add New</a>  -->
+                                <!-- Here We are adding New Institute deatails, Controller is going to -->
                             
                            
                             </div>
@@ -53,7 +59,7 @@
                         </div>
 
                         
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('role_id') ? ' has-error' : '' }}">
                             <label for="role_name" class="col-md-4 control-label">Role</label>
 
                             <div id="role_id" class="col-md-6">
@@ -73,6 +79,14 @@
                                 @endforeach
                                 
                             </select>
+
+                                @if ($errors->has('role_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('role_id') }}</strong>
+                                    </span>
+                                @endif
+
+                            
                             </div>
                         </div>
                         
@@ -92,7 +106,7 @@
                                     <option value="{{$branches->id}}">{{$branches->name}} </option>                
                                 @endforeach
                             </select>
-                            @if ($errors->has('branch_id'))
+                                @if ($errors->has('branch_id'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('branch_id') }}</strong>
                                     </span>
@@ -101,7 +115,7 @@
                         </div>
 
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('batch_id') ? ' has-error' : '' }}">
                             <label for="batch_id" class="col-md-4 control-label">Batch Starting Year</label>
 
                             <div class="col-md-6">
@@ -115,7 +129,7 @@
                                     <option value="{{$batches->id}}">{{$batches->name}} </option>                
                                 @endforeach
                             </select>
-                            @if ($errors->has('batch_id'))
+                                @if ($errors->has('batch_id'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('batch_id') }}</strong>
                                     </span>
@@ -139,19 +153,7 @@
                      
               
                         
-                        {{--  <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label"> Full Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>  --}}
+                           
 
 
                         
@@ -179,7 +181,7 @@
                             </div>
                         </div>
 
-                        {{--  <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                          <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
@@ -191,19 +193,9 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>  --}}
+                        </div> 
 
-                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-sm-4 control-label">E-Mail Address</label>
-                            <div class="col-sm-6">
-                                {!! Form::email('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'E-Mail Address', 'required']) !!}
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                         
 
                         <div class="form-group">
                             <label for="password-confirm" class="col-md-4 control-label">Mobile Number</label>

@@ -93,20 +93,13 @@ class AssignTasksController extends Controller
      * @param  \App\AssignTasks  $assignTasks
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show(Request $request,$bid)
     {
-        $this->validate($request, [
-            'name' =>'required',
-            'id' => 'required',
-        ]);
+        $wid = $request->wid;
 
-        $requestData = $request->all();
-        // AssignTasks::create($request->all());
-
-        $users = User::orderBy('id','ASC')
-        ->join('users as users_u','users_u.branch_id','branches.id')
+        $users = DB::table('users')
         ->where('users.institutes_id',Auth::User()->institutes_id)
-        ->where('users_u.name',$requestData['name'])
+        ->where('users.branch_id',$bid)
         ->select('users.*')
         ->get();
  
@@ -119,9 +112,10 @@ class AssignTasksController extends Controller
         $branches = DB::table('branches')
             ->select('branches.*')->get();
 
-    $works = AdminTasks::find($requestData['id']);
+    $works = AdminTasks::find($wid);
     $targetdate=Carbon::now('Asia/Kolkata')->addDays(5);
-    return view('AssignTasks.create',compact('users','works','teachers','targetdate','branches',$id));
+    return view('AssignTasks.create',compact('users','works','teachers','targetdate','branches',$wid));
+    // return compact('wid','bname');
     }
 
     /**
@@ -159,10 +153,10 @@ class AssignTasksController extends Controller
      * @param  \App\AssignTasks  $assignTasks
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         
-        //              
+        //            
     }
 
     /**
