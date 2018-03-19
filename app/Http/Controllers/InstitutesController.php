@@ -55,7 +55,7 @@ class InstitutesController extends Controller
      * @param  \App\institutes  $institutes
      * @return \Illuminate\Http\Response
      */
-    public function show(institutes $institutes)
+    public function show($id)
     {
         //
     }

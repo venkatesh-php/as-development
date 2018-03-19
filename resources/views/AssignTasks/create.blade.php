@@ -69,33 +69,25 @@
 </div>
 
 
-<!-- {!! Form::open(array('url' => 'AssignTasks.show','method'=>'POST')) !!}
+ {!! Form::open(array('url' => 'AssignTasks.show','method'=>'POST')) !!}
 
 
 <div class="row">
+
     <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-        <select id='branch_id' name="branch_id" class="form-control">
-            <option value="" disabled="disabled" selected="selected">Select Your Branch</option>
-                @foreach ($branches as $branch)            
-                    <option value="{{$branch->name}}">{{$branch->name}} </option>                
-                @endforeach
-        </select>
-      
+        <div class="pull-left">
+            <h1>
+            <a class="btn btn btn-lg" href="{{ route('AssignTasks.edit',$works->id)}}">All Students</a>
+            @foreach ($branches as $branch)            
+                <a class="btn btn btn-lg" href="{{ route('AssignTasks.show',['bid'=>$branch->id, 'wid'=>$works->id] )}}">{{$branch->name}}</a>
+            @endforeach
+        </h1>
+        </div>
     </div>
-         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Task Name:</strong>
-                    {!! Form::text('id', $works->id,array('class' => 'form-control')) !!}
-                        
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-              <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
 </div>
 
      
-{!! Form::close() !!} -->
+{!! Form::close() !!} <!---->
  
 
 <div class="app">
@@ -131,7 +123,7 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong style="color:green">Sorting Users:</strong>
+                                        <strong style="color:green">Target Date :</strong>
 
                                         {!! Form::date('target_at', $targetdate ) !!}
 
@@ -141,7 +133,7 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong style="color:green">User Name</strong><br>
+                                        <strong style="color:green">User Name :</strong><br>
                                         <!-- <select name="user_id" class="form-control"> -->
                                             
                                             <div class="table-responsive">   
@@ -157,10 +149,13 @@
                                                         <th>User Name </th>
                                                         <th>User Email</th>
                                                     </tr>
+                                                    <h4 style="color:#336699"><input type="checkbox" id="select_all"/> Check all</h4>
                                                     @foreach ($users as $user)
+
+                                                    
                                                     <tr>
                                                     
-                                                        <td><input type ="checkbox" name='user_id[]' value = "{{ $user->id }}"></td>
+                                                        <td><input class="checkbox" type ="checkbox" name='user_id[]' value = "{{ $user->id }}"></td>
                                                         <td>{{ $user->id }}</td>
                                                         <td>
                                                             <?php
@@ -229,10 +224,7 @@
                                                 
                                                 </table>
                                             </div>
-                                                <!-- {{ $user->id}} . {{$user->name}} , {{$user->email}}<br>                                              -->
-                                                   <!-- <option value="{{$user->id}}">{{$user->name}} , {{$user->email}}</option>                 -->
-                                            
-                                        <!-- </select> -->
+                                             
                                 
                                     </div>
                                 </div>
@@ -259,6 +251,8 @@
                                     </div>
                                 </div>
 
+                               
+
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -274,6 +268,35 @@
             </div>
         </div>
     </div>
+
+<script type="text/javascript">
+
+var select_all = document.getElementById("select_all"); //select all checkbox
+var checkboxes = document.getElementsByClassName("checkbox"); //checkbox items
+
+//select all checkboxes
+select_all.addEventListener("change", function(e){
+    for (i = 0; i < checkboxes.length; i++) { 
+        checkboxes[i].checked = select_all.checked;
+    }
+});
+
+
+for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener('change', function(e){ //".checkbox" change 
+        //uncheck "select all", if one of the listed checkbox item is unchecked
+        if(this.checked == false){
+            select_all.checked = false;
+        }
+        //check "select all" if all checkbox items are checked
+        if(document.querySelectorAll('.checkbox:checked').length == checkboxes.length){
+            select_all.checked = true;
+        }
+    });
+}
+
+   
+</script>
 
 
 

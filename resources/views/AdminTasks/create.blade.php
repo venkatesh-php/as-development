@@ -99,7 +99,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12" style="color:#006699">
                                 <div class="form-group">
-                                    <strong>What In IT For Me:</strong>
+                                    <strong>What Is In IT For Me:</strong>
                                     {!! Form::text('whatinitforme', null, array('placeholder' => 'What they gain','class' => 'form-control')) !!}
                                 </div>
                             </div>
