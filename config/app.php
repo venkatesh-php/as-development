@@ -185,6 +185,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Vinkla\Hashids\HashidsServiceProvider::class,
         
         /*
          * Application Service Providers...
@@ -283,6 +284,7 @@ return [
         'Input'        => Illuminate\Support\Facades\Input::class,
         'Gravatar'     => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Uuid'         => Webpatser\Uuid\Uuid::class,
+        'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
         
         
     ],

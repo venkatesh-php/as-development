@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
-
+use Vinkla\Hashids\Facades\Hashids;
 
 use Spatie\Permission\Traits\HasRoles;
 use Hash;
@@ -42,13 +42,13 @@ class User extends Authenticatable
     'signup_sm_ip_address',
     'admin_ip_address',
     'updated_ip_address',
-    'deleted_ip_address',];
+    'deleted_ip_address','type','status',];
     
     protected $hidden = [
         'password',
         'remember_token',
         'activated',
-        'token',
+        'token','type','status',
     ];
     
     /**
@@ -121,4 +121,26 @@ class User extends Authenticatable
         return $this->profiles()->detach($profile);
     }
     
+    //For tutApp
+    /*relate an user to a cv*/
+    public function cv(){
+        return $this->hasOne('App\cv');
+    }
+
+    /*One mentor can have many courses */
+    public  function course(){
+        return $this->hasMany('App\course');
+    }
+
+    public function enrollment(){
+        return $this->hasMany('App\enrollment','student_id');
+    }
+
+    public function forumQuestion(){
+        return $this->hasMany('App\forumQuestion');
+    }
+
+    public function getEnrolledCourseAttribute(){
+        return $this->enrollment->course;
+    }
 }
