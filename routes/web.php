@@ -1,6 +1,30 @@
 <?php
 
+//tutapp
+Route::get('/tuthome', 'TutHomeController@index');
+/*route for handling user block*/
+Route::get('user/{id}/block','Admin\adminController@blockUser')
+->name('blockUser');
 
+/*route for handling user unblock*/
+Route::get('user/{id}/unblock','Admin\adminController@unblockUser')
+->name('unblockUser');
+
+/*serve a course's cover image */
+Route::get('cover/{id}','mentor\mentorController@coverImage')
+->name('coverImage');
+
+
+/*serve a course's video lesson */
+Route::get('videos/{id}','mentor\mentorController@serveVideo')
+->name('serveVideo');
+
+/*serve a course's Ebook */
+Route::get('ebooks/{id}','mentor\mentorController@serveEbook')
+->name('serveEbook');
+
+Route::get('blocked','TutHomeController@blocked')
+->name('blocked');
 
 
 // Public Routes
@@ -102,103 +126,10 @@
         Route::resource('users', 'Admin\UsersController');
         Route::post('users_mass_destroy', ['uses' => 'Admin\UsersController@massDestroy', 'as' => 'users.mass_destroy']);
 
- //tutapp
- Route::get('/tuthome', 'TutHomeController@index');
- /*route for handling user block*/
- Route::get('user/{id}/block','Admin\adminController@blockUser')
- ->name('blockUser');
-
- /*route for handling user unblock*/
- Route::get('user/{id}/unblock','Admin\adminController@unblockUser')
- ->name('unblockUser');
-
- /*serve a course's cover image */
- Route::get('cover/{id}','mentor\mentorController@coverImage')
- ->name('coverImage');
-
-
- /*serve a course's video lesson */
- Route::get('videos/{id}','mentor\mentorController@serveVideo')
- ->name('serveVideo');
-
- /*serve a course's Ebook */
- Route::get('ebooks/{id}','mentor\mentorController@serveEbook')
- ->name('serveEbook');
-
- Route::get('blocked','TutHomeController@blocked')
- ->name('blocked');
+ 
      
     
     });
 
 
 
-// // Registered, activated, and is current user routes.
-// Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', 'twostep']], function () {
-
-//     // User Profile and Account Routes
-//     Route::resource(
-//         'profile',
-//         'ProfilesController', [
-//             'only' => [
-//                 'show',
-//                 'edit',
-//                 'update',
-//                 'create',
-//             ],
-//         ]
-//     );
-//     Route::put('profile/{username}/updateUserAccount', [
-//         'as'   => '{username}',
-//         'uses' => 'ProfilesController@updateUserAccount',
-//     ]);
-//     Route::put('profile/{username}/updateUserPassword', [
-//         'as'   => '{username}',
-//         'uses' => 'ProfilesController@updateUserPassword',
-//     ]);
-//     Route::delete('profile/{username}/deleteUserAccount', [
-//         'as'   => '{username}',
-//         'uses' => 'ProfilesController@deleteUserAccount',
-//     ]);
-
-//     // Route to show user avatar
-//     Route::get('images/profile/{id}/avatar/{image}', [
-//         'uses' => 'ProfilesController@userProfileAvatar',
-//     ]);
-
-//     // Route to upload user avatar.
-//     Route::post('avatar/upload', ['as' => 'avatar.upload', 'uses' => 'ProfilesController@upload']);
-// });
-
-// // Registered, activated, and is admin routes.
-// Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 'twostep']], function () {
-//     Route::resource('/users/deleted', 'SoftDeletesController', [
-//         'only' => [
-//             'index', 'show', 'update', 'destroy',
-//         ],
-//     ]);
-
-//     Route::resource('users', 'UsersManagementController', [
-//         'names' => [
-//             'index'   => 'users',
-//             'destroy' => 'user.destroy',
-//         ],
-//         'except' => [
-//             'deleted',
-//         ],
-//     ]);
-//     Route::post('search-users', 'UsersManagementController@search')->name('search-users');
-
-//     Route::resource('themes', 'ThemesManagementController', [
-//         'names' => [
-//             'index'   => 'themes',
-//             'destroy' => 'themes.destroy',
-//         ],
-//     ]);
-
-//     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-//     Route::get('routes', 'AdminDetailsController@listRoutes');
-//     Route::get('active-users', 'AdminDetailsController@activeUsers');
-// });
-
-// Route::redirect('/php', '/phpinfo', 301);
