@@ -40,6 +40,32 @@
     });
     // Registered and Activated User Routes
     Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep']], function () {
+        
+    //tutapp
+    Route::get('/tuthome', 'TutHomeController@index');
+    /*route for handling user block*/
+    Route::get('user/{id}/block','Admin\adminController@blockUser')
+    ->name('blockUser');
+
+    /*route for handling user unblock*/
+    Route::get('user/{id}/unblock','Admin\adminController@unblockUser')
+    ->name('unblockUser');
+
+    /*serve a course's cover image */
+    Route::get('cover/{id}','mentor\mentorController@coverImage')
+    ->name('coverImage');
+
+
+    /*serve a course's video lesson */
+    Route::get('videos/{id}','mentor\mentorController@serveVideo')
+    ->name('serveVideo');
+
+    /*serve a course's Ebook */
+    Route::get('ebooks/{id}','mentor\mentorController@serveEbook')
+    ->name('serveEbook');
+
+    Route::get('blocked','TutHomeController@blocked')
+    ->name('blocked');
         // app('debugbar')->disable();
         //  Homepage Route - Redirect based on user role is in controller.
         // Route::get('/home', ['as' => 'public.home',   'uses' => 'UserController@index']);
@@ -81,31 +107,6 @@
     });
 
 
-    //tutapp
-Route::get('/tuthome', 'TutHomeController@index');
-    /*route for handling user block*/
-Route::get('user/{id}/block','Admin\adminController@blockUser')
-->name('blockUser');
-
-/*route for handling user unblock*/
-Route::get('user/{id}/unblock','Admin\adminController@unblockUser')
-->name('unblockUser');
-
-/*serve a course's cover image */
-Route::get('cover/{id}','mentor\mentorController@coverImage')
-->name('coverImage');
-
-
-/*serve a course's video lesson */
-Route::get('videos/{id}','mentor\mentorController@serveVideo')
-->name('serveVideo');
-
-/*serve a course's Ebook */
-Route::get('ebooks/{id}','mentor\mentorController@serveEbook')
-->name('serveEbook');
-
-Route::get('blocked','TutHomeController@blocked')
-->name('blocked');
 
 // // Registered, activated, and is current user routes.
 // Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', 'twostep']], function () {
