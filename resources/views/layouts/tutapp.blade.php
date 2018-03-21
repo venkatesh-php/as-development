@@ -56,6 +56,8 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
+                        
+                        <li><a href="{{ url('/home') }}" class="">ASDP Home</a></li>
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}" class="">Login</a></li>
                             <li><a href="{{ url('/register') }}">Register</a></li>
