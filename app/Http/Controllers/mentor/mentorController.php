@@ -93,6 +93,7 @@ class mentorController extends Controller
 
     /*show courses list view */
     public function  courses(){
+        // return  
         $courses = Auth::user()->course()->get();
         /*render course list page*/
         return view('mentor.courses')->with('courses',$courses);
@@ -118,9 +119,11 @@ class mentorController extends Controller
     /*Manage a course */
     public  function manageCourse($course_id){
         $id = hd($course_id);
+        
         $course = course::with('chapter')->get()->all();
         if(count($course)!=0){
             $course = course::with('chapter')->where('id',$id)->get()->first();
+            
             return view('course.manage')->with('course',$course);
         }
     }
@@ -128,6 +131,7 @@ class mentorController extends Controller
     /*create a new chapter*/
     public  function createChapter($id){
         $id = hd($id);
+        // return $id;
         $course = course::select('id','name')->where('id',$id)->get()->first();
         return view('course.newChapter')->with('course',$course);
     }
@@ -135,22 +139,35 @@ class mentorController extends Controller
     /*handle a new chapter request*/
     public  function postChapter($id,Request $request){
         $id = hd($id);
-        $course = course::findOrFail($id)->first();
-        /*upload files to disk*/
-        $video = storeFile($request->video_tutorial,'videos');
-        $pdf = storeFile($request->pdfMaterial,'pdf');
+        // return $id;
+        $course = course::findOrFail($id);
+    //    ;
         /*create a new chapter instance*/
         $chapter = new chapter();
         $chapter->name = $request->name;
         $chapter->notes = $request->notes;
-        $chapter->video = $video;
+        
+        /*upload files to disk*/
+        if(isset($request->video_tutorial)){
+            $video = storeFile($request->video_tutorial,'videos');
+            /*update chapter instance*/
+            $chapter->video = $video;
+        }
+        if(isset($request->pdfMaterial)){
+        $pdf = storeFile($request->pdfMaterial,'pdf');
+        
         $chapter->pdf = $pdf;
+        }
+        // 
         $chapter->course()->associate($course);
         /*dd($chapter);*/
+        // return $chapter;
         $chapter->save();
+        
 
         //TODO: redirect to course view instead of courses view
-        return redirect()->route('courses');
+        // return redirect()->route('courses');
+        return view('course.viewChapter')->with('chapter',$chapter);
     }
 
     /*serve the course cover image */
@@ -174,6 +191,7 @@ class mentorController extends Controller
         $id = hd($id);
         $course_id = hd($course_id);
         $chapter  = chapter::where('id',$id)->with('course')->where('course_id',$course_id)->first();
+    //    return $chapter;
         return view('course.viewChapter')->with('chapter',$chapter);
     }
 

@@ -39,13 +39,13 @@
             {{--chapter Ebooks/presentation--}}
             <div class="form-group">
                 <label for="pdfMaterial">Ebooks/presentation</label>
-                <input type="file" name="pdfMaterial" class="form-control" required accept="application/pdf">
+                <input type="file" name="pdfMaterial" class="form-control"  accept="application/pdf">
             </div>
 
             {{--chapter videos--}}
             <div class="form-group">
                 <label for="video_tutorial">Video tutorial</label>
-                <input type="file" name="video_tutorial"  class="form-control" accept="video/mp4" required>
+                <input type="file" name="video_tutorial"  class="form-control" accept="video/mp4" >
             </div>
 
             {{--submit button--}}

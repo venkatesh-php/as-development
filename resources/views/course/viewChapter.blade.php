@@ -37,7 +37,11 @@
 @section('content')
    <div class="container" id="chapter_data">
        <h2 class="text-center">{{$chapter->name}}</h2>
+        <a  class="btn btn-primary"
+                        href="{{ route('manageCourse',['id'=>he($chapter->course_id)]) }}">Back</a>
+       @if(!empty($chapter->video))
        <hr>
+       
        <h2 class="text-center">Video tutorial</h2>
        <hr>
 
@@ -48,6 +52,8 @@
                    Your browser does not support the video tag.
                </video>
        </div>
+       @endif
+       @if(!empty($chapter->pdf))
        <div class="row">
            {{--Chapter Ebooks--}}
            <hr>
@@ -57,6 +63,7 @@
                <a href="{{route('serveEbook',['id'=>$chapter->pdf])}}" target="_blank" class="col-md-8 col-md-offset-2 button btn btn-red">Read Ebook</a>
            </div>
        </div>
+       @endif
 
        {{--Notes of the chapter--}}
        <hr>
