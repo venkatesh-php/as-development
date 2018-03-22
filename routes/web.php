@@ -1,30 +1,30 @@
 <?php
 
-//tutapp
-Route::get('/tuthome', 'TutHomeController@index');
-/*route for handling user block*/
-Route::get('user/{id}/block','Admin\adminController@blockUser')
-->name('blockUser');
+// //tutapp
+// Route::get('/tuthome', 'TutHomeController@index');
+// /*route for handling user block*/
+// Route::get('user/{id}/block','Admin\adminController@blockUser')
+// ->name('blockUser');
 
-/*route for handling user unblock*/
-Route::get('user/{id}/unblock','Admin\adminController@unblockUser')
-->name('unblockUser');
+// /*route for handling user unblock*/
+// Route::get('user/{id}/unblock','Admin\adminController@unblockUser')
+// ->name('unblockUser');
 
-/*serve a course's cover image */
-Route::get('cover/{id}','mentor\mentorController@coverImage')
-->name('coverImage');
+// /*serve a course's cover image */
+// Route::get('cover/{id}','mentor\mentorController@coverImage')
+// ->name('coverImage');
 
 
-/*serve a course's video lesson */
-Route::get('videos/{id}','mentor\mentorController@serveVideo')
-->name('serveVideo');
+// /*serve a course's video lesson */
+// Route::get('videos/{id}','mentor\mentorController@serveVideo')
+// ->name('serveVideo');
 
-/*serve a course's Ebook */
-Route::get('ebooks/{id}','mentor\mentorController@serveEbook')
-->name('serveEbook');
+// /*serve a course's Ebook */
+// Route::get('ebooks/{id}','mentor\mentorController@serveEbook')
+// ->name('serveEbook');
 
-Route::get('blocked','TutHomeController@blocked')
-->name('blocked');
+// Route::get('blocked','TutHomeController@blocked')
+// ->name('blocked');
 
 
 // Public Routes
@@ -65,31 +65,7 @@ Route::get('blocked','TutHomeController@blocked')
     // Registered and Activated User Routes
     Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep']], function () {
         
-    //tutapp
-    Route::get('/tuthome', 'TutHomeController@index');
-    /*route for handling user block*/
-    Route::get('user/{id}/block','Admin\adminController@blockUser')
-    ->name('blockUser');
-
-    /*route for handling user unblock*/
-    Route::get('user/{id}/unblock','Admin\adminController@unblockUser')
-    ->name('unblockUser');
-
-    /*serve a course's cover image */
-    Route::get('cover/{id}','mentor\mentorController@coverImage')
-    ->name('coverImage');
-
-
-    /*serve a course's video lesson */
-    Route::get('videos/{id}','mentor\mentorController@serveVideo')
-    ->name('serveVideo');
-
-    /*serve a course's Ebook */
-    Route::get('ebooks/{id}','mentor\mentorController@serveEbook')
-    ->name('serveEbook');
-
-    Route::get('blocked','TutHomeController@blocked')
-    ->name('blocked');
+    
         // app('debugbar')->disable();
         //  Homepage Route - Redirect based on user role is in controller.
         // Route::get('/home', ['as' => 'public.home',   'uses' => 'UserController@index']);
@@ -99,6 +75,31 @@ Route::get('blocked','TutHomeController@blocked')
         $this->post('logout', 'Auth\LoginController@logout')->name('auth.logout');
         Route::get('/home', ['as' => 'public.home',   'uses' => 'HomeController@index']);
         // Route::get('/home', 'HomeController@index');
+        //tutapp
+        Route::get('/tuthome', 'TutHomeController@index');
+        /*route for handling user block*/
+        Route::get('user/{id}/block','Admin\adminController@blockUser')
+        ->name('blockUser');
+
+        /*route for handling user unblock*/
+        Route::get('user/{id}/unblock','Admin\adminController@unblockUser')
+        ->name('unblockUser');
+
+        /*serve a course's cover image */
+        Route::get('cover/{id}','mentor\mentorController@coverImage')
+        ->name('coverImage');
+
+
+        /*serve a course's video lesson */
+        Route::get('videos/{id}','mentor\mentorController@serveVideo')
+        ->name('serveVideo');
+
+        /*serve a course's Ebook */
+        Route::get('ebooks/{id}','mentor\mentorController@serveEbook')
+        ->name('serveEbook');
+
+        Route::get('blocked','TutHomeController@blocked')
+        ->name('blocked');
         // // Show users profile - viewable by other users.
         Route::get('profile/{username}', [
             'as'   => '{username}',
@@ -113,12 +114,13 @@ Route::get('blocked','TutHomeController@blocked')
         Route::resource('Charts','ChartController');
         Route::resource('Subject','SubjectController');
         Route::resource('institutes','InstitutesController');
-    });
-    //Download a file
+        //Download a file
     Route::get('/download/{file}', 'DownloadsController@download');
+    });
+    
     Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
         // Route::get('/home', 'HomeController@index');
-        Route::get('/home', ['as' => 'public.home',   'uses' => 'HomeController@index']);
+        // Route::get('/home', ['as' => 'public.home',   'uses' => 'HomeController@index']);
         Route::resource('permissions', 'Admin\PermissionsController');
         Route::post('permissions_mass_destroy', ['uses' => 'Admin\PermissionsController@massDestroy', 'as' => 'permissions.mass_destroy']);
         Route::resource('roles', 'Admin\RolesController');

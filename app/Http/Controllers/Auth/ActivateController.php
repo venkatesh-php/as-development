@@ -94,6 +94,7 @@ class ActivateController extends Controller
     public function activationRequired()
     {
         $user = Auth::user();
+        
         $lastActivation = Activation::where('user_id', $user->id)->get()->last();
         $currentRoute = Route::currentRouteName();
 
