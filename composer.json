@@ -31,6 +31,7 @@
         "pusher/pusher-php-server": "^3.0",
         "rap2hpoutre/laravel-log-viewer": "^0.10.4",
         "scopdrag/laravel-google-chart": "^1.0",
+        "snowfire/beautymail": "dev-master",
         "socialiteproviders/37signals": "^3.0",
         "socialiteproviders/generators": "^2.0",
         "socialiteproviders/instagram": "^3.0",

@@ -186,6 +186,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Vinkla\Hashids\HashidsServiceProvider::class,
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
         
         /*
          * Application Service Providers...
