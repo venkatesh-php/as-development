@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-
+use Auth;
 use App\Notifications\CustomEmail;
 use App\User;
 use Illuminate\Http\Request;
@@ -30,6 +30,12 @@ class EmailController extends Controller
 
     public function autoEmail()
     {
+    
+        if (Auth::user()->role_id != 1) {
+            return 'You are not ADMIN';
+        }
+        
+    
         $name='';
         $email='';
         // 
@@ -53,7 +59,7 @@ class EmailController extends Controller
                     ->subject('Update on interview at Ameyem Geosolutions');
             });
         }
-        return $jobseekers; 
+        // return $jobseekers; 
         return "Emails sent successfully";
 
 

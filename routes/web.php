@@ -38,7 +38,7 @@
     Auth::routes();
     Route::group(['middleware' => ['web', 'activity']], function () {
         // app('debugbar')->disable();
-
+        
         // Activation Routes
         Route::get('/activate', ['as' => 'activate', 'uses' => 'Auth\ActivateController@initial']);
 
@@ -64,7 +64,7 @@
     });
     // Registered and Activated User Routes
     Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep']], function () {
-        
+        Route::get('/notify', 'EmailController@autoEmail');
     
         // app('debugbar')->disable();
         //  Homepage Route - Redirect based on user role is in controller.
@@ -121,7 +121,7 @@
     Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
         // Route::get('/home', 'HomeController@index');
         // Route::get('/home', ['as' => 'public.home',   'uses' => 'HomeController@index']);
-        Route::get('/notify', 'EmailController@autoEmail');
+        
         Route::resource('permissions', 'Admin\PermissionsController');
         Route::post('permissions_mass_destroy', ['uses' => 'Admin\PermissionsController@massDestroy', 'as' => 'permissions.mass_destroy']);
         Route::resource('roles', 'Admin\RolesController');
