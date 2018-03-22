@@ -49,7 +49,7 @@
                                             <strong>{{ $errors->first('institutes_id') }}</strong>
                                         </span>
                                     @endif
-                                <h6>Don't have in this list, Call US to Register (Arun(MD)8800197778) </h6>
+                                <h6>Don't have in this list, Call US to Register at 0866-2470778 </h6>
                                 <!-- <a href="{{ route('institutes.index') }}" class="btn btn-success btn-xs">Add New</a>  -->
                                 <!-- Here We are adding New Institute deatails, Controller is going to -->
                             
