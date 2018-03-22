@@ -1,5 +1,5 @@
 <?php
-Route::get('/notify', 'EmailController@autoEmail');
+
 // //tutapp
 // Route::get('/tuthome', 'TutHomeController@index');
 // /*route for handling user block*/
@@ -121,7 +121,7 @@ Route::get('/notify', 'EmailController@autoEmail');
     Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
         // Route::get('/home', 'HomeController@index');
         // Route::get('/home', ['as' => 'public.home',   'uses' => 'HomeController@index']);
-        
+        Route::get('/notify', 'EmailController@autoEmail');
         Route::resource('permissions', 'Admin\PermissionsController');
         Route::post('permissions_mass_destroy', ['uses' => 'Admin\PermissionsController@massDestroy', 'as' => 'permissions.mass_destroy']);
         Route::resource('roles', 'Admin\RolesController');
