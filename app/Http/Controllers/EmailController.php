@@ -33,7 +33,7 @@ class EmailController extends Controller
         $name='';
         $email='';
         // 
-        $jobseekers = DB::table('jobseekers2')
+        $jobseekers = DB::table('jobseekers')
         ->whereNotNull('Email_Id')
         ->select('Name as name','Email_Id as email')->get();
         // $beautymail = app()->make(Snowfire\Beautymail::class);
