@@ -143,7 +143,12 @@ class RegisterController extends Controller
         if($data['role_id']!=6){
             $data['branch_id']=0;
             $data['batch_id']=0;
+            //for tutapp
+            $data['type'] = 'mentor';
+        }else{
+            $data['type'] = 'student';
         }
+        $data['status'] =0;
         // $role = Role::where('slug', '=', 'unverified')->first();
 
         $user = User::create([
@@ -161,6 +166,8 @@ class RegisterController extends Controller
                 'signup_ip_address' => $ipAddress->getClientIp(),
                 'activated'         => !config('settings.activation'),
                 'phone_number' => $data['phone_number'],
+                'type'      =>$data['type'] ,
+                'status'   =>$data['status'] ,
             ]);
 
         // $user->attachRole($role);s

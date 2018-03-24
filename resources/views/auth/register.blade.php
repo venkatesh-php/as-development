@@ -49,7 +49,7 @@
                                             <strong>{{ $errors->first('institutes_id') }}</strong>
                                         </span>
                                     @endif
-                                <h6>Don't have in this list, Call US to Register (Arun(MD)8800197778) </h6>
+                                <h6>Don't have in this list, Call US to Register at 0866-2470778 </h6>
                                 <!-- <a href="{{ route('institutes.index') }}" class="btn btn-success btn-xs">Add New</a>  -->
                                 <!-- Here We are adding New Institute deatails, Controller is going to -->
                             
@@ -140,8 +140,8 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-sm-4 control-label">User Name</label>
-                            <div class="col-sm-6">
+                            <label for="name" class="col-md-4 control-label">User Name</label>
+                            <div class="col-md-6">
                                 {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Username', 'id' => 'name', 'required', 'autofocus']) !!}
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -151,15 +151,10 @@
                             </div>
                         </div>
                      
-              
-                        
-                           
 
-
-                        
                         <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                            <label for="first_name" class="col-sm-4 control-label">First Name</label>
-                            <div class="col-sm-6">
+                            <label for="first_name" class="col-md-4 control-label">First Name</label>
+                            <div class="col-md-6">
                                 {!! Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'First Name', 'id' => 'first_name']) !!}
                                 @if ($errors->has('first_name'))
                                     <span class="help-block">
@@ -170,8 +165,8 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label for="last_name" class="col-sm-4 control-label">Last Name</label>
-                            <div class="col-sm-6">
+                            <label for="last_name" class="col-md-4 control-label">Last Name</label>
+                            <div class="col-md-6">
                                 {!! Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Last Name', 'id' => 'last_name']) !!}
                                 @if ($errors->has('last_name'))
                                     <span class="help-block">

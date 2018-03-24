@@ -62,9 +62,13 @@ class Kernel extends HttpKernel
         'guest'         => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'activated'     => CheckIsUserActivated::class,
-        'role'          => \jeremykenedy\LaravelRoles\Middleware\VerifyRole::class,
+        // 'role'          => \jeremykenedy\LaravelRoles\Middleware\VerifyRole::class,
         'permission'    => \jeremykenedy\LaravelRoles\Middleware\VerifyPermission::class,
         'level'         => \jeremykenedy\LaravelRoles\Middleware\VerifyLevel::class,
         'currentUser'   => \App\Http\Middleware\CheckCurrentUser::class,
+        'role'=>\App\Http\Middleware\RoleCheck::class,
+        'Newmentor'=>\App\Http\Middleware\Newmentor::class,
+        'enrollmentCheck'=>\App\Http\Middleware\enrollmentCheck::class,
+
   ];
 }

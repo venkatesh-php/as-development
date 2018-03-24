@@ -60,13 +60,9 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="form-group">
-                        <div class="col-md-8 col-md-offset-4">
-                            <h6>Don't have account Register Here</h6>
-                            <a href="{{ route('register') }}" value="register">
-                            <button class="btn btn-success" style="margin-right: 15px;">Register</button></a>
-                        </div>
+                        
                     </div>
+                        
                         {{--  <p class="text-center margin-bottom-3">
                             Or Login with
                         </p>
@@ -74,6 +70,17 @@
                         @include('partials.socials-icons')  --}}
 
                     </form>
+                    <div class="form-group">
+                        <div class="col-md-8 col-md-offset-4">
+                            <h6>Don't have account Register Here</h6>
+                            <a href="{{ route('register') }}" value="register">
+                            <button class="btn btn-success" style="margin-right: 15px;">Register</button></a>
+                        </div>
+                    </div>
+                    <br><br><br>
+                    <br>
+
+                    
                 </div>
             </div>
         </div>

@@ -901,7 +901,7 @@ laravel-auth
 │   ├── channels.php
 │   ├── console.php
 │   └── web.php
-├
+├── server.php
 ├── webpack.mix.js
 └── yarn.lock
 ```
