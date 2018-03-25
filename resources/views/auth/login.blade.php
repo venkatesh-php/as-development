@@ -1,6 +1,47 @@
 @extends('layouts.auth')
 
 @section('content')
+<div class="container-fluid">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                    <a class="navbar-brand" href="{{ url('/') }}">
+
+                        <b style="color:white">{{ config('app.name', 'Laravel') }}</b>
+
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+
+                        @if (Route::has('login'))
+               
+                            @if (Auth::check())
+                                <li><a href="{{ url('/home') }}"><b style="color:white">Home</b></a></li>
+                                <!-- <li><a href="{{ url('/logout') }}"><b>logout</b></a></li> -->
+                            @else          
+                                <li><a href="{{ url('/login') }}"><span style="color:white" class="glyphicon glyphicon-log-in"></span><b style="color:white"> Login</b></a></li>
+                                <li><a href="{{ url('/register') }}"><span style="color:white" class="glyphicon glyphicon-user"></span><b style="color:white"> Sign Up</b></a></li>
+                            @endif
+                       
+                        @endif
+                   
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -70,15 +111,7 @@
                         @include('partials.socials-icons')  --}}
 
                     </form>
-                    <div class="form-group">
-                        <div class="col-md-8 col-md-offset-4">
-                            <h6>Don't have account Register Here</h6>
-                            <a href="{{ route('register') }}" value="register">
-                            <button class="btn btn-success" style="margin-right: 15px;">Register</button></a>
-                        </div>
-                    </div>
-                    <br><br><br>
-                    <br>
+                   
 
                     
                 </div>
