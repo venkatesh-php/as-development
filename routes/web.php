@@ -113,7 +113,7 @@
         Route::resource('UserTasks','UserTasksController');
         Route::resource('Charts','ChartController');
         Route::resource('Subject','SubjectController');
-        Route::resource('institutes','InstitutesController');
+        Route::resource('institute','InstitutesController');
         //Download a file
     Route::get('/download/{file}', 'DownloadsController@download');
     });

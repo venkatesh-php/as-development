@@ -156,7 +156,24 @@ class AssignTasksController extends Controller
     public function update($id)
     {
         
-        //            
+        $users = DB::table('users')
+            ->where('users.institutes_id',Auth::User()->institutes_id)
+            ->where('users.role_id','=',5)
+            ->select('users.*')
+            ->get();
+     
+        $teachers = DB::table('users')
+                ->where('users.institutes_id',Auth::User()->institutes_id)        
+                ->where('users.role_id','<=',5) 
+                ->select('users.*')
+                ->get();
+
+        $branches = DB::table('branches')
+            ->select('branches.*')->get();
+    
+        $works = AdminTasks::find($id);
+        $targetdate=Carbon::now('Asia/Kolkata')->addDays(5);
+        return view('AssignTasks.create',compact('users','works','teachers','targetdate','branches',$id));         
     }
 
     /**

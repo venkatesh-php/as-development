@@ -78,6 +78,7 @@
         <div class="pull-left">
             <h1>
             <a class="btn btn btn-lg" href="{{ route('AssignTasks.edit',$works->id)}}">All Students</a>
+            <a class="btn btn btn-lg" href="{{ route('institute.show',$works->id)}}">All Teachers</a>
             @foreach ($branches as $branch)            
                 <a class="btn btn btn-lg" href="{{ route('AssignTasks.show',['bid'=>$branch->id, 'wid'=>$works->id] )}}">{{$branch->name}}</a>
             @endforeach
