@@ -1,9 +1,9 @@
-@extends('layouts.tutapp')
+@extends('layouts.app')
 
 
 @section('content')
 
-
+<div class="container">
 
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -25,9 +25,10 @@
             </ul>
         </div>
     @endif
+</div>
     <!--,'files'=>true ,'enctype'=>"multipart" -->
 
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <div class="col-md-8">
                 <div class="panel panel-primary">

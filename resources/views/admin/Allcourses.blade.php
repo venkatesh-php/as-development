@@ -1,4 +1,4 @@
-@extends('layouts.tutapp')
+@extends('layouts.app')
 <style>
     .container{
         background: white;

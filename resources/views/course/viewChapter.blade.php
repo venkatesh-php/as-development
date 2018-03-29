@@ -1,4 +1,4 @@
-@extends('layouts.tutapp')
+@extends('layouts.app')
 <style>
     #chapter_data{
         background: white;

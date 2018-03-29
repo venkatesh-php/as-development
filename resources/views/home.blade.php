@@ -66,7 +66,7 @@
                                             <div class="panel-footer">
                                                 <span class="panel-eyecandy-title">See And Update your profile
                                                 </span>
-                                        </div>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -78,12 +78,12 @@
 
                                 <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
-                                    <a style="text-decoration:none;" href="{{ route('AdminTasks.index') }}">
-                                        <div class="alert alert-success">                                     
-                                            <i class="fa fa-pencil-square-o fa-3x"></i>
-                                            <h3>Create New Tasks</h3>
-                                        </div>
-                                    </a> 
+                                        <a style="text-decoration:none;" href="{{ route('AdminTasks.index') }}">
+                                            <div class="alert alert-success">                                     
+                                                <i class="fa fa-pencil-square-o fa-3x"></i>
+                                                <h3>Create New Tasks</h3>
+                                            </div>
+                                        </a> 
                                         <div class="panel-footer">
                                             <span class="panel-eyecandy-title">Total Tasks : {{ $totaltasks }}
                                             </span>
@@ -93,13 +93,13 @@
 
                                 <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
-                                    <a style="text-decoration:none;" href="{{ route('AssignTasks.index') }}">
-                                        <div class="alert alert-info">
-                                            <i class="fa fa-cogs fa-3x"></i>
-                                        
-                                            <h3>Assigned Tasks</h3>
-                                        </div>
-                                    </a>
+                                        <a style="text-decoration:none;" href="{{ route('AssignTasks.index') }}">
+                                            <div class="alert alert-info">
+                                                <i class="fa fa-cogs fa-3x"></i>
+                                            
+                                                <h3>Assigned Tasks</h3>
+                                            </div>
+                                        </a>
                                         <div class="panel-footer">
                                             <span class="panel-eyecandy-title">Total Assigned Tasks : {{ $totalassigntasks }}
                                             </span>
@@ -109,12 +109,12 @@
 
                                 <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
-                                    <a style="text-decoration:none;" href="{{ route('Profile.index') }}">
-                                        <div class="alert alert-warning">
-                                            <i class="fa fa fa-floppy-o fa-3x"></i>
-                                            <h3>Profiles</h3>
-                                        </div>
-                                    </a>
+                                        <a style="text-decoration:none;" href="{{ route('Profile.index') }}">
+                                            <div class="alert alert-warning">
+                                                <i class="fa fa fa-floppy-o fa-3x"></i>
+                                                <h3>Profiles</h3>
+                                            </div>
+                                        </a>
                                         <div class="panel-footer">
                                             <span class="panel-eyecandy-title">Total Users : {{ $totalusers }}
                                             </span>
@@ -124,12 +124,12 @@
 
                                 <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
-                                    <a style="text-decoration:none;" href="{{ route('TaskMigrate.index') }}">
-                                        <div class="alert alert-danger">
-                                            <i class="fa fa-users fa-3x"></i>
-                                            <h3>Tasks Progress</h3>
-                                        </div>
-                                    </a>
+                                        <a style="text-decoration:none;" href="{{ route('TaskMigrate.index') }}">
+                                            <div class="alert alert-danger">
+                                                <i class="fa fa-users fa-3x"></i>
+                                                <h3>Tasks Progress</h3>
+                                            </div>
+                                        </a>
                                         <div class="panel-footer">
                                             <span class="panel-eyecandy-title">Total Comments : {{ $totalcomments }}
                                             
@@ -188,7 +188,7 @@
 </div>
 
 {!! Charts::assets() !!}
-<div class="app">
+<!-- <div class="app"> -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-10">
@@ -212,7 +212,7 @@
             </div>
         </div>
     </div>
-</div>
+<!-- </div> -->
 
 <!-- End Of Main Application -->
 {!! Charts::scripts() !!}
