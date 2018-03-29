@@ -36,6 +36,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
                                         <a style="text-decoration:none;" href="{{ route('UserTasks.index') }}">
@@ -74,6 +75,7 @@
 
                             @if(Auth::user()->role_id <= 5) 
                             <div class="row">
+
                                 <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
                                         <a style="text-decoration:none;" href="{{ route('AdminTasks.index') }}">
@@ -136,8 +138,10 @@
                                     </div>
                                 </div>
                                 @endif
+
                                 <!--end of the teacher and Admin section -->
                             </div>
+
 
                     @endif 
                 
