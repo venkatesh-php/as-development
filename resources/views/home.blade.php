@@ -11,7 +11,7 @@
         <div class="col-md-10">
             <div class="panel panel-primary">
                 <div style="color:white" class="panel-heading">
-                <center>Welcome to Work Environment</center>
+                    <center>Welcome to Work Environment</center>
                 </div>
           
 
@@ -37,7 +37,44 @@
                                     </div>
                                 </div>
 
-                                @if(Auth::user()->role_id <= 5) 
+                                <div class="col-lg-3">
+                                    <div class="panel panel-primary text-center no-boder">
+                                        <a style="text-decoration:none;" href="{{ route('UserTasks.index') }}">
+                                            <div class="alert alert-info">                                     
+                                                <i class="fa fa-pencil-square-o fa-3x"></i>
+                                                <h3>User Tasks </h3>
+                                            </div>
+                                        </a>
+                                        <div class="panel-footer">
+                                            <span class="panel-eyecandy-title">Total Tasks : {{ $total_user_tasks }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>                               
+                        
+
+                                
+                                <div class="col-lg-3">
+                                    <div class="panel panel-primary text-center no-boder">
+                                        <a style="text-decoration:none;" href="{{ route('viewprofile.index') }}">
+                                            <div class="alert alert-warning">
+                                                <i class="fa fa-cogs fa-3x"></i>
+                                                
+                                                <h3>Profile</h3>
+                                            </div>
+                                        </a>
+                                            <div class="panel-footer">
+                                                <span class="panel-eyecandy-title">See And Update your profile
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Start of the teacher and Admin section -->
+
+                            @if(Auth::user()->role_id <= 5) 
+                            <div class="row">
 
                                 <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
@@ -101,47 +138,10 @@
                                     </div>
                                 </div>
                                 @endif
+
+                                <!--end of the teacher and Admin section -->
                             </div>
 
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="panel panel-primary text-center no-boder">
-                                        <a style="text-decoration:none;" href="{{ route('UserTasks.index') }}">
-                                            <div class="alert alert-info">                                     
-                                                <i class="fa fa-pencil-square-o fa-3x"></i>
-                                                <h3>User Tasks </h3>
-                                            </div>
-                                        </a>
-                                        <div class="panel-footer">
-                                            <span class="panel-eyecandy-title">Total Tasks : {{ $total_user_tasks }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>                               
-                        
-
-                                
-                                <div class="col-lg-3">
-                                    <div class="panel panel-primary text-center no-boder">
-                                        <a style="text-decoration:none;" href="{{ route('viewprofile.index') }}">
-                                            <div class="alert alert-warning">
-                                                <i class="fa fa-cogs fa-3x"></i>
-                                                
-                                                <h3>Profile</h3>
-                                            </div>
-                                        </a>
-                                            <div class="panel-footer">
-                                                <span class="panel-eyecandy-title">See And Update your profile
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                        <!--end quick info section -->
-                        
-                            
-                       
 
                     @endif 
                 
@@ -153,7 +153,7 @@
 </div>
 
 
-
+<!--Start of the information regarding teacher or Admin section -->
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-10">

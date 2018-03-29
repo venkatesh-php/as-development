@@ -42,6 +42,12 @@
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.standalone.min.css"/>
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+<style>
+.navbar-default {
+    background-color: #347AB6;
+    border-color: #E7E7E7;
+}
 
+</style>
 
 

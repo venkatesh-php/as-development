@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use App\institute;
 use Illuminate\Http\Request;
+use DB;
+use Auth;
+use App\User;
+use App\AdminTasks;
+use App\AssignTasks;
+use Carbon\Carbon;
 
 class InstitutesController extends Controller
 {
@@ -57,7 +63,25 @@ class InstitutesController extends Controller
      */
     public function show($id)
     {
-        //
+                
+        $users = DB::table('users')
+            ->where('users.institutes_id',Auth::User()->institutes_id)
+            ->where('users.role_id','=',5)
+            ->select('users.*')
+            ->get();
+     
+        $teachers = DB::table('users')
+                ->where('users.institutes_id',Auth::User()->institutes_id)        
+                ->where('users.role_id','<=',5) 
+                ->select('users.*')
+                ->get();
+
+        $branches = DB::table('branches')
+            ->select('branches.*')->get();
+    
+        $works = AdminTasks::find($id);
+        $targetdate=Carbon::now('Asia/Kolkata')->addDays(5);
+        return view('AssignTasks.create',compact('users','works','teachers','targetdate','branches',$id));
     }
 
     /**

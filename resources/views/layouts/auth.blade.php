@@ -8,7 +8,7 @@
 <body class="page-header-fixed">
 
 
-    <div style="margin-top: 10%;"></div>
+    <!-- <div style="margin-top: 3%;"></div> -->
 
     <div class="container-fluid">
         @yield('content')

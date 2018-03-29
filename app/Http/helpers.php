@@ -90,7 +90,9 @@ function storeFile($file, $disk){
 /*check whether the given item is empty*/
 
 function nothing($item){
-    if(sizeof($item) == 0){
+
+    if(is_array($item) && sizeof($item) == 0){
+
         return true;
     }
     else{
