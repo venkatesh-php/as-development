@@ -189,14 +189,14 @@ class HomeController extends Controller
            }
            else{
 
-           
+
            $datearray = array_column($progress,'updated_at');
            for($i=0;$i<count($datearray);$i++)
            {
                $date = new \DateTime($datearray[$i]);
                $dt[$i] = $date->format('d M y'); 
            }
-          
+
 
            $marksarray = array_column($progress,'guide_credits');
 
