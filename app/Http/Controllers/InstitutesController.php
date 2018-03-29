@@ -49,7 +49,7 @@ class InstitutesController extends Controller
 
         institute::create($request->all());
 
-        return redirect('/register')
+        return redirect('/home')
                 ->with('success','Institute added Successfully');
                         
     }
@@ -90,9 +90,9 @@ class InstitutesController extends Controller
      * @param  \App\institutes  $institutes
      * @return \Illuminate\Http\Response
      */
-    public function edit(institutes $institutes)
+    public function edit(Request $request)
     {
-        //
+       //
     }
 
     /**
@@ -102,9 +102,35 @@ class InstitutesController extends Controller
      * @param  \App\institutes  $institutes
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, institutes $institutes)
+    public function update(Request $request)
     {
-        //
+        $this->validate($request, [
+            'wid' => 'required',
+            'batch_id' => 'required',
+            'bid' => 'required',
+        ]);
+
+        $users = DB::table('users')
+        ->where('users.institutes_id',Auth::User()->institutes_id)
+        ->where('users.branch_id',$bid)
+        ->where('users.batch_id',$batch_id)
+        ->select('users.*')
+        ->get();
+ 
+        $teachers = DB::table('users')
+            ->where('users.institutes_id',Auth::User()->institutes_id)        
+            ->where('users.role_id','<=',5) 
+            ->select('users.*')
+            ->get();
+
+        $branches = DB::table('branches')
+            ->select('branches.*')->get();
+        $batches = DB::table('batches')
+            ->select('batches');
+
+    $works = AdminTasks::find($wid);
+    $targetdate=Carbon::now('Asia/Kolkata')->addDays(5);
+    return view('AssignTasks.create',compact('users','works','teachers','targetdate','branches','batches',$wid));
     }
 
     /**

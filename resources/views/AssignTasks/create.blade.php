@@ -69,27 +69,27 @@
 </div>
 
 
- {!! Form::open(array('url' => 'AssignTasks.show','method'=>'POST')) !!}
+
 
 
 <div class="row">
-
     <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
         <div class="pull-left">
             <h1>
-            <a class="btn btn btn-lg" href="{{ route('AssignTasks.edit',$works->id)}}">All Students</a>
-            <a class="btn btn btn-lg" href="{{ route('institute.show',$works->id)}}">All Teachers</a>
-            @foreach ($branches as $branch)            
-                <a class="btn btn btn-lg" href="{{ route('AssignTasks.show',['bid'=>$branch->id, 'wid'=>$works->id] )}}">{{$branch->name}}</a>
-            @endforeach
-        </h1>
+                <a class="btn btn btn-lg" href="{{ route('AssignTasks.edit',$works->id)}}">All Students</a>
+                <a class="btn btn btn-lg" href="{{ route('institute.show',$works->id)}}">All Teachers</a>
+                @foreach ($branches as $branch)            
+                    <a class="btn btn btn-lg" href="{{ route('AssignTasks.show',['bid'=>$branch->id, 'wid'=>$works->id] )}}">{{$branch->name}}</a>
+                @endforeach
+            </h1>
+
+
+
         </div>
     </div>
 </div>
 
-     
-{!! Form::close() !!} <!---->
- 
+      
 
 <div class="app">
     <div class="container-fluid">

@@ -44,6 +44,7 @@ class adminController extends Controller
 
     /*load cv for preview*/
     public function CVpdfview($path){
+        // $cv = cv::with('user')->where('user_id',$id)->get()->first();
         $pdf = Storage::disk('cv')->get($path);
         /*render pdf in browser */
         $response = Response::make($pdf, 200);

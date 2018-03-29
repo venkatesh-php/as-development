@@ -26,7 +26,7 @@
         background: #dddddd !important;
     }
 </style>
-@extends('layouts.tutapp')
+@extends('layouts.app')
 @section('content')
     <div class="container">
             @foreach($studentData->enrollment as $enrollment)

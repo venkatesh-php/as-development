@@ -1,4 +1,4 @@
-@extends('layouts.tutapp')
+@extends('layouts.app')
 <style>
     .container{
         background: white;
@@ -11,7 +11,7 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Accounted created</th>
+                <th>Account created at</th>
                 <th>status</th>
             </tr>
             @foreach($students as $student)

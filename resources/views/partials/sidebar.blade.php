@@ -49,7 +49,13 @@
                     </li>
                 </ul>
             </li>
+            <li>
+                <a href="{{ route('institute.index') }}">
+                    <i class="fa fa-building"></i>
+                    <span class="title">Add institute</span>
+                </a>
             
+            </li>            
          
 
             

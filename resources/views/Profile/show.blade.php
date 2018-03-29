@@ -77,8 +77,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-5">
+                        @foreach($created_at as $create)
+                            <h3>ASDP Start date : {{ $create->created_at}}</h3> 
+                        @endforeach 
 
-                            <h3>ASDP Start date : {{ Auth::user()->created_at }}</h3>               
                             <h3>Association with ASDP : {{ $days }} days </h3> 
                             <h3>Completed tasks : {{ $completedtasks}}</h3>
                             <h3>Total Credits : {{ $totalcredits}}</h3>

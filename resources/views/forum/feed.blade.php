@@ -1,4 +1,4 @@
-@extends('layouts.tutapp')
+@extends('layouts.app')
 @section('content')
 <div class="panel">
     <div class="panel-heading">

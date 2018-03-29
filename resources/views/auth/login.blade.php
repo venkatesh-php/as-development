@@ -30,7 +30,7 @@
                                 <!-- <li><a href="{{ url('/logout') }}"><b>logout</b></a></li> -->
                             @else          
                                 <li><a href="{{ url('/login') }}"><span style="color:white" class="glyphicon glyphicon-log-in"></span><b style="color:white"> Login</b></a></li>
-                                <li><a href="{{ url('/register') }}"><span style="color:white" class="glyphicon glyphicon-user"></span><b style="color:white"> Sign Up</b></a></li>
+                                <li><a href="{{ url('/register') }}"><span style="color:white" class="glyphicon glyphicon-user"></span><b style="color:white"> Registration</b></a></li>
                             @endif
                        
                         @endif
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                         
-                    </div>
+                   
                         
                         {{--  <p class="text-center margin-bottom-3">
                             Or Login with
@@ -111,9 +111,16 @@
                         @include('partials.socials-icons')  --}}
 
                     </form>
-                   
-
-                    
+                    <h6><center>Don't Have Account Please Register Here</center></h6>
+                            <div class="form-group margin-bottom-3">
+                                <div class="col-md-8 col-md-offset-4">
+                                    <button  class="btn btn-success">
+                                        <a href="{{ url('/register') }}"><b style="color:white">Register</b></a>   
+                                    </button>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
                 </div>
             </div>
         </div>

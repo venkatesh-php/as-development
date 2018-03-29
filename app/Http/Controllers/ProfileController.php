@@ -169,13 +169,15 @@ class ProfileController extends Controller
                     ->where('assign_tasks.status','drop')
                     ->orderBy('assign_tasks.updated_at','desc')->get();
 
-
+                    $created_at = DB::table('users')->where('users.id',$id)
+                    ->select('users.created_at')->get();
                     $totaltasks = $assign_tasks->count();
                     $totalcredits = $completedtasks->sum('user_credits');
                     $completedtasks = $completedtasks->count();
                     $droptasks = $droptasks->count();
 
-                    $fdate = Auth::user()->created_at;
+
+                    $fdate =  User::find($id)->created_at;
                     $tdate = date('Y-m-d H:s:i');
                     $datetime1 = new \DateTime($fdate);
                     $datetime2 = new \DateTime($tdate);
@@ -186,7 +188,7 @@ class ProfileController extends Controller
                     // $institute_name = DB::table('institutes')->where('institutes.id',Auth::User()->institutes_id)->select('institutes.name')->get();
 
 
-                    return view('Profile.show', ['assign_chart' => $assign_chart,'completed_chart' => $completed_chart,'progress_chart' => $progress_chart])->with(compact('users','totaltasks','totalcredits','days','completedtasks','droptasks'));
+                    return view('Profile.show', ['assign_chart' => $assign_chart,'completed_chart' => $completed_chart,'progress_chart' => $progress_chart])->with(compact('users','totaltasks','totalcredits','days','completedtasks','droptasks','created_at'));
                             // return view('Profile.show',compact('users'));
 }
 

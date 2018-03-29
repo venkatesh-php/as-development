@@ -32,8 +32,8 @@
                                 <li><a href="{{ url('/home') }}"><b style="color:white">Home</b></a></li>
                                 <!-- <li><a href="{{ url('/logout') }}"><b>logout</b></a></li> -->
                             @else          
-                                <li><a href="{{ url('/login') }}"><span style="color:white" class="glyphicon glyphicon-log-in"></span><b style="color:white"> Login</b></a></li>
-                                <li><a href="{{ url('/register') }}"><span style="color:white" class="glyphicon glyphicon-user"></span><b style="color:white"> Sign Up</b></a></li>
+                                <!-- <li><a href="{{ url('/login') }}"><span style="color:white" class="glyphicon glyphicon-log-in"></span><b style="color:white"> Login</b></a></li> -->
+                                <li><a href="{{ url('/register') }}"><span style="color:white" class="glyphicon glyphicon-user"></span><b style="color:white">Registration</b></a></li>
                             @endif
                        
                         @endif
