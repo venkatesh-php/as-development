@@ -56,12 +56,75 @@
                 </a>
             
             </li>            
-         
 
-            
             @endcan
 
+
             
+            
+            @if(isMentor())
+            <li>
+                <a href="{{ route('createCourse') }}">
+                
+                    <i class="fa fa-book"></i>
+                    <span class="title">New course</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('courses') }}">
+ 
+                <i class="fa fa-archive"></i>
+                    <span class="title">My courses</span>
+                </a>
+            </li>
+            <!-- <li><a href="#">Students</a></li>   -->
+            @elseif(isAdmin())
+            <li>
+                <a href="{{ route('ReviewCV') }}">
+    
+                    <i class="fa fa-male"></i>
+                    <span class="title">Mentors</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('Allcourses') }}">
+          
+                    <i class="	fa fa-folder"></i>
+                    <span class="title">Courses</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('Allstudents') }}">
+              
+                    <i class="fa fa-users"></i>
+                    <span class="title">Students</span>
+                </a>
+            </li>
+            @elseif(isStudent())
+            <li>
+                <a href="{{ route('courseLibrary') }}">
+               
+                    <i class="fa fa-arrow-left"></i>
+                    <span class="title">Library</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('studentCourses') }}">
+                  
+                    <i class="fa fa-arrow-left"></i>
+                    <span class="title">My courses</span>
+                </a>
+            </li>
+            @endif
+
+            
+            <li>
+                <a href="{{ route('forumFeed') }}">
+                    
+                    <i class="fa fa-desktop"></i>
+                    <span class="title">Forum</span>
+                </a>
+            </li>
 
             <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
                 <a href="{{ route('auth.change_password') }}">

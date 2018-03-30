@@ -35,26 +35,26 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
 
-                        @if (Route::has('login'))
+                        <!-- @if (Route::has('login')) -->
 
-                            @if (Auth::guest())
+                            <!-- @if (Auth::guest())
                             <li><a href="{{ url('/login') }}"><span style="color:white" class="glyphicon glyphicon-log-in"></span><b style="color:white"> Login</b></a></li>
                             <li><a href="{{ url('/register') }}"><span style="color:white" class="glyphicon glyphicon-user"></span><b style="color:white"> Sign Up</b></a></li>
                             @elseif(isMentor())
                             <li><a href="{{ route('createCourse') }}"><b>New course</b></a></li>
                             <li><a href="{{ route('courses') }}"><b>My courses</b></a></li>
                             <!-- <li><a href="#">Students</a></li>   -->
-                            @elseif(isAdmin())
+                            <!-- @elseif(isAdmin())
                             <li><a href="{{ route('ReviewCV') }}"><b>Mentors</b></a></li>
                             <li><a href="{{ route('Allcourses') }}"><b>Courses</b></a></li>
                             <li><a href="{{ route('Allstudents') }}"><b>Students</b></a></li>
                             @elseif(isStudent())
                             <li><a href="{{ route('courseLibrary') }}"><b>Library</b></a></li>
                             <li><a href="{{ route('studentCourses') }}"><b>My courses</b></a></li>
-                            @endif
+                            @endif --> 
                
                             @if (Auth::check())
-                                <li><a href="{{ route('forumFeed') }}"><b>Forum</b></a></li>
+                                <!-- <li><a href="{{ route('forumFeed') }}"><b>Forum</b></a></li> -->
                                 <li><a href=""><b>Welcome {{Auth::user()->name}}</b></a></li>
                                 <li>
                                     <a href="#logout" onclick="$('#logout').submit();">
@@ -67,7 +67,7 @@
                                 <li><a href="{{ url('/register') }}"><span style="color:white" class="glyphicon glyphicon-user"></span><b style="color:white"> Sign Up</b></a></li> -->
                             
                        
-                        @endif
+                        <!-- @endif -->
                    
                     </ul>
                 </div>
