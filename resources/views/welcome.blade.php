@@ -125,23 +125,25 @@
                                     <button type="submit" class="btn btn-primary">
                                         Login
                                     </button>
-
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         Forgot Your Password?
                                     </a>
                                 </div>
                             </div>
                         </form> 
-                            <h6><center>Don't Have Account Please Register Here</center></h6>
-                            <div class="form-group margin-bottom-3">
-                                <div class="col-md-8 col-md-offset-4">
+                       
+                            <!-- <h6><center>Don't Have Account Please Register Here</center></h6> -->
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
                                     <button  class="btn btn-success">
                                         <a href="{{ url('/register') }}"><b style="color:white">Register</b></a>   
                                     </button>
+                                   
                                 </div>
                             </div>
                             <br>
-                            <br>
+                            <br>    
+                      
                     </div>
             </div>
         </div>
