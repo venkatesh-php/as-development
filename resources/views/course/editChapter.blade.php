@@ -17,21 +17,20 @@
     <script src="/js/summernote.js"></script>
 
     <div class="container" id="course-wrapper">
-        <span class="alert alert-red">- Add a new chapter -</span>
+        <span class="alert alert-red">- Edit chapter -</span>
         <hr>
-        <h1 class="text-center">{{$course->name}}</h1>
-        <hr>
+<label for="name">{{$chapter}}</label>
         {{--chapter form--}}
-        <form action="{{ route('postChapter',['id'=>he($course->id)]) }}" id="chapter_form" method="post" enctype="multipart/form-data">
+        <form action="{{ route('postChapter',['id'=>he($chapter->course_id)]) }}" id="chapter_form" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             {{--chapter name--}}
             <div class="form-group">
                 <label for="name">Name of chapter</label>
-                <input type="text" name="name" class="form-control" required>
+                <input type="text" name="name" class="form-control" value="{{$chapter->name}}">
             </div>
             {{--chapter task builder--}}
             <div class="form-group">
-                <label for="notes_editor">Task Selector</label>
+                <label for="task_editor">Task Selector</label>
                 <a id="more" href="#" onclick="showTasks()">Select Task</a>
                 
                 <div id="details"></div>
@@ -66,11 +65,14 @@
         <script>
 
             /* setup rich text editor */
-            $('#notes_editor').summernote({
+            
+             $('#notes_editor').html( "<?php echo ($chapter->notes);?>" );
+             $('#notes_editor').summernote({
                 height: 300,
                 minHeight: null,
                 maxHeight: null,
                 focus: true,
+                
                 theme:'default'
             });
 

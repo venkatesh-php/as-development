@@ -3,6 +3,9 @@
 
 <head>
     @include('partials.head')
+
+    
+
 </head>
 
 

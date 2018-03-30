@@ -60,6 +60,9 @@ Route::group(['prefix' => 'mentor'], function () {
         /*preview a particular course */
         Route::get('course/{course_id}/chapter/{id}/preview','mentor\mentorController@previewChapter')
             ->name('previewChapter');
+        Route::get('course/{course_id}/chapter/{id}/edit','mentor\mentorController@editChapter')
+            ->name('editChapter');
+            
 
         /*Load the quiz maker interface*/
         Route::get('chapter/{id}/quiz','mentor\mentorController@quizMaker')
