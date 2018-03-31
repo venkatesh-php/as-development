@@ -239,6 +239,18 @@ class mentorController extends Controller
             ->with('questions',$questions);
     }
 
+    /*Render Quiz creation form*/
+    public function pinTask($chapter_id){
+        $chapter_id = hd($chapter_id);
+        $task = task::firstOrCreate(['chapter_id'=>$chapter_id]);
+        $tasks = $task->question()->get();
+        $course = $task->chapter->course;
+        /*return $quiz_data*/;
+        return view('task.index')
+            ->with('course',$course)
+            ->with('tasks',$tasks);
+    }
+
     /*create a new question for the quiz*/
     public function createQuiz($chapter_id,Request $request){
         /*find the chapter*/

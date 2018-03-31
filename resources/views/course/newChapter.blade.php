@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 <style>
     #course-wrapper {
@@ -12,9 +13,7 @@
 
 @section('content')
 
-    {{--rich text editor scripts & styles--}}
-    <link href="/css/summernote.css" rel="stylesheet">
-    <script src="/js/summernote.js"></script>
+
 
     <div class="container" id="course-wrapper">
         <span class="alert alert-red">- Add a new chapter -</span>
@@ -30,7 +29,7 @@
                 <input type="text" name="name" class="form-control" required>
             </div>
             {{--chapter task builder--}}
-            <div class="form-group">
+            {{--  <div class="form-group">
                 <label for="notes_editor">Task Selector</label>
                 <a id="more" href="#" onclick="showTasks()">Select Task</a>
                 
@@ -38,7 +37,7 @@
                 
           
                 
-            </div>
+            </div>  --}}
 
             
 
@@ -101,43 +100,11 @@
 
             
 
-            function showTasks(){
-                $('#details').html(
-                       `
-
-                    @include('partials.subject-task')
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
-                    @include('partials.tasks')   
-               
-                    `
-                    );
-              /*  $.ajax(
-                {     
-                type:    'get',
-                url:   'AdminTasks/gettasks',
-                
-                dataType: 'json',
-                //alert(data);
-                success: function(data) 
-                {
-                    $('.details').slideToggle(function(){$('#more')
-                    .html($('.details').is(':visible')
-                    ?'See Less Details':'See More Details');
-                    }); 
-                    
-                    console.log(data)
-                }   
-                });*/
-            }
+           
         </script>
     </div>
 @endsection
 <!-- Scripts -->
-    <script src="/js/jquery.js"></script>
-    <script src="/js/bootstrap.js"></script>
+    
 
 
