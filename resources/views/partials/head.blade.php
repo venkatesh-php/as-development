@@ -3,12 +3,9 @@
     {{ trans('global.global_title') }}
 </title>
 
-<meta http-equiv="X-UA-Compatible"
-      content="IE=edge">
-<meta content="width=device-width, initial-scale=1.0"
-      name="viewport"/>
-<meta http-equiv="Content-type"
-      content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -47,7 +44,35 @@
     background-color: #347AB6;
     border-color: #E7E7E7;
 }
-
 </style>
+
+
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+
+<!-- Styles -->
+<link href="/css/app.css" rel="stylesheet">
+<!-- Scripts -->
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script>
+    window.Laravel = <?php echo json_encode([
+        'csrfToken' => csrf_token(),
+    ]); ?>
+</script>
+<style>
+    .cover{
+        background-size: cover;
+    }
+</style>
+
+
+
+
+
+
+ 
+
 
 

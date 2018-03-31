@@ -10,11 +10,18 @@
     }
 </style>
 
+
+
 @section('content')
 
     {{--rich text editor scripts & styles--}}
     <link href="/css/summernote.css" rel="stylesheet">
     <script src="/js/summernote.js"></script>
+
+
+
+
+
 
     <div class="container" id="course-wrapper">
         <span class="alert alert-red">- Add a new chapter -</span>
@@ -33,7 +40,7 @@
             {{--chapter notes editor--}}
             <div class="form-group">
                 <label for="notes_editor">Chapter notes</label>
-                <div id="notes_editor" class="form-control"></div>
+                <div id="notes_editor" name="notes" class="form-control"></div>
             </div>
 
             {{--chapter Ebooks/presentation--}}

@@ -54,7 +54,7 @@
 <button type="submit">Logout</button>
 {!! Form::close() !!}
 
-@include('partials.javascripts')
+<!-- @include('partials.javascripts') -->
 
 </body>
 </html>

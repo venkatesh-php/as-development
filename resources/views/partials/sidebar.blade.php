@@ -104,14 +104,14 @@
             <li>
                 <a href="{{ route('courseLibrary') }}">
                
-                    <i class="fa fa-arrow-left"></i>
+                    <i class="fa fa-building"></i>
                     <span class="title">Library</span>
                 </a>
             </li>
             <li>
                 <a href="{{ route('studentCourses') }}">
                   
-                    <i class="fa fa-arrow-left"></i>
+                    <i class="fa fa-book"></i>
                     <span class="title">My courses</span>
                 </a>
             </li>
