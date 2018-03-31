@@ -22,7 +22,7 @@
 
                         <!--quick info section -->
                             <div class="row">
-                                <div class="col-lg-3">
+                                <!-- <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
                                         <a style="text-decoration:none;" href="{{ url('/tuthome') }}">
                                             <div class="alert alert-success">                                     
@@ -35,7 +35,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
@@ -57,7 +57,7 @@
                                 <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
                                         <a style="text-decoration:none;" href="{{ route('viewprofile.index') }}">
-                                            <div class="alert alert-warning">
+                                            <div class="alert alert-success">
                                                 <i class="fa fa-cogs fa-3x"></i>
                                                 
                                                 <h3>Profile</h3>
