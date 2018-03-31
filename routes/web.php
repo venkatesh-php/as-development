@@ -106,6 +106,7 @@
             'uses' => 'ProfilesController@show',
         ]);
         Route::resource('AdminTasks','AdminTasksController');
+        Route::get('mentor/course/{id}/AdminTasks/gettasks', ['as' => 'AdminTasks.getTasks',   'uses' => 'AdminTasksController@getTasks']);
         Route::resource('AssignTasks','AssignTasksController');
         Route::resource('Profile','ProfileController');
         Route::resource('viewprofile','ViewprofileController');

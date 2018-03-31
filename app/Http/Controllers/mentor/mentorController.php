@@ -8,11 +8,13 @@ use App\cv;
 use App\question;
 use App\questions;
 use App\quiz;
+use Auth;
+use App\AdminTasks;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
@@ -22,6 +24,18 @@ use Vinkla\Hashids\Facades\Hashids;
 
 class mentorController extends Controller
 {
+    public function getTasks(Request $request)
+    {
+        $admin_tasks = AdminTasks::orderBy('id','DESC')
+                        ->where('admin_tasks.institutes_id',Auth::user()->institutes_id)
+                        ->where('admin_tasks.user_id',Auth::user()->id) 
+                        ->paginate(15);
+        $subjects = DB::table('subjects')
+                    ->where('subjects.user_id',Auth::user()->id)
+                    ->select('subjects.*')->get();
+
+        return compact('admin_tasks','subjects');
+    }
 
     /*show mentors dashboard*/
     public function showDashboard()
@@ -195,6 +209,16 @@ class mentorController extends Controller
         return view('course.viewChapter')->with('chapter',$chapter);
     }
 
+    /*Preview a particular chapter*/
+    public function editChapter($course_id,$id){
+        $id = hd($id);
+        $course_id = hd($course_id);
+        // $course_name = $course_name;
+        $chapter  = chapter::where('id',$id)->with('course')->where('course_id',$course_id)->first();
+    //    return $chapter;
+        return view('course.editChapter')->with('chapter',$chapter);
+    }
+
     /*preview pdf ebook */
     public function serveEbook($id){
         $ebook = Storage::disk('pdf')->get($id);
@@ -213,6 +237,18 @@ class mentorController extends Controller
         return view('quiz.create')
             ->with('course',$course)
             ->with('questions',$questions);
+    }
+
+    /*Render Quiz creation form*/
+    public function pinTask($chapter_id){
+        $chapter_id = hd($chapter_id);
+        $task = task::firstOrCreate(['chapter_id'=>$chapter_id]);
+        $tasks = $task->question()->get();
+        $course = $task->chapter->course;
+        /*return $quiz_data*/;
+        return view('task.index')
+            ->with('course',$course)
+            ->with('tasks',$tasks);
     }
 
     /*create a new question for the quiz*/

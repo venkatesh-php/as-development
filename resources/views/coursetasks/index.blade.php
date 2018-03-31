@@ -10,6 +10,6 @@
 @endif
 
 
-@include('partials.tasks')
+@include('partials.coursetasks')
 
 @endsection

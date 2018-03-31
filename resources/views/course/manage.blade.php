@@ -83,8 +83,9 @@
                             </h2>
                             <div class="panel-body">
                                 <div class="btn-group inline pull-right">
-                                    <a href="#" class="button btn btn-blue">Edit </a>
+                                    <a href="{{ route('editChapter',['course_name'=>$course->name,'course_id'=>$id,'id'=>$chapter_id])}}" class="button btn btn-blue">Edit </a>
                                     <a href="{{ route('quizMaker',['id'=>he($chapter->id)]) }}" class="button btn btn-quiz">Quiz</a>
+                                    <a href="{{ route('taskMaker',['id'=>he($chapter->id)]) }}" class="button btn btn-primary">Task</a>
                                     <a href="{{route('previewChapter',['course_id'=>$id,'id'=>$chapter_id])}}" class="button btn btn-preview" target="_blank"> Preview </a>
                                 </div>
                                 <div class="btn-group inline pull-left">
