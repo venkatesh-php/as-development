@@ -60,7 +60,7 @@
     }
 </style>
 @section('content')
-            <?php $count = 0  ?>
+            <?php $count = 0 ?>
             <?php $id= he($course->id)?>
             <div class="cover">
                 <h1 class="text-center">{{$course->name}}</h1>
@@ -75,18 +75,25 @@
                     class="center-block button btn-blue btn ">Add new chapter</a>
                 <div class="panel-group">
                     @foreach($course->chapter as $chapter)
-                        <?php $chapter_id = he($chapter->id) ?>
+                        <?php $tcount = 0 ?>
+                        
                         <div class="panel panel-default chapter">
                             <p class="label label-chapter"> Chapter{{$count+=1}}</p>
+                            
+                            @foreach($chapter->tasks as $task)
+                            {{--  <p class="label label-success"> {{$task}}</p>  --}}
+                            <p class="label label-success"> Task{{$tcount+=1}}</p>
+                            @endforeach
                             <h2 class="text-center">
-                                {{$chapter->name}}
+                               {{$chapter->id}}: {{$chapter->name}} 
+                                
                             </h2>
                             <div class="panel-body">
                                 <div class="btn-group inline pull-right">
-                                    <a href="{{ route('editChapter',['course_name'=>$course->name,'course_id'=>$id,'id'=>$chapter_id])}}" class="button btn btn-blue">Edit </a>
+                                    <a href="{{ route('editChapter',['course_name'=>$course->name,'course_id'=>$id,'id'=>he($chapter->id)])}}" class="button btn btn-blue">Edit </a>
                                     <a href="{{ route('quizMaker',['id'=>he($chapter->id)]) }}" class="button btn btn-quiz">Quiz</a>
                                     <a href="{{ route('taskMaker',['id'=>he($chapter->id)]) }}" class="button btn btn-primary">Task</a>
-                                    <a href="{{route('previewChapter',['course_id'=>$id,'id'=>$chapter_id])}}" class="button btn btn-preview" target="_blank"> Preview </a>
+                                    <a href="{{route('previewChapter',['course_id'=>$id,'id'=>he($chapter->id)])}}" class="button btn btn-preview" target="_blank"> Preview </a>
                                 </div>
                                 <div class="btn-group inline pull-left">
                                     <a href="#" class="button btn btn-danger pull-left">Delete</a>

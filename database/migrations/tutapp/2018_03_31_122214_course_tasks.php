@@ -28,6 +28,7 @@ class CourseTasks extends Migration
             $table->foreign('priority_reviewer_id')->references('id')->on('users')
             ->onDelete('cascade');
             $table->timestamps();
+           
         });
     }
 

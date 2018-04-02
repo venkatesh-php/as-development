@@ -45,8 +45,8 @@ $admin_tasks = AdminTasks::orderBy('id','DESC')
                         <td>
                             <!-- <a class="btn btn-info btn-xs" href="{{ route('AdminTasks.show',$task->id) }}">Show</a> -->
                             <a class="btn btn-primary btn-xs" href="{{ route('AdminTasks.edit',$task->id) }}">Edit</a>
-                            <a class="btn btn-success btn-xs" href="{{ route('mentorController.pintask',$task->id) }}">Pin Task</a>
-
+                            {{--  <a class="btn btn-success btn-xs" href="{{ route('mentorController.pinTask',$task->id,$task->id) }}">Pin Task</a>  --}}
+                            <a href="{{ route('pinTask',['id'=>$chapter_id,'task_id'=>$task->id]) }}" class="button btn btn-primary">Pin Task</a>
                             {{--  {!! Form::open(['method' => 'DELETE','route' => ['AdminTasks.destroy', $task->id],'style'=>'display:inline']) !!}
                             {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!} 
                             {!! Form::close() !!}  --}}

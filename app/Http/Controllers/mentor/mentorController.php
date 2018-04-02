@@ -8,7 +8,9 @@ use App\cv;
 use App\question;
 use App\questions;
 use App\quiz;
+use App\CourseTask;
 use Auth;
+use DB;
 use App\AdminTasks;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,22 +23,94 @@ use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\Types\Array_;
 use Symfony\Component\DomCrawler\Image;
 use Vinkla\Hashids\Facades\Hashids;
+use Illuminate\Support\Facades\Input;
 
 class mentorController extends Controller
 {
-    public function getTasks(Request $request)
+    public function taskMaker($chapter_id)
     {
+        $chapter_id = hd($chapter_id);
         $admin_tasks = AdminTasks::orderBy('id','DESC')
                         ->where('admin_tasks.institutes_id',Auth::user()->institutes_id)
+                        
                         ->where('admin_tasks.user_id',Auth::user()->id) 
+                        // ->orWhere('admin_tasks.institutes_id',1)
                         ->paginate(15);
         $subjects = DB::table('subjects')
                     ->where('subjects.user_id',Auth::user()->id)
                     ->select('subjects.*')->get();
 
-        return compact('admin_tasks','subjects');
+        $teachers = DB::table('users')
+                    ->where('institutes_id',Auth::User()->institutes_id)        
+                    ->where('role_id','<=',5) 
+                    ->select('id','first_name','last_name')
+                    ->get();
+
+        // return compact('admin_tasks','subjects');
+        return view('coursetasks.index')->with('admin_tasks',$admin_tasks)
+        ->with('subjects',$subjects)->with('chapter_id',$chapter_id)
+        ->with('teachers',$teachers);
+    }
+    /*Render Quiz creation form*/
+    public function pinTask(Request $request){
+        // $chapter_id = hd($chapter_id);
+        // return
+        $input = Input::except('_method', '_token');
+        $task = Coursetask::firstOrCreate($input);
+        // $roles = $request->input('roles') 
+        // $tasks = $task->question()->get();
+        // $course = $task->chapter->course;
+        // /*return $quiz_data*/;
+        // return view('task.index')
+        //     ->with('course',$course)
+        //     ->with('tasks',$tasks);
+        // return $input;
+        // return view('coursetasks.index')->with('admin_tasks',$admin_tasks)
+        // ->with('subjects',$subjects);
+        // $id = $input->chapter_id;
+      $c=chapter::where('id',$request->chapter_id)
+       -> select('course_id')->first();
+
+       return redirect()->route('manageCourse',['id'=>he($c->course_id)]) ;
+        
+        // $course = course::with('chapter')->get()->all();
+        // if(count($course)!=0){
+        //     $course = course::with('chapter')->where('id',$id)->get()->first();
+            
+        //     return view('course.manage')->with('course',$course);
+        // }
     }
 
+    public function show(Request $request)
+    {
+        // $admin_tasks = AdminTasks::find($id);
+        // return view('AdminTasks.show',compact('admin_tasks'));
+        // echo($id);
+        $subject= $request->subject;
+        $admin_tasks = AdminTasks::orderBy('id','DESC')
+                        ->where('admin_tasks.subject',$subject)
+                        ->where('admin_tasks.user_id',Auth::user()->id)
+                        ->paginate(15);
+
+        $subjects = DB::table('subjects')
+                    ->where('subjects.user_id',Auth::user()->id)
+                    ->select('subjects.*')->get();
+
+        $teachers = DB::table('users')
+                    ->where('institutes_id',Auth::User()->institutes_id)        
+                    ->where('role_id','<=',5) 
+                    ->select('id','first_name','last_name')
+                    ->get();
+
+        // return compact('admin_tasks','subjects');
+        return view('coursetasks.index')->with('admin_tasks',$admin_tasks)
+        ->with('subjects',$subjects)->with('chapter_id',$request->chapter_id)
+        ->with('teachers',$teachers);
+
+        // return view('AdminTasks.index',compact('subjects','admin_tasks'))
+        //     ->with('i', ($request->input('page', 1) - 1) * 15);
+           
+    }
     /*show mentors dashboard*/
     public function showDashboard()
     {
@@ -129,17 +203,37 @@ class mentorController extends Controller
           return redirect()->route('courses')->withErrors(['perm_error','You dont have  permission to delete that course']);
        }
     }
-    
+    // public function getTaskIds($chid,$tasks){
+    //     $taskids=[];
+    //     foreach ($tasks as $task){
+    //         if($task->id==$chid){
+    //             $taskids.append($task->id);
+    //         }
+    //     }
+    //     return $taskids;
+
+    // }
     /*Manage a course */
     public  function manageCourse($course_id){
         $id = hd($course_id);
         
-        $course = course::with('chapter')->get()->all();
-        if(count($course)!=0){
-            $course = course::with('chapter')->where('id',$id)->get()->first();
-            
-            return view('course.manage')->with('course',$course);
-        }
+        // $course = course::with('chapter')->get()->all();
+        // return $course;
+        // if(count($course)!=0){
+            // return 
+            $course = course::with('chapter')->where('id',$id)->get()->first();             
+            $chids=array_column($course->chapter->toArray(),'id');
+          $tasks=coursetask::whereIn('chapter_id',$chids)->get();
+        //   $tids=array_column($tasks,'task_id');
+        //   $tchids=array_column($tasks,'chapter_id');
+        //   var_dump($tids,$tchids);
+          foreach ($course->chapter as $cch ){
+            $cch->tasks=getTaskIds($cch->id,$tasks);
+          }
+        //   return             $course;
+
+            return view('course.manage')->with('course',$course); 
+        // }
     }
 
     /*create a new chapter*/
@@ -206,7 +300,13 @@ class mentorController extends Controller
         $course_id = hd($course_id);
         $chapter  = chapter::where('id',$id)->with('course')->where('course_id',$course_id)->first();
     //    return $chapter;
-        return view('course.viewChapter')->with('chapter',$chapter);
+    $tasks=coursetask::where('chapter_id',$id)
+        ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
+        ->join('users as users_g','users_g.id','coursetasks.priority_guide_id')
+        ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
+        ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
+        ->get();
+        return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
     }
 
     /*Preview a particular chapter*/
@@ -239,17 +339,7 @@ class mentorController extends Controller
             ->with('questions',$questions);
     }
 
-    /*Render Quiz creation form*/
-    public function pinTask($chapter_id){
-        $chapter_id = hd($chapter_id);
-        $task = task::firstOrCreate(['chapter_id'=>$chapter_id]);
-        $tasks = $task->question()->get();
-        $course = $task->chapter->course;
-        /*return $quiz_data*/;
-        return view('task.index')
-            ->with('course',$course)
-            ->with('tasks',$tasks);
-    }
+
 
     /*create a new question for the quiz*/
     public function createQuiz($chapter_id,Request $request){

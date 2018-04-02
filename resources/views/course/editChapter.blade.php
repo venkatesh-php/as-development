@@ -13,8 +13,8 @@
 @section('content')
 
     {{--rich text editor scripts & styles--}}
-    <link href="/css/summernote.css" rel="stylesheet">
-    <script src="/js/summernote.js"></script>
+    {{--  <link href="/css/summernote.css" rel="stylesheet">
+    <script src="/js/summernote.js"></script>  --}}
 
     <div class="container" id="course-wrapper">
         <span class="alert alert-red">- Edit chapter -</span>
@@ -103,7 +103,7 @@
 
             
 
-            function showTasks(){
+      /*      function showTasks(){
                 $('#details').html(
                        `
 
@@ -117,24 +117,9 @@
                
                     `
                     );
-              /*  $.ajax(
-                {     
-                type:    'get',
-                url:   'AdminTasks/gettasks',
-                
-                dataType: 'json',
-                //alert(data);
-                success: function(data) 
-                {
-                    $('.details').slideToggle(function(){$('#more')
-                    .html($('.details').is(':visible')
-                    ?'See Less Details':'See More Details');
-                    }); 
-                    
-                    console.log(data)
-                }   
-                });*/
+
             }
+            */
         </script>
     </div>
 @endsection

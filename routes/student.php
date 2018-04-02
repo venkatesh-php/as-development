@@ -33,4 +33,7 @@ Route::group(['middleware' => ('role:student'),'prefix' => 'student'], function 
     /*preview a particular chapter */
     Route::get('course/{course_id}/chapter/{id}','student\studentController@viewChapter')
         ->name('viewChapter');
+    
+    Route::get('course/{coursetask_id}/assign','student\studentController@assignTask')
+        ->name('assigntask');
 });

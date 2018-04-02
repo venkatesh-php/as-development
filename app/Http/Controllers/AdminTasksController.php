@@ -28,20 +28,20 @@ class AdminTasksController extends Controller
     public function index(Request $request)
     {
         
-        // $admin_tasks = AdminTasks::orderBy('id','DESC')
-        //                 ->where('admin_tasks.institutes_id',Auth::user()->institutes_id)
-        //                 ->where('admin_tasks.user_id',Auth::user()->id) 
-        //                 ->paginate(15);
+        $admin_tasks = AdminTasks::orderBy('id','DESC')
+                        ->where('admin_tasks.institutes_id',Auth::user()->institutes_id)
+                        ->where('admin_tasks.user_id',Auth::user()->id) 
+                        ->paginate(15);
 
-        // $subjects = DB::table('subjects')
-        //             ->where('subjects.user_id',Auth::user()->id)
-        //             ->select('subjects.*')->get();
+        $subjects = DB::table('subjects')
+                    ->where('subjects.user_id',Auth::user()->id)
+                    ->select('subjects.*')->get();
 
-        // return view('AdminTasks.index',compact('admin_tasks','subjects'))
-        //     ->with('i', ($request->input('page', 1) - 1) * 15);
-        return view('AdminTasks.index')
-        ;
-        // ,compact('admin_tasks','subjects'))
+        return view('AdminTasks.index',compact('admin_tasks','subjects'))
+            ->with('i', ($request->input('page', 1) - 1) * 15);
+        // return view('AdminTasks.index')
+        // // ;
+        // compact('admin_tasks','subjects'))
         //     ->with('i', ($request->input('page', 1) - 1) * 15);
     }
 

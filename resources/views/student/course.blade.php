@@ -74,12 +74,18 @@ function makeColor(){
 
             <div class="panel-group">
                 @foreach($course->chapter as $chapter)
+                    <?php $tcount = 0 ?>
                     <?php $chapter_id = he($chapter->id) ?>
                     <div class="panel panel-default chapter">
                         <p class="label label-chapter"> Chapter{{$count+=1}}</p>
+                        @foreach($chapter->tasks as $task)
+                            {{--  <p class="label label-success"> {{$task}}</p>  --}}
+                            <p class="label label-success"> Task{{$tcount+=1}}</p>
+                        @endforeach
                         <h2 class="text-center">
-                            {{$chapter->name}}
+                           {{$chapter->id}}: {{$chapter->name}}
                         </h2>
+
                         <div class="panel-body">
                             <div class="btn-group inline pull-right">
                                 <a href="{{ route('viewQuiz',['id'=>he($chapter->id)]) }}" class="button btn btn-quiz" target="_blank">Quiz</a>

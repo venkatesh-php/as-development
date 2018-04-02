@@ -159,7 +159,7 @@ class ActivateController extends Controller
         // $user->detachAllRoles();
         // $user->attachRole($role);
         $user->signup_confirmation_ip_address = $ipAddress->getClientIp();
-        $user->profile()->save($profile);
+        // $user->profile()->save($profile);
         $user->save();
 
         $allActivations = Activation::where('user_id', $user->id)->get();

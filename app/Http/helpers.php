@@ -30,7 +30,18 @@ function hd($id){
     return Hashids::decode($id)[0];
 }
 
+function getTaskIds($chid,$tasks){
+    $taskids=[];
+    foreach ($tasks as $task){
+        // var_dump($task->id,$chid,'\n');
+        if($task->chapter_id==$chid){
+           array_push( $taskids, $task->task_id);
+            // print_r('yes');
+        }
+    }
+    return $taskids;
 
+}
 
 /*check whether user is mentor*/
 function isMentor(){

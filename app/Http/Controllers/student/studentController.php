@@ -7,11 +7,14 @@ use App\course;
 use App\enrollment;
 use App\quiz;
 use App\User;
+use App\CourseTask;
+use App\AssignTasks;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 
 class studentController extends Controller
 {
@@ -79,8 +82,14 @@ class studentController extends Controller
     /*view a particular course*/
     public function viewCourse($id){
         $id = hd($id);
-        $course =  course::withCount('chapter')->with('chapter')->where('id',$id)->first();
+        $course =  course::withCount('chapter')->with('chapter')->where('id',$id)->first();          
+        $chids=array_column($course->chapter->toArray(),'id');
+        $tasks=coursetask::whereIn('chapter_id',$chids)->get();
+        foreach ($course->chapter as $cch ){
+            $cch->tasks=getTaskIds($cch->id,$tasks);
+        }
         /*dd($course);*/
+        // return $course;
         return view('student.course')->with('course',$course);
     }
 
@@ -97,8 +106,71 @@ class studentController extends Controller
     public function  viewChapter($course_id,$id){
         $id = hd($id);
         $course_id = hd($course_id);
+
+
         $chapter  = chapter::where('id',$id)->with('course')->where('course_id',$course_id)->first();
-        return view('course.viewChapter')->with('chapter',$chapter);
+
+        $tasks=coursetask::where('chapter_id',$id)
+        ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
+        ->join('users as users_g','users_g.id','coursetasks.priority_guide_id')
+        ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
+        // ->join('assign_tasks','assign_tasks.user_id',Auth::user()->id)
+        // ->where('assign_tasks.course_chapter_id',$tasks->chapter_id)
+        ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
+        ->get();
+        // ->paginate(15);
+        // return [Auth::user()->id,$id];
+       $taskstatuses= AssignTasks::where('user_id',Auth::user()->id)
+       ->where('course_chapter_id',$id)
+       ->select('task_id','status')
+       ->get()
+       ;
+        // $statuses=array_column($taskstatus,'status') ;
+        
+       foreach($taskstatuses as $taskstatus){
+           foreach($tasks as $task){
+            if($taskstatus->task_id==$task->id){
+                $task->status=$taskstatus->status;
+            }
+           }
+       }
+    //    return [$taskstatuses,$tasks];
+        return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
+    }
+
+    public function assignTask($coursetask_id){
+        $coursetask_id=hd($coursetask_id);
+        // return 
+        
+        $ctaskdetails=coursetask::where('id',$coursetask_id)
+        ->select('*')
+        ->first();
+        
+        try 
+            {
+                $record = [
+                    'task_id' => $ctaskdetails->task_id,
+                    'assigned_by_userid' => Auth::user()->id,
+                    'user_id' =>Auth::user()->id,
+                    'guide_id' => $ctaskdetails->priority_guide_id,
+                    'reviewer_id' => $ctaskdetails->priority_guide_id,
+                    'course_chapter_id'=>$ctaskdetails->chapter_id,
+                    'status'=>'initiated',
+                    'target_at' => Carbon::now('Asia/Kolkata')->addDays($ctaskdetails->time_required),
+
+                ];    
+                AssignTasks::create( $record );
+                // return $record;
+                
+            }
+            catch (Exception $e)
+            {
+                render($e);
+
+                return false;
+            }
+            // return ["Successfully assigned",   $record];
+           return redirect()-> route('UserTasks.edit',$record['task_id']);
     }
 
 

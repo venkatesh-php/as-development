@@ -1,10 +1,10 @@
-<?php
+{{--  <?php
 
 
         $subjects = DB::table('subjects')
                     ->where('subjects.user_id',Auth::user()->id)
                     ->select('subjects.*')->get();
-?>
+?>  --}}
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
