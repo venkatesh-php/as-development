@@ -11,7 +11,14 @@
     }
 </style>
 
+
+
 @section('content')
+
+
+
+
+
 
 
 
@@ -33,7 +40,7 @@
             {{--chapter notes editor--}}
             <div class="form-group">
                 <label for="notes_editor">Chapter notes</label>
-                <div id="notes_editor" class="form-control"></div>
+                <div id="notes_editor" name="notes" class="form-control"></div>
             </div>
 
             {{--chapter Ebooks/presentation--}}
