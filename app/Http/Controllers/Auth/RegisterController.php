@@ -56,79 +56,99 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {
-        // $data['captcha'] = $this->captchaCheck();
+        {
+            // $data['captcha'] = $this->captchaCheck();
 
-        // if (!config('settings.reCaptchStatus')) {
-            $data['captcha'] = true;
-        // }
+            // if (!config('settings.reCaptchStatus')) {
+                $data['captcha'] = true;
+            // }
         if($data['role_id']==6){
-        return Validator::make($data,
-            [
-                'role_id' => 'required',
-                'institutes_id' => 'required',
-                'branch_id' => 'required',
-                'batch_id' => 'required',
-                'name'                  => 'required|max:255|unique:users',
-                'first_name'            => '',
-                'last_name'             => '',
-                'email'                 => 'required|email|max:255|unique:users',
-                'password'              => 'required|min:6|max:30|confirmed',
-                'password_confirmation' => 'required|same:password',
-                // 'g-recaptcha-response'  => '',
-                // 'captcha'               => 'required|min:1',
-            ],
-            [
-                'name.unique'                   => trans('auth.userNameTaken'),
-                'name.required'                 => trans('auth.userNameRequired'),
-                'first_name.required'           => trans('auth.fNameRequired'),
-                'last_name.required'            => trans('auth.lNameRequired'),
-                'email.required'                => trans('auth.emailRequired'),
-                'email.email'                   => trans('auth.emailInvalid'),
-                'password.required'             => trans('auth.passwordRequired'),
-                'password.min'                  => trans('auth.PasswordMin'),
-                'password.max'                  => trans('auth.PasswordMax'),
-                // 'g-recaptcha-response.required' => trans('auth.captchaRequire'),
-                // 'captcha.min'                   => trans('auth.CaptchaWrong'),
-            ]
-        );
-    }else{
-        return Validator::make($data,
-        [
-            'role_id' => 'required',
-            'institutes_id' => 'required',
-            
-            'name'                  => 'required|max:255|unique:users',
-            'first_name'            => 'required',
-            'last_name'             => 'required',
-            'email'                 => 'required|email|max:255|unique:users',
-            'password'              => 'required|min:6|max:30|confirmed',
-            'password_confirmation' => 'required|same:password',
-            'phone_number' => 'required',
-            // 'g-recaptcha-response'  => '',
-            // 'captcha'               => 'required|min:1',
-        ],
-        [
-            'name.unique'                   => trans('auth.userNameTaken'),
-            'name.required'                 => trans('auth.userNameRequired'),
-            'first_name.required'           => trans('auth.fNameRequired'),
-            'last_name.required'            => trans('auth.lNameRequired'),
-            'email.required'                => trans('auth.emailRequired'),
-            'email.email'                   => trans('auth.emailInvalid'),
-            'password.required'             => trans('auth.passwordRequired'),
-            'password.min'                  => trans('auth.PasswordMin'),
-            'password.max'                  => trans('auth.PasswordMax'),
-            // 'g-recaptcha-response.required' => trans('auth.captchaRequire'),
-            // 'captcha.min'                   => trans('auth.CaptchaWrong'),
-        ]
-    );
+            $validator= Validator::make($data,
+                [
+                    'role_id' => 'required',
+                    'institutes_id' => 'required',
+                    'branch_id' => 'required',
+                    'batch_id' => 'required',
 
-    }
+                    'first_name'            => 'required|max:255',
+                    // 'last_name'             => 'max:255',
+                    'email'                 => 'required|email|max:255|unique:users',
+                    'password'              => 'required|min:6|max:30|confirmed',
+                    'password_confirmation' => 'required|same:password',
+                    // 'g-recaptcha-response'  => '',
+                    // 'captcha'               => 'required|min:1',
+                ],
+                [
+                    // 'name.unique'                   => trans('auth.userNameTaken'),
+                    // 'name.required'                 => trans('auth.userNameRequired'),
+                    'first_name.required'           => trans('auth.fNameRequired'),
+                    // 'last_name.required'            => trans('auth.lNameRequired'),
+                    'email.required'                => trans('auth.emailRequired'),
+                    'email.email'                   => trans('auth.emailInvalid'),
+                    'password.required'             => trans('auth.passwordRequired'),
+                    'password.min'                  => trans('auth.PasswordMin'),
+                    'password.max'                  => trans('auth.PasswordMax'),
+                    // 'g-recaptcha-response.required' => trans('auth.captchaRequire'),
+                    // 'captcha.min'                   => trans('auth.CaptchaWrong'),
+                ]
+            );
+        }else{
+            $validator= Validator::make($data,
+                [
+                    'role_id' => 'required',
+                    'institutes_id' => 'required',
+                    
+                    // 'name'                  => 'required|max:255|unique:users',
+                    'first_name'            => 'required|max:255',
+                    // 'last_name'             => 'max:255',
+                    'email'                 => 'required|email|max:255|unique:users',
+                    'password'              => 'required|min:6|max:30|confirmed',
+                    'password_confirmation' => 'required|same:password',
+                    'phone_number' => 'required',
+                    // 'g-recaptcha-response'  => '',
+                    // 'captcha'               => 'required|min:1',
+                ],
+                [
+                    // 'name.unique'                   => trans('auth.userNameTaken'),
+                    // 'name.required'                 => trans('auth.userNameRequired'),
+                    'first_name.required'           => trans('auth.fNameRequired'),
+                    // 'last_name.required'            => trans('auth.lNameRequired'),
+                    'email.required'                => trans('auth.emailRequired'),
+                    'email.email'                   => trans('auth.emailInvalid'),
+                    'password.required'             => trans('auth.passwordRequired'),
+                    'password.min'                  => trans('auth.PasswordMin'),
+                    'password.max'                  => trans('auth.PasswordMax'),
+                    // 'g-recaptcha-response.required' => trans('auth.captchaRequire'),
+                    // 'captcha.min'                   => trans('auth.CaptchaWrong'),
+                ]
+            );
+        }
 
-
+        
+        return $validator;
 
         
     }
+
+    // public function register(Request $request)
+    // {
+    //     $validator= $this->validator($request->all()) ->validate();
+
+    //     // if ($validator -> fails()) 
+    //     // { 
+    //     //     return "validator fail";
+    //     //     back() -> withInput() -> withErrors($validator); 
+    //     // }
+ 
+    //     event(new Registered($user = $this->create($request->all())));
+ 
+    //     $this->guard()->login($user);
+ 
+    //     return $this->registered($request, $user)
+    //                     ?: redirect($this->redirectPath());
+    // }
+
+    
 
     /**
      * Create a new user instance after a valid registration.
@@ -157,7 +177,7 @@ class RegisterController extends Controller
                 'institutes_id' =>  $data['institutes_id'],
                 'branch_id' => $data['branch_id'],
                 'batch_id' => $data['batch_id'],
-                'name'              => $data['name'],
+                'name'              => $data['email'],
                 'first_name'        => $data['first_name'],
                 'last_name'         => $data['last_name'],
                 'email'             => $data['email'],
