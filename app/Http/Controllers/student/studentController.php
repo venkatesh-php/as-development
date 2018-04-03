@@ -84,7 +84,7 @@ class studentController extends Controller
         $id = hd($id);
         $course =  course::withCount('chapter')->with('chapter')->where('id',$id)->first();          
         $chids=array_column($course->chapter->toArray(),'id');
-        $tasks=coursetask::whereIn('chapter_id',$chids)->get();
+        $tasks=coursetask::whereIn('chapter_id',$chids)->get(); 
         foreach ($course->chapter as $cch ){
             $cch->tasks=getTaskIds($cch->id,$tasks);
         }

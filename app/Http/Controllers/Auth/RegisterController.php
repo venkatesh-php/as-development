@@ -7,10 +7,19 @@ use App\User;
 use App\Traits\ActivationTrait;
 use App\Traits\CaptchaTrait;
 use App\Traits\CaptureIpTrait;
-use Illuminate\Foundation\Auth\RegistersUsers;
+// use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use jeremykenedy\LaravelRoles\Models\Role;
+// use App\Http\Controllers\Auth\Request;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
+
+use App\batch;
+use App\Branch;
 
 class RegisterController extends Controller
 {
@@ -27,13 +36,16 @@ class RegisterController extends Controller
 
     use ActivationTrait;
     use CaptchaTrait;
-    use RegistersUsers;
+    // use RegistersUsers;
+    use RedirectsUsers;
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
+
+
     protected $redirectTo = '/activate';
 
     /**
@@ -47,7 +59,12 @@ class RegisterController extends Controller
             'except' => 'logout',
         ]);
     }
+    public function showRegistrationForm()
 
+    {
+        // return "registration form";
+        return view('auth.register');
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -58,12 +75,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
         {
             // $data['captcha'] = $this->captchaCheck();
-
+// return $data;
             // if (!config('settings.reCaptchStatus')) {
                 $data['captcha'] = true;
             // }
         if($data['role_id']==6){
-            $validator= Validator::make($data,
+            return Validator::make($data,
                 [
                     'role_id' => 'required',
                     'institutes_id' => 'required',
@@ -93,7 +110,7 @@ class RegisterController extends Controller
                 ]
             );
         }else{
-            $validator= Validator::make($data,
+            return Validator::make($data,
                 [
                     'role_id' => 'required',
                     'institutes_id' => 'required',
@@ -125,28 +142,53 @@ class RegisterController extends Controller
         }
 
         
-        return $validator;
+        // return $validator;
 
         
     }
+    public function processRequestData(Request $request){
 
-    // public function register(Request $request)
-    // {
-    //     $validator= $this->validator($request->all()) ->validate();
+        if(isset($request->batch_name_in)){
+            
+            batch::firstOrCreate(['name'=>$request->batch_name_in]);
+            $batch = batch::where('name',$request->batch_name_in)->first();
+            $request->merge(['batch_id'=>$batch->id]);
+            
+        }
+        if(isset($request->branch_name_in)){
+            Branch::firstOrCreate(['name'=>$request->branch_name_in]);
+            $branch = Branch::where('name',$request->branch_name_in)->first();
+            $request->merge(['branch_id'=>$branch->id]);
+        }
+        // return [$branch->id,$batch->id];
+        return $request;
+    }
 
-    //     // if ($validator -> fails()) 
-    //     // { 
-    //     //     return "validator fail";
-    //     //     back() -> withInput() -> withErrors($validator); 
-    //     // }
+    public function register(Request $request)
+    {
+        $request=$this->processRequestData($request);
+       
+// return $request->except(['branch_name_in','batch_name_in']);
+        // return 
+        $validator= new         Validator;
+        
+        $validator = $this->validator($request->except(['branch_name_in','batch_name_in','_token'])); 
+        // $validator->validate();
+        // if (isset($validator)){
+                if ($validator -> fails()) 
+                { 
+                    // return "validator fail";
+                  return  back() -> withInput($request->all()) -> withErrors($validator); 
+                }
+        // }
+        // return $validator;
+        event(new Registered($user = $this->create($request->except(['branch_name_in','batch_name_in','_token']))));
  
-    //     event(new Registered($user = $this->create($request->all())));
+        $this->guard()->login($user);
  
-    //     $this->guard()->login($user);
- 
-    //     return $this->registered($request, $user)
-    //                     ?: redirect($this->redirectPath());
-    // }
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
 
     
 
@@ -194,5 +236,13 @@ class RegisterController extends Controller
         $this->initiateEmailActivation($user);
 
         return $user;
+    }
+    protected function guard()
+    {
+        return Auth::guard();
+    }
+    protected function registered(Request $request, $user)
+    {
+        //
     }
 }

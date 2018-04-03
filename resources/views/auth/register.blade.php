@@ -59,7 +59,7 @@
 
     $(function () {
         $("#branch_id").change(function () {
-            if ($(this).val() == "-99") {
+            if ($(this).val() == -99) {
                 $("#branch_input").show();
             } else {
                 $("#branch_input").hide();
@@ -68,7 +68,7 @@
     });
     $(function () {
         $("#batch_id").change(function () {
-            if ($(this).val() == "-99") {
+            if ($(this).val() == -99) {
                 $("#batch_input").show();
             } else {
                 $("#batch_input").hide();
@@ -84,9 +84,9 @@
             <div class="panel panel-primary">
                 <div class="panel-heading"><center><h2>Ameyem Skills Registration</h2></center></div>
                 <div class="panel-body">
-                @if(isset($validator))
+                {{--  @if(isset($validator))
                       <p>  {{$validator}}<p>
-                    @endif
+                    @endif  --}}
 
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
@@ -111,7 +111,7 @@
                                 <label for="first_name" class="col-md-4 control-label">Name</label>
                                 <div class="col-md-6">
                                     <div class="col-md-6">
-                                        {!! Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'First Name', 'id' => 'first_name']) !!}
+                                        {!! Form::text('first_name', old("first_name"), ['class' => 'form-control', 'placeholder' => 'First Name', 'id' => 'first_name']) !!}
                                         @if ($errors->has('first_name'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('first_name') }}</strong>
@@ -122,7 +122,7 @@
 
                                     {{--  <label for="last_name" class="col-md-4 control-label">Last Name</label>  --}}
                                     <div class="col-md-6">
-                                        {!! Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Last Name', 'id' => 'last_name']) !!}
+                                        {!! Form::text('last_name', old("last_name"), ['class' => 'form-control', 'placeholder' => 'Last Name', 'id' => 'last_name']) !!}
                                         @if ($errors->has('last_name'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('last_name') }}</strong>
@@ -153,7 +153,7 @@
                             <label for="password-confirm" class="col-md-4 control-label">Mobile Number</label>
 
                             <div class="col-md-6">
-                                <input id="password-phone_number" type="text" class="form-control" name="phone_number" required>
+                                <input id="password-phone_number" value ="{{ old('phone_number') }}" type="text" class="form-control" name="phone_number" required>
                             </div>
                         </div>
 
@@ -162,7 +162,7 @@
 
                             <div class="col-md-6">
                             
-                                <select name="institutes_id" class="form-control">
+                                <select name="institutes_id" class="form-control" value="{{ old('institutes_id') }}">
                                 <?php 
                                 use App\institute;
                                 $institutes = institute::all(); 
@@ -199,7 +199,7 @@
 
                             <div id="role_id" class="col-md-6">
 
-                            <select name="role_id" id="role" class="form-control" required>
+                            <select name="role_id" id="role" class="form-control" value="{{ old('role_id') }}" required>
                                 <?php 
                                 use Spatie\Permission\Models\Role;
                                 
@@ -234,19 +234,23 @@
 
                             <div class="col-md-6">
                             
-                            <select id='branch_id' name="branch_id" class="form-control">
+                            <select id='branch_id' name="branch_id" value="" class="form-control">
                             <?php 
                             use App\Branch;
-                            $branch = Branch::all(); ?>
+                            $branches = Branch::all(); ?>
                             <option value="" disabled="disabled" selected="selected">Select Your Branch</option>
-                                @foreach ($branch as $branches)
-                                    <option value="{{$branches->id}}">{{$branches->name}} </option>                
+                                @foreach ($branches as $branch)
+                                @if($branch->id==old('branch_id'))
+                                <option value="{{$branch->id}}" selected>{{$branch->name}} </option>  
+                                @else
+                                    <option value="{{$branch->id}}">{{$branch->name}} </option>    
+                                @endif            
                                 @endforeach
-                                <option value="-99">Other </option>
+                                <option value=-99>Other </option>
 
                             </select>
                             <div id="branch_input"  style="display:none">
-                            <input  name="branch_id" class="form-control" placeholder="Branch Name">
+                            <input  name="branch_name_in" class="form-control" value="{{ old('branch_name_in') }}"  placeholder="Branch Name">
                             </div>
                                 @if ($errors->has('branch_id'))
                                     <span class="help-block">
@@ -262,18 +266,22 @@
 
                             <div class="col-md-6">
                             
-                            <select id='batch_id' name="batch_id" class="form-control">
+                            <select id='batch_id' name="batch_id" value="" class="form-control">
                             <?php 
                             use App\batch;
-                            $batch = batch::all(); ?>
+                            $batches = batch::all(); ?>
                             <option value="" disabled="disabled" selected="selected">Select Your Batch</option>
-                                @foreach ($batch as $batches)
-                                    <option value="{{$batches->id}}">{{$batches->name}} </option>                
+                                @foreach ($batches as $batch)
+                                @if($batch->id==old('batch_id'))
+                                <option value="{{$batch->id}}" selected>{{$batch->name}} </option>  
+                                @else
+                                    <option value="{{$batch->id}}">{{$batch->name}} </option>   
+                                @endif             
                                 @endforeach
-                                <option value="-99">Other </option>
+                                <option value=-99>Other </option>
                             </select>
                             <div id="batch_input"  style="display:none">
-                            <input  name="batch_id" class="form-control" placeholder="Batch Year">
+                            <input  name="batch_name_in" value="{{ old('batch_name_in') }}" class="form-control" placeholder="Batch Year">
                             </div>
                                 @if ($errors->has('batch_id'))
                                     <span class="help-block">
@@ -293,7 +301,7 @@
                             <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" value ="" class="form-control" name="password" required>
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -307,7 +315,7 @@
                             <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <input id="password-confirm" type="password" value ="" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
 
