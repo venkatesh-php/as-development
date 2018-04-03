@@ -122,7 +122,7 @@ class studentController extends Controller
         // return [Auth::user()->id,$id];
        $taskstatuses= AssignTasks::where('user_id',Auth::user()->id)
        ->where('course_chapter_id',$id)
-       ->select('task_id','status')
+       ->select('id','task_id','status')
        ->get()
        ;
         // $statuses=array_column($taskstatus,'status') ;
@@ -131,6 +131,7 @@ class studentController extends Controller
            foreach($tasks as $task){
             if($taskstatus->task_id==$task->id){
                 $task->status=$taskstatus->status;
+                $task->assigntask_id=$taskstatus->id;
             }
            }
        }
@@ -169,8 +170,9 @@ class studentController extends Controller
 
                 return false;
             }
+           $assign_task_id= AssignTasks::where( 'task_id', $record['task_id'])->where( 'user_id', $record['user_id'])->select('id')->first();
             // return ["Successfully assigned",   $record];
-           return redirect()-> route('UserTasks.edit',$record['task_id']);
+           return redirect()-> route('UserTasks.edit',$assign_task_id);
     }
 
 

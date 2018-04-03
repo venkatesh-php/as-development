@@ -85,7 +85,7 @@
                 
                 @else
                     @if($task->status!="approved")
-                    <a class="btn btn-primary" href="{{ route('UserTasks.edit',$task->id) }}">View Work</a>
+                    <a class="btn btn-primary" href="{{ route('UserTasks.edit',$task->assigntask_id) }}">View Work</a>
                     @else
                     <p class="label label-success">Completed</p>
                     @endif

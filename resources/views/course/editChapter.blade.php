@@ -19,9 +19,9 @@
     <div class="container" id="course-wrapper">
         <span class="alert alert-red">- Edit chapter -</span>
         <hr>
-<label for="name">{{$chapter}}</label>
+
         {{--chapter form--}}
-        <form action="{{ route('postChapter',['id'=>he($chapter->course_id)]) }}" id="chapter_form" method="post" enctype="multipart/form-data">
+        <form action="{{ route('updateChapter',['id'=>he($chapter->id)]) }}" id="chapter_form" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             {{--chapter name--}}
             <div class="form-group">
