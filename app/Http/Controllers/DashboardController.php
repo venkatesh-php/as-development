@@ -263,7 +263,7 @@ class DashboardController extends Controller
              
         }
         
-        return view('home', ['assign_chart' => $assign_chart,'completed_chart' => $completed_chart,'progress_chart' => $progress_chart])
+        return view('dashboard', ['assign_chart' => $assign_chart,'completed_chart' => $completed_chart,'progress_chart' => $progress_chart])
         ->with(compact('total_user_tasks','totaltasks','totalassigntasks','totalusers','totalcomments','totalcredits','days','completedtasks','droptasks','institute_name','role'));
 
     }

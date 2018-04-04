@@ -47,7 +47,7 @@ class HomeController extends Controller
 
         }
         elseif(isAdmin()){
-
+            return view('home');
         }
         elseif(isStudent()){
             $courses = course::all();

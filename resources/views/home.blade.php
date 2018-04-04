@@ -3,12 +3,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-fluid">
- @if(isMentor())
-
-             
-
-            
-
+            @if(isMentor())    
              <div class="row">
                   @include('partials.mentorcourses')
                  </div>

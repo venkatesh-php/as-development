@@ -31,7 +31,7 @@
     @if(!count($studentData->enrollment)>0)
     <div class="row text-center">
     <h1>You have not enrolled ay course yet.</h1>
-    <h2> Please enroll below from library </h2>
+    <h2> Please enroll from library </h2>
    
     </div>
     @endif
