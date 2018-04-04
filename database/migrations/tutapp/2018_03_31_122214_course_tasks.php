@@ -13,7 +13,7 @@ class CourseTasks extends Migration
      */
     public function up()
     {
-        Schema::create('CourseTasks', function (Blueprint $table) {
+        Schema::create('coursetasks', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->integer('task_id')->unsigned();
             $table->foreign('task_id')->references('id')->on('admin_tasks')
