@@ -16,6 +16,7 @@ class enrollmentCheck
      */
     public function handle($request, Closure $next)
     {
+        return "in middle ware";
         $course_id =  hd($request->route('id'));
         $enrollment = Auth::user()->enrollment()->status(1);
         if(nothing($enrollment)){

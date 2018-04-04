@@ -39,7 +39,13 @@ class AdminTasksController extends Controller
 
         return view('AdminTasks.index',compact('admin_tasks','subjects'))
             ->with('i', ($request->input('page', 1) - 1) * 15);
+        // return view('AdminTasks.index')
+        // // ;
+        // compact('admin_tasks','subjects'))
+        //     ->with('i', ($request->input('page', 1) - 1) * 15);
     }
+
+
 
 
     /**

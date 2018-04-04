@@ -60,10 +60,25 @@ Route::group(['prefix' => 'mentor'], function () {
         /*preview a particular course */
         Route::get('course/{course_id}/chapter/{id}/preview','mentor\mentorController@previewChapter')
             ->name('previewChapter');
+        Route::get('course/{course_id}/chapter/{id}/edit','mentor\mentorController@editChapter')
+            ->name('editChapter');
+
+            
+            
 
         /*Load the quiz maker interface*/
         Route::get('chapter/{id}/quiz','mentor\mentorController@quizMaker')
             ->name('quizMaker');
+            /*Load the quiz maker interface*/
+        Route::get('chapter/{id}/task','mentor\mentorController@taskMaker')
+        ->name('taskMaker');
+        Route::post('chapter/task','mentor\mentorController@pinTask')
+        ->name('pinTask');
+        Route::get('chapter/taskshow','mentor\mentorController@show')
+        ->name('taskshow');
+        
+
+            
 
         /*submit quiz */
         Route::post('chapter/{id}/quiz','mentor\mentorController@createQuiz')

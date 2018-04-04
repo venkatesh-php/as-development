@@ -141,7 +141,7 @@ class AssignTasksController extends Controller
         $branches = DB::table('branches')
             ->select('branches.*')->get();
         $batches = DB::table('batches')
-            ->select('batches');
+            ->select('batches'); 
     
         $works = AdminTasks::find($id);
         $targetdate=Carbon::now('Asia/Kolkata')->addDays(5);
