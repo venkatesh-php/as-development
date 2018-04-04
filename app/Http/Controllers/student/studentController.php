@@ -82,16 +82,20 @@ class studentController extends Controller
     /*view a particular course*/
     public function viewCourse($id){
         $id = hd($id);
+
         $course =  course::withCount('chapter')->with('chapter')->where('id',$id)->first();         
         // return $course; 
         $chids=array_column($course->chapter->toArray(),'id');
         $tasks=coursetask::whereIn('chapter_id',$chids)->get();
+
         foreach ($course->chapter as $cch ){
             $cch->tasks=getTaskIds($cch->id,$tasks);
         }
         /*dd($course);*/
+
         
         return view('student.course')->with('course',$course)->with('tasks',$tasks);
+
     }
 
 
@@ -126,6 +130,7 @@ class studentController extends Controller
     //    ->select('task_id','status')
        ->select('id','task_id','status')
        ->get();
+
         // $statuses=array_column($taskstatus,'status') ;
         
        foreach($taskstatuses as $taskstatus){
@@ -171,6 +176,9 @@ class studentController extends Controller
 
                 return false;
             }
+
+           $assign_task_id= AssignTasks::where( 'task_id', $record['task_id'])->where( 'user_id', $record['user_id'])->select('id')->first();
+
             // return ["Successfully assigned",   $record];
            return redirect()-> route('UserTasks.edit',$assign_task_id);
     }
