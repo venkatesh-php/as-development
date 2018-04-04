@@ -62,8 +62,18 @@ class studentController extends Controller
     public function courseLibrary()
     {
         $courses = course::all();
+        $enrollments = enrollment::where('student_id',Auth::user()->id)->get();
+        foreach($courses as $course){
+            foreach($enrollments as $enrollment){
+                if($course->id==$enrollment->course_id){
+                    $course->enrolled=true;
+                }
+                
+            }
+        }
         return view('course.library')->with('courses', $courses);
     }
+
 
     /*show current students enrollments*/
     public function showEnrollments()

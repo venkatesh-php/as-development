@@ -1,5 +1,5 @@
 @extends('layouts.app')
 @section('content')
-@include('partials.studentcources')
+@include('partials.studentcourses')
 
 @endsection
