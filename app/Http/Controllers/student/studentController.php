@@ -142,7 +142,7 @@ class studentController extends Controller
        ->get();
 
         // $statuses=array_column($taskstatus,'status') ;
-        
+         
        foreach($taskstatuses as $taskstatus){
            foreach($tasks as $task){
             if($taskstatus->task_id==$task->id){
