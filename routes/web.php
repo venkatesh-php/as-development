@@ -91,6 +91,7 @@
         // Route::get('auth/logout', 'Auth\AuthController@logout');
 
         Route::get('/home', ['as' => 'public.home',   'uses' => 'HomeController@index']);
+        Route::get('/dashboard', ['as' => 'public.dashboard',   'uses' => 'DashboardController@index']);
         // Route::get('/home', 'HomeController@index');
         //tutapp
         Route::get('/tuthome', 'TutHomeController@index');

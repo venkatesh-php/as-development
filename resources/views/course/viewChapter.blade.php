@@ -42,8 +42,8 @@
 @section('content')
    <div class="container" id="chapter_data">
        <h2 class="text-center">{{$chapter->name}}</h2>
-        <!-- <a  class="btn btn-primary"
-                        href="{{ route('manageCourse',['id'=>he($chapter->course_id)]) }}">Back</a> -->
+        <a  class="btn btn-primary"
+                        href="{{ route('manageCourse',['id'=>he($chapter->course_id)]) }}">Back</a>
                         <hr>
         <div class="container text-center">
         <h2 >Tasks to be completed</h2>

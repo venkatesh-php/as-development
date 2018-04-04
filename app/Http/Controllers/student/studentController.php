@@ -30,7 +30,7 @@ class studentController extends Controller
         $course_id = hd($id);
         if (Auth::user()->enrollment()->count() <= 2) {
             $enrollment = Auth::user()->enrollment()->where('course_id', $course_id)->get()->count();
-            if ($enrollment == 0) {
+            if ($enrollment ==0) {
                 $enrollment = new  enrollment();
                     $enrollment->student_id = Auth::user()->id;
                     $enrollment->course_id = $course_id;
@@ -62,18 +62,7 @@ class studentController extends Controller
     public function courseLibrary()
     {
         $courses = course::all();
-        $enrollments = enrollment::where('student_id',Auth::user()->id)->get();
-        foreach($courses as $course){
-            foreach($enrollments as $enrollment){
-                if($course->id==$enrollment->course_id){
-                    $course->enrolled=true;
-                }
-                
-            }
-        }
-
         return view('course.library')->with('courses', $courses);
-
     }
 
     /*show current students enrollments*/
