@@ -30,7 +30,10 @@ class TaskMigrateController extends Controller
             ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
             ->whereNull('assign_tasks.status')
             ->where(function ($query) {
-                $query->where('assign_tasks.assigned_by_userid',Auth::user()->id)
+                $query->whereNull('assign_tasks.status')
+                      ->orwhere('assign_tasks.status','NA')
+                      ->orWhere('assign_tasks.status','initiated')
+                      ->orwhere('assign_tasks.assigned_by_userid',Auth::user()->id)
                       ->orWhere('assign_tasks.guide_id',Auth::user()->id)
                       ->orWhere('assign_tasks.reviewer_id',Auth::user()->id);
             })

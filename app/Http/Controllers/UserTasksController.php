@@ -35,7 +35,11 @@ class UserTasksController extends Controller
         ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
 
         ->where('assign_tasks.user_id',Auth::user()->id)
-        ->whereNull('assign_tasks.status')
+        ->where(function ($query) {
+            $query->whereNull('assign_tasks.status')
+                  ->orwhere('assign_tasks.status','NA')
+                  ->orWhere('assign_tasks.status','initiated');
+        })
         ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name as uname','users_s.name as sname','users_g.name as gname','users_r.name as rname')
         ->orderBy('assign_tasks.task_id','desc')->get();
 

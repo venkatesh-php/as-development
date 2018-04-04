@@ -19,8 +19,8 @@ Route::group(['middleware' => ('role:student'),'prefix' => 'student'], function 
 
     /*view a particular course*/
     Route::get('course/{id}','student\studentController@viewCourse')
-        ->name('viewCourse')
-        ->middleware('enrollmentCheck');
+        ->name('viewCourse');
+        // ->middleware('enrollmentCheck');
 
     /*Take a quiz*/
     Route::get('course/{id}/quiz','student\studentController@viewQuiz')

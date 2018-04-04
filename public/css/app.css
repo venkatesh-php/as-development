@@ -9,7 +9,7 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 html {
-  font-family: Georgia ,sans-serif , Times, "Times New Roman";
+  font-family: sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -5689,7 +5689,7 @@ tbody.collapse.in {
 
 .navbar-default {
   background-color: #347AB6;
-  border-color: #d3e0e9;
+  border-color: #347AB6;
 }
 
 .navbar-default .navbar-brand {

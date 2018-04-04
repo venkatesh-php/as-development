@@ -22,20 +22,7 @@
 
                         <!--quick info section -->
                             <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="panel panel-primary text-center no-boder">
-                                        <a style="text-decoration:none;" href="{{ url('/tuthome') }}">
-                                            <div class="alert alert-success">                                     
-                                                <i class="fa fa-pencil-square-o fa-3x"></i>
-                                                <h3>Courses</h3>
-                                            </div>
-                                        </a> 
-                                        <div class="panel-footer">
-                                            <span class="panel-eyecandy-title">Courses Home
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                              
 
                                 <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
