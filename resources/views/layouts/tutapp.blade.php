@@ -14,6 +14,7 @@
     <link href="/css/summernote.css" rel="stylesheet">
     <!-- Scripts -->
     <script src="/js/jquery.js"></script>
+    <script src="/js/popper.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/summernote.js"></script> 
     <script>

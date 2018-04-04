@@ -21,6 +21,11 @@
 <![endif]-->
 
 <link href="{{ url('adminlte/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+{{--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">   --}}
+
+
+
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet"
       href="{{ url('adminlte/css') }}/select2.min.css"/>
@@ -32,42 +37,13 @@
       href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css"/>
 <link rel="stylesheet"
       href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css"/>
-<link rel="stylesheet"
-      href="//cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"/>
+
+<link rel="stylesheet"   href="//cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"/>
+      
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.css"/>
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.standalone.min.css"/>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
-<style>
-.navbar-default {
-    background-color: #347AB6;
-    border-color: #E7E7E7;
-}
-</style>
-
-
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
-
-<!-- Styles -->
-<link href="/css/app.css" rel="stylesheet">
-<!-- Scripts -->
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap.js"></script>
-<script>
-    window.Laravel = <?php echo json_encode([
-        'csrfToken' => csrf_token(),
-    ]); ?>
-</script>
-<style>
-    .cover{
-        background-size: cover;
-    }
-</style>
-
-
 
 
 

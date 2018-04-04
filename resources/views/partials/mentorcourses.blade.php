@@ -1,3 +1,4 @@
+@include('partials.summernotejs')
 <style>
     #course_list{
         background: white;

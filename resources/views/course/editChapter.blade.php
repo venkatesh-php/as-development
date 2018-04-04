@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('partials.summernotejs')
 <style>
     #course-wrapper {
         background: white;
@@ -66,7 +67,7 @@
 
             /* setup rich text editor */
             
-             $('#notes_editor').html( "<?php echo ($chapter->notes);?>" );
+             $('#notes_editor').html( `<?php echo ($chapter->notes);?> `);
              $('#notes_editor').summernote({
                 height: 300,
                 minHeight: null,
@@ -123,8 +124,10 @@
         </script>
     </div>
 @endsection
-<!-- Scripts -->
+{{--  <!-- Scripts -->
+
     <script src="/js/jquery.js"></script>
-    <script src="/js/bootstrap.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/bootstrap.js"></script>  --}}
 
 

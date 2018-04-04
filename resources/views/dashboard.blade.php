@@ -1,5 +1,5 @@
 <!-- @inject('request', 'Illuminate\Http\Request') -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{{--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>  --}}
 @extends('layouts.app')
 @section('content')
 
@@ -136,11 +136,13 @@
                 
                      <!-- end of Users Tasks info sectiopn -->
                 </div>
+
+
             </div>
         </div>
     </div>
 </div>
-
+{{--  
 
 <!--Start of the information regarding teacher or Admin section -->
 <div class="container-fluid">
@@ -207,7 +209,7 @@
 {!! Charts::scripts() !!}
 {!! $assign_chart->script() !!}
 {!! $completed_chart->script() !!}
-{!! $progress_chart->script() !!}
+{!! $progress_chart->script() !!}  --}}
 
 
 
