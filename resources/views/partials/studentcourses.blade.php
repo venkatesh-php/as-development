@@ -35,10 +35,11 @@
    
     </div>
     @endif
+    <h1 class="text-center">Current courses</h1>
             @foreach($studentData->enrollment as $enrollment)
                 @if($enrollment->status == 1)
                     <div class="row">
-                        <h1 class="text-center">Current courses</h1>
+                        
                         <div class="col-md-10 col-md-offset-1 panel">
                             <div class="course_header">
                                 <a href="{{route('viewCourse',['id'=>he($enrollment->course->id)])}}" role="button">

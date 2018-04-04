@@ -37,7 +37,7 @@ class studentController extends Controller
                     $enrollment->status = 1;
                 $enrollment->save();
 
-                return redirect()->route('studentCourses')->with([
+                return redirect()->route('/home')->with([
                     'title' => 'Enrollment success',
                     'message' => 'You have been enrolled to the course',
                     'type' => 'success',
@@ -52,7 +52,7 @@ class studentController extends Controller
         } else {
             return redirect()->back()->with([
                 'title' => 'Enrollment failed',
-                'message' => 'You have already enrolled for a course,Please complete that first!',
+                'message' => 'You have already enrolled for three courses,Please complete one to open another slot!!!',
                 'type' => 'error',
             ]);
         }

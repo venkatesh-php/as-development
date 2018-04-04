@@ -37,7 +37,7 @@
             @elseif(isStudent())
             
                 <div class="row">
-                 @include('partials.studentcources')
+                 @include('partials.studentcourses')
                  </div>
                 <div class="row">
                  @include('partials.couse-library')
