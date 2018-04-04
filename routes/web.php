@@ -35,7 +35,21 @@
     // Route::get('/', function () { return redirect('/admin/home'); });
     Route::resource('institutes','InstitutesController');
     // Authentication Routes
-    Auth::routes();
+            // Authentication Routes...
+            $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+            $this->post('login', 'Auth\LoginController@login');
+            $this->post('logout', 'Auth\LoginController@logout')->name('logout');
+    
+            // Registration Routes...
+            $this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+            $this->post('register', 'Auth\RegisterController@register');
+    
+            // Password Reset Routes...
+            $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+            $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+            $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+            $this->post('password/reset', 'Auth\ResetPasswordController@reset');
+    // Auth::routes();
     Route::group(['middleware' => ['web', 'activity']], function () {
         // app('debugbar')->disable();
         
@@ -73,6 +87,9 @@
         $this->get('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('auth.change_password');
         $this->patch('change_password', 'Auth\ChangePasswordController@changePassword')->name('auth.change_password');
         $this->post('logout', 'Auth\LoginController@logout')->name('auth.logout');
+
+        // Route::get('auth/logout', 'Auth\AuthController@logout');
+
         Route::get('/home', ['as' => 'public.home',   'uses' => 'HomeController@index']);
         // Route::get('/home', 'HomeController@index');
         //tutapp
