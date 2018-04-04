@@ -85,20 +85,37 @@ function makeColor(){
                 </span>
     @endif
         <div class="container" id="courseList">
-            <hr><h1 class="text-center">Course library</h1><hr>
+            <hr><h1 class="text-center">Course library</h1>
+            <h5 class="text-center">Chance to Enroll 3 Courses at a time</h5> <hr>
             @foreach($courses as $course)
-                <div class="col-md-4">
-                    <div class="thumbnail">
-                        {{--course image--}}
-                        <img src="{{route('coverImage',['id'=>$course->cover])}}" alt="">
-                        {{--course details--}}
-                        <div class="caption">
-                            <h3>{{$course->name}}</h3>
-                            <p>{{$course->description}}</p>
-                            <a href="{{route('enroll',['id'=>he($course->id)])}}" class="btn button pull-right clear btn-enroll center-block btn-primary">Enroll</a>
+                        @if(isset($course->enrolled ))
+                        <div class="col-md-4">
+                            <div class="thumbnail">
+                                {{--course image--}}
+                                <img src="{{route('coverImage',['id'=>$course->cover])}}" alt="">
+                                {{--course details--}}
+                                <div class="caption">
+                                    <h3>{{$course->name}}</h3>
+                                    <p>{{$course->description}}</p>
+                                    <a href="" class="btn button pull-right clear btn-enroll center-block btn-success" disabled>Enrolled</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    @else
+                        <div class="col-md-4">
+                            <div class="thumbnail">
+                                {{--course image--}}
+                                <img src="{{route('coverImage',['id'=>$course->cover])}}" alt="">
+                                {{--course details--}}
+                                <div class="caption">
+                                    <h3>{{$course->name}}</h3>
+                                    <p>{{$course->description}}</p>
+                                    <a href="{{route('enroll',['id'=>he($course->id)])}}" class="btn button pull-right clear btn-enroll center-block btn-primary">Enroll</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
             @endforeach
         </div>
     <script>
