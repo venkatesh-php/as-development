@@ -2,6 +2,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 @extends('layouts.app')
 @section('content')
+<div class="container">
+<div class="row">
+        <div class="col-md-8 col-md-offset-2">
+    <h3 class="text-center">Welcome Note : <a class="btn btn-primary" href="/download/ASDP-Welcome-Guide.pdf" download="ASDP-Welcome-Guide.pdf">Download</a></h3>
+</div>
+</div>
+</div>
 <div class="container-fluid">
             @if(isMentor())    
              <div class="row">
