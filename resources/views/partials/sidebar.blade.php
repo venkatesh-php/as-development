@@ -11,6 +11,12 @@
                     <span class="title">HOME</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ url('/dashboard') }}">
+                    <i class="fa fa-dashboard"></i>
+                    <span class="title">Dashboard</span>
+                </a>
+            </li>
             
             @can('users_manage')
             <li class="treeview">
