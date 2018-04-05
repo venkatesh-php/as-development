@@ -43,7 +43,7 @@
    <div class="container" id="chapter_data">
        <h2 class="text-center">{{$chapter->name}}</h2>
         <a  class="btn btn-primary"
-                        href="{{ route('manageCourse',['id'=>he($chapter->course_id)]) }}">Back</a>
+                        href="{{ URL::previous()}}">Back</a>
                         <hr>
         <div class="container text-center">
         <h2 >Tasks to be completed</h2>
@@ -86,9 +86,9 @@
                     
                     @else
                         @if($task->status!="approved")
-                            @foreach($taskstatuses as $task)
+                            
                             <a class="btn btn-primary" href="{{ route('UserTasks.edit',['id'=>$task->id,'task_id'=>$task->task_id]) }}">View Work</a>
-                            @endforeach
+                            
                         @else
                         <p class="label label-success">Completed</p>
                         @endif

@@ -150,11 +150,12 @@ class studentController extends Controller
             if($taskstatus->task_id==$task->id){
                 $task->status=$taskstatus->status;
                 $task->assigntask_id=$taskstatus->id;
+                $task->task_id=$taskstatus->task_id;
             }
            }
        }
     //    return [$taskstatuses,$tasks];
-        return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks)->with('taskstatuses',$taskstatuses);
+        return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
     }
 
     public function assignTask($coursetask_id){
