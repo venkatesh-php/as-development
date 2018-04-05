@@ -3,26 +3,14 @@
 
 <head>
     @include('partials.head')   
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/summernote.css" rel="stylesheet">
-    <!-- Scripts -->
-    <script src="/js/jquery.js"></script>
-    <script src="/js/bootstrap.js"></script>
-    <script src="/js/summernote.js"></script> 
-    <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
-    <style>
-        .cover{
-            background-size: cover;
-        }
-    </style>
     
-
+    <style>
+.navbar-default {
+    background-color: #347AB6;
+    border-color: #E7E7E7;
+}
+</style>
+@include('partials.javascripts')
 </head>
 
 
@@ -47,11 +35,24 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    @if (Session::has('message'))
-                        <div class="note note-info">
-                            <p>{{ Session::get('message') }}</p>
+                   @if(Session::has('message'))
+                    <?php $msg = json_decode(Session::get('message'))?>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="alert alert-{{$msg->type}} alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <p class="text-center">
+                                    <span class="text-center">{{$msg->subject}}</span>
+                                    click
+                                    <a href="{{route('courses')}}"><strong>here</strong></a>
+                                    to add chapters</span>
+                                </p>
+                            </div>
                         </div>
+                    </div>
                     @endif
+                    
                     @if ($errors->count() > 0)
                         <div class="note note-danger">
                             <ul class="list-unstyled">
@@ -74,7 +75,6 @@
 <button type="submit">Logout</button>
 {!! Form::close() !!}
 
-<!-- @include('partials.javascripts')   -->
 
 
 </body>

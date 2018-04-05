@@ -28,9 +28,12 @@ Route::group(['prefix' => 'mentor'], function () {
         /*Route for displaying course creation page*/
         Route::get('course','mentor\mentorController@createCourse')
             ->name('createCourse');
+        Route::get('course/{id}','mentor\mentorController@editCourse')
+        ->name('editCourse');
+            
 
         /*Route for posting new course data*/
-        Route::post('course','mentor\mentorController@postCourse')
+        Route::post('course/{id}','mentor\mentorController@postCourse')
             ->name('postcourse');
 
         /*Route for listing students */
