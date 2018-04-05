@@ -7,7 +7,7 @@
                 <h2>Assigned Tasks</h2>
             </div>
              <div class="pull-right">
-                <a class="btn btn-success" href="{{ url('/home') }}">Back</a>
+                <a class="btn btn-success" href="{{ url('/dashboard') }}">Back</a>
             </div> 
         </div>
     </div>

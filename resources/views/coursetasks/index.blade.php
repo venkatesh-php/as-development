@@ -44,7 +44,7 @@
     <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
             <div class="table-responsive form-group">
-            <h2>{{$chapter_id}}</h2>
+            <!-- <h2>Chapter ID : {{$chapter_id}}</h2> -->
                 <table class="table table-striped">
                     <tr style="color:#660033">
                         <th>Select</th>
@@ -66,8 +66,8 @@
                     @foreach ($admin_tasks as $key => $task)
                     <tr style="color:#2471A3">
                         <td>
-                        {{!! Form::radio('task_id', $task->id) !!}}
-                        {{--  <input class="radio" type ="radio" name='task_id' value = "{{ $task->id }}"></td>  --}}
+                        <!-- {{!! Form::radio('task_id', $task->id) !!}} -->
+                        <input class="radio" type ="radio" name='task_id' value = "{{ $task->id }}"></td>
                         <td>{{ $task->id }}</td>
                         <td>{{ $task->worknature }}</td>
                         <td>{{ $task->subject }}</td>

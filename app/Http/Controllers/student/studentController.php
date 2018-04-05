@@ -113,6 +113,8 @@ class studentController extends Controller
     public function viewQuiz($id){
         $id = hd($id);
         $quiz_data = chapter::find($id)->quiz->where('chapter_id',$id)->with('question')->first();
+
+        return $quiz_data;
         return view('quiz.viewQuiz')->with('quiz_data',$quiz_data);
     }
 

@@ -30,8 +30,14 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Name:</strong>
-            {!! Form::text('name', null, array('placeholder' => 'Enter Your Name','class' => 'form-control')) !!}
+            <strong>First Name:</strong>
+            {!! Form::text('first_name', null, array('placeholder' => 'Enter Your First Name','class' => 'form-control')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Last Name:</strong>
+            {!! Form::text('last_name', null, array('placeholder' => 'Enter Your Last Name','class' => 'form-control')) !!}
         </div>
     </div>
 

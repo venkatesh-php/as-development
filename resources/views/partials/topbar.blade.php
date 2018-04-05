@@ -55,7 +55,7 @@
                
                             @if (Auth::check())
                                 <!-- <li><a href="{{ route('forumFeed') }}"><b>Forum</b></a></li> -->
-                                <li><a href=""><b>Welcome {{Auth::user()->first_name}}</b></a></li>
+                                <li><a href=""><b>Welcome {{Auth::user()->first_name}} {{Auth::user()->last_name}}</b></a></li>
                                 <li>
                                     <a href="#logout" onclick="$('#logout').submit();">
                                         <span class="title"><b>Logout</b></span>

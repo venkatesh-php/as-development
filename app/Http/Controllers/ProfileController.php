@@ -214,7 +214,8 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => '',
+            'first_name' => '',
+            'last_name' => '',
             'email' => '',
             'phone_number' => '',
             'dob' => '',

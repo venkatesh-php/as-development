@@ -9,7 +9,7 @@
 
     
 <div class="pull-right">
-      <a class="btn btn-success" href="{{ url('/home') }}">Back</a>
+      <a class="btn btn-success" href="{{ url('/dashboard') }}">Back</a>
                 
 </div>
 <div class="container" style="padding-top: 60px;">
@@ -39,7 +39,7 @@
               <div class="form-group">
                 <label class="col-lg-3 control-label">Name:</label>
                 <div class="col-lg-8">
-                <p class="form-control-static">{{ $users->name }}</p>
+                <p class="form-control-static">{{ $users->first_name }} {{ $users->last_name }}</p>
                  
                 </div>
               </div>
