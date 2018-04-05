@@ -43,7 +43,7 @@
    <div class="container" id="chapter_data">
        <h2 class="text-center">{{$chapter->name}}</h2>
         <a  class="btn btn-primary"
-                        href="{{ route('manageCourse',['id'=>he($chapter->course_id)]) }}">Back</a>
+                        href="{{ URL::previous()}}">Back</a>
                         <hr>
         <div class="container text-center">
         <h2 >Tasks to be completed</h2>
@@ -83,27 +83,29 @@
                 @endif
                 {{--  <a href="#" class="card-link">Card link</a>
                 <a href="#" class="card-link">Another link</a>  --}}
-                <div class="card-footer">
-                <p class="card-text">Use: {{$task->whatinitforme}}</p>
-                <p class="label label-chapter"> Max Credits: {{$task->usercredits}}</p>
-                {{--  <p class="label label-chapter">{{$task->guidecredits}}</p>
-                <p class="label label-chapter">{{ $task->reviewercredits}}</p>  --}}
-                {{--  <p class="card-text">Guide: {{$task->gname}}</p>  --}}
-                </div>
-                @if(isStudent())
-                    @if(!isset ( $task->status))
-                    <a  class="btn btn-warning"                
-                        href="{{ route('assigntask',['coursetask_id'=>he($task->coursetask_id)]) }}">Attempt</a>
-                    
-                    @else
-                        @if($task->status!="approved")
-                        <a class="btn btn-primary" href="{{ route('UserTasks.edit',$task->assigntask_id) }}">View Work</a>
+                  <div class="card-footer">
+                  <p class="card-text">Use: {{$task->whatinitforme}}</p>
+                  <p class="label label-chapter"> Max Credits: {{$task->usercredits}}</p>
+                  {{--  <p class="label label-chapter">{{$task->guidecredits}}</p>
+                  <p class="label label-chapter">{{ $task->reviewercredits}}</p>  --}}
+                  {{--  <p class="card-text">Guide: {{$task->gname}}</p>  --}}
+                  </div>
+                    @if(isStudent())
+                        @if(!isset ( $task->status))
+                        <a  class="btn btn-warning"                
+                            href="{{ route('assigntask',['coursetask_id'=>he($task->coursetask_id)]) }}">Attempt</a>
+
                         @else
-                        <p class="label label-success">Completed</p>
-                        @endif
-                    @endif  
-                @endif
+                            @if($task->status!="approved")
+                            <a class="btn btn-primary" href="{{ route('UserTasks.edit',$task->assigntask_id) }}">View Work</a>
+                            @else
+                            <p class="label label-success">Completed</p>
+                            @endif
+                        @endif  
+                    @endif
+
                 </div>
+
                 </div>
 
             </div>

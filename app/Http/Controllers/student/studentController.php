@@ -116,6 +116,8 @@ class studentController extends Controller
     public function viewQuiz($id){
         $id = hd($id);
         $quiz_data = chapter::find($id)->quiz->where('chapter_id',$id)->with('question')->first();
+
+        return $quiz_data;
         return view('quiz.viewQuiz')->with('quiz_data',$quiz_data);
     }
 
@@ -141,7 +143,7 @@ class studentController extends Controller
        $taskstatuses= AssignTasks::where('user_id',Auth::user()->id)
        ->where('course_chapter_id',$id)
     //    ->select('task_id','status')
-       ->select('id','task_id','status')
+       ->select('id','task_id','status') 
        ->get();
 
         // $statuses=array_column($taskstatus,'status') ;
@@ -151,6 +153,7 @@ class studentController extends Controller
             if($taskstatus->task_id==$task->id){
                 $task->status=$taskstatus->status;
                 $task->assigntask_id=$taskstatus->id;
+                $task->task_id=$taskstatus->task_id;
             }
            }
        }

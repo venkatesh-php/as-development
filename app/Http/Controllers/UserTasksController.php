@@ -10,6 +10,7 @@ use DB;
 use Auth;
 use App\User;
 use App\Http\Kernel;
+use App\CourseTask;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -135,12 +136,17 @@ class UserTasksController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * 
      *
      * @param  \App\institutes  $institutes
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
+        $task_id = $request->task_id;
+
+        $task_details = AdminTasks::find($task_id);
+
         $user_tasks = UserTasks::orderBy('id','ASC')
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')
 
@@ -150,7 +156,8 @@ class UserTasksController extends Controller
         ->select('user_tasks.*','users_u.name')->get();
         $assign_tasks = AssignTasks::find($id);
 
-        return view('UserTasks.edit',compact('user_tasks','assign_tasks',$id));
+
+        return view('UserTasks.edit',compact('user_tasks','assign_tasks','task_details',$id));
     }
 
     /**
