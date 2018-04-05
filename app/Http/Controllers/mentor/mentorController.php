@@ -149,7 +149,7 @@ class mentorController extends Controller
 
     /*render course creation page*/
     public  function createCourse(){
-        return view('mentor.course')->with('course',$course);
+        return view('mentor.course');
     }
     /*render course edit page*/
     public  function editCourse($id){

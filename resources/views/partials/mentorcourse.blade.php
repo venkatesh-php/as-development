@@ -44,7 +44,7 @@
                     </div>
 
                     {{--course cover--}}
-                    @if(isset($course->image))
+                    @if(!isset($course->image))
                     <div class="form-group">
                         <label for="name">cover image</label>
                         <input type="file" class="form-control" name="cover" id="cover" required>
@@ -65,23 +65,7 @@
         </div>{{--end row--}}
 
         <hr>
-        <br>@if(Session::has('message'))
-            <?php $msg = json_decode(Session::get('message'))?>
-            <br>
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="alert alert-{{$msg->type}} alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <p class="text-center">
-                            <span class="text-center">{{$msg->subject}}</span>
-                            click
-                            <a href="{{route('courses')}}"><strong>here</strong></a>
-                            to add chapters</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            @endif
+
     </div>
     <br>
 
