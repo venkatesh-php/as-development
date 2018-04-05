@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@include('partials.summernotejs')
+
 <style>
     #course-wrapper {
         background: white;
@@ -12,7 +12,8 @@
 </style>
 
 @section('content')
-
+<body>
+@include('partials.summernotejs')
     {{--rich text editor scripts & styles--}}
     {{--  <link href="/css/summernote.css" rel="stylesheet">
     <script src="/js/summernote.js"></script>  --}}
@@ -123,6 +124,7 @@
             */
         </script>
     </div>
+    </body>
 @endsection
 {{--  <!-- Scripts -->
 

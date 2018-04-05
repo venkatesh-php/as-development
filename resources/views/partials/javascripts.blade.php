@@ -3,7 +3,7 @@
     <!-- Scripts -->
     {{--  <script src="/js/jquery.js"></script>  --}}
     {{--  <script src="/js/jquery-migrate.js"></script>  --}}
-    <script src="/js/bootstrap.js"></script>
+    {{--  <script src="/js/bootstrap.js"></script>  --}}
 
 <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
@@ -28,6 +28,7 @@
 <script>
     window._token = '{{ csrf_token() }}';
 </script>
+ {{--  @include('partials.summernotejs')  --}}
 
 
 

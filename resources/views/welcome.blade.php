@@ -45,38 +45,24 @@
   
 
     <div class="container">
-        <!-- <div class="flex-center position-ref full-height"> -->
-            <div class="content"> 
-                <center>
-                <br>
-                    <div class="title m-b-xs">
-                
-                    <h1>@lang('titles.app') </h1>
-                        <h2>@lang('titles.app2')</h2>
-                        
-                    </div>
-                    <div>
-                        <h3>
-                        <a href="http://skills.ameyem.com">Ameyem Skill Labs</a>|
-                        <a href="http://skills.ameyem.com/quiz">Ameyem Quiz</a>|
-                        <a href="http://skills.ameyem.com/apps_games">Ameyem Apps and Games</a>|
-                        <a href="http://skills.ameyem.com/book_seminar">Ameyem Seminar Booking</a>|
-                        <a href="http://sthali.in/">Sthali</a>
-                    </h3>
-                    </div>
-                </center>
-            </div>
-        <!-- </div> -->
-    </div>
 
+                <div class="content"> 
+                    <center>
+                    <br>
+                        <div class="title m-b-xs">
+                    
+                        <h1>@lang('titles.app') </h1>
+                            <h2>@lang('titles.app2')</h2>                            
+                        </div>
+                        </center
+                 </div>
 
-<div class="container">
-<div class="row">
+                 <div class="row">
         <div class="col-md-8 col-md-offset-2">
     <h3 class="text-center">Welcome Note : <a class="btn btn-primary" href="/download/ASDP-Welcome-Guide.pdf" >Download</a></h3>
+    </div>
 </div>
-</div>
-</div>
+    </div>
 
         
 <div class="container">
@@ -154,6 +140,6 @@
         </div>
     </div>
 </div>
-
+@include("partials.footer")
 @endsection
   
