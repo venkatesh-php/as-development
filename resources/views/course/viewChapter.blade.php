@@ -50,26 +50,37 @@
         <?php $tcount = 0 ?>
             @foreach($tasks as $task)
 
-            <div class="card card-hover bg-danger  col-xs-12 col-sm-6 col-md-4">
-            
-                <div class="card-body">
-                <h3 class="card-title">Task {{$tcount+=1}}: {{$task->worktitle}}</h3>
-                <p class="card-text">Task id: {{$task->coursetask_id}}</p>
+            <div class="card card-hover bg-success col-xs-12 col-sm-6 col-md-4">
+            {{--  <img class="card-img-top" src="" >  --}}
+            <div>
+                <div class="card-body ">
+                <h3 class="card-title" >{{$tcount+=1}}: {{$task->worktitle}}</h3>
+                {{--  <p class="card-text">Task id: {{$task->coursetask_id}}</p>  --}}
                 <table class="table table-dark table-hover ">
                 <tr>
                     <td>
-                    <p class="card-text">Guide: {{$task->gname}}</p>
+                    <small>Guide: {{$task->gname}}</small>
                     </td>
-                    
+                     {{--  </tr>
+                     <tr>
                     <td>
                     {{$task->subject}}
-                    </td>
+                    </td>  --}}
                     <td>
-                    <p class="card-text">{{$task->worknature}}</p>
+                    <small>Type: {{$task->worknature}}</small>
                     </td>
                 
-                <tr>
+                </tr>
                 </table>
+                @if(isMentor())
+                <p class="card-text">Description: {{$task->workdescription}}</p>
+                @if ($task->uploads)
+                     <a class="btn btn-default btn-xs" href="/download/{{ $task->uploads}}" download="{{ $task->uploads}}">File Link</a>
+                @else
+                    <a class="btn btn-default btn-xs" href="#" disabled>No File</a>
+               
+                @endif
+                @endif
                 {{--  <a href="#" class="card-link">Card link</a>
                 <a href="#" class="card-link">Another link</a>  --}}
                 <div class="card-footer">
@@ -92,6 +103,7 @@
                         @endif
                     @endif  
                 @endif
+                </div>
                 </div>
 
             </div>
