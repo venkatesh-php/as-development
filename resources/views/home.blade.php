@@ -1,7 +1,7 @@
 <!-- @inject('request', 'Illuminate\Http\Request') -->
 {{--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>  --}}
 @extends('layouts.app')
-{{--  @include('partials.summernotejs')  --}}
+
 @section('content')
 <div class="container">
 
@@ -23,6 +23,7 @@
                 <div class="row">
                
                  @include('partials.mentorcourse')
+                 
                  {{--  @include('mentor.course')  --}}
                  </div>
 

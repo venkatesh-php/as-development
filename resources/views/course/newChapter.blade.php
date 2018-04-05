@@ -16,7 +16,7 @@
 
 @section('content')
 <body>
-@include('partials.summernotejs')
+
     <div class="container" id="course-wrapper">
         <span class="alert alert-red">- Add a new chapter -</span>
         <hr>
@@ -52,6 +52,7 @@
             {{--submit button--}}
             <input type="submit" class="button btn btn-primary btn-lg" style="float:right">
         </form>
+        @include('partials.summernotejs')
         
     </div>
     

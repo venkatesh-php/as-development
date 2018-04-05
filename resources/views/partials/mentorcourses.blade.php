@@ -1,4 +1,4 @@
-@include('partials.summernotejs')
+
 <style>
     #course_list{
         background: white;
@@ -65,6 +65,7 @@
         </table>
     </div>
     <br>
+    
     <script>
         $("#flash_message").delay(2000).slideUp();
 
