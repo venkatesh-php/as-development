@@ -4,15 +4,15 @@
 <head>
     @include('partials.head')   
     
-    
-
-</head>
-<style>
+    <style>
 .navbar-default {
     background-color: #347AB6;
     border-color: #E7E7E7;
 }
 </style>
+
+</head>
+
 
 <body class="hold-transition skin-blue sidebar-mini">
 
