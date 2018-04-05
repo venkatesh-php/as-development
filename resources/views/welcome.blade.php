@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <nav class="navbar navbar-default navbar-fixed-top">
+        <nav class="navbar navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
@@ -82,7 +82,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-primary">
+            <div class="panel panel-default">
                 <div class="panel-heading"><center><h2>Ameyem Skills Login</h2></center></div>
                 
                     <div class="panel-body">

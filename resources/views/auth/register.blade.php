@@ -5,7 +5,7 @@
 
 
  <div class="container-fluid">
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
@@ -81,7 +81,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-primary">
+            <div class="panel panel-default">
                 <div class="panel-heading"><center><h2>Ameyem Skills Registration</h2></center></div>
                 <div class="panel-body">
                 {{--  @if(isset($validator))
@@ -327,6 +327,10 @@
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
+                                <span><b>Or</b></span>
+                                    {{--  <button  class="btn btn-success">  --}}
+                                        <a class="btn btn-success" href="{{ url('/') }}"><b style="color:white">Login</b></a>   
+                                    {{--  </button>  --}}
                             </div>
                         </div>
                     </form>
