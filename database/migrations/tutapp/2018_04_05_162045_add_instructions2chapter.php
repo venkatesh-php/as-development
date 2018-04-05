@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Chapterstatuses extends Migration
+class AddInstructions2chapter extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,10 @@ class Chapterstatuses extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('chapters', function($table) {
+            $table->longText('instructions')->after('name')->nullable();
+            
+        });
     }
 
     /**
@@ -23,6 +26,9 @@ class Chapterstatuses extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('chapters', function($table) {
+            $table->dropColumn('instructions');
+           
+        });
     }
 }

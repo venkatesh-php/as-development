@@ -10,7 +10,7 @@
     border-color: #E7E7E7;
 }
 </style>
-@include('partials.javascripts')
+
 </head>
 
 
@@ -74,7 +74,7 @@
 {!! Form::open(['route' => 'auth.logout', 'style' => 'display:none;', 'id' => 'logout']) !!}
 <button type="submit">Logout</button>
 {!! Form::close() !!}
-
+@include('partials.javascripts')
 
 
 </body>

@@ -29,8 +29,7 @@
             <div class="form-group">
                 <label for="name">Name of chapter</label>
                 <input type="text" name="name" class="form-control" required>
-            </div>
-              
+            </div>              
 
             {{--chapter notes editor--}}
             <div class="form-group">
@@ -53,46 +52,7 @@
             {{--submit button--}}
             <input type="submit" class="button btn btn-primary btn-lg" style="float:right">
         </form>
-        <script>
-
-            /* setup rich text editor */
-            $('#notes_editor').summernote({
-                height: 300,
-                minHeight: null,
-                maxHeight: null,
-                focus: true,
-                theme:'default'
-            });
-
-            /*
-             * get notes from rich text editor
-             * add notes to a hidden input
-             */
-            function addNotes(){
-                var notes =$('<input>').attr({
-                    type: 'hidden',
-                    value: $('#notes_editor').summernote('code'),
-                    name: 'notes'
-                })
-
-                $('#chapter_form').append(notes);
-            }
-
-            /*
-             * prevent form from submit
-             * append hidden input to the form
-             * submit the form
-             */
-            $('#chapter_form').submit(function (event) {
-                event.preventDefault();
-                addNotes();
-                this.submit();
-            });
-
-            
-
-           
-        </script>
+        
     </div>
     
     </body>
