@@ -97,13 +97,16 @@ class studentController extends Controller
         // return $course; 
         $chids=array_column($course->chapter->toArray(),'id');
         $tasks=coursetask::whereIn('chapter_id',$chids)->get();
-
+        $quizs = quiz::whereIn('chapter_id',$chids)->get();
         foreach ($course->chapter as $cch ){
             $cch->tasks=getTaskIds($cch->id,$tasks);
         }
+        foreach ($course->chapter as $cch ){
+            $cch->quiz=getTaskIds($cch->id,$quizs);
+          }
         /*dd($course);*/
 
-        
+        // return $course;
         return view('student.course')->with('course',$course)->with('tasks',$tasks);
 
     }

@@ -149,34 +149,67 @@ class mentorController extends Controller
 
     /*render course creation page*/
     public  function createCourse(){
-        return view('mentor.course');
+        return view('mentor.course')->with('course',$course);
+    }
+    /*render course edit page*/
+    public  function editCourse($id){
+        $id=hd($id);
+        // return 
+        $course=course::where('id',$id)->first();
+        return view('mentor.course')->with('course',$course);
     }
 
     /*Handle course creation post request */
     /**
      * @param Request $request
      */
-    public function postCourse(Request $request){
+    public function postCourse(Request $request,$id){
 
         /*form validation rules */
-        $this->validate($request, [
-            'name' => 'required|max:100',
-            'description' => 'required|max:255',
-            'cover' =>'required|image|file|max:2048'
-        ]);
-        
-        /*creating a new course instance */
+        $id= hd($id);
         $course = new course();
-        $course->name = $request->name;
-        $course->description = $request->description;
-        $course->cover = storeFile($request->cover,'cover');
-        /*$request->cover->store('cover','public');*/
-        Auth::user()->course()->save($course);
-        $message = Array(
-            "subject"=>"Course created!",
-            "type"=>"success"
-        );
-        return redirect()->back()->with('message',json_encode($message));
+        if($id==0){
+            $this->validate($request, [
+                'name' => 'required|max:100',
+                'description' => 'required|max:255',
+                'cover' =>'required|image|file|max:2048'
+            ]);
+            /*creating a new course instance */
+            
+            $course->name = $request->name;
+            $course->description = $request->description;
+            $course->cover = storeFile($request->cover,'cover');
+            /*$request->cover->store('cover','public');*/
+            Auth::user()->course()->save($course);
+            $message = Array(
+                "subject"=>"Course created!",
+                "type"=>"success"
+            );
+        }else{
+            $this->validate($request, [
+                'name' => 'required|max:100',
+                'description' => 'required|max:255',
+            ]);
+           
+            // return 
+            $course = Auth::user()->course()->findOrFail($id);
+            $course->name = $request->name;
+            $course->description = $request->description;
+            $course->update($request->except("_token"));
+
+
+            /*$request->cover->store('cover','public');*/
+            // Auth::user()->course()->save($course);
+            $message = Array(
+                "subject"=>"Course Updated!",
+                "type"=>"success"
+            );
+        }
+
+
+        
+        
+        return redirect()->route("public.home")->with('message',json_encode($message));
     }
 
     /*show courses list view */
@@ -203,16 +236,7 @@ class mentorController extends Controller
           return redirect()->route('courses')->withErrors(['perm_error','You dont have  permission to delete that course']);
        }
     }
-    // public function getTaskIds($chid,$tasks){
-    //     $taskids=[];
-    //     foreach ($tasks as $task){
-    //         if($task->id==$chid){
-    //             $taskids.append($task->id);
-    //         }
-    //     }
-    //     return $taskids;
 
-    // }
     /*Manage a course */
     public  function manageCourse($course_id){
         $id = hd($course_id);
@@ -223,6 +247,8 @@ class mentorController extends Controller
             // return 
             $course = course::with('chapter')->where('id',$id)->get()->first();             
             $chids=array_column($course->chapter->toArray(),'id');
+            
+            
           $tasks=coursetask::whereIn('chapter_id',$chids)->get();
         //   $tids=array_column($tasks,'task_id');
         //   $tchids=array_column($tasks,'chapter_id');
@@ -230,6 +256,7 @@ class mentorController extends Controller
           foreach ($course->chapter as $cch ){
             $cch->tasks=getTaskIds($cch->id,$tasks);
           }
+          
         //   return             $course;
 
             return view('course.manage')->with('course',$course); 
@@ -331,6 +358,7 @@ class mentorController extends Controller
         ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
         ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
         ->get();
+
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
     }
 
