@@ -171,7 +171,7 @@ class mentorController extends Controller
         if($id==0){
             $this->validate($request, [
                 'name' => 'required|max:100',
-                'description' => 'required|max:255',
+                'description' => 'required|max:1020',
                 'cover' =>'required|image|file|max:2048'
             ]);
             /*creating a new course instance */
@@ -188,7 +188,7 @@ class mentorController extends Controller
         }else{
             $this->validate($request, [
                 'name' => 'required|max:100',
-                'description' => 'required|max:255',
+                'description' => 'required|max:1020',
             ]);
            
             // return 
