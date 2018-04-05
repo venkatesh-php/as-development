@@ -63,14 +63,30 @@
             <?php $count = 0 ?>
             <?php $id= he($course->id)?>
             <div class="cover">
-                <h1 class="text-center">{{$course->name}}</h1>
+                
+                <div class="panel panel-success course">                       
+                        <div class="panel-heading">
+                        <h2 class="text-center  text-uppercase">{{$course->name}}</h2>                          
+                              
+                         </div>
+                         <div class="panel-body">
+                         <h2 class="text-left"> Rules &amp; Instructions for Course<h2>
+                          <h4 class="text-justify">{{$course->description}}</h4>
+                          </div>
+                            </div>
+                            
+                        
+                </div>
             </div>
 
             <div class="container" id="manage">
+                
+
                  <div class="col-md-10 col-md-offset-1">
-                <hr>
                 <h3 class="text-center ">Chapters</h3>
                 <hr>
+                
+
                 <a  href="{{ route('createChapter',['id'=>$id]) }}"
                     class="center-block button btn-blue btn ">Add new chapter</a>
                 <div class="panel-group">
