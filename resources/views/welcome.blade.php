@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
@@ -18,6 +18,7 @@
 
                     </a>
                 </div>
+                
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         
@@ -47,6 +48,7 @@
         <!-- <div class="flex-center position-ref full-height"> -->
             <div class="content"> 
                 <center>
+                <br>
                     <div class="title m-b-xs">
                 
                     <h1>@lang('titles.app') </h1>
