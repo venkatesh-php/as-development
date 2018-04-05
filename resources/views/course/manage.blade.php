@@ -63,6 +63,10 @@
     opacity: 0.8;
     filter: alpha(opacity=80);
 }
+    .transparent2{    
+    opacity: 0.9;
+    filter: alpha(opacity=95);
+}
 
 
 </style>
@@ -76,7 +80,7 @@
                         <h2 class="text-center  text-uppercase">{{$course->name}}</h2>                          
                               
                          </div>
-                         <div class=" panel-body transparent">
+                         <div class=" panel-body transparent2">
                          <h2 class="text-left"> Rules &amp; Instructions for Course<h2>
                           <h4 class="text-justify">{{$course->description}}</h4>
                           </div>
