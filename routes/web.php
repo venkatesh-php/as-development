@@ -137,7 +137,7 @@
         Route::resource('institute','InstitutesController');
 
         //Download a file
-    Route::get('/download/{file}', 'DownloadsController@download');
+    // Route::get('/download/{file}', 'DownloadsController@download');
     });
     
     Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {

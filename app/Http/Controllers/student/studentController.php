@@ -37,7 +37,7 @@ class studentController extends Controller
                     $enrollment->status = 1;
                 $enrollment->save();
 
-                return redirect()->route('studentCourses')->with([
+                return redirect()->route('/home')->with([
                     'title' => 'Enrollment success',
                     'message' => 'You have been enrolled to the course',
                     'type' => 'success',
@@ -52,7 +52,7 @@ class studentController extends Controller
         } else {
             return redirect()->back()->with([
                 'title' => 'Enrollment failed',
-                'message' => 'You have already enrolled for a course,Please complete that first!',
+                'message' => 'You have already enrolled for three courses,Please complete one to open another slot!!!',
                 'type' => 'error',
             ]);
         }
@@ -62,8 +62,18 @@ class studentController extends Controller
     public function courseLibrary()
     {
         $courses = course::all();
+        $enrollments = enrollment::where('student_id',Auth::user()->id)->get();
+        foreach($courses as $course){
+            foreach($enrollments as $enrollment){
+                if($course->id==$enrollment->course_id){
+                    $course->enrolled=true;
+                }
+                
+            }
+        }
         return view('course.library')->with('courses', $courses);
     }
+
 
     /*show current students enrollments*/
     public function showEnrollments()
@@ -128,7 +138,7 @@ class studentController extends Controller
        $taskstatuses= AssignTasks::where('user_id',Auth::user()->id)
        ->where('course_chapter_id',$id)
     //    ->select('task_id','status')
-       ->select('id','task_id','status')
+       ->select('id','task_id','status') 
        ->get();
 
         // $statuses=array_column($taskstatus,'status') ;
@@ -142,7 +152,7 @@ class studentController extends Controller
            }
        }
     //    return [$taskstatuses,$tasks];
-        return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
+        return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks)->with('taskstatuses',$taskstatuses);
     }
 
     public function assignTask($coursetask_id){

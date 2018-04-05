@@ -1,5 +1,42 @@
 @extends('layouts.app')
 @section('content')
+<div class="app">
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4">
+
+        </div>
+            <div class="card card-hover bg-danger  col-xs-12 col-sm-6 col-md-4">
+                
+                <div class="card-body">
+                    <div class="table-responsive">
+           
+                    <h3 class="card-title"><center><b>{{$task_details->worknature}}</b></center></h3>
+ 
+                        <table class="table table-dark table-hover ">
+                            <tr>
+                                <td>
+                                <b>Subject</b> : {{$task_details->subject}}
+                                <p><b>Title</b> : {{$task_details->worktitle}}</p>
+                                </td>
+                            <tr>
+                            <tr>
+                                <td><p><b>Description</b> : {{$task_details->workdescription}}</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="btn btn-primary"> User Credits: {{$task_details->usercredits}}</p>
+                                <p class="btn btn-primary"> Guide Credits: {{$task_details->guidecredits}}</p>
+                                <p class="btn btn-primary"> Reviewer Credits: {{$task_details->reviewercredits}}</p></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="row">
     <div class="col-lg-12 margin-tb">

@@ -79,17 +79,21 @@
                 <p class="label label-chapter">{{ $task->reviewercredits}}</p>  --}}
                 {{--  <p class="card-text">Guide: {{$task->gname}}</p>  --}}
                 </div>
-                @if(!isset ( $task->status))
-                <a  class="btn btn-warning"                
-                    href="{{ route('assigntask',['coursetask_id'=>he($task->coursetask_id)]) }}">Attempt</a>
-                
-                @else
-                    @if($task->status!="approved")
-                    <a class="btn btn-primary" href="{{ route('UserTasks.edit',$task->assigntask_id) }}">View Work</a>
+                @if(isStudent())
+                    @if(!isset ( $task->status))
+                    <a  class="btn btn-warning"                
+                        href="{{ route('assigntask',['coursetask_id'=>he($task->coursetask_id)]) }}">Attempt</a>
+                    
                     @else
-                    <p class="label label-success">Completed</p>
-                    @endif
-                @endif  
+                        @if($task->status!="approved")
+                            @foreach($taskstatuses as $task)
+                            <a class="btn btn-primary" href="{{ route('UserTasks.edit',['id'=>$task->id,'task_id'=>$task->task_id]) }}">View Work</a>
+                            @endforeach
+                        @else
+                        <p class="label label-success">Completed</p>
+                        @endif
+                    @endif  
+                @endif
                 </div>
 
             </div>

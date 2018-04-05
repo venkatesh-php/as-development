@@ -160,8 +160,12 @@ class TaskMigrateController extends Controller
      * @param  \App\TaskMigrate  $taskMigrate
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
+        $task_id = $request->task_id;
+
+        $task_details = AdminTasks::find($task_id);
+
         $user_tasks = UserTasks::orderBy('id','ASC')
         
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')
@@ -173,7 +177,7 @@ class TaskMigrateController extends Controller
         $assign_tasks = AssignTasks::find($id);
 
         // echo($id);
-        return view('TaskMigrate.edit',compact('user_tasks','assign_tasks',$id));
+        return view('TaskMigrate.edit',compact('user_tasks','assign_tasks','task_details',$id));
     }
 
     /**

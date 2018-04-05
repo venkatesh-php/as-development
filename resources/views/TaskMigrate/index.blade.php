@@ -72,7 +72,7 @@
                         <td>Nill</td>
                         @endif
                         <td>
-                             <a class="btn btn-info btn-xs" href="{{ route('TaskMigrate.edit',$task->id) }}">View Work</a>
+                             <a class="btn btn-info btn-xs" href="{{ route('TaskMigrate.edit',['id'=>$task->id,'task_id'=>$task->task_id]) }}">View Work</a>
                         </td>
                         <td>{{ $task->status }}</td>
                     </tr>

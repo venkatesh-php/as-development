@@ -8,9 +8,10 @@ use Image;
 
 use DB;
 use Auth;
-use Charts;
+
 use App\course;
 use App\User;
+use App\enrollment;
 
 use App\Role;
 use App\Institutes;
@@ -52,8 +53,18 @@ class HomeController extends Controller
         elseif(isStudent()){
             $courses = course::all();
             $studentData = Auth::user()->load('enrollment.course');
+            $enrollments = enrollment::where('student_id',Auth::user()->id)->get();
+            foreach($courses as $course){
+                foreach($enrollments as $enrollment){
+                    if($course->id==$enrollment->course_id){
+                        $course->enrolled=true;
+                    }
+                    
+                }
+            }
 
-        return view('home')->with('courses', $courses)->with('studentData',$studentData);
+
+        return view('home')->with('courses', $courses)->with('studentData',$studentData)->with('courses', $courses);
 
         }
        
