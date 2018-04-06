@@ -142,7 +142,7 @@
         </div>
     </div>
 </div>
-
+{{--  
 
 <!--Start of the information regarding teacher or Admin section -->
 <div class="container-fluid">
@@ -209,7 +209,7 @@
 {!! Charts::scripts() !!}
 {!! $assign_chart->script() !!}
 {!! $completed_chart->script() !!}
-{!! $progress_chart->script() !!}
+{!! $progress_chart->script() !!}  --}}
 
 
 
