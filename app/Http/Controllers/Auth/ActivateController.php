@@ -133,6 +133,7 @@ class ActivateController extends Controller
     public function activate($token)
     {
         $user = Auth::user();
+        // return self::getUserHomeRoute();
         $currentRoute = Route::currentRouteName();
         $ipAddress = new CaptureIpTrait();
         // $role = Role::where('slug', '=', 'user')->first();
@@ -150,7 +151,7 @@ class ActivateController extends Controller
         if (empty($activation)) {
             Log::info('Registered user attempted to activate with an invalid token: '.$currentRoute.'. ', [$user]);
 
-            return redirect()->route(self::getActivationRoute())
+            return redirect()->route('public.dashboard')
                 ->with('status', 'danger')
                 ->with('message', trans('auth.invalidToken'));
         }
@@ -174,8 +175,9 @@ class ActivateController extends Controller
         //     ->with('status', 'success')
         //     ->with('message', trans('auth.successActivated'));
         // }
-
+        
         return redirect()->route(self::getUserHomeRoute())
+        // return view("auth.activated")
             ->with('status', 'success')
             ->with('message', trans('auth.successActivated'));
     }

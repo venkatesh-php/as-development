@@ -37,9 +37,14 @@
 
                    @if(Session::has('message'))
                     <?php $msg = json_decode(Session::get('message'))?>
+                    <p class="text-center">
+                                    <span class="text-center">{{$msg}}</span>
+                                    </p>
+
                     <br>
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
+                        @if(isset($msg->type))
                             <div class="alert alert-{{$msg->type}} alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <p class="text-center">
@@ -49,6 +54,7 @@
                                     to add chapters</span>
                                 </p>
                             </div>
+                            @endif
                         </div>
                     </div>
                     @endif
