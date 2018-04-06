@@ -58,19 +58,46 @@
         background: #d42450;
         color: white;
     }
+
+    .transparent{    
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+    .transparent2{    
+    opacity: 0.9;
+    filter: alpha(opacity=95);
+}
+
+
 </style>
 @section('content')
             <?php $count = 0 ?>
             <?php $id= he($course->id)?>
             <div class="cover">
-                <h1 class="text-center">{{$course->name}}</h1>
+                
+                <div class="panel panel-success transparent">                       
+                        <div class=" panel-heading">
+                        <h2 class="text-center  text-uppercase">{{$course->name}}</h2>                          
+                              
+                         </div>
+                         <div class=" panel-body transparent2">
+                         <h2 class="text-left"> Rules &amp; Instructions for Course<h2>
+                          <h4 class="text-justify">{{$course->description}}</h4>
+                          </div>
+                            </div>
+                            
+                        
+                </div>
             </div>
 
             <div class="container" id="manage">
+                
+
                  <div class="col-md-10 col-md-offset-1">
-                <hr>
                 <h3 class="text-center ">Chapters</h3>
                 <hr>
+                
+
                 <a  href="{{ route('createChapter',['id'=>$id]) }}"
                     class="center-block button btn-blue btn ">Add new chapter</a>
                 <div class="panel-group">
@@ -93,7 +120,7 @@
                                     <a href="{{ route('editChapter',['course_name'=>$course->name,'course_id'=>$id,'id'=>he($chapter->id)])}}" class="button btn btn-blue">Edit </a>
                                     <a href="{{ route('quizMaker',['id'=>he($chapter->id)]) }}" class="button btn btn-quiz">Quiz</a>
                                     <a href="{{ route('taskMaker',['id'=>he($chapter->id)]) }}" class="button btn btn-primary"> Pin Task</a>
-                                    <a href="{{route('previewChapter',['course_id'=>$id,'id'=>he($chapter->id)])}}" class="button btn btn-preview" target="_blank"> Preview </a>
+                                    <a href="{{route('previewChapter',['course_id'=>$id,'id'=>he($chapter->id)])}}" class="button btn btn-preview"> Preview </a>
                                 </div>
                                 <div class="btn-group inline pull-left">
                                     <a href="#" class="button btn btn-danger pull-left">Delete</a>

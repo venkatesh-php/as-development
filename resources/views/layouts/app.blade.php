@@ -10,7 +10,7 @@
     border-color: #E7E7E7;
 }
 </style>
-@include('partials.javascripts')
+
 </head>
 
 
@@ -75,7 +75,7 @@
 <button type="submit">Logout</button>
 {!! Form::close() !!}
 
-
+@include('partials.javascripts')
 
 </body>
 </html>

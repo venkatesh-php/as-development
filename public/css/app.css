@@ -5688,8 +5688,8 @@ tbody.collapse.in {
 }
 
 .navbar-default {
-  background-color: #347AB6;
-  border-color: #347AB6;
+  background-color: #ffffff;
+  border-color: #d3e0e9;
 }
 
 .navbar-default .navbar-brand {
@@ -7135,30 +7135,30 @@ button.list-group-item-danger.active:focus {
 }
 
 .panel-primary {
-  border-color: #347AB6;
+  border-color: #3097D1;
 }
 
 .panel-primary > .panel-heading {
   color: #fff;
-  background-color: #347AB6;
-  border-color: #347AB6;
+  background-color: #3097D1;
+  border-color: #3097D1;
 }
 
 .panel-primary > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #347AB6;
+  border-top-color: #3097D1;
 }
 
 .panel-primary > .panel-heading .badge {
-  color: #347AB6;
+  color: #3097D1;
   background-color: #fff;
 }
 
 .panel-primary > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #347AB6;
+  border-bottom-color: #3097D1;
 }
 
 .panel-success {
-  border-color: #347AB6;
+  border-color: #d6e9c6;
 }
 
 .panel-success > .panel-heading {

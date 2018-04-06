@@ -157,7 +157,6 @@ class studentController extends Controller
             }
            }
        }
-    //    return $task->assigntask_id;
     //    return [$taskstatuses,$tasks];
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
     }

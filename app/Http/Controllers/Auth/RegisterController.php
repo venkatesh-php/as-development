@@ -156,6 +156,23 @@ class RegisterController extends Controller
             
         }
         if(isset($request->branch_name_in)){
+            $validator= new         Validator;
+            $data['branch_name']=$request->branch_name_in;
+            $localreq= new Request;
+            
+
+            $validatedData = $request->validate([
+                'title' => 'required|unique:posts|max:255',
+                'body' => 'required',
+            ]);
+
+           return $validator= Validator::make($data,
+            ['branch_name'=> 'required|max:255'],
+            ['branch_name.required' => 'branch_name required']);
+            if ($validator -> fails()) 
+                { 
+                  return  back() -> withInput($request->all()) -> withErrors($validator); 
+                }
             Branch::firstOrCreate(['name'=>$request->branch_name_in]);
             $branch = Branch::where('name',$request->branch_name_in)->first();
             $request->merge(['branch_id'=>$branch->id]);
@@ -166,15 +183,14 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $request=$this->processRequestData($request);
-       
+      $request=$this->processRequestData($request);
+    //    var_dump( $request);
 // return $request->except(['branch_name_in','batch_name_in']);
-        // return 
+  
         $validator= new         Validator;
         
         $validator = $this->validator($request->except(['branch_name_in','batch_name_in','_token'])); 
-        // $validator->validate();
-        // if (isset($validator)){
+
                 if ($validator -> fails()) 
                 { 
                     // return "validator fail";

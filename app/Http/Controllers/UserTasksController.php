@@ -147,8 +147,6 @@ class UserTasksController extends Controller
 
         $task_details = AdminTasks::find($task_id);
 
-        // return $task_details;
-
         $user_tasks = UserTasks::orderBy('id','ASC')
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')
 

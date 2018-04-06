@@ -44,7 +44,7 @@
                     </div>
 
                     {{--course cover--}}
-                    @if(!isset($course->image))
+                    @if($course->id==0))
                     <div class="form-group">
                         <label for="name">cover image</label>
                         <input type="file" class="form-control" name="cover" id="cover" required>
