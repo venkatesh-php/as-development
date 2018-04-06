@@ -28,6 +28,7 @@
 <script>
     window._token = '{{ csrf_token() }}';
 </script>
+
  {{--  @include('partials.summernotejs')  --}}
 
 

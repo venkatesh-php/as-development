@@ -37,7 +37,7 @@ class studentController extends Controller
                     $enrollment->status = 1;
                 $enrollment->save();
 
-                return redirect()->route(self::getUserHomeRoute())->with([
+                return redirect()->route('public.home')->with([
                     'title' => 'Enrollment success',
                     'message' => 'You have been enrolled to the course',
                     'type' => 'success',
@@ -107,7 +107,7 @@ class studentController extends Controller
         /*dd($course);*/
 
         // return $course;
-        return view('student.course')->with('course',$course)->with('tasks',$tasks);
+        return view('student.course')->with('course',$course);
 
     }
 
