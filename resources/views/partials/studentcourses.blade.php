@@ -34,8 +34,9 @@
     <h2> Please enroll from library </h2>
    
     </div>
-    @endif
+    @else
     <h1 class="text-center">Current courses</h1>
+    @endif
             @foreach($studentData->enrollment as $enrollment)
                 @if($enrollment->status == 1)
                     <div class="row">
