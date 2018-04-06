@@ -23,7 +23,7 @@
         @endforeach
 
         {{--print messages after form submit--}}
-        @if(Session::has('message'))
+        {{--  @if(Session::has('message'))
             <br>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2" id="flash_message">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-        @endif
+        @endif  --}}
         <table class="table table-hover">
             @foreach($courses as $course)
             <tr>

@@ -1,4 +1,8 @@
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+{{--  Kept in head partial  --}}
+{{--  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>  --}}
+{{--  <script>
+var $ = $.noConflict(true);
+</script>  --}}
 <link href="/css/app.css" rel="stylesheet">
     <!-- Scripts -->
     {{--  <script src="/js/jquery.js"></script>  --}}
