@@ -15,6 +15,7 @@ class Chapterstatuses extends Migration
     {
         Schema::create('chapterstatuses', function (Blueprint $table) {
             $table->increments('id')->unsigned();
+
             
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')
@@ -23,7 +24,6 @@ class Chapterstatuses extends Migration
             $table->foreign('chapter_id')->references('id')->on('chapters')
             ->onDelete('cascade');
             $table->integer('status')->unsigned();
-            
 
         });
     }
@@ -35,6 +35,8 @@ class Chapterstatuses extends Migration
      */
     public function down()
     {
+
         Schema::dropIfExists('chapterstatuses');
+
     }
 }

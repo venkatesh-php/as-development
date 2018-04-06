@@ -6068,7 +6068,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
 
 window._ = __webpack_require__(149);
-window.Popper = require('popper.js').default;
+//window.Popper = require('popper.js').default;
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -6130,8 +6130,8 @@ window.Pusher = __webpack_require__(174);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
-  key: Object({"NODE_ENV":"development"}).MIX_PUSHER_APP_KEY,
-  cluster: Object({"NODE_ENV":"development"}).MIX_PUSHER_APP_CLUSTER,
+  key: "",
+  cluster: "",
   encrypted: true
 });
 
