@@ -1,21 +1,29 @@
 <!-- @inject('request', 'Illuminate\Http\Request') -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{{--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>  --}}
 @extends('layouts.app')
+{{--  @include('partials.summernotejs')  --}}
 @section('content')
 <div class="container">
+
 <div class="row">
         <div class="col-md-8 col-md-offset-2">
        <h3 class="text-center">Welcome Note : <a class="btn btn-primary" href="/download/ASDP-Welcome-Guide.pdf" >Download</a></h3>
 </div>
 </div>
 </div>
+
+
+
 <div class="container-fluid">
             @if(isMentor())    
              <div class="row">
                   @include('partials.mentorcourses')
+                  
                  </div>
                 <div class="row">
+               
                  @include('partials.mentorcourse')
+                 {{--  @include('mentor.course')  --}}
                  </div>
 
             <!-- <li><a href="#">Students</a></li>   -->

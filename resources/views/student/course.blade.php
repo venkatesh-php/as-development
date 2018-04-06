@@ -88,13 +88,19 @@ function makeColor(){
                         </h2>
 
                         <div class="panel-body">
-                            <div class="btn-group inline pull-right">
-                                <a href="{{ route('viewQuiz',['id'=>he($chapter->id)]) }}" class="button btn btn-quiz" target="_blank">Quiz</a>
+                            <div class="btn-group inline pull-centre">
+                            
+                             @if(count($chapter->quiz)>0)
+                                <a href="{{ route('viewQuiz',['id'=>he($chapter->id)]) }}" class="button btn btn-quiz" >Quiz</a>
+                              @endif
                                 <a href="{{route('viewChapter',['course_id'=>$id,'id'=>$chapter_id])}}" class="button btn btn-preview"> view chapter </a>
+
+                              
+
                             </div>
-                            <div class="btn-group inline pull-left">
+                            {{--  <div class="btn-group inline pull-left">
                                 <a href="#" class="button btn btn-danger pull-left">Delete</a>
-                            </div>
+                            </div>  --}}
                         </div>
                     </div>
                 @endforeach

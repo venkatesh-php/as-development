@@ -1,3 +1,4 @@
+@include('partials.summernotejs')
 <style>
     #course_list{
         background: white;
@@ -50,6 +51,10 @@
                 <td>
                     <a  class="btn btn-primary"
                         href="{{ route('manageCourse',['id'=>he($course->id)]) }}">Manage</a>
+                </td>
+                <td>
+                    <a  class="btn btn-primary"
+                        href="{{ route('editCourse',['id'=>he($course->id)]) }}">Edit</a>
                 </td>
                 <td>
                     <a  id = "FormDeleteTime" class="btn btn-danger"

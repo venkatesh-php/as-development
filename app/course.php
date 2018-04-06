@@ -19,4 +19,7 @@ class course extends Model
     public function enrollment(){
         return $this->hasMany('App\enrollment');
     }
+    protected $fillable = [
+        'name','description'
+    ];
 }

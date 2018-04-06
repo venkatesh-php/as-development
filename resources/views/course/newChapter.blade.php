@@ -1,5 +1,6 @@
 
 @extends('layouts.app')
+<head>
 <style>
     #course-wrapper {
         background: white;
@@ -11,17 +12,11 @@
     }
 </style>
 
-
+<head>
 
 @section('content')
-
-
-
-
-
-
-
-
+<body>
+@include('partials.summernotejs')
     <div class="container" id="course-wrapper">
         <span class="alert alert-red">- Add a new chapter -</span>
         <hr>
@@ -99,6 +94,8 @@
            
         </script>
     </div>
+    
+    </body>
 @endsection
 <!-- Scripts -->
     
