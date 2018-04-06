@@ -15,13 +15,15 @@ class Chapterstatuses extends Migration
     {
         Schema::create('chapterstatuses', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->string('user_id')->unsigned();
-            $table->longText('chapter_id')->unsigned();
-            $table->string('pdf');
-            $table->string('video');
-            $table->integer('course_id')->unsigned();
-            $table->timestamps();
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')
+            ->onDelete('cascade');
+            $table->integer('chapter_id')->unsigned();
+            $table->foreign('chapter_id')->references('id')->on('chapters')
+            ->onDelete('cascade');
+            $table->integer('status')->unsigned();
+            
+
         });
     }
 
@@ -32,6 +34,6 @@ class Chapterstatuses extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chapters');
+        Schema::dropIfExists('chapterstatuses');
     }
 }
