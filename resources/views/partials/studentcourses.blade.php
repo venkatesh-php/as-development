@@ -41,17 +41,18 @@
             @foreach($studentData->enrollment as $enrollment)
                 @if($enrollment->status == 1)
                     
-                        
+                        <a href="{{route('viewCourse',['id'=>he($enrollment->course->id)])}}" role="button">
                         <div class="col-sm-4 col-sm-offset-1 panel" >
                             <div class="course_header">
-                                <a href="{{route('viewCourse',['id'=>he($enrollment->course->id)])}}" role="button">
+                                
                                     <h3>{{ $enrollment->course->name}}</h3>
-                                </a>
+                               
                                 <span href="#" class="label btn-ongoing">Enrolled</span>
                             </div>
                             <hr>
                             <p>{{ $enrollment->course->description}}</p>
                         </div>
+                         </a>
                     
                 @else
                 
