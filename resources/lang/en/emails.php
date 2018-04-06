@@ -18,7 +18,7 @@ return [
      *
      */
 
-    'activationSubject'  => 'Activation required',
+    'activationSubject'  => 'Activation required for Ameyem Skill Labs',
     'activationGreeting' => 'Welcome!',
     'activationMessage'  => 'You need to activate your email before you can start using all of our services.',
     'activationButton'   => 'Activate',

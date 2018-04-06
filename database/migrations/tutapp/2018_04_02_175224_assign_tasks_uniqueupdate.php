@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AssignTasksUnique extends Migration
+class AssignTasksUniqueupdate extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class AssignTasksUnique extends Migration
     {
         Schema::table('assign_tasks', function($table) {
 
-            $table->unique(array('task_id','user_id'));
+            $table->unique(array('task_id','user_id','course_chapter_id'));
         });
     }
 

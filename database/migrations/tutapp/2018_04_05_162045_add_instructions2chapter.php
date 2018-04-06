@@ -6,11 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddInstructions2chapter extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::table('chapters', function($table) {
@@ -19,16 +15,11 @@ class AddInstructions2chapter extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('chapters', function($table) {
-            $table->dropColumn('instructions');
-           
+            $table->dropColumn('instructions');           
+
         });
     }
 }

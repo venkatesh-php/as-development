@@ -37,7 +37,7 @@ class studentController extends Controller
                     $enrollment->status = 1;
                 $enrollment->save();
 
-                return redirect()->route('/home')->with([
+                return redirect()->route(self::getUserHomeRoute())->with([
                     'title' => 'Enrollment success',
                     'message' => 'You have been enrolled to the course',
                     'type' => 'success',
@@ -117,7 +117,7 @@ class studentController extends Controller
         $id = hd($id);
         $quiz_data = chapter::find($id)->quiz->where('chapter_id',$id)->with('question')->first();
 
-        return $quiz_data;
+        // return $quiz_data;
         return view('quiz.viewQuiz')->with('quiz_data',$quiz_data);
     }
 
@@ -134,7 +134,6 @@ class studentController extends Controller
         ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
         ->join('users as users_g','users_g.id','coursetasks.priority_guide_id')
         ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
-        // ->join('assign_tasks','assign_tasks.user_id',Auth::user()->id)
         // ->where('assign_tasks.course_chapter_id',$tasks->chapter_id)
         ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
         ->get();
