@@ -30,7 +30,12 @@
                 <label for="name">Name of chapter</label>
                 <input type="text" name="name" class="form-control" value="{{$chapter->name}}">
             </div>
-
+             {{--Chapter instructions--}}
+                    <div class="form-group">
+                        <label for="name">Instroctions</label>
+                        <textarea name="instructions" id="instructions" cols="15" rows="4" class="form-control" 
+                         required>{{$chapter->instructions}}</textarea>
+                    </div>
 
             
 

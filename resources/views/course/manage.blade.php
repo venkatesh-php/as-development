@@ -115,6 +115,8 @@
                                {{$chapter->id}}: {{$chapter->name}} 
                                 
                             </h2>
+                            <p class="text-justify"><b>Instructions: </b>{{$chapter->instructions}}</p>
+        
                             <div class="panel-body">
                                 <div class="btn-group inline pull-right">
                                     <a href="{{ route('editChapter',['course_name'=>$course->name,'course_id'=>$id,'id'=>he($chapter->id)])}}" class="button btn btn-blue">Edit </a>

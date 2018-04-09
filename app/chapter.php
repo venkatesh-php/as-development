@@ -14,6 +14,6 @@ class chapter extends Model
         return $this->hasOne('App\quiz');
     }
     protected $fillable = [
-        'name','notes','pdf','video'
+        'name','instructions','notes','pdf','video'
     ];
 }
