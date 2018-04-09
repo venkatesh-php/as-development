@@ -62,7 +62,7 @@
                                     <button class="button btn btn-primary">option {{$question->answer}}</button>
                                 </td>
                                 <td>
-                                    <a href="#" class="button btn btn-danger">Delete</a>
+                                    <a id="FormDeleteTime" href="{{ route('qstnDelete',[he($chapter_id),he($question->id)]) }}"  class="button btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         </table>
@@ -131,4 +131,18 @@
         </div>
     </div>
     <script src="/js/app.js"></script>
+    <script>
+     $("#FormDeleteTime").click(function (event) {
+                 var x = confirm("Are you sure you want to delete?");
+                    if (x) {
+                        return true;
+                    }
+                    else {
+
+                        event.preventDefault();
+                        return false;
+                    }
+
+                });
+    </script>
 @endsection

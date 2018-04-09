@@ -388,9 +388,11 @@ class mentorController extends Controller
         $questions = $quiz->question()->get();
         $course = $quiz->chapter->course;
         /*return $quiz_data*/;
+        // return [$course,$questions];
         return view('quiz.create')
             ->with('course',$course)
-            ->with('questions',$questions);
+            ->with('questions',$questions)
+            ->with('chapter_id',$chapter_id);
     }
 
 
@@ -413,5 +415,11 @@ class mentorController extends Controller
         $question->quiz_id = $quiz->id;
         $question->save();
         return redirect()->route('createQuiz',['id'=>he($chapter_id)]);
+    }
+    public function qstnDelete($chapter_id,$question_id){
+        // return [hd($chpter_id),hd($question_id)];
+        question::where('id',  hd($question_id))
+        ->delete();
+        return redirect()->back();
     }
 }
