@@ -312,6 +312,9 @@ class mentorController extends Controller
             $request['video'] = $video;
             $chapter->video=$video;
         }
+        // else{
+        //     $request['video_tutorial']=null;
+        // }
         // return storage_path('app\\public\\pdf\\'.$chapter->pdf);
         if(isset($request->pdfMaterial)){   
             if(isset( $chapter->pdf )){
@@ -323,11 +326,14 @@ class mentorController extends Controller
         $request['pdf'] = $pdf;
         $chapter->pdf=$pdf;
         }
+        // else{
+        //     $request['pdfMaterial']=null;
+        // }
         // 
         // $chapter->course()->associate($course);
         /*dd($chapter);*/
         //
-        chapter::where('id', hd($id))->update($request->except(['_token','pdfMaterial','video_tutorial']));
+        chapter::where('id', hd($id))->update($request->except(['_token','pdfMaterial','video_tutorial','files']));
         // return [$chapter,$oldpdf];
         //TODO: redirect to course view instead of courses view
         // return redirect()->route('courses');
