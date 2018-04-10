@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
-// use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
@@ -53,39 +52,19 @@ class mentorController extends Controller
     }
     /*Render Quiz creation form*/
     public function pinTask(Request $request){
-        // $chapter_id = hd($chapter_id);
-        // return
+
         $input = Input::except('_method', '_token');
         $task = Coursetask::firstOrCreate($input);
-        // $roles = $request->input('roles') 
-        // $tasks = $task->question()->get();
-        // $course = $task->chapter->course;
-        // /*return $quiz_data*/;
-        // return view('task.index')
-        //     ->with('course',$course)
-        //     ->with('tasks',$tasks);
-        // return $input;
-        // return view('coursetasks.index')->with('admin_tasks',$admin_tasks)
-        // ->with('subjects',$subjects);
-        // $id = $input->chapter_id;
       $c=chapter::where('id',$request->chapter_id)
        -> select('course_id')->first();
 
        return redirect()->route('manageCourse',['id'=>he($c->course_id)]) ;
-        
-        // $course = course::with('chapter')->get()->all();
-        // if(count($course)!=0){
-        //     $course = course::with('chapter')->where('id',$id)->get()->first();
-            
-        //     return view('course.manage')->with('course',$course);
-        // }
+
     }
 
     public function show(Request $request)
     {
-        // $admin_tasks = AdminTasks::find($id);
-        // return view('AdminTasks.show',compact('admin_tasks'));
-        // echo($id);
+
         $subject= $request->subject;
         $admin_tasks = AdminTasks::orderBy('id','DESC')
                         ->where('admin_tasks.subject',$subject)
@@ -274,7 +253,7 @@ class mentorController extends Controller
     /*handle a new chapter request*/
     public  function postChapter($id,Request $request){
         $id = hd($id);
-        // return $id;
+        
         $course = course::findOrFail($id);
     //    ;
         /*create a new chapter instance*/
@@ -290,8 +269,9 @@ class mentorController extends Controller
             $chapter->video = $video;
         }
         if(isset($request->pdfMaterial)){
+            
         $pdf = storeFile($request->pdfMaterial,'pdf');
-        
+ 
         $chapter->pdf = $pdf;
         }
         // 
@@ -315,9 +295,40 @@ class mentorController extends Controller
 
     /*handle a new chapter request*/
     public  function updateChapter($id,Request $request){
-
+        // $course = course::findOrFail($id);
         $chapter = chapter::findOrFail(hd($id));
-        $chapter->update($request->except('_token'));
+        // $chapter = new chapter();
+        $chapter->name = $request->name;
+        $chapter->instructions = $request->instructions;
+        $chapter->notes = $request->notes;
+        
+        /*upload files to disk*/
+        if(isset($request->video_tutorial)){
+            if(isset( $chapter->video )){
+            Storage::disk('video')->delete($chapter->video);
+            }
+            $video = storeFile($request->video_tutorial,'videos');
+            /*update chapter instance*/
+            $request['video'] = $video;
+            $chapter->video=$video;
+        }
+        // return storage_path('app\\public\\pdf\\'.$chapter->pdf);
+        if(isset($request->pdfMaterial)){   
+            if(isset( $chapter->pdf )){
+                Storage::disk('pdf')->delete($chapter->pdf);
+            }         
+        
+        // $oldpdf=$chapter->pdf;
+        $pdf = storeFile($request->pdfMaterial,'pdf'); 
+        $request['pdf'] = $pdf;
+        $chapter->pdf=$pdf;
+        }
+        // 
+        // $chapter->course()->associate($course);
+        /*dd($chapter);*/
+        //
+        chapter::where('id', hd($id))->update($request->except(['_token','pdfMaterial','video_tutorial']));
+        // return [$chapter,$oldpdf];
         //TODO: redirect to course view instead of courses view
         // return redirect()->route('courses');
         $tasks=coursetask::where('chapter_id',$chapter->id)
