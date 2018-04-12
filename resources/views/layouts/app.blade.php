@@ -37,6 +37,8 @@
 
                    @if(Session::has('message'))
                     <?php $msg = json_decode(Session::get('message'))?>
+                    
+
                     <br>
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
