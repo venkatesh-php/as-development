@@ -68,8 +68,8 @@
 
             
             
-            @if(isMentor())
-            <li>
+            {{--  @if(isMentor())  --}}
+            {{--  <li>
                 <a href="{{ route('createCourse') }}">
                 
                     <i class="fa fa-book"></i>
@@ -82,9 +82,9 @@
                 <i class="fa fa-archive"></i>
                     <span class="title">My courses</span>
                 </a>
-            </li>
+            </li>  --}}
             <!-- <li><a href="#">Students</a></li>   -->
-            @elseif(isAdmin())
+            @if(isAdmin())
             <li>
                 <a href="{{ route('ReviewCV') }}">
     
@@ -106,8 +106,8 @@
                     <span class="title">Students</span>
                 </a>
             </li>
-            @elseif(isStudent())
-            <li>
+            {{--  @elseif(isStudent())  --}}
+            {{--  <li>
                 <a href="{{ route('courseLibrary') }}">
                
                     <i class="fa fa-building"></i>
@@ -120,7 +120,7 @@
                     <i class="fa fa-book"></i>
                     <span class="title">My courses</span>
                 </a>
-            </li>
+            </li>  --}}
             @endif
 
             

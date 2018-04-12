@@ -30,16 +30,12 @@
                 <label for="name">Name of chapter</label>
                 <input type="text" name="name" class="form-control" value="{{$chapter->name}}">
             </div>
-            {{--chapter task builder--}}
-            <div class="form-group">
-                <label for="task_editor">Task Selector</label>
-                <a id="more" href="#" onclick="showTasks()">Select Task</a>
-                
-                <div id="details"></div>
-                
-          
-                
-            </div>
+             {{--Chapter instructions--}}
+                    <div class="form-group">
+                        <label for="name">Instroctions</label>
+                        <textarea name="instructions" id="instructions" cols="15" rows="4" class="form-control" 
+                         required>{{$chapter->instructions}}</textarea>
+                    </div>
 
             
 

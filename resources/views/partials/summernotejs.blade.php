@@ -14,13 +14,18 @@
     <script src="/js/summernote.js"></script> 
     <script>
         window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
+            'csrfToken' => csrf_token() ]); ?>
 
             var jQuery1 = $.noConflict(true);
             /* setup rich text editor */
+    </script>
+    @if(isset($chapter->notes))
+    <script>
+    jQuery1('#notes_editor').html( `<?php echo ($chapter->notes);?> `);
+    </script>
+    @endif
+            <script>
             
-             jQuery1('#notes_editor').html( `<?php echo ($chapter->notes);?> `);
              jQuery1('#notes_editor').summernote({
                 height: 300,
                 minHeight: null,

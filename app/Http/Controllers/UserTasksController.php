@@ -141,23 +141,27 @@ class UserTasksController extends Controller
      * @param  \App\institutes  $institutes
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
+    public function edit(Request $request,$assign_task_id)
     {
-        $task_id = $request->task_id;
+        // $task_id = $request->task_id;
 
-        $task_details = AdminTasks::find($task_id);
+        // return 
+        // $assign_task_id;
+
+        
 
         $user_tasks = UserTasks::orderBy('id','ASC')
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')
 
         ->join('users as users_u','users_u.id','user_tasks.request_by')
 
-        ->where( 'assign_tasks.id',$id)
+        ->where( 'assign_tasks.id',$assign_task_id)
         ->select('user_tasks.*','users_u.name')->get();
-        $assign_tasks = AssignTasks::find($id);
+        $assign_tasks = AssignTasks::find($assign_task_id);
 
+        $task_details = AdminTasks::find($assign_tasks->task_id);
 
-        return view('UserTasks.edit',compact('user_tasks','assign_tasks','task_details',$id));
+        return view('UserTasks.edit',compact('user_tasks','assign_tasks','task_details'));
     }
 
     /**

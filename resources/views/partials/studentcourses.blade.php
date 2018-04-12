@@ -34,27 +34,30 @@
     <h2> Please enroll from library </h2>
    
     </div>
-    @endif
+    @else
     <h1 class="text-center">Current courses</h1>
+    @endif
+    <div class="row">
             @foreach($studentData->enrollment as $enrollment)
                 @if($enrollment->status == 1)
-                    <div class="row">
-                        
-                        <div class="col-md-10 col-md-offset-1 panel">
+                    
+                        <a href="{{route('viewCourse',['id'=>he($enrollment->course->id)])}}" role="button">
+                        <div class="col-sm-4 col-sm-offset-1 panel" >
                             <div class="course_header">
-                                <a href="{{route('viewCourse',['id'=>he($enrollment->course->id)])}}" role="button">
+                                
                                     <h3>{{ $enrollment->course->name}}</h3>
-                                </a>
+                               
                                 <span href="#" class="label btn-ongoing">Enrolled</span>
                             </div>
                             <hr>
                             <p>{{ $enrollment->course->description}}</p>
                         </div>
-                    </div>
+                         </a>
+                    
                 @else
-                <div class="row">
+                
                     <h1 class="text-center">past courses</h1>
-                    <div class="col-md-10 col-md-offset-1 panel past-courses">
+                    <div class="col-sm-4 col-sm-offset-1 panel past-courses">
                         <div class="course_header">
                             <h3>{{ $enrollment->course->name}}</h3>
                             <span href="#" class="label btn-failed">Failed</span>
@@ -62,8 +65,9 @@
                         <hr>
                         <p>{{ $enrollment->course->description}}</p>
                     </div>
-                </div>
+                
                 @endif
             @endforeach
+            </div>
     </div>
 

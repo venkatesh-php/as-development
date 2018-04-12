@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
     <style>
         #quiz_maker{
             background: white;
@@ -129,4 +130,5 @@
             </div>
         </div>
     </div>
+    <script src="/js/app.js"></script>
 @endsection

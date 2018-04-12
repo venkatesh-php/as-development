@@ -25,6 +25,9 @@ Route::group(['middleware' => ('role:student'),'prefix' => 'student'], function 
     /*Take a quiz*/
     Route::get('course/{id}/quiz','student\studentController@viewQuiz')
         ->name('viewQuiz');
+    
+    Route::get('course/{id}/quizres','student\studentController@viewQuizResult')
+    ->name('viewQuizResult');
 
     /*post quiz*/
     Route::post('course/{id}/quiz','student\studentController@postQuiz')

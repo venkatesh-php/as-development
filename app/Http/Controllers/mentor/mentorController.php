@@ -280,6 +280,7 @@ class mentorController extends Controller
         /*create a new chapter instance*/
         $chapter = new chapter();
         $chapter->name = $request->name;
+        $chapter->instructions = $request->instructions;
         $chapter->notes = $request->notes;
         
         /*upload files to disk*/

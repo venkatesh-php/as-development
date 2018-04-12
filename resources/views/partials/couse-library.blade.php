@@ -7,6 +7,10 @@ function makeColor(){
     return $color;
 }
 ?>
+<script src="/js/toastr.min.css"></script>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script src="/js/toastr.min.js"></script>
 <style>
     .navbar{                                                                                                                        ``````````````````````````````````````````````````````````
         margin-bottom:0px !important;
@@ -63,8 +67,12 @@ function makeColor(){
     }
 </style>
 
-<script src="/js/toastr.min.css"></script>
-<script src="/js/toastr.min.js"></script>
+
+    <script>
+        $('document').ready(function () {
+            $(".toastup").delay(1000).slideDown('fast').delay(3000).slideUp();
+        });
+    </script>
 
     @if(Session::has('message'))
         <span class="toastup toastup-{{Session::get('type')}}">
@@ -112,8 +120,4 @@ function makeColor(){
 
             @endforeach
         </div>
-    <script>
-        $('document').ready(function () {
-            $(".toastup").delay(1000).slideDown('fast').delay(3000).slideUp();
-        });
-    </script>
+

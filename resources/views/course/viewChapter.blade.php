@@ -42,9 +42,10 @@
 @section('content')
    <div class="container" id="chapter_data">
        <h2 class="text-center">{{$chapter->name}}</h2>
-        <a  class="btn btn-primary"
-                        href="{{ URL::previous()}}">Back</a>
+        <a  class="btn btn-primary" href="{{ URL::previous()}}">Back</a>
                         <hr>
+                        <p class="text-justify"><b>Instructions: </b>{{$chapter->instructions}}</p>
+        <hr>
         <div class="container text-center">
         <h2 >Tasks to be completed</h2>
         <?php $tcount = 0 ?>
@@ -97,9 +98,10 @@
 
                         @else
                             @if($task->status!="approved")
-                            <a class="btn btn-primary" href="{{ route('UserTasks.edit',['id'=>$task->assigntask_id,'task_id'=>$task->task_id]) }}">View Work</a>
+                            <a class="btn btn-primary" href="{{ route('UserTasks.edit',['id'=>$task->assigntask_id]) }}">View Work</a>
                             @else
-                            <p class="label label-success">Completed</p>
+                            <!-- <p class="label label-success">Completed</p> -->
+                            <a class="btn btn-success" href="{{ route('UserTasks.edit',['id'=>$task->assigntask_id]) }}">Completed</a>
                             @endif
                         @endif  
                     @endif
