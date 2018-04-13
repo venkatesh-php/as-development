@@ -60,39 +60,44 @@
                 <?php
                 if($question->answerd == false){
                         $statusColor = "wrong";
-                        $buttonText = "wrong answer";
+                        $buttonText = "wrong";
                 }else{
                         $statusColor = "correct";
-                        $buttonText = "correct answer";
+                        $buttonText = "correct";
                 }
                 ?>
-        <div class="panel panel-default quiz_table {{$statusColor}}-border">
-                <div class="panel-heading">
-                        <span class="qbox {{$statusColor}}-bg">Q</span>
-                        <button class="pull-right button btn {{$statusColor}}-bg">Your Answer is {{$buttonText}}</button>
-                        <button class="pull-right btn btn-primary">{{$buttonText}} : {{$question->answer}}</button>
-                        <h4>{{$question->question}}</h4>
-                </div>
+        
+                
+                        <div class="panel panel-default quiz_table {{$statusColor}}-border">
+                                <div class="panel-heading">
+                                        <span class="qbox {{$statusColor}}-bg">Q</span>
+                                        <button class="pull-right button btn {{$statusColor}}-bg">Your Answer is {{$buttonText}}</button>
+                                        <button class="pull-right btn btn-primary">Correct Answer is : {{$question->answer}}</button>
+                                        <h4>{{$question->question}}</h4>
+                                </div>
                
-                <div class="panel-body">
-                        <table class="table table-responsive">
-                                <tr>
-                                <td>
-                                        <input type="radio" name="{{ he($question->id) }}" class="button btn btn-default" value="A"  required >A. {{$question->optionA}}
-                                     </td>
-                                     <td>
-                                         <input type="radio" name="{{ he($question->id) }}" class="button btn btn-default" value="B" required>B. {{$question->optionB}}
-                                     </td>
-                                     <td>
-                                         <input type="radio" name="{{ he($question->id) }}" class="button btn btn-default" value="C" required>C. {{$question->optionC}}
-                                     </td>
-                                     <td>
-                                         <input type="radio" name="{{ he($question->id) }}" class="button btn btn-default" value="D" required>D. {{$question->optionD}}
-                                     </td>
-                                </tr>
-                        </table>
-                </div>
-        </div>
-                @endforeach
-</div>
-@endsection
+                                <div class="panel-body">
+                                        <table class="table table-responsive">
+                                                <tr>
+                                                <td>
+                                                        A. {{$question->optionA}}
+                                                </td>
+                                                <td>
+                                                        B. {{$question->optionB}}
+                                                </td>
+                                                <td>
+                                                        C. {{$question->optionC}}
+                                                </td>
+                                                <td>
+                                                        D. {{$question->optionD}}
+                                                </td>
+                                                </tr>
+                                        </table>
+                                </div>
+                        </div>
+                        @endforeach
+                     
+               
+                        </div>
+                @endsection
+        

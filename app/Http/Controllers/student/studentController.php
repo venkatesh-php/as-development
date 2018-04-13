@@ -262,7 +262,7 @@ class studentController extends Controller
         $quiz_data = $request->except('_token','chapter_id');
         $chapter_id = hd($request->chapter_id);
         $questions = chapter::find($chapter_id)->quiz->question()->get();
-        return [$quiz_data, $questions ];
+        // return [$quiz_data, $questions ];
         /*
             Evaluate each question attended
             Check whether the answer is correct
@@ -270,44 +270,36 @@ class studentController extends Controller
         foreach ($questions as $question){
             foreach ($quiz_data as $key => $value){
                 if($question->id == hd($key)){
-                    $total = $total+10;
-                    if($question->answer == $value){
-                        $score+=10;
-                        $question->answerd = true;
-                    }
-                    else{
-                        $question->answerd = false;
-                    }
 
                     $quizstatuses = quizstatuses::where('question_id',$question->id)->where('user_id',Auth::user()->id)->get()->count();
                         if($quizstatuses == 0)
                             {
 
-                                $ques =  DB::table('questions')->where('quiz_id',$question->quiz_id)->get();
-                                // return $ques;
-                                foreach($ques as $qs){
+                                $quizstatuses = new quizstatuses();
+                                $quizstatuses->question_id = $question->id;
+                                $quizstatuses->user_id = Auth::user()->id;
+                                $quizstatuses->answer = $value;
 
-                                    $quizstatuses = new quizstatuses();
-                                    $quizstatuses->question_id = $qs->id;
-                                    $quizstatuses->user_id = Auth::user()->id;
-                                    $quizstatuses->answer = $qs->answer;
 
-                                    if($question->answer == $value){
-                                        $quizstatuses->result = 'true';
-                                    }
-                                    else{
-                                        $quizstatuses->result = 'false';
-                                    }
-                
-                                    $quizstatuses->save();
-
-                                } //foreach close
-                                   
-
-                            }//if close
+                    $total = $total+10;
+                    if($question->answer == $value){
+                        $score+=10;
+                        $question->answerd = true;
+                        $quizstatuses->result = 'true';
+                    }
+                    else{
+                        $question->answerd = false;
+                        $quizstatuses->result = 'false';
+                    }
+                    $quizstatuses->save();
                 }
+        
             }
         }
+    }
+        
+           
+                            // return $value;
         /* inserting results into quizstatuses table */
 
            if($quizstatuses!== 0)
