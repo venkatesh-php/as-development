@@ -1,26 +1,24 @@
 <?php
 
 namespace App\Http\Controllers\student;
-
-use App\chapter;
-use App\course;
-use App\enrollment;
+use DB;
 use App\quiz;
-use App\questions;
 use App\User;
+use App\course;
+use App\chapter;
+use App\questions;
+use App\enrollment;
 use App\CourseTask;
 use App\AssignTasks;
 use App\quizstatuses;
-use DB;
 use App\chapterstatuses;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-// use App\Http\Controllers\student\chapterstatuses;
-
 use Carbon\Carbon;
+
 
 class studentController extends Controller
 {
@@ -29,37 +27,36 @@ class studentController extends Controller
         $current_student = Auth::user();
         dd($current_student);
     }
-
+/*##############################################################################################*/ 
     /*enroll a student to a particular course*/
     public function enroll($id)
     {
         $course_id = hd($id);
-        if (Auth::user()->enrollment()->count() <= 2) {
+        if (Auth::user()->enrollment()->count() <= 2)
+        {
             $enrollment = Auth::user()->enrollment()->where('course_id', $course_id)->get()->count();
-            $chapterstatuses = DB::table('chapterstatuses')->where('course_id',$course_id)->get()->count();
+            $chapters = DB::table('chapters')->where('course_id',$course_id)->get();
+            
+            foreach($chapters as $chapter)
+            {
+                $chapterstatuses = DB::table('chapterstatuses')->where('chapter_id',$chapter->id)->where('user_id',Auth::user()->id)->get()->count();
+            }
 
-            // return $taskstatus;
-
-            if (($enrollment ==0) && ($chapterstatuses == 0)) {
+            if (($enrollment ==0) && ($chapterstatuses == 0)) 
+            {
                 $enrollment = new  enrollment();
-                    $enrollment->student_id = Auth::user()->id;
-                    $enrollment->course_id = $course_id;
-                    $enrollment->status = 1;
+                $enrollment->student_id = Auth::user()->id;
+                $enrollment->course_id = $course_id;
+                $enrollment->status = 1;
                 $enrollment->save();
 
-                $chapter_id = DB::table('chapters')->where('course_id',$course_id)->select('id')->get();
-
-                // return $chapter_id;
-                foreach($chapter_id as $cid){
+                foreach($chapters as $cid)
+                {
                     $chapterstatus = new chapterstatuses();
                     $chapterstatus->user_id = Auth::user()->id;
                     $chapterstatus->chapter_id = $cid->id;
-                    $chapterstatus->course_id = $course_id;
                     $chapterstatus->status = 0;
-
-                    $chapterstatus->save();
-
-                   
+                    $chapterstatus->save();   
                 }
 
                 return redirect()->route('public.home')->with([
@@ -67,15 +64,18 @@ class studentController extends Controller
                     'message' => 'You have been enrolled to the course',
                     'type' => 'success',
                 ]);
-
-            } else {
+            } 
+            else
+            {
                 return redirect()->back()->with([
                     'title' => 'Enrollment failed',
                     'message' => 'You have already enrolled for this course',
                     'type' => 'warning',
                 ]);
             }
-        } else {
+        } 
+        else 
+        {
             return redirect()->back()->with([
                 'title' => 'Enrollment failed',
                 'message' => 'You have already enrolled for three courses,Please complete one to open another slot!!!',
@@ -84,6 +84,7 @@ class studentController extends Controller
         }
     }
 
+/*##############################################################################################*/ 
     /*show course library */
     public function courseLibrary()
     {
@@ -100,13 +101,13 @@ class studentController extends Controller
         return view('course.library')->with('courses', $courses);
     }
 
-
+/*##############################################################################################*/ 
     /*show current students enrollments*/
     public function showEnrollments()
     {
 
     }
-
+/*##############################################################################################*/ 
     /*show the contents of the courses associated with the student */
     public function studentCourses()
     {
@@ -114,82 +115,66 @@ class studentController extends Controller
         /*return $studentData;*/
         return view('student.courses')->with('studentData',$studentData);
     }
-
-    /*view a particular course*/
-    public function viewCourse($id){
+/*##############################################################################################*/ 
+  /*view a particular course*/
+    public function viewCourse($id)
+    {
         $id = hd($id);
-
         $course =  course::withCount('chapter')->with('chapter')->where('id',$id)->first();         
-    //   return $course; 
         $chids=array_column($course->chapter->toArray(),'id');
         $tasks=coursetask::whereIn('chapter_id',$chids)->get();
-        // return $tasks;
         $quizs = quiz::whereIn('chapter_id',$chids)->get();
+        $chpterstatuses=DB::table('chapterstatuses')->whereIn('chapter_id',$chids)->get();
 
-        foreach ($course->chapter as $cch ){
-            $cch->tasks=getTaskIds($cch->id,$tasks);
-        }
-        foreach ($course->chapter as $cch ){
+        foreach ($course->chapter as $cch )
+        {
             $cch->quiz=getTaskIds($cch->id,$quizs);
+            $cch->tasks=getTaskIds($cch->id,$tasks);
+            $cch->status= getChapterStatus($cch->id,$chpterstatuses);
         }
-
-       $chpterstatuses=DB::table('chapterstatuses')->whereIn('chapter_id',$chids)->get();
-
-       
-       foreach($chpterstatuses as $chpterstatus){
-           if($chpterstatus->status==0){
-            $task_statustable=AssignTasks::where( 'course_chapter_id',$chpterstatus->chapter_id)->select('status','course_chapter_id')->get();
-            break;
-           }
+        
+       foreach($chpterstatuses as $chpterstatus)
+       {
+           if($chpterstatus->status==0)
+           {
+                $task_statustable=AssignTasks::where('course_chapter_id',$chpterstatus->chapter_id)->select('status','course_chapter_id')->get();
+                break;
+           }else{
+                $task_statustable=AssignTasks::where( 'course_chapter_id',$chpterstatus->chapter_id)->select('status','course_chapter_id')->get();
+            }
        }
+
        $quiztobeopened=true;
-       foreach($task_statustable as $task_status){
-        if($task_status->status!='approved'){
-            $quiztobeopened=false;
-        }
+       foreach($task_statustable as $task_status)
+       {
+            if($task_status->status!='approved')
+            {
+                $quiztobeopened=false;
+            }
        }
 
-    //    return $task_statustable;
-       foreach ($course->chapter as $cch ){
-        $cch->status= getChapterStatus($cch->id,$chpterstatuses);
-         }
-        // dd($course); 
-
-        // return $course;
         return view('student.course')->with('course',$course)->with('quiztobeopened',$quiztobeopened);
+
     }
 
-
-
-
-   
-    
+/*##############################################################################################*/ 
     /*view Chapter by student*/
-    public function  viewChapter($course_id,$id){
+    public function  viewChapter($course_id,$id)
+    {
         $id = hd($id);
         $course_id = hd($course_id);
-
-        $chapter  = chapter::where('id',$id)->with('course')->where('course_id',$course_id)->first();
-        // return $chapter;
-
-        $tasks=coursetask::where('chapter_id',$id)
+        $chapter = chapter::where('id',$id)->with('course')->where('course_id',$course_id)->first();
+        $tasks = coursetask::where('chapter_id',$id)
         ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
         ->join('users as users_g','users_g.id','coursetasks.priority_guide_id')
         ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
-        // ->where('assign_tasks.course_chapter_id',$tasks->chapter_id)
         ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
         ->get();
-        // return $tasks;
-        // ->paginate(15);
-        // return [Auth::user()->id,$id];
-       $taskstatuses= AssignTasks::where('user_id',Auth::user()->id)
+
+       $taskstatuses = AssignTasks::where('user_id',Auth::user()->id)
        ->where('course_chapter_id',$id)
-    //    ->select('task_id','status')
        ->select('id','task_id','status') 
        ->get();
-    //    return $taskstatuses;
-
-        // $statuses=array_column($taskstatus,'status') ;
          
        foreach($taskstatuses as $taskstatus)
        {
@@ -206,17 +191,17 @@ class studentController extends Controller
             }
        }
     
-        // return [$taskstatuses,$tasks];
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
     }
 
-    public function assignTask($coursetask_id){
-        $coursetask_id=hd($coursetask_id);
-        // return 
-        
+
+/*##############################################################################################*/ 
+    /* Assign task by student himself*/
+    public function assignTask($coursetask_id)
+    {
+        $coursetask_id=hd($coursetask_id); 
         $ctaskdetails=coursetask::where('id',$coursetask_id)
-        ->select('*')
-        ->first();
+        ->select('*')->first();
         
         try 
             {
@@ -249,7 +234,7 @@ class studentController extends Controller
     }
 
   
-
+/*##############################################################################################*/ 
     /*handle submitted quiz data*/
     /**
      * @param Request $request
@@ -267,56 +252,51 @@ class studentController extends Controller
             Evaluate each question attended
             Check whether the answer is correct
         */
-        foreach ($questions as $question){
-            foreach ($quiz_data as $key => $value){
-                if($question->id == hd($key)){
-
+        foreach ($questions as $question)
+        {
+            foreach ($quiz_data as $key => $value)
+            {
+                if($question->id == hd($key))
+                {
                     $quizstatuses = quizstatuses::where('question_id',$question->id)->where('user_id',Auth::user()->id)->get()->count();
-                        if($quizstatuses == 0)
-                            {
+                    if($quizstatuses == 0)
+                    {
+                        $quizstatuses = new quizstatuses();
+                        $quizstatuses->question_id = $question->id;
+                        $quizstatuses->user_id = Auth::user()->id;
+                        $quizstatuses->answer = $value;
 
-                                $quizstatuses = new quizstatuses();
-                                $quizstatuses->question_id = $question->id;
-                                $quizstatuses->user_id = Auth::user()->id;
-                                $quizstatuses->answer = $value;
+                        $total = $total+10;
 
-
-                    $total = $total+10;
-                    if($question->answer == $value){
-                        $score+=10;
-                        $question->answerd = true;
-                        $quizstatuses->result = 'true';
+                        if($question->answer == $value)
+                        {
+                            $score+=10;
+                            $question->answerd = true;
+                            $quizstatuses->result = 'true';
+                        }
+                        else
+                        {
+                            $question->answerd = false;
+                            $quizstatuses->result = 'false';
+                        }
+                        
+                        $quizstatuses->save();
                     }
-                    else{
-                        $question->answerd = false;
-                        $quizstatuses->result = 'false';
-                    }
-                    $quizstatuses->save();
                 }
-        
             }
         }
-    }
-        
-           
-                            // return $value;
         /* inserting results into quizstatuses table */
-
            if($quizstatuses!== 0)
         {
             DB::table('chapterstatuses')->where('chapter_id',$chapter_id)->where('user_id',Auth::user()->id)
-            ->update(['status' => '1']);
-           
+            ->update(['status' => '1']);  
         }
-       
-      
-
-
         /*checking wether the score is above 80%*/
         if(($score/$total)*100 >= 80 ){
             $status ='passed';
         }
-        else{
+        else
+        {
             $status = 'failed';
         }
 
@@ -332,17 +312,17 @@ class studentController extends Controller
     }
 
 
+
+/*##############################################################################################*/ 
   /*view quiz*/
-  public function viewQuiz($id){
-    $id = hd($id);
-    $quiz_data = chapter::find($id)->quiz->where('chapter_id',$id)->with('question')->first();
+    public function viewQuiz($id)
+    {
+        $id = hd($id);
+        $quiz_data = chapter::find($id)->quiz->where('chapter_id',$id)->with('question')->first();
 
-    // return $quiz_data;
-    return view('quiz.viewQuiz')->with('quiz_data',$quiz_data);
-}
-
-
-
+        // return $quiz_data;
+        return view('quiz.viewQuiz')->with('quiz_data',$quiz_data);
+    }
 
 
 
