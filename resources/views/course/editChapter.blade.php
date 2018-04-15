@@ -46,19 +46,34 @@
             </div>
 
             {{--chapter Ebooks/presentation--}}
+            
             <div class="form-group">
                 <label for="pdfMaterial">Ebooks/presentation</label>
+                @if(isset($chapter->pdf))
+                {{--  <label for="pdfMaterial">{{$chapter->pdf}}</label>  --}}
+                <a href="{{route('serveEbook',['id'=>$chapter->pdf])}}" target="_blank" class="button btn btn-success">Read Ebook</a>
+                @endif
                 <input type="file" name="pdfMaterial" class="form-control"  accept="application/pdf">
             </div>
+            
 
             {{--chapter videos--}}
             <div class="form-group">
                 <label for="video_tutorial">Video tutorial</label>
+                @if(isset($chapter->video))
+                {{--  <div class="row">  --}}
+           {{--video lesson --}}
+               <video  controls class="col-md-10 col-md-offset-1" controls preload="auto" data-setup="{}">
+                   <source src=" {{route('serveVideo',['id'=>$chapter->video]) }}" type="video/mp4">
+                   Your browser does not support the video tag.
+               </video>
+                 {{--  </div>  --}}
+                @endif
                 <input type="file" name="video_tutorial"  class="form-control" accept="video/mp4" >
             </div>
 
             {{--submit button--}}
-            <input type="submit" class="button btn btn-primary btn-lg" style="float:right">
+            <input type="submit" class="button btn btn-primary btn-lg" style="float:left">
         </form>
             
             @include('partials.summernotejs')

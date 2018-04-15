@@ -37,7 +37,6 @@
 
                    @if(Session::has('message'))
                     <?php $msg = json_decode(Session::get('message'))?>
-                    
 
                     <br>
                     <div class="row">

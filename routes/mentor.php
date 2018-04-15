@@ -76,6 +76,8 @@ Route::group(['prefix' => 'mentor'], function () {
         /*Load the quiz maker interface*/
         Route::get('chapter/{id}/quiz','mentor\mentorController@quizMaker')
             ->name('quizMaker');
+        Route::get('quiz/{id}/question/{qid}','mentor\mentorController@qstnDelete')
+        ->name('qstnDelete');
             /*Load the quiz maker interface*/
         Route::get('chapter/{id}/task','mentor\mentorController@taskMaker')
         ->name('taskMaker');

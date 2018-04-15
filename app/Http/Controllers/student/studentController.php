@@ -50,14 +50,6 @@ class studentController extends Controller
                 $enrollment->status = 1;
                 $enrollment->save();
 
-                foreach($chapters as $cid)
-                {
-                    $chapterstatus = new chapterstatuses();
-                    $chapterstatus->user_id = Auth::user()->id;
-                    $chapterstatus->chapter_id = $cid->id;
-                    $chapterstatus->status = 0;
-                    $chapterstatus->save();   
-                }
 
                 return redirect()->route('public.home')->with([
                     'title' => 'Enrollment success',
@@ -132,6 +124,7 @@ class studentController extends Controller
             $cch->tasks=getTaskIds($cch->id,$tasks);
             $cch->status= getChapterStatus($cch->id,$chpterstatuses);
         }
+
         
        foreach($chpterstatuses as $chpterstatus)
        {
@@ -143,6 +136,7 @@ class studentController extends Controller
                 $task_statustable=AssignTasks::where( 'course_chapter_id',$chpterstatus->chapter_id)->select('status','course_chapter_id')->get();
             }
        }
+
 
        $quiztobeopened=true;
        foreach($task_statustable as $task_status)
