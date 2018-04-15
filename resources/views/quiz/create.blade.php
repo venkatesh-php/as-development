@@ -131,6 +131,7 @@
         </div>
     </div>
     <script src="/js/app.js"></script>
+
     <script>
      $("#FormDeleteTime").click(function (event) {
                  var x = confirm("Are you sure you want to delete?");
@@ -145,4 +146,5 @@
 
                 });
     </script>
+
 @endsection

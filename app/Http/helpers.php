@@ -42,6 +42,23 @@ function getTaskIds($chid,$tasks){
     return $taskids;
 
 }
+function getChapterStatus($chid,$statusrows){
+
+    foreach ($statusrows as $statusrow){
+        // $valtobereturned=false;
+        if(($statusrow->chapter_id == $chid) && ($statusrow->user_id == Auth::user()->id)){
+            if($statusrow->status == 1)  {
+                $valtobereturned=true;
+            } else{
+                $valtobereturned=false;
+            }    
+            
+        }
+    }   
+    return $valtobereturned;
+
+
+}
 
 /*check whether user is mentor*/
 function isMentor(){
