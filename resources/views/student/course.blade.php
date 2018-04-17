@@ -108,8 +108,14 @@ function makeColor(){
                             <!-- {{--  <p class="label label-success"> {{$task}}</p>  --}} -->
                             <p class="label label-success"> Task{{$tcount+=1}}</p>
                         @endforeach
+                        @if($chapter->status[0])
+                        <p class="label  label-danger pull-right">Earned: <b>{{$chapter->status[1] +$chapter->status[2] }}</b>
+                        ({{$chapter->status[1]}} &amp; {{$chapter->status[2]}}) Credits</a>
+                        @elseif($next_enable)
+                        <p class="label  label-danger pull-right">Earned: <b> {{$user_credits}}</b> Credits</a>
+                        @endif
                         <h2 class="text-center">
-                        {{$chapter->id}}: {{$chapter->name}}
+                         {{$chapter->name}}
                         </h2>
                         <p class="text-justify"><b>Instructions: </b>{{$chapter->instructions}}</p>
 
@@ -118,10 +124,10 @@ function makeColor(){
                             
                             
 
-                            @if($chapter->status)
+                            @if($chapter->status[0])
                             <!-- {{$chapter->quizstatus}} -->
                                 <a href="{{route('viewChapter',['course_id'=>$id,'id'=>$chapter_id])}}" class="button btn btn-danger"> Completed </a>
-                                @if((count($chapter->quiz)>0)&&($chapter->status))
+                                @if((count($chapter->quiz)>0))
                                 <a href="{{ route('viewQuizResult',['id'=>he($chapter->id)]) }}" class="button btn btn-quiz" >Quiz Result</a>
                                 {{-- {{ route('viewQuizResult',['id'=>he($chapter->id)]) }} --}}
                                  @endif
@@ -129,7 +135,8 @@ function makeColor(){
                                     @if($next_enable) 
                                         <a href="{{route('viewChapter',['course_id'=>$id,'id'=>$chapter_id])}}" class="button btn btn-preview"> view chapter </a>
                                         @if(count($chapter->quiz)>0 && $quiztobeopened )
-                                         <a href="{{ route('viewQuiz',['id'=>he($chapter->id)]) }}" class="button btn btn-quiz" >Quiz</a>
+                                         <a id="FormQuiz" href="{{ route('viewQuiz',['id'=>he($chapter->id)]) }}" class="button btn btn-quiz" >Quiz</a>
+                                
                                 
                                         @endif
                                         <?php $next_enable=false; ?>
@@ -150,6 +157,20 @@ function makeColor(){
             </div>
         </div>
     </div>
+      <script>
+     $("#FormQuiz").click(function (event) {
+                 var x = confirm(`Are you sure you want to enter quiz? There is no second try and you need to submit in prescribed time... or it will be auto submitted`);
+                    if (x) {
+                        return true;
+                    }
+                    else {
+
+                        event.preventDefault();
+                        return false;
+                    }
+
+                });
+    </script>
 @endsection
 
 

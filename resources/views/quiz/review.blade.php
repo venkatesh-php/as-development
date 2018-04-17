@@ -45,6 +45,11 @@
 
         </style>
         <div id="wrapper" class="container">
+        <div class="pull-left">
+
+                <a  class="btn btn-primary" href="#">Back (not working)</a>
+                {{--  {{route('manageCourse',['id'=>he($course->id)]) }}  --}}
+            </div>
                 <h1 class="text-center"><hr>Quiz Results<hr></h1>
                 <div class="panel">
                         <h2 class="text-center panel-heading">
