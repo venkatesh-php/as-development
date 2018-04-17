@@ -4,6 +4,7 @@ namespace App\Http\Controllers\student;
 use DB;
 use App\quiz;
 use App\User;
+use App\Constants;
 use App\course;
 use App\chapter;
 use App\questions;
@@ -112,42 +113,81 @@ class studentController extends Controller
     public function viewCourse($id)
     {
         $id = hd($id);
+        
         $course =  course::withCount('chapter')->with('chapter')->where('id',$id)->first();         
-        $chids=array_column($course->chapter->toArray(),'id');
+        // return
+         $chids=array_column($course->chapter->toArray(),'id');
         $tasks=coursetask::whereIn('chapter_id',$chids)->get();
         $quizs = quiz::whereIn('chapter_id',$chids)->get();
+        // return
         $chpterstatuses=DB::table('chapterstatuses')->whereIn('chapter_id',$chids)->get();
+        // return $chpterstatuses;
+        $task_statustable=[];
+        $zerostatus=false;
+        if (count($chpterstatuses)>0){
+            // $status_chid=array_column($chpterstatuses,'status');
+            foreach($chpterstatuses as $chpterstatus)
+            {
+                
+                if($chpterstatus->status==0)
+                {   $zerostatus=true;
+                        $task_statustable=AssignTasks::where('course_chapter_id',$chpterstatus->chapter_id)
+                        ->where('user_id',Auth::user()->id)
+                        ->select('status','course_chapter_id','user_credits')->get();
+                        break;
+                }
+                
+               
+             //    else{
+             //         $task_statustable=AssignTasks::where( 'course_chapter_id',$chpterstatus->chapter_id)->select('status','course_chapter_id')->get();
+             //     }
+            }
+            // return (int)$zerostatus;
+            if(!$zerostatus ){
+                // return (int)$zerostatus;
+                // DB::table('chapterstatuses')->where('chapter_id',$chids[count($chpterstatuses)] )->where('user_id',Auth::user()->id)
+                // ->update(['status' => '0']); 
+                if(count($chpterstatuses)<count($chids)){
+                    chapterstatuses::create(['status' => '0','chapter_id'=>$chids[count($chpterstatuses)],'user_id'=>Auth::user()->id]); 
+            
+                }
+            }
 
+        }else{
+           chapterstatuses::create(['status' => '0','chapter_id'=>$chids[0],'user_id'=>Auth::user()->id]); 
+        }
+        // return $task_statustable;
         foreach ($course->chapter as $cch )
         {
             $cch->quiz=getTaskIds($cch->id,$quizs);
             $cch->tasks=getTaskIds($cch->id,$tasks);
             $cch->status= getChapterStatus($cch->id,$chpterstatuses);
+            // $cch->status[2]= $cch->status[2]*Constants::max_credits_each_chapter;
+            //quiz_score multiplied with credits assigned for chapter
         }
 
-        
-       foreach($chpterstatuses as $chpterstatus)
-       {
-           if($chpterstatus->status==0)
-           {
-                $task_statustable=AssignTasks::where('course_chapter_id',$chpterstatus->chapter_id)->select('status','course_chapter_id')->get();
-                break;
-           }else{
-                $task_statustable=AssignTasks::where( 'course_chapter_id',$chpterstatus->chapter_id)->select('status','course_chapter_id')->get();
-            }
-       }
-
-
-       $quiztobeopened=true;
-       foreach($task_statustable as $task_status)
-       {
-            if($task_status->status!='approved')
+        // return $course->chapter;
+        $user_credits=0;
+       if(count($task_statustable)>0){
+            $quiztobeopened=true;
+            
+            foreach($task_statustable as $task_status)
             {
-                $quiztobeopened=false;
+                if($task_status->status!='approved')
+                {
+                    $quiztobeopened=false;
+                }else{
+                    $user_credits += $task_status->user_credits;
+                }
             }
+       }else{
+            $quiztobeopened=false;
        }
+    //    return $user_credits;
 
-        return view('student.course')->with('course',$course)->with('quiztobeopened',$quiztobeopened);
+        return view('student.course')->with('course',$course)
+        ->with('quiztobeopened',$quiztobeopened)
+        ->with('user_credits',$user_credits);
 
     }
 
@@ -164,10 +204,10 @@ class studentController extends Controller
         ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
         ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
         ->get();
-
+// return
        $taskstatuses = AssignTasks::where('user_id',Auth::user()->id)
        ->where('course_chapter_id',$id)
-       ->select('id','task_id','status') 
+       ->select('id','task_id','status','user_credits') 
        ->get();
          
        foreach($taskstatuses as $taskstatus)
@@ -177,6 +217,7 @@ class studentController extends Controller
                 if($taskstatus->task_id==$task->id)
                 {
                     $task->status=$taskstatus->status;
+                    $task->earned_credits=$taskstatus->user_credits;
                     $task->assigntask_id=$taskstatus->id;
                     $task->task_id=$taskstatus->task_id;
 
@@ -184,7 +225,7 @@ class studentController extends Controller
                 
             }
        }
-    
+    // return $tasks;
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
     }
 
@@ -238,29 +279,32 @@ class studentController extends Controller
         
         $score = null;
         $total = null;
+        // return $request;
         $quiz_data = $request->except('_token','chapter_id');
         $chapter_id = hd($request->chapter_id);
+        // return
         $questions = chapter::find($chapter_id)->quiz->question()->get();
         // return [$quiz_data, $questions ];
         /*
             Evaluate each question attended
             Check whether the answer is correct
         */
-        foreach ($questions as $question)
-        {
-            foreach ($quiz_data as $key => $value)
+        // return count($quiz_data);
+        // $qids=;
+         $quizstatuses = quizstatuses::whereIn('question_id',array_column($questions->toArray(),'id'))
+        ->where('user_id',Auth::user()->id)->get();
+        //  if(count($quizstatuses)==0)    {
+            foreach ($questions as $question)
             {
-                if($question->id == hd($key))
+                foreach ($quiz_data as $key => $value)
                 {
-                    $quizstatuses = quizstatuses::where('question_id',$question->id)->where('user_id',Auth::user()->id)->get()->count();
-                    if($quizstatuses == 0)
+                    if($question->id == hd($key))
                     {
+                        $total = $total+10;
                         $quizstatuses = new quizstatuses();
                         $quizstatuses->question_id = $question->id;
                         $quizstatuses->user_id = Auth::user()->id;
-                        $quizstatuses->answer = $value;
-
-                        $total = $total+10;
+                        $quizstatuses->answer = $value;                 
 
                         if($question->answer == $value)
                         {
@@ -274,32 +318,62 @@ class studentController extends Controller
                             $quizstatuses->result = 'false';
                         }
                         
-                        $quizstatuses->save();
+                        // $quizstatuses->save();
+
                     }
                 }
             }
-        }
-        /* inserting results into quizstatuses table */
-           if($quizstatuses!== 0)
-        {
-            DB::table('chapterstatuses')->where('chapter_id',$chapter_id)->where('user_id',Auth::user()->id)
-            ->update(['status' => '1']);  
-        }
-        /*checking wether the score is above 80%*/
-        if(($score/$total)*100 >= 80 ){
-            $status ='passed';
-        }
-        else
-        {
-            $status = 'failed';
-        }
+            /*checking wether the score is above 80%*/
+            $quizscore=($score/$total)*100;
+                if( $quizscore>= Constants::min_score_for_pass ){$status ='passed'; }
+                else{ $status = 'failed'; }
 
-        /*quiz results*/
-        $results = [
-            'total' => $total,
-            'score' =>$score,
-            'status'=>$status
-        ];
+            /*quiz results*/
+            $results = [
+                'total' => $total,
+                'score' =>$score,
+                'status'=>$status
+            ];
+            // // return
+            $task_credits = AssignTasks::where('user_id',Auth::user()->id)
+            ->where('course_chapter_id',$chapter_id)            
+            ->sum('user_credits');
+            // ->select('user_credits')
+            // ->get();
+            /* inserting results into quizstatuses table */
+            DB::table('chapterstatuses')->where('chapter_id',$chapter_id)->where('user_id',Auth::user()->id)
+            ->update(['status' => '1','quiz_score'=>$quizscore,'task_credits'=>$task_credits]); 
+            // return
+            $course_id=chapter::where('id',$chapter_id)
+            ->select('course_id')->first();
+            $chids=chapter::where('course_id',$course_id->course_id)
+            ->select('id')->get()->toArray();
+            // return
+            //  [$chapter_id,$course_id,$chids ];
+            $ch_statuses=chapterstatuses::whereIn('chapter_id',$chids)
+            ->select('*')->get();
+            if(count($chids)==count($ch_statuses)){
+                $course_credits=$ch_statuses->sum('task_credits')+Constants::max_credits_each_chapter*($ch_statuses->sum('quiz_score')/100);
+                // return $bonus_credits =array_column($ch_statuses->toArray(),'created_at');
+                // 
+                $hours4completion = (new Carbon($ch_statuses->first()->created_at))
+                ->diffInHours(new Carbon($ch_statuses->last()->created_at));
+
+                $bonus_credits= $course_credits*Constants::perc_cred_bonus_on_coursecompletion/($hours4completion/24.0);
+                
+
+    
+                enrollment::where('course_id',$course_id->course_id)
+                ->where('student_id',Auth::user()->id)
+                ->update(['status'=>2,'course_credits'=>$course_credits,'bonus_credits'=>$bonus_credits]);
+            }
+        
+        //  }   else{
+
+        //     return "You have already submitted quiz...";
+        //  }   
+
+        
 
         
         return view('quiz.review')->with(['questions'=>$questions,'results'=>collect($results)]);
@@ -312,9 +386,17 @@ class studentController extends Controller
     public function viewQuiz($id)
     {
         $id = hd($id);
-        $quiz_data = chapter::find($id)->quiz->where('chapter_id',$id)->with('question')->first();
+        $quiz_data = chapter::find($id)
+        // ->select('chapters.*')
+        ->quiz
+        ->where('chapter_id',$id)
+        ->with('question')
+        ->first()
+        ;
+        
+        // return $time4quiz=count($quiz_data)*45; //secons
 
-        // return $quiz_data;
+        // return $course_id;
         return view('quiz.viewQuiz')->with('quiz_data',$quiz_data);
     }
 
@@ -350,7 +432,7 @@ class studentController extends Controller
         /* inserting results into quizstatuses table */
 
         /*checking wether the score is above 80%*/
-        if(($score/$total)*100 >= 80 ){
+        if(($score/$total)*100 >= Constants::min_score_for_pass ){
             $status ='passed';
         }
         else{

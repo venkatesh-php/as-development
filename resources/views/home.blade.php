@@ -7,7 +7,7 @@
 
 <div class="row">
         <div class="col-md-8 col-md-offset-2">
-       <h3 class="text-center">Welcome Note : <a class="btn btn-primary" href="/download/ASDP-Welcome-Guide.pdf" >Download</a></h3>
+       <h3 class="text-center">How to Use this Portal!!!? : <a class="btn btn-primary" href="/download/ASDP-Welcome-Guide.pdf" >Download</a></h3>
 </div>
 </div>
 </div>
