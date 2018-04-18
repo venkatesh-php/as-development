@@ -97,7 +97,7 @@ function makeColor(){
                                 <img src="{{route('coverImage',['id'=>$course->cover])}}" alt="">
                                 {{--course details--}}
                                 <div class="caption">
-                                    <h3>{{$course->name}}</h3>
+                                    <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
                                     <p>{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
                                     <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p>
@@ -112,7 +112,7 @@ function makeColor(){
                                 <img src="{{route('coverImage',['id'=>$course->cover])}}" alt="">
                                 {{--course details--}}
                                 <div class="caption">
-                                    <h3>{{$course->name}}</h3>
+                                    <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
                                     <p>{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
                                     <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p>

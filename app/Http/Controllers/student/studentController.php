@@ -7,6 +7,7 @@ use App\User;
 use App\Constants;
 use App\course;
 use App\chapter;
+use App\coinsinout;
 use App\questions;
 use App\enrollment;
 use App\CourseTask;
@@ -30,33 +31,88 @@ class studentController extends Controller
     }
 /*##############################################################################################*/ 
     /*enroll a student to a particular course*/
-    public function enroll($id)
+    
+    public function enroll(Request $request, $id)
     {
+        
         $course_id = hd($id);
+        // return $course_id;
         if (Auth::user()->enrollment()->count() <= 2)
         {
             $enrollment = Auth::user()->enrollment()->where('course_id', $course_id)->get()->count();
-            $chapters = DB::table('chapters')->where('course_id',$course_id)->get();
-            
-            foreach($chapters as $chapter)
-            {
-                $chapterstatuses = DB::table('chapterstatuses')->where('chapter_id',$chapter->id)->where('user_id',Auth::user()->id)->get()->count();
-            }
 
-            if (($enrollment ==0) && ($chapterstatuses == 0)) 
+            if ($enrollment ==0)  
             {
+                if(!isset($request->guide_id)){
+                    $course=course::find($course_id);
+                    // return
+                    $teachers = User::
+                    where('institutes_id',User::find($course->user_id)->institutes_id)        
+                    ->where('role_id','<=',5) 
+                    ->select('id','first_name','last_name','email')
+                    ->get();
+                    
+                        return 
+                    view('course.enroll')->with('course', $course)
+                    ->with('teachers',  $teachers );
+                }else{
+                    // return
+                    $coinsleft=DB::table('coinsinouts')->where('user_id',Auth::user()->id)->sum('coins');
+                    $coinsrequired=course::find($course_id)->cost;
+                    if($coinsrequired<$coinsleft){
+
                 $enrollment = new  enrollment();
                 $enrollment->student_id = Auth::user()->id;
                 $enrollment->course_id = $course_id;
                 $enrollment->status = 1;
+                $enrollment->guide_id = $request->guide_id;
+                $enrollment->reviewer_id = $request->reviewer_id;
+                // return $enrollment;
                 $enrollment->save();
-
+                // return enrollment::where('student_id', Auth::user()->id)
+                // ->where('course_id' , $course_id)->first()->id;
+                // DB::table('coinsinouts')->insert([
+                // 'user_id'=> Auth::user()->id,
+                // 'nature_id'=>2,
+                // 'enrollment_id'=>enrollment::where('student_id', Auth::user()->id)
+                // ->where('course_id' , $course_id)->first()->id,
+                // 'coins'=>-$coinsrequired,
+                // "created_at" =>  \Carbon\Carbon::now(), # \Datetime()
+                // "updated_at" => \Carbon\Carbon::now(),  # \Datetime()
+                // ]); 
+                $coinsinout = new  coinsinout();
+                
+                $coinsinout->nature_id = 2;
+                $coinsinout->user_id = Auth::user()->id;
+                $coinsinout->enrollment_id = enrollment::where('student_id', Auth::user()->id)
+                ->where('course_id' , $course_id)->first()->id;
+                $coinsinout->coins = -$coinsrequired;
+                // return $coinsinout;
+                $coinsinout->save();
+                // $coins =100;
 
                 return redirect()->route('public.home')->with([
                     'title' => 'Enrollment success',
                     'message' => 'You have been enrolled to the course',
                     'type' => 'success',
                 ]);
+
+                        
+
+                        
+                    }else{
+                        return redirect()->route('public.home')->with([
+                            'title' => 'Enrollment failed',
+                            'message' => 'You do not have sufficient coins to enroll please earn coins first',
+                            'type' => 'warning',
+                        ]);
+                    }
+                }
+
+            
+            
+
+                
             } 
             else
             {
@@ -284,16 +340,9 @@ class studentController extends Controller
         $chapter_id = hd($request->chapter_id);
         // return
         $questions = chapter::find($chapter_id)->quiz->question()->get();
-        // return [$quiz_data, $questions ];
-        /*
-            Evaluate each question attended
-            Check whether the answer is correct
-        */
-        // return count($quiz_data);
-        // $qids=;
-         $quizstatuses = quizstatuses::whereIn('question_id',array_column($questions->toArray(),'id'))
+        $quizstatuses = quizstatuses::whereIn('question_id',array_column($questions->toArray(),'id'))
         ->where('user_id',Auth::user()->id)->get();
-        //  if(count($quizstatuses)==0)    {
+         if(count($quizstatuses)==0)    {
             foreach ($questions as $question)
             {
                 foreach ($quiz_data as $key => $value)
@@ -318,7 +367,7 @@ class studentController extends Controller
                             $quizstatuses->result = 'false';
                         }
                         
-                        // $quizstatuses->save();
+                        $quizstatuses->save();
 
                     }
                 }
@@ -338,9 +387,8 @@ class studentController extends Controller
             $task_credits = AssignTasks::where('user_id',Auth::user()->id)
             ->where('course_chapter_id',$chapter_id)            
             ->sum('user_credits');
-            // ->select('user_credits')
-            // ->get();
-            /* inserting results into quizstatuses table */
+
+            /* inserting status 1 into chapterstatuses table */
             DB::table('chapterstatuses')->where('chapter_id',$chapter_id)->where('user_id',Auth::user()->id)
             ->update(['status' => '1','quiz_score'=>$quizscore,'task_credits'=>$task_credits]); 
             // return
@@ -351,27 +399,18 @@ class studentController extends Controller
             // return
             //  [$chapter_id,$course_id,$chids ];
             $ch_statuses=chapterstatuses::whereIn('chapter_id',$chids)
-            ->select('*')->get();
+            ->select('id')->get();
             if(count($chids)==count($ch_statuses)){
-                $course_credits=$ch_statuses->sum('task_credits')+Constants::max_credits_each_chapter*($ch_statuses->sum('quiz_score')/100);
-                // return $bonus_credits =array_column($ch_statuses->toArray(),'created_at');
-                // 
-                $hours4completion = (new Carbon($ch_statuses->first()->created_at))
-                ->diffInHours(new Carbon($ch_statuses->last()->created_at));
-
-                $bonus_credits= $course_credits*Constants::perc_cred_bonus_on_coursecompletion/($hours4completion/24.0);
+                // return
+                // $course_id;
+                return redirect()->route('feedback',he($course_id->course_id));              
                 
-
-    
-                enrollment::where('course_id',$course_id->course_id)
-                ->where('student_id',Auth::user()->id)
-                ->update(['status'=>2,'course_credits'=>$course_credits,'bonus_credits'=>$bonus_credits]);
             }
         
-        //  }   else{
+         }   else{
 
-        //     return "You have already submitted quiz...";
-        //  }   
+            return "You have already submitted quiz...";
+         }   
 
         
 
@@ -379,6 +418,103 @@ class studentController extends Controller
         return view('quiz.review')->with(['questions'=>$questions,'results'=>collect($results)]);
     }
 
+public function postFeedback(Request $request,$id){
+    // return 
+    // $request;
+    $course=course::where('courses.id',hd($id))
+                ->join('enrollments','enrollments.course_id','courses.id')
+                ->join('users as users_g','users_g.id','enrollments.guide_id')
+                ->join('users as users_r','users_r.id','enrollments.reviewer_id')
+                ->select('courses.*','enrollments.student_id','enrollments.guide_id','enrollments.reviewer_id',
+                'users_g.first_name as guide_name','users_r.first_name as reviewer_name')
+                ->first();
+    
+    if(!isset($request->_token)){       
+        
+                return view('course.feedback')->with('course',$course);
+    }
+        $this->validate($request, [
+            'guide_rating' =>'required',
+            'reviewer_rating' => 'required',
+            'course_rating' =>'required',
+            'comment' => 'required',
+            
+        ]);
+        
+        $chids=chapter::where('course_id',hd($id))
+            ->select('id')->get()->toArray();
+     $ch_statuses=chapterstatuses::whereIn('chapter_id',$chids)
+            ->select('*')->get();
+
+        $course_credits=$ch_statuses->sum('task_credits')+Constants::max_credits_each_chapter*($ch_statuses->sum('quiz_score')/100);
+        
+        // $bonus_credits =array_column($ch_statuses->toArray(),'created_at');
+        $hours4completion = (new Carbon($ch_statuses->first()->created_at))
+        ->diffInHours(new Carbon($ch_statuses->last()->created_at));
+
+        $bonus_credits= $course_credits*Constants::perc_cred_bonus_on_coursecompletion/($hours4completion/24.0);
+        
+
+
+        enrollment::where('course_id',$course->id)
+        ->where('student_id',Auth::user()->id)
+        ->update(['status'=>2,'course_credits'=>$course_credits,'bonus_credits'=>$bonus_credits]);
+    
+    // return
+        $all_task_credits=AssignTasks::where('assign_tasks.user_id', Auth::id())
+        ->whereIn('course_chapter_id',$chids)
+        ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
+        ->select('assign_tasks.*','admin_tasks.usercredits','admin_tasks.guidecredits','admin_tasks.reviewercredits')
+        ->get();
+        // return
+        // $course=course::findOrFail(hd($id));
+         
+        $usercoins=$course->cost*Constants::share_student*($course_credits/($all_task_credits->sum('usercredits')
+        +Constants::max_credits_each_chapter*count($chids)));
+        $guidecoins=$course->cost*Constants::share_guide*($all_task_credits->sum('guide_credits')/$all_task_credits->sum('guidecredits'));
+        $reviewercoins=$course->cost*Constants::share_reviewer*($all_task_credits->sum('reviewer_credits')/$all_task_credits->sum('reviewercredits'));
+        
+        $course_owner_coins=$course->cost*Constants::share_course_creator;
+        $company_coins=$course->cost-($usercoins+$guidecoins+$reviewercoins+$course_owner_coins);
+        // return 
+
+        
+       $coinsinout_array= array(
+        [$course->student_id,6,$usercoins,],
+        [$course->guide_id,4,$guidecoins,],
+        [$course->reviewer_id,5,$reviewercoins,],
+        [$course->user_id,3,$course_owner_coins,],
+        [2,7,$company_coins,],
+       );
+       $enroll_id=enrollment::where('student_id', Auth::user()->id)
+       ->where('course_id' , $course->id)->first()->id;
+        // DB::table('coinsinouts')->insert([
+        //     'user_id'=> Auth::user()->id,
+        //     'nature_id'=>2,
+        //     'enrollment_id'=>$enrollment->id(),
+        //     'coins'=>-$coinsrequired,
+        //     "created_at" =>  \Carbon\Carbon::now(), # \Datetime()
+        //     "updated_at" => \Carbon\Carbon::now(),  # \Datetime()
+        //     ]); 
+        foreach($coinsinout_array as $coinsinout_){
+            $coinsinout = new  coinsinout();                
+            $coinsinout->nature_id = $coinsinout_[1];
+            $coinsinout->user_id = $coinsinout_[0];
+            $coinsinout->enrollment_id = $enroll_id;
+            $coinsinout->coins = $coinsinout_[2];
+            $coinsinout->save();
+        }
+
+        // const share_course_creator =0.2;
+        // const share_guide =0.4;
+        // const share_reviewer =0.1;
+        // const share_student =0.2;
+        // const share_company =0.1;
+        return 
+        redirect('home')->with('success', trans('socials.feedbackSuccess'));
+
+
+    }
 
 
 /*##############################################################################################*/ 

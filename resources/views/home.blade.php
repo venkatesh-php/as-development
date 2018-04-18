@@ -15,6 +15,9 @@
 
 
 <div class="container-fluid">
+<div class="row">
+    <h2>Ameyem Coins Stock : <span style="color:red">{{$coins}} coins</span></h2>
+</div>
             @if(isMentor())    
              <div class="row">
                   @include('partials.mentorcourses')

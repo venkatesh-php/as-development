@@ -68,7 +68,7 @@
                         <div class="col-sm-4 col-sm-offset-1 panel" >
                             <div class="course_header">
                                 
-                                    <h3>{{ $enrollment->course->name}}</h3>
+                                    <h3>{{ $enrollment->course->name}} </h3>
                                @if($enrollment->ch_completed>0)
                                  <span href="#" class="label btn-ongoing">In Progress</span>
                                 @else
@@ -101,6 +101,7 @@
                         <div class="extStatus">
                             <div class="hunded">100%
                             </div>
+                        </div>
                         {{--  <p>{{ $enrollment->course->description}}</p>   --}}
                     </div>
                     </a>

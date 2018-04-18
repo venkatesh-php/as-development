@@ -12,6 +12,14 @@ Route::group(['middleware' => ('role:student'),'prefix' => 'student'], function 
     /*route to course library*/
     Route::get('course/{id}/enroll','student\studentController@enroll')
         ->name('enroll');
+            /*route to enroll*/
+    Route::post('course/{id}/enroll','student\studentController@enroll')
+    ->name('enroll');
+    Route::get('course/{id}/feedback','student\studentController@postFeedback')
+    ->name('feedback');
+
+    Route::post('course/{id}/feedback','student\studentController@postFeedback')
+    ->name('feedback');
 
     /*view a list of courses associated with the student */
     Route::get('courses','student\studentController@studentCourses')
