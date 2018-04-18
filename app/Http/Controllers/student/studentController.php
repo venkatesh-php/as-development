@@ -208,6 +208,7 @@ class studentController extends Controller
         $firstzero=false;
         $quiztobeopened=false;
         $user_credits=0;
+        // return $course->chapter;
         foreach ($course->chapter as $cch )
         {
             $cch->quiz=getTaskIds($cch->id,$quizs);
@@ -215,7 +216,7 @@ class studentController extends Controller
             $cch->status= getChapterStatus($cch->id,$chpterstatuses);
 
             if (!$cch->status[0]&&!$firstzero){
-                $task_statustable=AssignTasks::where('course_chapter_id',$chpterstatus->chapter_id)
+                $task_statustable=AssignTasks::where('course_chapter_id',$cch->chapter_id)
                         ->where('user_id',Auth::user()->id)
                         ->select('status','course_chapter_id','user_credits')->get();
                         
