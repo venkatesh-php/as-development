@@ -28,12 +28,14 @@ class TaskMigrateController extends Controller
         
             $assign_tasks = AssignTasks::orderBy('id','DESC')
             ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
-            ->whereNull('assign_tasks.status')
-            ->where(function ($query) {
-                $query->where('assign_tasks.assigned_by_userid',Auth::user()->id)
-                      ->orWhere('assign_tasks.guide_id',Auth::user()->id)
-                      ->orWhere('assign_tasks.reviewer_id',Auth::user()->id);
-            })
+            ->where('assign_tasks.status','=','review')
+            ->where('assign_tasks.guide_id',Auth::user()->id)
+
+            // ->where(function ($query) {
+            //     $query->where('assign_tasks.assigned_by_userid',Auth::user()->id)
+            //           ->orWhere('assign_tasks.guide_id',Auth::user()->id);
+            //         //   ->orWhere('assign_tasks.reviewer_id',Auth::user()->id);
+            // })
 
             ->join('users as users_u','users_u.id','assign_tasks.user_id')
             ->join('users as users_s','users_s.id','assign_tasks.assigned_by_userid')
@@ -74,6 +76,7 @@ class TaskMigrateController extends Controller
             'request_for' => 'required',
             'request_by' => 'required',
             'rating_to_user' => 'nullable',
+            'rating_to_guide' => 'nullable',
             'message' => 'required',
             'uploads' => '',
             'created_at' => '',
@@ -104,18 +107,28 @@ class TaskMigrateController extends Controller
             $reserved_credits=DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
             ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
             ->select('admin_tasks.usercredits')->get()->pluck('usercredits')[0];
-        }
+
+            $reserved_guide_credits=DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
+            ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
+            ->select('admin_tasks.guidecredits')->get()->pluck('guidecredits')[0];
+
+            DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
+            ->update(['user_credits' => $requestData['rating_to_user']*$reserved_credits/10,'guide_credits' => $requestData['rating_to_guide']*$reserved_guide_credits/10,
+            'status' => $requestData['request_for'],'completed_at' => Carbon::now('Asia/Kolkata')]);
         
-       
+        
+        }
 
         DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
-        ->update(['user_credits' => $requestData['rating_to_user']*$reserved_credits/10,
-        'status' => $requestData['request_for'],'completed_at' => Carbon::now('Asia/Kolkata')]);
+        ->update(['status' => $requestData['request_for'],'completed_at' => Carbon::now('Asia/Kolkata')]);
+
+    
         
         unset($requestData['rating_to_user']);//removed as there is no column of obtained marks 
-       
-        UserTasks::create($requestData);
+        unset($requestData['rating_to_guide']);
 
+        UserTasks::create($requestData);
+ 
     return redirect()->route('TaskMigrate.index');
                    
     }
@@ -127,26 +140,67 @@ class TaskMigrateController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($cop_str)
-    {
-            $assign_tasks = AssignTasks::orderBy('id','DESC')
-            ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
-            ->where('assign_tasks.status',$cop_str)
-            ->where(function ($query) {
-                $query->where('assign_tasks.assigned_by_userid',Auth::user()->id)
-                      ->orWhere('assign_tasks.guide_id',Auth::user()->id)
-                      ->orWhere('assign_tasks.reviewer_id',Auth::user()->id);
-            })
+    {   
+            if($cop_str == 'review_for_approve')
+            {
+                $assign_tasks = AssignTasks::orderBy('id','DESC')
+                ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
+                ->where('assign_tasks.status',$cop_str)
+                ->where('assign_tasks.reviewer_id',Auth::user()->id)
 
-            ->join('users as users_u','users_u.id','assign_tasks.user_id')
-            ->join('users as users_s','users_s.id','assign_tasks.assigned_by_userid')
-            ->join('users as users_g','users_g.id','assign_tasks.guide_id')
-            ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
+                ->join('users as users_u','users_u.id','assign_tasks.user_id')
+                ->join('users as users_s','users_s.id','assign_tasks.assigned_by_userid')
+                ->join('users as users_g','users_g.id','assign_tasks.guide_id')
+                ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
 
 
+                
+                ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
+                ->orderBy('assign_tasks.task_id','desc')->get();
+
+            }
+            else if($cop_str == 'review'|| 'redo'){
+
+                $assign_tasks = AssignTasks::orderBy('id','DESC')
+                ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
+                ->where('assign_tasks.status',$cop_str)
+                ->where('assign_tasks.guide_id',Auth::user()->id)
+
+                ->join('users as users_u','users_u.id','assign_tasks.user_id')
+                ->join('users as users_s','users_s.id','assign_tasks.assigned_by_userid')
+                ->join('users as users_g','users_g.id','assign_tasks.guide_id')
+                ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
+
+
+                
+                ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
+                ->orderBy('assign_tasks.task_id','desc')->get();
+
+            }
+            else{
+
+                $assign_tasks = AssignTasks::orderBy('id','DESC')
+                ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
+                ->where('assign_tasks.status',$cop_str)
+                ->where(function ($query) {
+                    $query->where('assign_tasks.assigned_by_userid',Auth::user()->id)
+                          ->orWhere('assign_tasks.guide_id',Auth::user()->id)
+                          ->orWhere('assign_tasks.reviewer_id',Auth::user()->id);
+                })
+
+                ->join('users as users_u','users_u.id','assign_tasks.user_id')
+                ->join('users as users_s','users_s.id','assign_tasks.assigned_by_userid')
+                ->join('users as users_g','users_g.id','assign_tasks.guide_id')
+                ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
+
+
+                
+                ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
+                ->orderBy('assign_tasks.task_id','desc')->get();
+
+            }
             
-            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
-            ->orderBy('assign_tasks.task_id','desc')->get();
-           
+                       
         return view('TaskMigrate.index',compact('assign_tasks'));
         
     }
@@ -172,9 +226,9 @@ class TaskMigrateController extends Controller
         ->where( 'assign_tasks.id',$id)
         ->select('user_tasks.*','users_u.name')->get();
         $assign_tasks = AssignTasks::find($id);
+        
 
-        // echo($id);
-        return view('TaskMigrate.edit',compact('user_tasks','assign_tasks','task_details',$id));
+            return view('TaskMigrate.edit',compact('user_tasks','assign_tasks','task_details',$id));      
     }
 
     /**

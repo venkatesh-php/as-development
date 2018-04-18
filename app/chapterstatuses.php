@@ -12,7 +12,7 @@ class chapterstatuses extends Model
  
  
      protected $fillable = [
-         'user_id','chapter_id','course_id','status'
+         'user_id','chapter_id','status'
      ];
      
 }

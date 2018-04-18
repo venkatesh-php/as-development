@@ -60,7 +60,6 @@ function getChapterStatus($chid,$statusrows){
     }   
     return [$valtobereturned,0,0];
 
-
 }
 
 /*check whether user is mentor*/

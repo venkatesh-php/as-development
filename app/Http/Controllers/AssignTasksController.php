@@ -22,6 +22,8 @@ class AssignTasksController extends Controller
     {
         $assign_tasks = AssignTasks::orderBy('id','DESC')
         ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
+        ->orWhere('assign_tasks.guide_id',Auth::user()->id)
+        ->orWhere('assign_tasks.reviewer_id',Auth::user()->id)
         ->join('users as users_u','users_u.id','assign_tasks.user_id')
         ->join('users as users_g','users_g.id','assign_tasks.guide_id')
         ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')

@@ -180,16 +180,17 @@ class UserTasksController extends Controller
         ]);
             $requestData = $request->all();
 
-            $g_c1 = DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
-            ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
-            ->select('admin_tasks.guidecredits')->get()->pluck('guidecredits')[0];
+            // $g_c1 = DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
+            // ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
+            // ->select('admin_tasks.guidecredits')->get()->pluck('guidecredits')[0];
 
             $r_c2 = DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
             ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
             ->select('admin_tasks.reviewercredits')->get()->pluck('reviewercredits')[0];
 
             DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
-            ->update(['guide_credits' => $requestData['rating_to_guide']*$g_c1/10,'reviewer_credits' => $requestData['rating_to_reviewer']*$r_c2/10]);
+            ->update(['reviewer_credits' => $requestData['rating_to_reviewer']*$r_c2/10]);
+            // 'guide_credits' => $requestData['rating_to_guide']*$g_c1/10,
 
             $assign_tasks = DB::table('assign_tasks')
             ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')

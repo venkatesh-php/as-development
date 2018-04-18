@@ -8,8 +8,8 @@
                         <h3>
                         <a href="http://skills.ameyem.com">Ameyem Skill Labs</a>|
                         <a href="http://skills.ameyem.com/quiz">Ameyem Quiz</a>|
-                        <a href="http://skills.ameyem.com/apps_games">Ameyem Apps and Games</a>|
-                        <a href="http://skills.ameyem.com/book_seminar">Ameyem Seminar Booking</a>|
+                        <a href="http://skills.ameyem.com/Typing-Game/Typing_Game.html">Ameyem Apps and Games</a>|
+                        <a href="http://skills.ameyem.com/bookslot/slot.html">Ameyem Seminar Booking</a>|
                         <a href="http://sthali.in/">Sthali</a>
                     </h3>
 

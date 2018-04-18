@@ -342,18 +342,21 @@ class studentController extends Controller
         $questions = chapter::find($chapter_id)->quiz->question()->get();
         $quizstatuses = quizstatuses::whereIn('question_id',array_column($questions->toArray(),'id'))
         ->where('user_id',Auth::user()->id)->get();
+
          if(count($quizstatuses)==0)    {
+
             foreach ($questions as $question)
             {
                 foreach ($quiz_data as $key => $value)
                 {
                     if($question->id == hd($key))
                     {
-                        $total = $total+10;
+                        $total = $total+10; 
                         $quizstatuses = new quizstatuses();
                         $quizstatuses->question_id = $question->id;
                         $quizstatuses->user_id = Auth::user()->id;
-                        $quizstatuses->answer = $value;                 
+                        $quizstatuses->answer = $value;    
+                                    
 
                         if($question->answer == $value)
                         {
@@ -396,10 +399,12 @@ class studentController extends Controller
             ->select('course_id')->first();
             $chids=chapter::where('course_id',$course_id->course_id)
             ->select('id')->get()->toArray();
-            // return
+            // return $chids;
             //  [$chapter_id,$course_id,$chids ];
             $ch_statuses=chapterstatuses::whereIn('chapter_id',$chids)
+
             ->select('id')->get();
+
             if(count($chids)==count($ch_statuses)){
                 // return
                 // $course_id;
@@ -536,7 +541,7 @@ public function postFeedback(Request $request,$id){
         return view('quiz.viewQuiz')->with('quiz_data',$quiz_data);
     }
 
-
+/*##############################################################################################*/  
 
     public function viewQuizResult(Request $request ){
         $score = null;
