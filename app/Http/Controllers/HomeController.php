@@ -17,7 +17,7 @@ use App\coinsinout;
 use App\enrollment;
 use App\chapter;
 use App\chapterstatuses;
-use App\Coursetask;
+use App\coursetask;
 use App\Role;
 use App\Institutes;
 use App\Http\Controllers\DateTime;
@@ -95,7 +95,7 @@ class HomeController extends Controller
             foreach($courses as $course){
                 $chapters_ids = chapter::where('course_id',$course->id)->select('id')->get();
                 // foreach($chapters_ids as $chapters_id){
-                   $chapter_tasks= Coursetask::whereIn('chapter_id',$chapters_ids)
+                   $chapter_tasks= coursetask::whereIn('chapter_id',$chapters_ids)
                    ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
                    ->select('usercredits')->get();
                    $course->no_tasks=count($chapter_tasks);

@@ -54,7 +54,7 @@ class mentorController extends Controller
     public function pinTask(Request $request){
 
         $input = Input::except('_method', '_token');
-        $task = Coursetask::firstOrCreate($input);
+        $task = coursetask::firstOrCreate($input);
       $c=chapter::where('id',$request->chapter_id)
        -> select('course_id')->first();
        return redirect()->route('manageCourse',['id'=>he($c->course_id)]) ;
