@@ -39,6 +39,7 @@
                 </div>
             </div>
         @endif  --}}
+        <div class="table-responsive">
         <table class="table table-hover">
             @foreach($courses as $course)
             <tr>
@@ -63,6 +64,7 @@
             </tr>
             @endforeach
         </table>
+        </div>
     </div>
     <br>
     

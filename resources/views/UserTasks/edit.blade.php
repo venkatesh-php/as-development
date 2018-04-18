@@ -124,12 +124,12 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <!-- <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                 <strong>Rate Your Guide Work:</strong>
                                                     {!!  Form::input('number', 'rating_to_guide', null, ['id' => 'weight', 'class' => 'form-control', 'min' => 1, 'max' => 10]) !!}
                                                 </div>
-                                            </div>
+                                            </div> -->
                                       
 
 

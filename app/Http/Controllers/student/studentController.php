@@ -293,6 +293,7 @@ class studentController extends Controller
         // $qids=;
          $quizstatuses = quizstatuses::whereIn('question_id',array_column($questions->toArray(),'id'))
         ->where('user_id',Auth::user()->id)->get();
+        // return $quizstatuses;
         //  if(count($quizstatuses)==0)    {
             foreach ($questions as $question)
             {
@@ -300,11 +301,12 @@ class studentController extends Controller
                 {
                     if($question->id == hd($key))
                     {
-                        $total = $total+10;
+                        $total = $total+10; 
                         $quizstatuses = new quizstatuses();
                         $quizstatuses->question_id = $question->id;
                         $quizstatuses->user_id = Auth::user()->id;
-                        $quizstatuses->answer = $value;                 
+                        $quizstatuses->answer = $value;    
+                                    
 
                         if($question->answer == $value)
                         {
@@ -318,7 +320,7 @@ class studentController extends Controller
                             $quizstatuses->result = 'false';
                         }
                         
-                        // $quizstatuses->save();
+                        $quizstatuses->save();
 
                     }
                 }
@@ -348,10 +350,11 @@ class studentController extends Controller
             ->select('course_id')->first();
             $chids=chapter::where('course_id',$course_id->course_id)
             ->select('id')->get()->toArray();
-            // return
+            // return $chids;
             //  [$chapter_id,$course_id,$chids ];
             $ch_statuses=chapterstatuses::whereIn('chapter_id',$chids)
             ->select('*')->get();
+            // return $ch_statuses;
             if(count($chids)==count($ch_statuses)){
                 $course_credits=$ch_statuses->sum('task_credits')+Constants::max_credits_each_chapter*($ch_statuses->sum('quiz_score')/100);
                 // return $bonus_credits =array_column($ch_statuses->toArray(),'created_at');
@@ -400,7 +403,7 @@ class studentController extends Controller
         return view('quiz.viewQuiz')->with('quiz_data',$quiz_data);
     }
 
-
+/*##############################################################################################*/  
 
     public function viewQuizResult(Request $request ){
         $score = null;
