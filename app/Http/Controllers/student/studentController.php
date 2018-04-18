@@ -4,7 +4,7 @@ namespace App\Http\Controllers\student;
 use DB;
 use App\quiz;
 use App\User;
-use App\Constants;
+use App\constants;
 use App\course;
 use App\chapter;
 use App\coinsinout;
@@ -235,7 +235,7 @@ class studentController extends Controller
                        if(count($task_statustable)!=count($cch->tasks)) $quiztobeopened=false;
                        $firstzero=true;
             }
-            // $cch->status[2]= $cch->status[2]*Constants::max_credits_each_chapter;
+            // $cch->status[2]= $cch->status[2]*constants::max_credits_each_chapter;
             //quiz_score multiplied with credits assigned for chapter
         }
 
@@ -382,7 +382,7 @@ class studentController extends Controller
             }
             /*checking wether the score is above 80%*/
             $quizscore=($score/$total)*100;
-                if( $quizscore>= Constants::min_score_for_pass ){$status ='passed'; }
+                if( $quizscore>= constants::min_score_for_pass ){$status ='passed'; }
                 else{ $status = 'failed'; }
 
             /*quiz results*/
@@ -456,14 +456,14 @@ public function postFeedback(Request $request,$id){
      $ch_statuses=chapterstatuses::whereIn('chapter_id',$chids)
             ->select('*')->get();
 
-        $course_credits=$ch_statuses->sum('task_credits')+Constants::max_credits_each_chapter*($ch_statuses->sum('quiz_score')/100);
+        $course_credits=$ch_statuses->sum('task_credits')+constants::max_credits_each_chapter*($ch_statuses->sum('quiz_score')/100);
         
         // $bonus_credits =array_column($ch_statuses->toArray(),'created_at');
         $hours4completion = (new Carbon($ch_statuses->first()->created_at))
         ->diffInHours(new Carbon($ch_statuses->last()->created_at));
             $days=$hours4completion/24.0;
             if($days<1) $days=1;
-        $bonus_credits= $course_credits*Constants::perc_cred_bonus_on_coursecompletion/$days;
+        $bonus_credits= $course_credits*constants::perc_cred_bonus_on_coursecompletion/$days;
         
 
 
@@ -480,12 +480,12 @@ public function postFeedback(Request $request,$id){
         // return
         // $course=course::findOrFail(hd($id));
          
-        $usercoins=$course->cost*Constants::share_student*($course_credits/($all_task_credits->sum('usercredits')
-        +Constants::max_credits_each_chapter*count($chids)));
-        $guidecoins=$course->cost*Constants::share_guide*($all_task_credits->sum('guide_credits')/$all_task_credits->sum('guidecredits'));
-        $reviewercoins=$course->cost*Constants::share_reviewer*($all_task_credits->sum('reviewer_credits')/$all_task_credits->sum('reviewercredits'));
+        $usercoins=$course->cost*constants::share_student*($course_credits/($all_task_credits->sum('usercredits')
+        +constants::max_credits_each_chapter*count($chids)));
+        $guidecoins=$course->cost*constants::share_guide*($all_task_credits->sum('guide_credits')/$all_task_credits->sum('guidecredits'));
+        $reviewercoins=$course->cost*constants::share_reviewer*($all_task_credits->sum('reviewer_credits')/$all_task_credits->sum('reviewercredits'));
         
-        $course_owner_coins=$course->cost*Constants::share_course_creator;
+        $course_owner_coins=$course->cost*constants::share_course_creator;
         $company_coins=$course->cost-($usercoins+$guidecoins+$reviewercoins+$course_owner_coins);
         // return 
 
@@ -579,7 +579,7 @@ public function postFeedback(Request $request,$id){
         /* inserting results into quizstatuses table */
 
         /*checking wether the score is above 80%*/
-        if(($score/$total)*100 >= Constants::min_score_for_pass ){
+        if(($score/$total)*100 >= constants::min_score_for_pass ){
             $status ='passed';
         }
         else{

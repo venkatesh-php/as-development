@@ -9,7 +9,7 @@ use Image;
 use DB;
 use Auth;
 
-use App\Constants;
+use App\constants;
 use App\course;
 
 use App\User;
@@ -84,14 +84,14 @@ class HomeController extends Controller
             $course->ch_completed=$coursestatuses->sum('status');
             $course->ch_outof=count($chapters);
             $course->creds_earned=$coursestatuses->sum('task_credits')
-            +$coursestatuses->sum('quiz_score')*Constants::max_credits_each_chapter/100;
+            +$coursestatuses->sum('quiz_score')*constants::max_credits_each_chapter/100;
             // $course->creds_outof=40;
             // $course->bonus_creds=20;
             }
             // return $studentData;
             $enrollments = enrollment::where('student_id',Auth::user()->id)->get();
-            // $constants=new Constants;
-            // return Constants::perc_cred_bonus_on_coursecompletion;
+            // $constants=new constants;
+            // return constants::perc_cred_bonus_on_coursecompletion;
             foreach($courses as $course){
                 $chapters_ids = chapter::where('course_id',$course->id)->select('id')->get();
                 // foreach($chapters_ids as $chapters_id){
@@ -100,9 +100,9 @@ class HomeController extends Controller
                    ->select('usercredits')->get();
                    $course->no_tasks=count($chapter_tasks);
                 //    return
-                   $course->max_credits=$chapter_tasks->sum('usercredits')+count($chapters_ids)*Constants::max_credits_each_chapter;
+                   $course->max_credits=$chapter_tasks->sum('usercredits')+count($chapters_ids)*constants::max_credits_each_chapter;
                    $course->bonus_credits=
-                   $course->max_credits*Constants::perc_cred_bonus_on_coursecompletion/Constants::ndays_assumed_4course_completion;
+                   $course->max_credits*constants::perc_cred_bonus_on_coursecompletion/constants::ndays_assumed_4course_completion;
                 // } 
                 foreach($enrollments as $enrollment){
                     if($course->id==$enrollment->course_id){
