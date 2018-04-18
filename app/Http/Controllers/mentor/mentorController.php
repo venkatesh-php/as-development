@@ -289,9 +289,7 @@ class mentorController extends Controller
         // return redirect()->route('courses');
         $tasks=coursetask::where('chapter_id',$chapter->id)
         ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
-        ->join('users as users_g','users_g.id','coursetasks.priority_guide_id')
-        ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
-        ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
+        ->select('admin_tasks.*','coursetasks.id as coursetask_id')
         ->get();
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
         // return view('course.viewChapter')->with('chapter',$chapter);
@@ -343,9 +341,7 @@ class mentorController extends Controller
         // return redirect()->route('courses');
         $tasks=coursetask::where('chapter_id',$chapter->id)
         ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
-        ->join('users as users_g','users_g.id','coursetasks.priority_guide_id')
-        ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
-        ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
+        ->select('admin_tasks.*','coursetasks.id as coursetask_id')
         ->get();
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
         // return view('course.viewChapter')->with('chapter',$chapter);
@@ -376,9 +372,7 @@ class mentorController extends Controller
     //    return $chapter;
     $tasks=coursetask::where('chapter_id',$id)
         ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
-        ->join('users as users_g','users_g.id','coursetasks.priority_guide_id')
-        ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
-        ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
+        ->select('admin_tasks.*','coursetasks.id as coursetask_id')
         ->get();
 
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);

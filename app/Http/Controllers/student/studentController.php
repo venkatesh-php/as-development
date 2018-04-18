@@ -256,9 +256,7 @@ class studentController extends Controller
         $chapter = chapter::where('id',$id)->with('course')->where('course_id',$course_id)->first();
         $tasks = coursetask::where('chapter_id',$id)
         ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
-        ->join('users as users_g','users_g.id','coursetasks.priority_guide_id')
-        ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
-        ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
+        ->select('admin_tasks.*','coursetasks.id as coursetask_id')
         ->get();
 // return
        $taskstatuses = AssignTasks::where('user_id',Auth::user()->id)
@@ -291,8 +289,12 @@ class studentController extends Controller
     public function assignTask($coursetask_id)
     {
         $coursetask_id=hd($coursetask_id); 
-        $ctaskdetails=coursetask::where('id',$coursetask_id)
-        ->select('*')->first();
+        // return 
+        $ctaskdetails=coursetask::where('coursetasks.id',$coursetask_id)
+        ->join('chapters','chapters.id','coursetasks.chapter_id')
+        ->join('enrollments','enrollments.course_id','chapters.course_id')
+        ->select('coursetasks.*','enrollments.guide_id as priority_guide_id',
+        'enrollments.reviewer_id as priority_reviewer_id')->first();
         
         try 
             {
@@ -301,7 +303,7 @@ class studentController extends Controller
                     'assigned_by_userid' => Auth::user()->id,
                     'user_id' =>Auth::user()->id,
                     'guide_id' => $ctaskdetails->priority_guide_id,
-                    'reviewer_id' => $ctaskdetails->priority_guide_id,
+                    'reviewer_id' => $ctaskdetails->priority_reviewer_id,
                     'course_chapter_id'=>$ctaskdetails->chapter_id,
                     'status'=>'',
                     'target_at' => Carbon::now('Asia/Kolkata')->addDays($ctaskdetails->time_required),

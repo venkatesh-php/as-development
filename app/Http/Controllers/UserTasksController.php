@@ -206,6 +206,7 @@ class UserTasksController extends Controller
             ->orderBy('assign_tasks.task_id','desc')->get();
 
             return view('UserTasks.index',compact('assign_tasks'));
+            // return redirect()->back();
 
     }
 

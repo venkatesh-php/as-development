@@ -12,7 +12,7 @@ class Coursetask extends Model
 
 
     protected $fillable = [
-        'chapter_id','task_id','priority_guide_id','priority_reviewer_id','time_required'
+        'chapter_id','task_id','time_required'
     ];
     
     
