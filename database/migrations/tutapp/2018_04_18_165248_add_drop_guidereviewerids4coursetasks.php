@@ -14,7 +14,9 @@ class AddDropGuidereviewerids4coursetasks extends Migration
     public function up()
     {
         Schema::table('coursetasks', function($table) {
-            $table->dropColumn('priority_guide_id');   
+            $table->dropForeign(['priority_guide_id']);
+            $table->dropColumn('priority_guide_id');
+            $table->dropForeign(['priority_reviewer_id']);   
             $table->dropColumn('priority_reviewer_id');  
 
         });
