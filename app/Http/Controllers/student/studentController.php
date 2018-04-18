@@ -10,7 +10,7 @@ use App\chapter;
 use App\coinsinout;
 use App\questions;
 use App\enrollment;
-use App\CourseTask;
+use App\coursetask;
 use App\AssignTasks;
 use App\quizstatuses;
 use App\chapterstatuses;

@@ -10,7 +10,7 @@ use DB;
 use Auth;
 use App\User;
 use App\Http\Kernel;
-use App\CourseTask;
+use App\coursetask;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

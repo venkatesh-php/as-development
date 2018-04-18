@@ -8,7 +8,7 @@ use App\cv;
 use App\question;
 use App\questions;
 use App\quiz;
-use App\CourseTask;
+use App\coursetask;
 use Auth;
 use DB;
 use App\AdminTasks;
