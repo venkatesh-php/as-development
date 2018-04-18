@@ -101,7 +101,7 @@
         </div>
     </div>
 </div>
-
+{{--  
 <div class="col-xs-12 col-sm-12 col-md-12" style="color:green">
     <div class="form-group">
         <strong>Recommended Guide Name</strong>
@@ -122,7 +122,7 @@
             @endforeach
         </select>              
     </div>
-</div>
+</div>  --}}
 <div class="col-xs-12 col-sm-12 col-md-12" style="display:none">
     <div class="form-group">
         <strong>Chapter Id:</strong>

@@ -20,6 +20,6 @@ class course extends Model
         return $this->hasMany('App\enrollment');
     }
     protected $fillable = [
-        'name','description'
+        'name','description','cost'
     ];
 }

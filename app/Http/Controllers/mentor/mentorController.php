@@ -57,7 +57,6 @@ class mentorController extends Controller
         $task = Coursetask::firstOrCreate($input);
       $c=chapter::where('id',$request->chapter_id)
        -> select('course_id')->first();
-
        return redirect()->route('manageCourse',['id'=>he($c->course_id)]) ;
 
     }
@@ -151,11 +150,14 @@ class mentorController extends Controller
             $this->validate($request, [
                 'name' => 'required|max:100',
                 'description' => 'required|max:1020',
+                'cost' => 'required|max:100',
                 'cover' =>'required|image|file|max:2048'
             ]);
             /*creating a new course instance */
             
-            $course->name = $request->name;
+            $course
+            ->name = $request->name;
+            $course->cost = $request->cost;
             $course->description = $request->description;
             $course->cover = storeFile($request->cover,'cover');
             /*$request->cover->store('cover','public');*/
@@ -168,11 +170,13 @@ class mentorController extends Controller
             $this->validate($request, [
                 'name' => 'required|max:100',
                 'description' => 'required|max:1020',
+                'cost' => 'required|max:100',
             ]);
            
             // return 
             $course = Auth::user()->course()->findOrFail($id);
             $course->name = $request->name;
+            $course->cost = $request->cost;
             $course->description = $request->description;
             $course->update($request->except("_token"));
 

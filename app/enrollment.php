@@ -9,7 +9,7 @@ class enrollment extends Model
 
 {
     protected $fillable = [
-        'student_id','course_id','course_credits','bonus_credits'
+        'student_id','course_id','course_credits','bonus_credits','guide_id','reviewer_id','guide_rating','reviewer_rating','course_rating','comment'
     ];
     
     public function course(){

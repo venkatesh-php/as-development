@@ -11,7 +11,9 @@ use Auth;
 
 use App\Constants;
 use App\course;
+
 use App\User;
+use App\coinsinout;
 use App\enrollment;
 use App\chapter;
 use App\chapterstatuses;
@@ -42,17 +44,31 @@ class HomeController extends Controller
      */
     public function index()
     {
-          
+       $coins = coinsinout::where('user_id',
+        Auth::user()->id)->sum('coins');
+        if(!$coins){
+            // DB::table('coinsinouts')->insert(['user_id'=>
+            // Auth::user()->id,'nature_id'=>1,'coins'=>100]); 
+            $coins =100;
+
+            $coinsinout = new  coinsinout();
+            $coinsinout->user_id = Auth::user()->id;
+            $coinsinout->nature_id = 1;
+            $coinsinout->coins = $coins;
+            // return $coinsinout;
+            $coinsinout->save();
+        }
+       
         if(isMentor()){
             // return  
         $courses = Auth::user()->course()->get();
         /*render course list page*/
 
-            return view('home')->with('courses',$courses);
+            return view('home')->with('courses', $courses)->with('coins',$coins);
 
         }
         elseif(isAdmin()){
-            return view('home');
+            return view('home')->with('coins',$coins);
         }
         elseif(isStudent()){
             $courses = course::all();
@@ -83,7 +99,8 @@ class HomeController extends Controller
                    ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
                    ->select('usercredits')->get();
                    $course->no_tasks=count($chapter_tasks);
-                   $course->max_credits=array_sum((array)$chapter_tasks)+count($chapters_ids)*Constants::max_credits_each_chapter;
+                //    return
+                   $course->max_credits=$chapter_tasks->sum('usercredits')+count($chapters_ids)*Constants::max_credits_each_chapter;
                    $course->bonus_credits=
                    $course->max_credits*Constants::perc_cred_bonus_on_coursecompletion/Constants::ndays_assumed_4course_completion;
                 // } 
@@ -94,9 +111,11 @@ class HomeController extends Controller
                     
                 }
             }
-            // return $studentData;
+            // return $courses;
 
-        return view('home')->with('studentData',$studentData)->with('courses', $courses);
+        return view('home')->with('studentData',$studentData)
+        ->with('coins',$coins)
+        ->with('courses', $courses);
 
         }
        
