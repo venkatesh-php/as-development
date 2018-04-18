@@ -216,8 +216,8 @@ class studentController extends Controller
             $cch->status= getChapterStatus($cch->id,$chpterstatuses);
 
             if (!$cch->status[0]&&!$firstzero){
-                return
-                $task_statustable=AssignTasks::where('course_chapter_id',$cch->chapter_id)
+                //return $cch;
+                $task_statustable=AssignTasks::where('course_chapter_id',$cch->id)
                         ->where('user_id',Auth::user()->id)
                         ->select('status','course_chapter_id','user_credits')->get();
                         
