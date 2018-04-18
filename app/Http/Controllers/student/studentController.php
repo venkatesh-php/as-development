@@ -173,6 +173,7 @@ class studentController extends Controller
         $course =  course::withCount('chapter')->with('chapter')->where('id',$id)->first();         
         // return
          $chids=array_column($course->chapter->toArray(),'id');
+
         $tasks=coursetask::whereIn('chapter_id',$chids)->get();
         $quizs = quiz::whereIn('chapter_id',$chids)->get();
         // return
@@ -183,20 +184,11 @@ class studentController extends Controller
         if (count($chpterstatuses)>0){
             // $status_chid=array_column($chpterstatuses,'status');
             foreach($chpterstatuses as $chpterstatus)
-            {
-                
+            {               
                 if($chpterstatus->status==0)
-                {   $zerostatus=true;
-                        $task_statustable=AssignTasks::where('course_chapter_id',$chpterstatus->chapter_id)
-                        ->where('user_id',Auth::user()->id)
-                        ->select('status','course_chapter_id','user_credits')->get();
-                        break;
+                {   $zerostatus=true;       
+                        
                 }
-                
-               
-             //    else{
-             //         $task_statustable=AssignTasks::where( 'course_chapter_id',$chpterstatus->chapter_id)->select('status','course_chapter_id')->get();
-             //     }
             }
             // return (int)$zerostatus;
             if(!$zerostatus ){
@@ -213,32 +205,43 @@ class studentController extends Controller
            chapterstatuses::create(['status' => '0','chapter_id'=>$chids[0],'user_id'=>Auth::user()->id]); 
         }
         // return $task_statustable;
+        $firstzero=false;
+        $quiztobeopened=false;
+        $user_credits=0;
         foreach ($course->chapter as $cch )
         {
             $cch->quiz=getTaskIds($cch->id,$quizs);
             $cch->tasks=getTaskIds($cch->id,$tasks);
             $cch->status= getChapterStatus($cch->id,$chpterstatuses);
+
+            if (!$cch->status[0]&&!$firstzero){
+                $task_statustable=AssignTasks::where('course_chapter_id',$chpterstatus->chapter_id)
+                        ->where('user_id',Auth::user()->id)
+                        ->select('status','course_chapter_id','user_credits')->get();
+                        
+                        if(count($task_statustable)>0){
+                            $quiztobeopened=true;                            
+                            foreach($task_statustable as $task_status)
+                            {
+                                if($task_status->status!='approved')
+                                {
+                                    $quiztobeopened=false;
+                                }else{
+                                    $user_credits += $task_status->user_credits;
+                                }
+                            }
+                
+                       }
+                       if(count($task_statustable)!=count($cch->tasks)) $quiztobeopened=false;
+                       $firstzero=true;
+            }
             // $cch->status[2]= $cch->status[2]*Constants::max_credits_each_chapter;
             //quiz_score multiplied with credits assigned for chapter
         }
 
         // return $course->chapter;
-        $user_credits=0;
-       if(count($task_statustable)>0){
-            $quiztobeopened=true;
-            
-            foreach($task_statustable as $task_status)
-            {
-                if($task_status->status!='approved')
-                {
-                    $quiztobeopened=false;
-                }else{
-                    $user_credits += $task_status->user_credits;
-                }
-            }
-       }else{
-            $quiztobeopened=false;
-       }
+        
+       
     //    return $user_credits;
 
         return view('student.course')->with('course',$course)
@@ -458,8 +461,9 @@ public function postFeedback(Request $request,$id){
         // $bonus_credits =array_column($ch_statuses->toArray(),'created_at');
         $hours4completion = (new Carbon($ch_statuses->first()->created_at))
         ->diffInHours(new Carbon($ch_statuses->last()->created_at));
-
-        $bonus_credits= $course_credits*Constants::perc_cred_bonus_on_coursecompletion/($hours4completion/24.0);
+            $days=$hours4completion/24.0;
+            if($days<1) $days=1;
+        $bonus_credits= $course_credits*Constants::perc_cred_bonus_on_coursecompletion/$days;
         
 
 
