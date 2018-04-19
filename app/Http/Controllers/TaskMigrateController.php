@@ -221,7 +221,6 @@ class TaskMigrateController extends Controller
         $task_id = $request->task_id;
 
         $task_details = AdminTasks::find($task_id);
-
         $user_tasks = UserTasks::orderBy('id','ASC')
         
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')

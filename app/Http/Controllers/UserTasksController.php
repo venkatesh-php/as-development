@@ -142,7 +142,7 @@ class UserTasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request,$assign_task_id)
-    {
+    {   
         $user_tasks = UserTasks::orderBy('id','ASC')
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')
 

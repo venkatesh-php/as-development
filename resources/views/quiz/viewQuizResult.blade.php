@@ -45,11 +45,8 @@
 
         </style>
         <div id="wrapper" class="container">
-        {{--  <a  class="btn btn-primary" href="{{ URL::previous()}}">Back</a>  --}}
-        <div class="pull-left">
-                {{--  <a class="btn btn-success" href="{{ url('/dashboard') }}">Back</a>  --}}
-                {{--  <a  class="btn btn-primary" href="{{route('manageCourse',['id'=>he($course->id)]) }}">Back</a>  --}}
-            </div>
+        <a  class="btn btn-primary" href="{{ URL::previous()}}">Back</a>  
+      
                 <h1 class="text-center"><hr>Quiz Results<hr></h1>
                 <div class="panel">
                         <h2 class="text-center panel-heading">

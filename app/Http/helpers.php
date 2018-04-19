@@ -28,7 +28,7 @@ function he($id)
 
 /*decode a given string to hashids*/
 function hd($id){
-    return Hashids::decode($id)[0];
+    return Hashids::decode($id);
 }
 
 function getTaskIds($chid,$tasks){

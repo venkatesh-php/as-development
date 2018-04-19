@@ -149,7 +149,7 @@
     <div class="row">
         <div class="col-md-10">
             <div class="panel panel-primary">
-                <div style="color:white" class="panel-heading"><center>Welcome to Progress Panel ( as Guide and Reviewer )</center></div>
+                <div style="color:white" class="panel-heading"><center>Welcome to Progress Panel of (as) Guide </center></div>
 
                 <div class="panel-body">
                     <div class="row">
