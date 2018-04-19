@@ -8,7 +8,7 @@ use App\cv;
 use App\question;
 use App\questions;
 use App\quiz;
-use App\CourseTask;
+use App\coursetask;
 use Auth;
 use DB;
 use App\AdminTasks;
@@ -54,7 +54,7 @@ class mentorController extends Controller
     public function pinTask(Request $request){
 
         $input = Input::except('_method', '_token');
-        $task = Coursetask::firstOrCreate($input);
+        $task = coursetask::firstOrCreate($input);
       $c=chapter::where('id',$request->chapter_id)
        -> select('course_id')->first();
        return redirect()->route('manageCourse',['id'=>he($c->course_id)]) ;
@@ -289,9 +289,7 @@ class mentorController extends Controller
         // return redirect()->route('courses');
         $tasks=coursetask::where('chapter_id',$chapter->id)
         ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
-        ->join('users as users_g','users_g.id','coursetasks.priority_guide_id')
-        ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
-        ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
+        ->select('admin_tasks.*','coursetasks.id as coursetask_id')
         ->get();
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
         // return view('course.viewChapter')->with('chapter',$chapter);
@@ -343,9 +341,7 @@ class mentorController extends Controller
         // return redirect()->route('courses');
         $tasks=coursetask::where('chapter_id',$chapter->id)
         ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
-        ->join('users as users_g','users_g.id','coursetasks.priority_guide_id')
-        ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
-        ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
+        ->select('admin_tasks.*','coursetasks.id as coursetask_id')
         ->get();
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
         // return view('course.viewChapter')->with('chapter',$chapter);
@@ -376,9 +372,7 @@ class mentorController extends Controller
     //    return $chapter;
     $tasks=coursetask::where('chapter_id',$id)
         ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
-        ->join('users as users_g','users_g.id','coursetasks.priority_guide_id')
-        ->join('users as users_r','users_r.id','coursetasks.priority_reviewer_id')
-        ->select('admin_tasks.*','coursetasks.id as coursetask_id','users_g.first_name as gname','users_r.first_name as rname')
+        ->select('admin_tasks.*','coursetasks.id as coursetask_id')
         ->get();
 
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);

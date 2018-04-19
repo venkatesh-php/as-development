@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-class Constants {
+class constants {
     
     const max_credits_each_chapter=5;
     const perc_cred_bonus_on_coursecompletion=1;

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CourseTasks extends Migration
+class coursetasks extends Migration
 {
     /**
      * Run the migrations.
@@ -39,6 +39,6 @@ class CourseTasks extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('CourseTasks');
+        Schema::dropIfExists('coursetasks');
     }
 }
