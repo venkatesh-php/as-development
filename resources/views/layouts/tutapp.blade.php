@@ -105,6 +105,6 @@
         @yield('content')
         {{-- <script src="/js/app.js"></script> --}}
     </div>
-
+@include('partials.analytics')
 </body>
 </html>
