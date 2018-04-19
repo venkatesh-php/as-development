@@ -79,6 +79,6 @@
 {!! Form::close() !!}
 
 @include('partials.javascripts')
-
+@include('partials.analytics')
 </body>
 </html>
