@@ -26,7 +26,7 @@
     </div>
 
     @include('partials.javascripts')
-@include('partials.analytics')
+{{--  @include('partials.analytics')s  --}}
 
 </body>
 </html>
