@@ -143,13 +143,6 @@ class UserTasksController extends Controller
      */
     public function edit(Request $request,$assign_task_id)
     {
-        // $task_id = $request->task_id;
-
-        // return 
-        // $assign_task_id;
-
-        
-
         $user_tasks = UserTasks::orderBy('id','ASC')
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')
 
@@ -173,41 +166,7 @@ class UserTasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'assigntask_id' => '',
-            'rating_to_guide' => '',
-            'rating_to_reviewer' => '',
-        ]);
-            $requestData = $request->all();
-
-            // $g_c1 = DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
-            // ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
-            // ->select('admin_tasks.guidecredits')->get()->pluck('guidecredits')[0];
-
-            $r_c2 = DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
-            ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
-            ->select('admin_tasks.reviewercredits')->get()->pluck('reviewercredits')[0];
-
-            DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
-            ->update(['reviewer_credits' => $requestData['rating_to_reviewer']*$r_c2/10]);
-            // 'guide_credits' => $requestData['rating_to_guide']*$g_c1/10,
-
-            $assign_tasks = DB::table('assign_tasks')
-            ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
-
-            ->join('users as users_u','users_u.id','assign_tasks.user_id')
-            ->join('users as users_s','users_s.id','assign_tasks.assigned_by_userid')
-            ->join('users as users_g','users_g.id','assign_tasks.guide_id')
-            ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
-
-            ->where('assign_tasks.user_id',Auth::user()->id)
-            ->where('assign_tasks.status','approved')
-            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name as uname','users_s.name as sname','users_g.name as gname','users_r.name as rname')
-            ->orderBy('assign_tasks.task_id','desc')->get();
-
-            return view('UserTasks.index',compact('assign_tasks'));
-            // return redirect()->back();
-
+        //
     }
 
     /**

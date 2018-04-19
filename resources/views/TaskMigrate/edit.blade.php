@@ -5,7 +5,7 @@
 <script type="text/javascript">
     $(function () {
         $("#role").change(function () {
-            if ($(this).val() == "review_for_approve") {
+            if ($(this).val() == "approved" || "approved") {
                 $("#bb").show();
             } else {
                 $("#bb").hide();
@@ -136,24 +136,27 @@
                                             <div class="form-group">
                                                 <strong>Request For:</strong>
                                                     {!! Form::select('request_for', [
-                                                    '1' => ['approved' => 'approved']],
+                                                    '1' => ['redo' => 'redo'],
+                                                    '2' => ['approved' => 'approved']],
                                                     array('class' => 'form-control')) !!}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
+                                    <div id="bb" style="display:none">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
                                                 <strong>Rate Your Student Work:</strong>
                                                     {{--  {!! Form::text('obtained_marks', null, array('placeholder' => 'Give the marks to Student','class' => 'form-control')) !!}  --}}
                                                     {!!  Form::input('number', 'rating_to_user', null, ['id' => 'weight', 'class' => 'form-control', 'min' => 1, 'max' => 10]) !!}
-                                                </div>
                                             </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
                                                 <strong>Rate Your Guide Work:</strong>
                                                     {!!  Form::input('number', 'rating_to_guide', null, ['id' => 'weight', 'class' => 'form-control', 'min' => 1, 'max' => 10]) !!}
-                                                </div>
                                             </div>
+                                        </div>
+                                    </div>
                                     @else
                                     <div id="role">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
