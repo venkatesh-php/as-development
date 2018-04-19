@@ -7,6 +7,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
+
+  <meta name="description" content="Online and Offline tutorials on web development, Software technologies and Mobile Technologies">
+  <meta name="keywords" content="HTML,CSS,XML,JavaScript,PHP,Python,Java,C,C++,C#,MySQL,SQL,Laravel,Geophysics">
+  <meta name="author" content="Arun Babu Nalamara">
+
+
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <!-- Font Awesome -->
