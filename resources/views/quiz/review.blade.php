@@ -47,7 +47,7 @@
         <div id="wrapper" class="container">
         <div class="pull-left">
 
-                <a  class="btn btn-primary" href="#">Back (not working)</a>
+                <a  class="btn btn-primary" href="/home">Home</a>
                 {{--  {{route('manageCourse',['id'=>he($course->id)]) }}  --}}
             </div>
                 <h1 class="text-center"><hr>Quiz Results<hr></h1>

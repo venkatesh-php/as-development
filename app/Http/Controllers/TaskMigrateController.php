@@ -112,8 +112,13 @@ class TaskMigrateController extends Controller
             ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
             ->select('admin_tasks.guidecredits')->get()->pluck('guidecredits')[0];
 
+            $reserved_reviewer_credits=DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
+            ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
+            ->select('admin_tasks.reviewercredits')->get()->pluck('reviewercredits')[0];
+
             DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
             ->update(['user_credits' => $requestData['rating_to_user']*$reserved_credits/10,'guide_credits' => $requestData['rating_to_guide']*$reserved_guide_credits/10,
+            'reviewer_credits' => 10*$reserved_guide_credits/10,
             'status' => $requestData['request_for'],'completed_at' => Carbon::now('Asia/Kolkata')]);
         
         
@@ -216,7 +221,6 @@ class TaskMigrateController extends Controller
         $task_id = $request->task_id;
 
         $task_details = AdminTasks::find($task_id);
-
         $user_tasks = UserTasks::orderBy('id','ASC')
         
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')

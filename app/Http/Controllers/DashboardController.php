@@ -144,9 +144,9 @@ class DashboardController extends Controller
            
            //Total Assigned Tasks of all Users assigned by teacher
            $assign_tasks = DB::table('assign_tasks')
-           ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
-           ->orWhere('assign_tasks.guide_id',Auth::user()->id)
-           ->orWhere('assign_tasks.reviewer_id',Auth::user()->id)
+        //    ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
+           ->where('assign_tasks.guide_id',Auth::user()->id)
+        //    ->orWhere('assign_tasks.reviewer_id',Auth::user()->id)
            ->orderBy('assign_tasks.updated_at','desc')->get();
 
            $assign_chart = Charts::database($assign_tasks, 'line', 'highcharts')
@@ -162,7 +162,7 @@ class DashboardController extends Controller
            ->where('assign_tasks.status','approved')
         //    ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
            ->where('assign_tasks.guide_id',Auth::user()->id)
-           ->orWhere('assign_tasks.reviewer_id',Auth::user()->id)
+        //    ->orWhere('assign_tasks.reviewer_id',Auth::user()->id)
            ->orderBy('assign_tasks.updated_at','desc')->get();
 
            $completed_chart = Charts::database($completedtasks, 'line', 'highcharts')
@@ -179,7 +179,7 @@ class DashboardController extends Controller
            $progress = DB::table('assign_tasks') 
         //    ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
            ->where('assign_tasks.guide_id',Auth::user()->id)
-           ->orWhere('assign_tasks.reviewer_id',Auth::user()->id)
+        //    ->orWhere('assign_tasks.reviewer_id',Auth::user()->id)
            ->where('assign_tasks.status','approved')
            ->orderBy('assign_tasks.updated_at','desc')->select('assign_tasks.updated_at','assign_tasks.guide_credits')->get()->toArray();
 
@@ -225,7 +225,7 @@ class DashboardController extends Controller
 
            $droptasks = DB::table('assign_tasks')
            ->where('assign_tasks.status','drop')
-           ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
+           ->where('assign_tasks.guide_id',Auth::user()->id)
            ->orderBy('assign_tasks.created_at','desc')->get();
 
 
@@ -250,7 +250,7 @@ class DashboardController extends Controller
            ->join('users','assign_tasks.assigned_by_userid','users.id')
         //    ->where('assign_tasks.assigned_by_userid',Auth::User()->id)
            ->where('assign_tasks.guide_id',Auth::User()->id)
-           ->orWhere('assign_tasks.reviewer_id',Auth::User()->id)
+        //    ->orWhere('assign_tasks.reviewer_id',Auth::User()->id)
            ->count();
 
            $totalcredits = $completedtasks->sum('guide_credits');
