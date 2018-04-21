@@ -217,6 +217,7 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         jeremykenedy\laravelexceptionnotifier\LaravelExceptionNotifier::class,
         jeremykenedy\LaravelLogger\LaravelLoggerServiceProvider::class,
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
 
 
         
@@ -286,6 +287,7 @@ return [
         'Gravatar'     => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Uuid'         => Webpatser\Uuid\Uuid::class,
         'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
         
         
     ],

@@ -16,6 +16,7 @@ return [
     'services' => [
         'facebook' => [
             'uri' => 'https://www.facebook.com/sharer/sharer.php?u=',
+            'text' => 'This site is usefull to interaction between teachers and students'
         ],
         'twitter' => [
             'uri' => 'https://twitter.com/intent/tweet',
