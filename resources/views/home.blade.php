@@ -25,9 +25,9 @@
             <ul>        
             <label style="font-size:2em">Share with friends to get more coins...</label>        
                 <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.asdp.ameyem.com" img="/public/share.png" class="social-button " id=""><span class="fa fa-facebook-official" style="font-size:24px"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="https://twitter.com/intent/tweet?text=my share text&amp;url=http://www.asdp.ameyem.com" class="social-button " id=""><span class="fa fa-twitter" style="font-size:24px"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://twitter.com/intent/tweet?text=Excellent partal I found for learning new courses. Want to share with you. &amp;url=http://www.asdp.ameyem.com" class="social-button " id=""><span class="fa fa-twitter" style="font-size:24px"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="https://plus.google.com/share?url=http://www.asdp.ameyem.com" class="social-button " id=""><span class="fa fa-google-plus" style="font-size:24px"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://www.asdp.ameyem.com&amp;title=my share text&amp;summary=dit is de linkedin summary" class="social-button " id=""><span class="fa fa-linkedin" style="font-size:24px"></span></a>
+                <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://www.asdp.ameyem.com&amp;title=Excellent partal I found for learning new courses. Want to share with you. &amp;summary=dit is de linkedin summary" class="social-button " id=""><span class="fa fa-linkedin" style="font-size:24px"></span></a>
             </ul>
             </div>
         </div>
