@@ -2,6 +2,19 @@
 <title>
     {{ trans('global.global_title') }}
 </title>
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@myameyem" />
+<meta name="twitter:creator" content="@myameyem" />
+<meta name="twitter:url" content="http://asdp.ameyem.com/register">
+<meta name="twitter:title" content="Ameyem Skill Development Program - Improve your Computer Skills">
+<meta name="twitter:description" content="ASDP Online and offline trainings in Web Development, Software Development, Mobile App Development including Java, Python, C, C++, PHP, JavaScript languages">
+<meta name="twitter:image" content="http://asdp.ameyem.com/images/Free%20coins%20Introductory%20web%20development.png">
+
+<meta property="og:title" content="Ameyem Skill Development Program - Improve your Computer Skills" />
+<meta property="og:image" content="http://asdp.ameyem.com/images/Free%20coins%20Introductory%20web%20development.png" />
+<meta property="og:description" content="ASDP Online and offline trainings in Web Development, Software Development, Mobile App Development including Java, Python, C, C++, PHP, JavaScript languages" />
+<meta property="og:url" content="http://asdp.ameyem.com/register" />
+{{--  <meta http-equiv="refresh" content="0; url=http://asdp.ameyem.com" />  --}}
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />

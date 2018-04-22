@@ -102,6 +102,9 @@ class UserTasksController extends Controller
         ->update(['status' => $requestData['request_for']]);
  
         UserTasks::create($requestData);
+        if(isset($request->course_id)){
+            return redirect()->route('viewCourse',['id'=>$request->course_id]);
+        }
       
         // return $requestData;
         return redirect()->route('UserTasks.index');
@@ -143,6 +146,7 @@ class UserTasksController extends Controller
      */
     public function edit(Request $request,$assign_task_id)
     {   
+        
         $user_tasks = UserTasks::orderBy('id','ASC')
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')
 
@@ -153,7 +157,9 @@ class UserTasksController extends Controller
         $assign_tasks = AssignTasks::find($assign_task_id);
 
         $task_details = AdminTasks::find($assign_tasks->task_id);
-
+        if(isset($request->course_id)){
+            return view('UserTasks.edit',compact('user_tasks','assign_tasks','task_details'))->with(['course_id'=>$request->course_id]);
+        }
         return view('UserTasks.edit',compact('user_tasks','assign_tasks','task_details'));
     }
 

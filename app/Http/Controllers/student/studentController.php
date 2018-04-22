@@ -284,7 +284,7 @@ class studentController extends Controller
                 
             }
        }
-    // return $tasks;
+    // return $chapter;
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
     }
 

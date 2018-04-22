@@ -95,17 +95,17 @@
                     @if(isStudent())
                         @if(!isset ( $task->status))
                         <a  class="btn btn-warning"                
-                            href="{{ route('assigntask',['coursetask_id'=>he($task->coursetask_id)]) }}">Attempt</a>
+                            href="{{ route('assigntask',['coursetask_id'=>he($task->coursetask_id),'course_id'=>$chapter->course_id]) }}">Attempt</a>
 
                         @else
                          
                             @if($task->status!="approved")
                             
-                            <a class="btn btn-primary" href="{{ route('UserTasks.edit',['id'=>$task->assigntask_id]) }}">View Work</a>
+                            <a class="btn btn-primary" href="{{ route('UserTasks.edit',['id'=>$task->assigntask_id,'course_id'=>he($chapter->course_id)]) }}">View Work</a>
                             @else
                             <!-- <p class="label label-success">Completed</p> -->
                             <p class="label label-danger "> Earned Credits: {{$task->earned_credits}}</p>
-                            <a class="btn btn-success" href="{{ route('UserTasks.edit',['id'=>$task->assigntask_id]) }}">Completed</a>
+                            <a class="btn btn-success" href="{{ route('UserTasks.edit',['id'=>$task->assigntask_id,'course_id'=>he($chapter->course_id)]) }}">Completed</a>
                             @endif
                         @endif  
                     @endif
