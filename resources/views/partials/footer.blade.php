@@ -6,11 +6,11 @@
     <div class="container-fluid text-center text-md-left">
                 <center>
                         <h3>
-                        <a href="http://skills.ameyem.com">Ameyem Skill Labs</a>|
-                        <a href="http://skills.ameyem.com/quiz">Ameyem Quiz</a>|
-                        <a href="http://skills.ameyem.com/Typing-Game/Typing_Game.html">Ameyem Apps and Games</a>|
-                        <a href="http://skills.ameyem.com/bookslot/slot.html">Ameyem Seminar Booking</a>|
-                        <a href="http://sthali.in/">Sthali</a>
+                        <a href="http://skills.ameyem.com"><b style="color:white">Ameyem Skill Labs</b></a>|
+                        <a href="http://skills.ameyem.com/quiz"><b style="color:white">Ameyem Quiz</b></a>|
+                        <a href="http://skills.ameyem.com/Typing-Game/Typing_Game.html"><b style="color:white">Ameyem Apps and Games</b></a>|
+                        <a href="http://skills.ameyem.com/bookslot/slot.html"><b style="color:white">Ameyem Seminar Booking</b></a>|
+                        <a href="http://sthali.in/"><b style="color:white">Sthali</b></a>
                     </h3>
 
                 </center>
@@ -20,7 +20,7 @@
     <!--Copyright-->
     <div class="footer-copyright py-3 text-center">
         © 2018 Copyright:
-        <a href="https://skill.ameyem.com"> ameyem.com </a>
+        <a href="https://skill.ameyem.com"> <b style="color:white">ameyem.com </b></a>
     </div>
     <!--/.Copyright-->
 

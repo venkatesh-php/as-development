@@ -3,7 +3,7 @@
 {{--  <script>
 var $ = $.noConflict(true);
 </script>  --}}
-<link href="/css/app.css" rel="stylesheet">
+{{-- <link href="/css/app.css" rel="stylesheet"> --}}
     <!-- Scripts -->
     {{--  <script src="/js/jquery.js"></script>  --}}
     {{--  <script src="/js/jquery-migrate.js"></script>  --}}
