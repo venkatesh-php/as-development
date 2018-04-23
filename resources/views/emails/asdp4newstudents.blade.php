@@ -1,23 +1,4 @@
-{{--  @extends('beautymail::templates.widgets')
 
-@section('content')
-
-	@include('beautymail::templates.widgets.articleStart')
-
-		<h4 class="secondary"><strong>Hello World</strong></h4>
-		<p>This is a test</p>
-
-	@include('beautymail::templates.widgets.articleEnd')
-
-
-	@include('beautymail::templates.widgets.newfeatureStart')
-
-		<h4 class="secondary"><strong>Hello World again</strong></h4>
-		<p>This is another test</p>
-
-	@include('beautymail::templates.widgets.newfeatureEnd')
-
-@stop  --}}
 
 @extends('beautymail::templates.minty',[
     'logo'        => [
@@ -46,7 +27,8 @@
 		</tr>
 		<tr>
 			<td class="paragraph">
-				Hope you have learnt something on that day, in a seminar with us. We want to extend our gratitude 
+				Hope you have learnt something on that day, in a seminar with us. We want to extend our gratitude by 
+				extending our support in form of online learning from Ameyem Skill Development program.
 			</td>
 		</tr>
 		<tr>
@@ -62,17 +44,26 @@
 		</tr>
 		<tr>
 			<td class="paragraph">
-				As an incentive for appearing at Ameyem Geosolutions for the post of 'Data Entry operator'
-				we would like to offer a free course on 'Introductory webdevelopment'.
+				We would like to offer a free course on 'Introductory Web Development' and 100 free Ameyem Coins worth 1000 rupees. 
+				In future more courses are coming in and more free coins will be available.
 			</td>
 		</tr>
 		<tr>
 			<td class="paragraph">
 				To grab the opportunity we request you to 
 				please register by clicking on following register button.
-				During the process select 'Ameyem Skill Labs' as institute and 'student' for role.
+				During the process select your institute as institute and 'student' for role.
 				Wait for a day to start your first course...
 				All the best!!!!!!!!!!!!!!!!
+			</td>
+		</tr>
+		<tr>
+			<td class="paragraph">
+				You can look at the downloads section at http://asdp.ameyem.com for 'how to use this portal as student' 
+				and the presentation we have given on that day in your college.
+			Hope you will gain immensely with association with us. Feel free to contact (0866-2470778) for guidance on your career. It is obsolutely free. 
+			We also plan to conduct free seminars in future, which will be informed in the same mail.
+
 			</td>
 		</tr>
 		<tr>
@@ -87,9 +78,16 @@
 			<td width="100%" height="25"></td>
 		</tr>
 		<tr>
+			<td class="title">
+				All the best for your successful career...
+			</td>
+		</tr>
+		<tr>
 			<td class="paragraph">
-				Regards, <br>
-				HR, Ameyem Geosolutions.
+				Best Regards, <br>
+				HR, Ameyem Skill Labs, <br> Vijayawada.<br>
+				Ph: 0866-2470778 <br>
+				<h2 style="color:green">Contact for Offline Training: +91-8800197778<h2>
 			</td>
 		</tr>
 		<tr>
