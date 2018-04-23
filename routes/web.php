@@ -80,7 +80,8 @@
     // Registered and Activated User Routes
     Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep']], function () {
         Route::get('/notify', 'EmailController@autoEmail');
-    
+
+            Route::get('/notifynewstudents', 'EmailController@autoEmail2newstudents');
         // app('debugbar')->disable();
         //  Homepage Route - Redirect based on user role is in controller.
         // Route::get('/home', ['as' => 'public.home',   'uses' => 'UserController@index']);

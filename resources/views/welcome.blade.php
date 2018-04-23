@@ -44,23 +44,8 @@
 
     <div class="container">
 
-                <div class="content"> 
-                    <center>
-                    <br>
-                        <div class="title m-b-xs">
-                    
-                        <h1>@lang('titles.app') </h1>
-                            <h2>@lang('titles.app2')</h2>                            
-                        </div>
-                        </center
-                 </div>
 
-                 <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                     <h3 class="text-center">How to Use this Portal!!!? : <a class="btn btn-primary" href="/download/ASDP-Welcome-Guide.pdf" >Download</a></h3>
 
-                    </div>
-                  </div>
 
       </div>
 
@@ -68,7 +53,16 @@
         
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-7 col-md-offset-2">
+                <center>
+                    {{--  <div class="content">                           --}}
+                            <br>
+                            <div class="title">                        
+                            <h1>@lang('titles.app') </h1>                     
+                            </div>     
+                            <br>                  
+                    {{--  </div>  --}}
+                </center>
             <div class="panel panel-default">
                 <div class="panel-heading"><center><h2>Ameyem Skills Login</h2></center></div>
                 
@@ -138,6 +132,21 @@
                       
                     </div>
             </div>
+        </div>
+        <div class="col-md-3 "style="background-color:#f0f0f0;min-height:500px">
+                <center>
+                    {{--  <div class="content">                           --}}
+                            <br>
+                            <div class="title">                        
+                            <h3>Downloads </h3>                     
+                            </div>     
+                            <br>                  
+                    {{--  </div>  --}}
+                </center>
+            <label>How to Use this Portal? -Students </label><a class="btn" href="/download/ASDP-Welcome-StudentGuide.pdf" ><i class="fa fa-download"></i></a>
+            <label>How to Use this Portal? -Teachers </label><a class="btn btn-small" href="/download/ASDP-Welcome-TeacherGuide.pdf" ><i class="fa fa-download"></i></a>
+            <label>Shape your career.. PPT </label><a class="btn btn-small" href="/download/Shape your Career- A ppt for Students.pdf" ><i class="fa fa-download"></i></a>
+
         </div>
     </div>
 </div>
