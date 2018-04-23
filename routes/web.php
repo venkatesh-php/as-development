@@ -82,6 +82,7 @@
         Route::get('/notify', 'EmailController@autoEmail');
 
             Route::get('/notifynewstudents', 'EmailController@autoEmail2newstudents');
+            Route::get('/notifyusers', 'EmailController@autoEmail2users');
         // app('debugbar')->disable();
         //  Homepage Route - Redirect based on user role is in controller.
         // Route::get('/home', ['as' => 'public.home',   'uses' => 'UserController@index']);
