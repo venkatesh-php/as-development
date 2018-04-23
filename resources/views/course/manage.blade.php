@@ -73,6 +73,7 @@
 @section('content')
             <?php $count = 0 ?>
             <?php $id= he($course->id)?>
+            
             <div class="cover">
                 
                 <div class="panel panel-success transparent">                       

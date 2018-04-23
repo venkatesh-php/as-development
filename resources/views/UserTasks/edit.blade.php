@@ -3,6 +3,9 @@
 
 <div class="app">
     <div class="container-fluid">
+
+<a  class="btn btn-primary" href="{{ URL::previous()}}">Back</a>
+
         <div class="row">
         <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4">
 
@@ -124,13 +127,21 @@
 
                                     {!! Form::open(array('route' => 'UserTasks.store','method' => 'POST','files' => true)) !!}
 
+                                    @if(isset($course_id))
+                                    <div class="col-xs-12 col-sm-12 col-md-12" style="display:none">
+                                            <div class="form-group">
+                                                       {!! Form::text('course_id', $course_id) !!}
+                                                
+                                            </div>
+                                    </div>
+                                    @endif
 
                                     <div class="col-xs-12 col-sm-12 col-md-12" style="display:none">
                                             <div class="form-group">
                                                 <strong>Assigned Task Id:</strong>
                                                 {!! Form::text('assigntask_id', $assign_tasks->id) !!}
                                                 
-                                        </div>
+                                            </div>
                                     </div>
 
 

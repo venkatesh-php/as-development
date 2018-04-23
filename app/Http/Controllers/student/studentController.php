@@ -284,7 +284,7 @@ class studentController extends Controller
                 
             }
        }
-    // return $tasks;
+    // return $chapter;
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
     }
 
@@ -554,7 +554,7 @@ public function postFeedback(Request $request,$id){
     public function viewQuizResult(Request $request ){
         $score = null;
         $total = null;
-        
+        // return
         $chapter_id = hd($request->id);
         $questions = chapter::find($chapter_id)->quiz->question()->get();
         // return $questions;

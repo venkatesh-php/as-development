@@ -62,6 +62,6 @@ return [
 	'app_back_to_list' => 'Back to list',
 	'app_dashboard' => 'Dashboard',
 	'app_delete' => 'Delete',
-	'global_title' => 'Ameyem ASDP',
+	'global_title' => 'Ameyem Skill Development Program',
 	'assign_task' => "Assign Task",
 ];
