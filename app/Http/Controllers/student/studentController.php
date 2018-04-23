@@ -554,7 +554,7 @@ public function postFeedback(Request $request,$id){
     public function viewQuizResult(Request $request ){
         $score = null;
         $total = null;
-        
+        // return
         $chapter_id = hd($request->id);
         $questions = chapter::find($chapter_id)->quiz->question()->get();
         // return $questions;
