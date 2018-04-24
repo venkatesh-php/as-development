@@ -176,7 +176,7 @@
 </div>
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
 @include("partials.footer")
 @endsection
   
