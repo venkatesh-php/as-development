@@ -7,7 +7,8 @@
 @section('content')
     <div class="container">
         <h1 class="text-center">All courses</h1>
-        <table class="table table-bordered table-hover table-responsive">
+        <div class="table-responsive">
+        <table class="table table-bordered table-hover">
             <tr>
                 <th>Name</th>
                 <th>Mentor</th>
@@ -62,6 +63,7 @@
                 </tr>
             @endforeach
         </table>
+</div>
     </div>
 @endsection
 

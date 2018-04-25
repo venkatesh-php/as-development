@@ -3,7 +3,12 @@
 
 <head>
     @include('partials.head')
-    <style>
+<style>
+body {
+    background-image: url("/wallpaper.jpg");height:100%;
+}
+/* <link rel="stylesheet"
+      href="{{ url('adminlte/css') }}/select2.min.css"/> */
 .navbar-default {
     background-color: #347AB6;
     border-color: #E7E7E7;

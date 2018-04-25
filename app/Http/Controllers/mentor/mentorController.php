@@ -12,6 +12,7 @@ use App\coursetask;
 use Auth;
 use DB;
 use App\AdminTasks;
+use App\enrollment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Arr;

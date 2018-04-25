@@ -5,6 +5,9 @@
     @include('partials.head')   
     
     <style>
+/* body {
+    background-image: url("/wallpaper.jpg");height:100%;
+} */
 .navbar-default {
     background-color: #347AB6;
     border-color: #E7E7E7;

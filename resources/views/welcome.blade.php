@@ -3,9 +3,6 @@
 
 @section('content')
 <style>
-/* .body {
-    background-image: url("/wallpaper.jpg");height:100%;
-} */
  .navbar .transparent .navbar-inner {
     border-width: 0px;
     -webkit-box-shadow: 0px 0px;
@@ -176,7 +173,7 @@
 </div>
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
 @include("partials.footer")
 @endsection
   
