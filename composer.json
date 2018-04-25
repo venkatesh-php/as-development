@@ -9,7 +9,7 @@
         "barryvdh/laravel-debugbar": "^3.0",
         "consoletvs/charts": "^5.4",
         "creativeorange/gravatar": "~1.0",
-        "doctrine/dbal": "^2.5",
+        "doctrine/dbal": "^2.7",
         "fideloper/proxy": "~4.0",
         "google/recaptcha": "^1.1",
         "hashids/hashids": "^2.0",
