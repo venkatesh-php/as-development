@@ -14,8 +14,8 @@ var flakes = [],
     mX = -100,
     mY = -100
 
-    canvas.width = window.innerWidth;
-    canvas.height = 2.5*window.innerHeight;
+    canvas.width = window.visualViewport.width;
+    canvas.height = 1.5*window.visualViewport.height;
 
 function snow() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -109,8 +109,10 @@ canvas.addEventListener("mousemove", function(e) {
 });
 
 window.addEventListener("resize",function(){
-    canvas.width = window.innerWidth;
-    canvas.height = 2.5*window.innerHeight;
+    // canvas.width = window.innerWidth;
+    // canvas.height = 2.5*window.innerHeight;
+    canvas.width = window.visualViewport.width;
+    canvas.height = 1.5*window.visualViewport.height;
 
 })
 

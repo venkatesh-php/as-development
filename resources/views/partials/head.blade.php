@@ -17,7 +17,8 @@
 {{--  <meta http-equiv="refresh" content="0; url=http://asdp.ameyem.com" />  --}}
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport">
+<meta name="viewport" content="width=device-width, height=device-height,initial-scale=1.0" />
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
 
