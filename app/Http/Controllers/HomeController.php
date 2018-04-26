@@ -8,11 +8,9 @@ use Image;
 
 use DB;
 use Auth;
-use Carbon;
 
 use App\constants;
 use App\course;
-use App\Http\Controllers\toString;
 
 use App\User;
 use App\coinsinout;
@@ -65,39 +63,13 @@ class HomeController extends Controller
             // return  
         $courses = Auth::user()->course()->get();
         /*render course list page*/
-        // return $courses;
-        $enrolls=[];
-        $count =null;
-        foreach($courses as $course){
-            array_push($enrolls, enrollment::where('course_id',$course->id)->pluck('course_id'));
-            // foreach($enrolls as $enroll){
-            //     // $enroll.toString();
-            //     if($course->id = $enroll){
-            //         $count = $count+1;
-            //     }
-            //     $course->enroll == $count;
-            // }
-        }
-        // return $enrolls;
-            // $ecount = $enrolls->count();
-            // return $ecount;
-            // foreach($enrolls as $enroll){
-            
-            //     if($course->id = $enroll){
-            //         $count = $count+1;
-            //     }
-            //     $course->enroll == $count;
-            // }
-           
+      
             return view('home')->with('courses', $courses)->with('coins',$coins);
 
         }
         elseif(isAdmin()){
             $users = User::all()->count();
-            $date = Carbon\Carbon::now()->format('Y-m-d');
-            $todayusers = User::where('created_at',$date)->count();
-            // return $todayusers;
-            return view('home')->with('coins',$coins)->with('users',$users)->with('todayusers',$todayusers);
+            return view('home')->with('coins',$coins)->with('users',$users);
         }
 
         elseif(isStudent()){

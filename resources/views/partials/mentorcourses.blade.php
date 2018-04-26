@@ -49,7 +49,6 @@
                     <td>
                         {{$course['description']}}
                     </td>
-                    <!-- <td>Enrollments : {{$course['enroll']}}</td> -->
                     <td>
                         <a  class="btn btn-primary"
                             href="{{ route('manageCourse',['id'=>he($course->id)]) }}">Manage</a>
