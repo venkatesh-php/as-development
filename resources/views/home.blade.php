@@ -67,6 +67,7 @@
                     <span class="title">Students</span>
                 </a>
             </li>
+            
             @elseif(isStudent())
             
                 <div class="row">

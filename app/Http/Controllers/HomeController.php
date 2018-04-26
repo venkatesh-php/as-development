@@ -63,13 +63,15 @@ class HomeController extends Controller
             // return  
         $courses = Auth::user()->course()->get();
         /*render course list page*/
-
+      
             return view('home')->with('courses', $courses)->with('coins',$coins);
 
         }
         elseif(isAdmin()){
-            return view('home')->with('coins',$coins);
+            $users = User::all()->count();
+            return view('home')->with('coins',$coins)->with('users',$users);
         }
+
         elseif(isStudent()){
             $courses = course::all();
             // return
