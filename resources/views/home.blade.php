@@ -67,6 +67,9 @@
                     <span class="title">Students</span>
                 </a>
             </li>
+            <h1>Total Users : {{$users}}</h1>
+            <h1>Today Register Users : {{$todayusers}}</h1>
+            
             @elseif(isStudent())
             
                 <div class="row">
