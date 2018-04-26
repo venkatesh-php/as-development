@@ -27,8 +27,7 @@
                 </div>
             </div>
         @endif
-        <div class="table-responsive">
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover table-responsive">
             <tr>
                 <th>Name</th>
                 <th>Email</th>
@@ -80,7 +79,6 @@
                 </tr>
             @endforeach
         </table>
-    </div>
     </div>
     <br>
     <script>

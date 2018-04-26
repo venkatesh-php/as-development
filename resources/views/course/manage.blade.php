@@ -71,7 +71,6 @@
 
 </style>
 @section('content')
-<a  class="btn btn-primary" href="{{ URL::previous()}}">Back</a>
             <?php $count = 0 ?>
             <?php $id= he($course->id)?>
             

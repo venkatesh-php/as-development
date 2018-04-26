@@ -40,30 +40,30 @@
             </div>
         @endif  --}}
         <div class="table-responsive">
-            <table class="table table-hover">
-                @foreach($courses as $course)
-                <tr>
-                    <td>
-                    <b>{{$course['name']}}</b>
-                    </td>
-                    <td>
-                        {{$course['description']}}
-                    </td>
-                    <td>
-                        <a  class="btn btn-primary"
-                            href="{{ route('manageCourse',['id'=>he($course->id)]) }}">Manage</a>
-                    </td>
-                    <td>
-                        <a  class="btn btn-primary"
-                            href="{{ route('editCourse',['id'=>he($course->id)]) }}">Edit</a>
-                    </td>
-                    <td>
-                        <a  id = "FormDeleteTime" class="btn btn-danger"
-                        href="{{ route('deleteCourse',['id' =>he($course->id)]) }}">Delete</a>
-                    </td>
-                </tr>
-                @endforeach
-            </table>
+        <table class="table table-hover">
+            @foreach($courses as $course)
+            <tr>
+                <td>
+                   <b>{{$course['name']}}</b>
+                </td>
+                <td>
+                    {{$course['description']}}
+                </td>
+                <td>
+                    <a  class="btn btn-primary"
+                        href="{{ route('manageCourse',['id'=>he($course->id)]) }}">Manage</a>
+                </td>
+                <td>
+                    <a  class="btn btn-primary"
+                        href="{{ route('editCourse',['id'=>he($course->id)]) }}">Edit</a>
+                </td>
+                <td>
+                    <a  id = "FormDeleteTime" class="btn btn-danger"
+                       href="{{ route('deleteCourse',['id' =>he($course->id)]) }}">Delete</a>
+                </td>
+            </tr>
+            @endforeach
+        </table>
         </div>
     </div>
     <br>

@@ -3,6 +3,9 @@
 
 @section('content')
 <style>
+/* .body {
+    background-image: url("/wallpaper.jpg");height:100%;
+} */
  .navbar .transparent .navbar-inner {
     border-width: 0px;
     -webkit-box-shadow: 0px 0px;
@@ -61,13 +64,13 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-7 col-md-offset-2">
+            <div class="col-md-8 col-md-offset-2">
                 <center>
 
                     <br>
                         <div class="title">                        
                             <!-- <h1>@lang('titles.app') </h1>  -->
-                            <h1 style="color:white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ameyem Skill Development Portal </h1>
+                            <h1 style="color:white">Ameyem Skill Development Portal </h1>
                         </div>     
                     <br>                  
 
@@ -171,9 +174,44 @@
         </div>
     </div>
 </div>
+{{--  
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+        <footer class="page-footer font-small blue pt-4 mt-4">
+                <center>
+                        <h4>
+                        <a href="http://skills.ameyem.com"><b style="color:white">Ameyem Skill Labs</b></a>|
+                        <a href="http://skills.ameyem.com/quiz"><b style="color:white">Ameyem Quiz</b></a>|
+                        <a href="http://skills.ameyem.com/Typing-Game/Typing_Game.html"><b style="color:white">Ameyem Apps and Games</b></a>|
+                        <a href="http://skills.ameyem.com/bookslot/slot.html"><b style="color:white">Ameyem Seminar Booking</b></a>|
+                        <a href="http://sthali.in/"><b style="color:white">Sthali</b></a>
+                    </h4>
+
+                </center>
+        </footer>
+        </div>
+
+        <div class="col-md-12">
+                <!--Copyright-->
+            <div class="footer-copyright py-3 text-center">
+                © 2018 Copyright:
+                <a href="https://skill.ameyem.com"> <b style="color:green">ameyem.com </b></a>
+            </div>
+        </div>
+    </div>
+</div>  --}}
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br>
+{{--  <br><br><br><br><br><br><br><br><br><br><br><br><br>  --}}
+<hr>
+<div class="container">
+
+        <div class="col-md-12">
 @include("partials.footer")
+</div>
+</div>
+
+
 @endsection
   

@@ -21,7 +21,6 @@
          @if($course->id==0)
         <h1 class="text-center">Create a new course</h1>
         @else
-        <a  class="btn btn-primary" href="{{ URL::previous()}}">Back</a>
         <h1 class="text-center">Edit the course</h1>
         @endif
         <hr>
