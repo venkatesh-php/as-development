@@ -63,12 +63,23 @@ class HomeController extends Controller
             // return  
         $courses = Auth::user()->course()->get();
         /*render course list page*/
-      
+        // return $courses;
+        foreach($courses as $course){
+            $course->enroll =  enrollment::where('course_id',$course->id)->select('course_id')->count();          
+        }        
+            // return $courses;
+
             return view('home')->with('courses', $courses)->with('coins',$coins);
 
         }
         elseif(isAdmin()){
-            $users = User::all()->count();
+            $users = User::orderBy('id','DESC')
+            ->join('institutes','users.institutes_id','institutes.id')
+            ->join('roles','users.role_id','roles.id')
+            ->join('institutes as users_i','users_i.id','institutes.id')
+            ->join('roles as users_r','users_r.id','roles.id')
+            ->select('users.*','users_i.name as iname','users_r.name as rname')->get();
+            // return $users;
             return view('home')->with('coins',$coins)->with('users',$users);
         }
 
