@@ -67,6 +67,40 @@
                     <span class="title">Students</span>
                 </a>
             </li>
+            <h1 style="color:green">Total Users :<span style="color:#347ab7">{{$users->count()}}</span></h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tr style="color:#2471A3">
+                                
+                                    <th>User Name</th>
+                                    <th>Institute</th> 
+                                    <th>Role</th>
+                                    <th>Created At</th>
+                                    
+                                    
+                                    
+                                </tr>
+                                @foreach ($users as $key => $user)
+                                
+                                <tr style="color:454545">
+                                
+                                    <td>{{ $user->name}}</td>
+                                    <td>{{ $user->iname }}</td> 
+                                    <td>{{ $user->rname }}</td>
+                                    <td>{{ $user->created_at }}</td>
+                                </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <h1>Total Users : {{$users}}</h1> -->
+            
             @elseif(isStudent())
             
                 <div class="row">
