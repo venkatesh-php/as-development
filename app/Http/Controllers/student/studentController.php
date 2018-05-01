@@ -52,10 +52,9 @@ class studentController extends Controller
                     ->select('id','first_name','last_name','email')
                     ->get();
                     
-                        return 
-                    view('course.enroll')->with('course', $course)
-                    ->with('teachers',  $teachers );
-                }else{
+                    return view('course.enroll')->with('course', $course)->with('teachers',  $teachers );
+                }
+                else{
                     // return
                     $coinsleft=DB::table('coinsinouts')->where('user_id',Auth::user()->id)->sum('coins');
                     $coinsrequired=course::find($course_id)->cost;
@@ -214,12 +213,15 @@ class studentController extends Controller
             $cch->quiz=getTaskIds($cch->id,$quizs);
             $cch->tasks=getTaskIds($cch->id,$tasks);
             $cch->status= getChapterStatus($cch->id,$chpterstatuses);
+            // return $cch;
 
             if (!$cch->status[0]&&!$firstzero){
                 //return $cch;
                 $task_statustable=AssignTasks::where('course_chapter_id',$cch->id)
-                        ->where('user_id',Auth::user()->id)
+                        ->where('user_id',Auth::user()->id)->where('task_id',$cch->tasks)
                         ->select('status','course_chapter_id','user_credits')->get();
+
+                        // return $task_statustable;
                         
                         if(count($task_statustable)>0){
                             $quiztobeopened=true;                            
@@ -400,7 +402,7 @@ class studentController extends Controller
 
             /* inserting status 1 into chapterstatuses table */
             DB::table('chapterstatuses')->where('chapter_id',$chapter_id)->where('user_id',Auth::user()->id)
-            ->update(['status' => '1','quiz_score'=>$quizscore,'task_credits'=>$task_credits]); 
+            ->update(['status' => 1,'quiz_score'=>$quizscore,'task_credits'=>$task_credits]); 
             // return
             $course_id=chapter::where('id',$chapter_id)
             ->select('course_id')->first();
@@ -429,6 +431,7 @@ class studentController extends Controller
         
         return view('quiz.review')->with(['questions'=>$questions,'results'=>collect($results)]);
     }
+/*####################################################################################################################################*/ 
 
 public function postFeedback(Request $request,$id){
     // return 

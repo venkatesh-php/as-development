@@ -92,7 +92,7 @@ class HomeController extends Controller
                 $chapters=chapter::where('course_id',$course->course_id)
                 ->select('id')->get();
             $coursestatuses=
-            chapterstatuses::whereIn('chapter_id',$chapters->toArray())
+            chapterstatuses::whereIn('chapter_id',$chapters->toArray())->where('user_id',Auth::user()->id)
             ->select('*')->get();
             $course->ch_completed=$coursestatuses->sum('status');
             $course->ch_outof=count($chapters);
