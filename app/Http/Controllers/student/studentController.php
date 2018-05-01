@@ -37,7 +37,7 @@ class studentController extends Controller
         
         $course_id = hd($id);
         // return $course_id;
-        if (Auth::user()->enrollment()->count() <= 2)
+        if (Auth::user()->enrollment()->where('status', 1)->count() < 3)
         {
             $enrollment = Auth::user()->enrollment()->where('course_id', $course_id)->get()->count();
 
