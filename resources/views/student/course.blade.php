@@ -100,7 +100,7 @@ function makeColor(){
             <?php $next_enable=true; ?>
                    @foreach($course->chapter as $chapter)
 
-                       
+
 
                     <?php $tcount = 0 ?>
                     <?php $chapter_id = he($chapter->id) ?>

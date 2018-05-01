@@ -79,7 +79,20 @@
                 <div class="panel-body">
                         <table class="table table-responsive">
                                 <tr>
-                                        {{--options--}}
+                                
+                                                <td>
+                                                        A. {{$question->optionA}}
+                                                </td>
+                                                <td>
+                                                        B. {{$question->optionB}}
+                                                </td>
+                                                <td>
+                                                        C. {{$question->optionC}}
+                                                </td>
+                                                <td>
+                                                        D. {{$question->optionD}}
+                                                </td>
+                                                
                                 </tr>
                         </table>
                 </div>
