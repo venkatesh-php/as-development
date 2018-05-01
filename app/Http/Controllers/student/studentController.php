@@ -37,7 +37,7 @@ class studentController extends Controller
         
         $course_id = hd($id);
         // return $course_id;
-        if (Auth::user()->enrollment()->count() <= 2)
+        if (Auth::user()->enrollment()->where('status', 1)->count() < 3)
         {
             $enrollment = Auth::user()->enrollment()->where('course_id', $course_id)->get()->count();
 
@@ -208,6 +208,7 @@ class studentController extends Controller
         $quiztobeopened=false;
         $user_credits=0;
         // return $course->chapter;
+        // return $chpterstatuses;
         foreach ($course->chapter as $cch )
         {
             $cch->quiz=getTaskIds($cch->id,$quizs);
@@ -218,7 +219,7 @@ class studentController extends Controller
             if (!$cch->status[0]&&!$firstzero){
                 //return $cch;
                 $task_statustable=AssignTasks::where('course_chapter_id',$cch->id)
-                        ->where('user_id',Auth::user()->id)->where('task_id',$cch->tasks)
+                        ->where('user_id',Auth::user()->id)->whereIn('task_id',$cch->tasks)
                         ->select('status','course_chapter_id','user_credits')->get();
 
                         // return $task_statustable;
@@ -236,8 +237,10 @@ class studentController extends Controller
                             }
                 
                        }
+                      
                        if(count($task_statustable)!=count($cch->tasks)) $quiztobeopened=false;
                        $firstzero=true;
+                       
             }
             // $cch->status[2]= $cch->status[2]*constants::max_credits_each_chapter;
             //quiz_score multiplied with credits assigned for chapter
@@ -247,7 +250,7 @@ class studentController extends Controller
         
        
     //    return $user_credits;
-
+    // return (string)$quiztobeopened;
         return view('student.course')->with('course',$course)
         ->with('quiztobeopened',$quiztobeopened)
         ->with('user_credits',$user_credits);
