@@ -17,6 +17,10 @@
 
 <div class="app">
     <div class="container-fluid">
+        <div class="pull-right">
+            <a  class="btn btn-success" href="{{ URL::previous()}}">Back</a> 
+        </div>
+ 
         <div class="row">
         <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4">
 
