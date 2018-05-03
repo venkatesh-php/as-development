@@ -65,9 +65,14 @@ class HomeController extends Controller
         /*render course list page*/
         // return $courses;
         foreach($courses as $course){
-            $course->enroll =  enrollment::where('course_id',$course->id)->select('course_id')->count();          
+            $course->enroll =  enrollment::where('course_id',$course->id)->select('course_id','student_id')->count();
+            $course->student_list = enrollment::orderBy('id','DESC')
+            ->join('users','enrollments.student_id','users.id')
+            ->where('enrollments.course_id',$course->id) 
+            ->join('users as users_s','users_s.id','enrollments.student_id')   
+            ->select('enrollments.*','users_s.name as sname')->pluck('sname');       
         }        
-            // return $courses;
+        // return $courses;
 
             return view('home')->with('courses', $courses)->with('coins',$coins);
 
