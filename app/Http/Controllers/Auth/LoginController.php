@@ -7,7 +7,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\Auth\Request;
+// use App\Http\Controllers\Auth\Request;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -24,8 +25,23 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    protected function attemptLogin(Request $request)
+    {
+        // 
+        // return $this->guard()->attempt(
+        //     $this->credentials($request), $request->filled('remember')
+        // );
 
-
+        if(filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            //user sent their email 
+            return $this->guard()->attempt(['email' => $request->email, 'password' => $request->password]
+            , $request->filled('remember'));
+        } else {
+            //they sent their username instead 
+            return $this->guard()->attempt(['name' => $request->email, 'password' => $request->password]
+            , $request->filled('remember'));
+        }
+    }
 // protected function authenticated(Request $request, $user)
 // {
 // // if ( $user->isAdmin() ) {// do your margic here
