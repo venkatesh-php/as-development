@@ -73,24 +73,27 @@ function makeColor(){
     <?php $count = 0  ?>
     <?php $id= he($course->id)?>
     <a  class="btn btn-primary" href="{{ URL::previous()}}">Back</a>
-    <div class="cover">
-    
-        <div class="panel panel-success transparent">                       
-                        <div class=" panel-heading">
-                        <h2 class="text-center  text-uppercase">{{$course->name}}</h2>                          
-                              
-                         </div>
-                         <div class=" panel-body transparent2">
-                         <h2 class="text-left"> Rules &amp; Instructions for Course<h2>
-                          <h4 class="text-justify">{{$course->description}}</h4>
-                          </div>
-                            </div>
+                <div class="cover">
+        
+                    <div class="panel panel-success transparent">                       
+                                    <div class=" panel-heading">
+                                        <h2 class="text-center  text-uppercase">{{$course->name}}</h2>                          
+                                        
+                                    </div>
+                                        
+                    </div>
                             
                         
                 </div>
+    <div class="col-md-12">
+        <div class="panel panel-success transparent2">
+            <h2 class="text-left"> Rules &amp; Instructions for Course<h2>
+                <h4 class="text-justify">{{$course->description}}</h4>
+        </div>
     </div>
-
+    
     <div class="container" id="manage">
+
         <div class="col-md-10 col-md-offset-1">
             <hr>
             <h3 class="text-center ">Chapters</h3>
