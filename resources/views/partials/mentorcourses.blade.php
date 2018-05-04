@@ -49,7 +49,7 @@
                 <td>
                     {{$course['description']}}
                 </td>
-                <td style="color:#347ab7"><a href="" onclick="return alert('List Of Course Enrolled Students : {{$course['student_list']}}')">Enrols:{{$course['enroll']}}</a></td>
+                <td style="color:#347ab7"><a href="" onclick="return alert('List Of Enrolled Students : {{$course['student_list']}}')">Enrols:{{$course['enroll']}}</a></td>
                 <td>
                     <a  class="btn btn-primary"
                         href="{{ route('manageCourse',['id'=>he($course->id)]) }}">Manage</a>
