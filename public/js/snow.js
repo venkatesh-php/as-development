@@ -5,20 +5,26 @@
     };
     window.requestAnimationFrame = requestAnimationFrame;
 })();
-
-
+var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+var heightfactor=1;
+if(isMobile){
+    var heightfactor=1.5;
+    
+}
 var flakes = [],
     canvas = document.getElementById("canvas"),
-    ctx = canvas.getContext("2d"),
+    ctx = canvas.getContext("2d")
     flakeCount = 400,
     mX = -100,
     mY = -100
 
     // canvas.width = window.visualViewport.width;
     // canvas.height = 1.5*window.visualViewport.height;
-  
+
     canvas.width = window.innerWidth;
-    canvas.height = 2.5*window.innerHeight;
+    canvas.height = heightfactor*window.innerHeight;
+    
+
 
 function snow() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -112,10 +118,16 @@ canvas.addEventListener("mousemove", function(e) {
 });
 
 window.addEventListener("resize",function(){
+
+
+    // canvas.fillRect(window.screenX,window.screenY,window.innerWidth,window.innerHeight);
+
     canvas.width = window.innerWidth;
-    canvas.height = 2.5*window.innerHeight;
+    canvas.height = heightfactor*window.innerHeight;
     // canvas.width = window.visualViewport.width;
     // canvas.height = 1.5*window.visualViewport.height;
+
+
 
 })
 
