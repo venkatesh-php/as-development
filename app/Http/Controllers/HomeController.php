@@ -70,7 +70,7 @@ class HomeController extends Controller
             ->join('users','enrollments.student_id','users.id')
             ->where('enrollments.course_id',$course->id) 
             ->join('users as users_s','users_s.id','enrollments.student_id')   
-            ->select('enrollments.*','users_s.name as sname')->pluck('sname');       
+            ->select('enrollments.*','users_s.first_name as sname')->pluck('sname');       
         }        
         // return $courses;
 
