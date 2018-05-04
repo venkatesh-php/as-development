@@ -20,6 +20,7 @@ var flakes = [],
 
     // canvas.width = window.visualViewport.width;
     // canvas.height = 1.5*window.visualViewport.height;
+
     canvas.width = window.innerWidth;
     canvas.height = heightfactor*window.innerHeight;
     
@@ -118,12 +119,14 @@ canvas.addEventListener("mousemove", function(e) {
 
 window.addEventListener("resize",function(){
 
+
     // canvas.fillRect(window.screenX,window.screenY,window.innerWidth,window.innerHeight);
 
     canvas.width = window.innerWidth;
     canvas.height = heightfactor*window.innerHeight;
     // canvas.width = window.visualViewport.width;
     // canvas.height = 1.5*window.visualViewport.height;
+
 
 
 })

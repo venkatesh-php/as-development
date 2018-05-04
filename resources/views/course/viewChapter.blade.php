@@ -42,7 +42,7 @@
 @section('content')
    <div class="container" id="chapter_data">
        <h2 class="text-center">{{$chapter->name}}</h2>
-        <a  class="btn btn-primary" href="{{ URL::previous()}}">Back</a>
+        <a  class="btn btn-primary" href="{{ url('student/course',['course_id'=>he($chapter->course_id)]) }}">Back</a>
                         <hr>
                         <p class="text-justify"><b>Instructions: </b>{{$chapter->instructions}}</p>
         <hr>

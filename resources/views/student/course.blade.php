@@ -72,7 +72,8 @@ function makeColor(){
 
     <?php $count = 0  ?>
     <?php $id= he($course->id)?>
-    <a  class="btn btn-primary" href="{{ URL::previous()}}">Back</a>
+
+    <a  class="btn btn-primary" href="/home">Back</a>
                 <div class="cover">
         
                     <div class="panel panel-success transparent">                       
@@ -82,6 +83,7 @@ function makeColor(){
                                     </div>
                                         
                     </div>
+
                             
                         
                 </div>

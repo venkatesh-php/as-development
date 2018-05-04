@@ -49,7 +49,7 @@
                 <td>
                     {{$course['description']}}
                 </td>
-                <td style="color:#347ab7">Enrollments : {{$course['enroll']}}</td>
+                <td style="color:#347ab7"><a href="" onclick="return alert('List Of Course Enrolled Students : {{$course['student_list']}}')">Enrols:{{$course['enroll']}}</a></td>
                 <td>
                     <a  class="btn btn-primary"
                         href="{{ route('manageCourse',['id'=>he($course->id)]) }}">Manage</a>
@@ -70,7 +70,7 @@
     <br>
     
     <script>
-        $("#flash_message").delay(2000).slideUp();
+        $("#flash_message").delay(1000).slideUp();
 
      $("#FormDeleteTime").click(function (event) {
                  var x = confirm("Are you sure you want to delete?");

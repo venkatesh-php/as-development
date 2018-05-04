@@ -458,6 +458,7 @@ public function postFeedback(Request $request,$id){
             'comment' => 'required',
             
         ]);
+        enrollment::where('course_id',hd($id))->where('student_id',Auth::user()->id)->update($request->except(['_token']));
         
         $chids=chapter::where('course_id',hd($id))
             ->select('id')->get()->toArray();
