@@ -167,7 +167,7 @@ class UserTasksController extends Controller
         ->where( 'assign_tasks.id',$assign_task_id)
         ->select('user_tasks.*','users_u.name')->get();
         $assign_tasks = AssignTasks::find($assign_task_id);
-
+// return
         $task_details = AdminTasks::find($assign_tasks->task_id);
         if(isset($request->course_id)){
             return view('UserTasks.edit',compact('user_tasks','assign_tasks','task_details'))->with(['course_id'=>$request->course_id]);
