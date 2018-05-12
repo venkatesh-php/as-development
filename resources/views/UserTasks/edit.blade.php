@@ -17,29 +17,34 @@
                     <div class="table-responsive">
            
                     <h3 class="card-title"><center><b>{{ucfirst($task_details->worknature)}}</b></center></h3>
- 
-                        <table class="table table-dark table-hover ">
+                        <b>Subject</b> : {{$task_details->subject}}
+                                <p><b>Title</b> : {{$task_details->worktitle}}</p>
+                                <p><b>Description</b> : {{$task_details->workdescription}}</p>
+                                @if ($task_details->uploads)
+                            <b>Files to download</b>
+                                <label><a class="btn btn-info btn-xs" href="/download/{{ $task_details->uploads}}" download="{{ $task_details->uploads}}">Download</a></label>
+                            @endif
+                            <div>
+                            <p class="btn btn-primary"> User Credits: {{$task_details->usercredits}}</p>
+                                <p class="btn btn-primary"> Guide Credits: {{$task_details->guidecredits}}</p>
+                                <p class="btn btn-primary"> Reviewer Credits: {{$task_details->reviewercredits}}</p>
+                       </div>
+                        {{--  <table class="table table-dark table-hover ">
                             <tr>
                                 <td>
-                                <b>Subject</b> : {{$task_details->subject}}
-                                <p><b>Title</b> : {{$task_details->worktitle}}</p>
+                                
                                 </td>
                             <tr>
                             <tr>
-                                <td><p><b>Description</b> : {{$task_details->workdescription}}</p></td>
+                                <td></td>
                             </tr>
                             <tr>
-                                <td><p class="btn btn-primary"> User Credits: {{$task_details->usercredits}}</p>
-                                <p class="btn btn-primary"> Guide Credits: {{$task_details->guidecredits}}</p>
-                                <p class="btn btn-primary"> Reviewer Credits: {{$task_details->reviewercredits}}</p></td>
+                                <td></td>
                             </tr>
                             <tr>
-                            @if ($task_details->uploads)
-                            <td>Files to download</td>
-                                <td><a class="btn btn-info btn-xs" href="/download/{{ $task_details->uploads}}" download="{{ $task_details->uploads}}">Download</a></td>
-                            @endif
+                            
                             </tr>
-                        </table>
+                        </table>  --}}
                     </div>
                 </div>
             </div>
