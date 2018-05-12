@@ -26,8 +26,8 @@
                             @endif
                             <div>
                             <p class="btn btn-primary"> User Credits: {{$task_details->usercredits}}</p>
-                                <p class="btn btn-primary"> Guide Credits: {{$task_details->guidecredits}}</p>
-                                <p class="btn btn-primary"> Reviewer Credits: {{$task_details->reviewercredits}}</p>
+                                {{--  <p class="btn btn-primary"> Guide Credits: {{$task_details->guidecredits}}</p>
+                                <p class="btn btn-primary"> Reviewer Credits: {{$task_details->reviewercredits}}</p>  --}}
                        </div>
                         {{--  <table class="table table-dark table-hover ">
                             <tr>
