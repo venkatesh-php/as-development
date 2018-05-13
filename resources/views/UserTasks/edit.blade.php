@@ -252,7 +252,7 @@ input:focus{
                 @endforeach
         </ul>
 
-            @if($assign_tasks->status !== 'drop' || $assign_tasks->status !== 'approved')
+            @if($assign_tasks->status === 'drop' || $assign_tasks->status === 'approved')
             <div style="padding:0px 20px 30px 20px !important; color:green"> <h3> Completed </h3><br></div>
             @else
 
