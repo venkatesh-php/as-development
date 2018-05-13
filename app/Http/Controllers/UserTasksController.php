@@ -166,6 +166,7 @@ class UserTasksController extends Controller
 
         ->where( 'assign_tasks.id',$assign_task_id)
         ->select('user_tasks.*','users_u.first_name')->get();
+        // return
         $assign_tasks = AssignTasks::find($assign_task_id);
 
         $task_details = AdminTasks::find($assign_tasks->task_id);
