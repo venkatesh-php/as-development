@@ -102,7 +102,11 @@
             <!-- <h1>Total Users : {{$users}}</h1> -->
             
             @elseif(isStudent())
-            
+            <div class = "row">
+            {{--  <a class="btn btn-primary" href="{{ route('UserTasks.edit',['id'=>$task->assigntask_id,'course_id'=>he($chapter->course_id)]) }}">View Work</a>  --}}
+            {{--  <a href="{{route('viewChapter',['course_id'=>$id,'id'=>$chapter_id])}}" class="button btn btn-preview"> view chapter </a>  --}}
+                                                
+            </div>
                 <div class="row">
                  @include('partials.studentcourses')
                  </div>

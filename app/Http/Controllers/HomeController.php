@@ -11,7 +11,7 @@ use Auth;
 
 use App\constants;
 use App\course;
-
+use App\AssignTasks;
 use App\User;
 use App\coinsinout;
 use App\enrollment;
@@ -108,6 +108,10 @@ class HomeController extends Controller
             }
             // return $studentData;
             $enrollments = enrollment::where('student_id',Auth::user()->id)->get();
+            $ongoingtasks = AssignTasks::where('user_id',Auth::user()->id)
+            ->where('status', '!=' , 'approved')
+            ->join('chapters','course_chapter_id','chapters.id')
+            ->select('assign_tasks.id','assign_tasks.status','course_chapter_id','chapters.course_id')->get();
             // $constants=new constants;
             // return constants::perc_cred_bonus_on_coursecompletion;
             foreach($courses as $course){

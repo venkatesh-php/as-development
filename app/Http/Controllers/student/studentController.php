@@ -172,7 +172,7 @@ class studentController extends Controller
         $course =  course::withCount('chapter')->with('chapter')->where('id',$id)->first();         
         // return
          $chids=array_column($course->chapter->toArray(),'id');
-
+        //  return
         $tasks=coursetask::whereIn('chapter_id',$chids)->get();
         $quizs = quiz::whereIn('chapter_id',$chids)->get();
         // return
@@ -246,7 +246,7 @@ class studentController extends Controller
             //quiz_score multiplied with credits assigned for chapter
         }
 
-        // return $course->chapter;
+        // return $course;
         
        
     //    return $user_credits;
@@ -261,6 +261,7 @@ class studentController extends Controller
     /*view Chapter by student*/
     public function  viewChapter($course_id,$id)
     {
+       
         $id = hd($id);
         $course_id = hd($course_id);
         $chapter = chapter::where('id',$id)->with('course')->where('course_id',$course_id)->first();
@@ -269,6 +270,16 @@ class studentController extends Controller
         ->select('admin_tasks.*','coursetasks.id as coursetask_id')
         ->get();
 // return
+    $chpterstatuses=DB::table('chapterstatuses')
+    ->where('user_id',Auth::user()->id)
+    ->where('chapter_id',$id)->select('status')->get();
+    if(count($chpterstatuses)==0){
+
+        // return ' notset';
+        // DB::table('chapterstatuses')->create(['user_id'->Auth::user()=>id,'chapter_id'=>$id,'status'=>0]);
+        chapterstatuses::create(['status' => '0','chapter_id'=>$id,'user_id'=>Auth::user()->id]);
+        // return ' now set';
+    }
        $taskstatuses = AssignTasks::where('user_id',Auth::user()->id)
        ->where('course_chapter_id',$id)
        ->select('id','task_id','status','user_credits') 
@@ -289,7 +300,7 @@ class studentController extends Controller
                 
             }
        }
-    // return $chapter;
+    // return $chapter->tasks;
         return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
     }
 

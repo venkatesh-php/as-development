@@ -158,14 +158,15 @@ class UserTasksController extends Controller
      */
     public function edit(Request $request,$assign_task_id)
     {   
-        
+        // return
         $user_tasks = UserTasks::orderBy('id','ASC')
         ->join('assign_tasks','user_tasks.assigntask_id', '=', 'assign_tasks.id')
 
         ->join('users as users_u','users_u.id','user_tasks.request_by')
 
         ->where( 'assign_tasks.id',$assign_task_id)
-        ->select('user_tasks.*','users_u.name')->get();
+        ->select('user_tasks.*','users_u.first_name')->get();
+        // return
         $assign_tasks = AssignTasks::find($assign_task_id);
 
         $task_details = AdminTasks::find($assign_tasks->task_id);
