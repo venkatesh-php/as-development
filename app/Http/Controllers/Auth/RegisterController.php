@@ -147,7 +147,7 @@ class RegisterController extends Controller
         
     }
     public function processRequestData(Request $request){
-
+// return $request;
         if(isset($request->batch_name_in)){
             
             batch::firstOrCreate(['name'=>$request->batch_name_in]);
@@ -155,18 +155,19 @@ class RegisterController extends Controller
             $request->merge(['batch_id'=>$batch->id]);
             
         }
+       
         if(isset($request->branch_name_in)){
-            $validator= new         Validator;
+            // $validator= new         Validator;
             $data['branch_name']=$request->branch_name_in;
             $localreq= new Request;
             
 
-            $validatedData = $request->validate([
-                'title' => 'required|unique:posts|max:255',
-                'body' => 'required',
-            ]);
+            // $validatedData = $request->validate([
+            //     'title' => 'required|unique:posts|max:255',
+            //     'body' => 'required',
+            // ]);
 
-           return $validator= Validator::make($data,
+            $validator= Validator::make($data,
             ['branch_name'=> 'required|max:255'],
             ['branch_name.required' => 'branch_name required']);
             if ($validator -> fails()) 
@@ -183,8 +184,11 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-      $request=$this->processRequestData($request);
+        // return
+      $request=
+      $this->processRequestData($request);
     //    var_dump( $request);
+    //    return $request;
 // return $request->except(['branch_name_in','batch_name_in']);
   
         $validator= new         Validator;
