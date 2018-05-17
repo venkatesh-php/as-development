@@ -200,17 +200,16 @@ class TaskMigrateController extends Controller
 
 
             }
-            else{
+            else if($cop_str == 'drop'|| 'approved'){
 
                 $assign_tasks = AssignTasks::orderBy('id','DESC')
                 ->join('admin_tasks','assign_tasks.task_id', '=', 'admin_tasks.id')
                 ->where('assign_tasks.status',$cop_str)
-                ->where(function ($query) {
-                    $query->where('assign_tasks.guide_id',Auth::user()->id);
+                ->where('assign_tasks.guide_id',Auth::user()->id)
                     // ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
                     //       ->orWhere('assign_tasks.guide_id',Auth::user()->id)
                     //       ->orWhere('assign_tasks.reviewer_id',Auth::user()->id);
-                })
+                
 
                 ->join('users as users_u','users_u.id','assign_tasks.user_id')
                 ->join('users as users_s','users_s.id','assign_tasks.assigned_by_userid')
@@ -218,7 +217,7 @@ class TaskMigrateController extends Controller
                 ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
 
                 ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
-                ->orderBy('assign_tasks.task_id','desc')->get();
+                ->get();
 
                 $review = AssignTasks::orderBy('id','DESC')->where('assign_tasks.status','review')->where('assign_tasks.guide_id',Auth::user()->id)->count();
                 $redo = AssignTasks::orderBy('id','DESC')->where('assign_tasks.status','redo')->where('assign_tasks.guide_id',Auth::user()->id)->count();

@@ -56,7 +56,7 @@ body > div > div > div:nth-child(2) > span{
 body > div > div > div.msj-rta.macro{
     margin:auto;margin-left:1%;
 }
-ul {
+.ul {
     width:100%;
     list-style-type: none;
     padding:18px;
@@ -199,7 +199,7 @@ input:focus{
          
     </table>  --}}
 <div class="col-sm-4 col-sm-offset-4 frame">
-        <ul>
+        <ul class="ul">
             @foreach ($user_tasks as $task)
                 @if($task->first_name==Auth::user()->first_name)
                         <li style="width:100%">

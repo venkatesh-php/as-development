@@ -103,8 +103,8 @@
             
             @elseif(isStudent())
             <div class = "row">
-            {{--  <a class="btn btn-primary" href="{{ route('UserTasks.edit',['id'=>$task->assigntask_id,'course_id'=>he($chapter->course_id)]) }}">View Work</a>  --}}
-            {{--  <a href="{{route('viewChapter',['course_id'=>$id,'id'=>$chapter_id])}}" class="button btn btn-preview"> view chapter </a>  --}}
+           {{--<a class="btn btn-primary" href="{{ route('UserTasks.edit',['id'=>$ongoingtasks->id]) }}">View Work</a> --}} 
+            {{--<a href="{{route('viewChapter',['course_id'=>$ongoingtasks->course_id,'id'=>$ongoingtasks->course_chapter_id])}}" class="button btn btn-preview"> view chapter </a> --}} 
                                                 
             </div>
                 <div class="row">
