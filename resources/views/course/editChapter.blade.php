@@ -32,7 +32,7 @@
             </div>
              {{--Chapter instructions--}}
                     <div class="form-group">
-                        <label for="name">Instroctions</label>
+                        <label for="name">Instructions</label>
                         <textarea name="instructions" id="instructions" cols="15" rows="4" class="form-control" 
                          required>{{$chapter->instructions}}</textarea>
                     </div>

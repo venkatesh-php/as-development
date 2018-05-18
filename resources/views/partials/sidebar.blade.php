@@ -7,6 +7,12 @@
 
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/home') }}">
+                    <i class="fa fa-user"></i>
+                    <span class="title">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</span>
+                </a>
+            </li>
+            <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
+                <a href="{{ url('/home') }}">
                     <i class="fa fa-home"></i>
                     <span class="title">HOME</span>
                 </a>
