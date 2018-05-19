@@ -83,7 +83,7 @@
                             <div id="intStatus{{he($enrollment->course->id)}}">
                             </div>
                             </div>
-                            <p>{{ $enrollment->course->description}}</p>
+                            <!-- <p>{{ $enrollment->course->description}}</p> -->
                         </div>
                          </a>
                     

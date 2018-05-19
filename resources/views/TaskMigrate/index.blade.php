@@ -22,7 +22,7 @@
                 <!-- <a class="btn btn-primary btn-lg" href="{{ route('TaskMigrate.index') }}">To get Started</a> -->
                 <a class="btn btn-danger btn-lg" value='drop' href="{{ route('TaskMigrate.show','drop') }}"> Dropped :{{$drop}}</a>
                 <a class="btn btn-primary btn-lg" value='review_for_approve' href="{{ route('TaskMigrate.show','review_for_approve') }}"> Review for Approve :{{$review_for_approve}}</a>
-                <a class="btn btn-success btn-lg" value='approved' href="{{ route('TaskMigrate.show','approved') }}">Completed :{{$approved}}</a>
+                <a class="btn btn-success btn-lg" value='approved' href="{{ route('TaskMigrate.show','approved') }}">Approved :{{$approved}}</a>
 
                
                 </h1>

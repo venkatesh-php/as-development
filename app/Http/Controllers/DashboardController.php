@@ -143,11 +143,11 @@ class DashboardController extends Controller
         {      
            
            //Total Assigned Tasks of all Users assigned by teacher
-           $assign_tasks = DB::table('assign_tasks')
+           $assign_tasks = AssignTasks::orderBy('id','DESC')
         //    ->where('assign_tasks.assigned_by_userid',Auth::user()->id)
            ->where('assign_tasks.guide_id',Auth::user()->id)
         //    ->orWhere('assign_tasks.reviewer_id',Auth::user()->id)
-           ->orderBy('assign_tasks.updated_at','desc')->get();
+           ->get();
 
            $assign_chart = Charts::database($assign_tasks, 'line', 'highcharts')
            ->title('Assigned Tasks')

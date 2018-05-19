@@ -47,7 +47,7 @@
                                     <div class="panel panel-primary text-center no-boder">
                                         <a style="text-decoration:none;" href="{{ route('viewprofile.index') }}">
                                             <div class="alert alert-warning">
-                                                <i class="fa fa-cogs fa-3x"></i>
+                                                <i class="fa fa-user fa-3x"></i>
                                                 
                                                 <h3>Profile</h3>
                                             </div>
@@ -84,7 +84,7 @@
                                     <div class="panel panel-primary text-center no-boder">
                                         <a style="text-decoration:none;" href="{{ route('AssignTasks.index') }}">
                                             <div class="alert alert-info">
-                                                <i class="fa fa-cogs fa-3x"></i>
+                                                <i class="fa fa-angle-right fa-3x"></i>
                                             
                                                 <h3>Assigned Tasks</h3>
                                             </div>
@@ -100,7 +100,7 @@
                                     <div class="panel panel-primary text-center no-boder">
                                         <a style="text-decoration:none;" href="{{ route('Profile.index') }}">
                                             <div class="alert alert-warning">
-                                                <i class="fa fa fa-floppy-o fa-3x"></i>
+                                                <i class="fa fa-users fa-3x"></i>
                                                 <h3>Profiles</h3>
                                             </div>
                                         </a>
@@ -115,7 +115,7 @@
                                     <div class="panel panel-primary text-center no-boder">
                                         <a style="text-decoration:none;" href="{{ route('TaskMigrate.index') }}">
                                             <div class="alert alert-danger">
-                                                <i class="fa fa-users fa-3x"></i>
+                                                <i class="fa fa-cogs fa-3x"></i>
                                                 <h3>Tasks Progress</h3>
                                             </div>
                                         </a>

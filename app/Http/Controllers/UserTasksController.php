@@ -139,7 +139,11 @@ class UserTasksController extends Controller
             ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name as uname','users_s.name as sname','users_g.name as gname','users_r.name as rname')
             ->orderBy('assign_tasks.task_id','desc')->get();
 
-            $start      = AssignTasks::orderBy('id','DESC')->where('assign_tasks.status','null')->where('assign_tasks.user_id',Auth::user()->id)->count();
+            $start      = AssignTasks::orderBy('id','DESC')->where(function ($query) {
+                $query->whereNull('assign_tasks.status')
+                      ->orwhere('assign_tasks.status','NA')
+                      ->orWhere('assign_tasks.status','initiated');
+            })->where('assign_tasks.user_id',Auth::user()->id)->count();
             $review     = AssignTasks::orderBy('id','DESC')->where('assign_tasks.status','review')->where('assign_tasks.user_id',Auth::user()->id)->count();
             $redo       = AssignTasks::orderBy('id','DESC')->where('assign_tasks.status','redo')->where('assign_tasks.user_id',Auth::user()->id)->count();
             $drop       = AssignTasks::orderBy('id','DESC')->where('assign_tasks.status','drop')->where('assign_tasks.user_id',Auth::user()->id)->count();
