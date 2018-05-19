@@ -341,10 +341,10 @@
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
-                                <span><b>Or</b></span>
-                                    {{--  <button  class="btn btn-success">  --}}
+                                {{--  <span><b>Or</b></span>
+                                    
                                         <a class="btn btn-success" href="{{ url('/') }}"><b style="color:white">Login</b></a>   
-                                    {{--  </button>  --}}
+                                      --}}
                             </div>
                         </div>
                     </form>
