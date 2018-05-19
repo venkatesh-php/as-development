@@ -5,7 +5,7 @@
         <div class="col-lg-12 margin-tb">
             
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('Profile.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ URL::previous()}}"> Back</a>
             </div>
         </div>
     </div>
@@ -60,6 +60,9 @@
             </div>
         </div>
     </div>
+    <div class="pull-right">
+                <a class="btn btn-primary" href="{{ route('viewprofile.edit',$users->id) }}"> Edit profile</a>
+              </div>
 </div>
 
 

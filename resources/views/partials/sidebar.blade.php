@@ -5,8 +5,8 @@
     <section class="sidebar">
         <ul class="sidebar-menu">
 
-            <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
-                <a href="{{ url('/home') }}">
+            <li>
+                <a href="{{ route('Profile.show',Auth::user()->id) }}">
                     <i class="fa fa-user"></i>
                     <span class="title">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</span>
                 </a>
@@ -17,7 +17,7 @@
                     <span class="title">HOME</span>
                 </a>
             </li>
-            <li>
+            <li class="{{ $request->segment(1) == 'dashboard' ? 'active' : '' }}">
                 <a href="{{ url('/dashboard') }}">
                     <i class="fa fa-dashboard"></i>
                     <span class="title">Dashboard</span>
@@ -112,15 +112,15 @@
                     <span class="title">Students</span>
                 </a>
             </li>
-            {{--  @elseif(isStudent())  --}}
-            {{--  <li>
-                <a href="{{ route('courseLibrary') }}">
+            @elseif(isStudent())
+           <li>
+                <a href="{{ route('UserTasks.index') }}">
                
-                    <i class="fa fa-building"></i>
-                    <span class="title">Library</span>
+                    <i class="fa fa-tasks"></i>
+                    <span class="title">Tasks</span>
                 </a>
             </li>
-            <li>
+            {{--   <li>
                 <a href="{{ route('studentCourses') }}">
                   
                     <i class="fa fa-book"></i>
@@ -130,7 +130,7 @@
             @endif
 
             
-            <li>
+            <li class="{{ $request->segment(1) == 'forumFeed' ? 'active' : '' }}">
                 <a href="{{ route('forumFeed') }}">
                     
                     <i class="fa fa-desktop"></i>
