@@ -6,17 +6,19 @@
 
 </style>
 
-                <?php                 
-                use App\course;
-                if(!isset($course)){                
-                $course = new course();
-                $course->id = 0;
-                $course->name = '';
-                $course->description ='';  
-                }
-                              
-                ?>
-
+<?php                 
+use App\course;
+if(!isset($course)){                
+$course = new course();
+$course->id = 0;
+$course->name = '';
+$course->description ='';  
+}
+                
+?>
+            <div class="pull-right">
+                <a class="btn btn-success" href="{{ url('/home') }}">Back</a>
+            </div>
     <div class="container" id="course_form">
          @if($course->id==0)
         <h1 class="text-center">Create a new course</h1>

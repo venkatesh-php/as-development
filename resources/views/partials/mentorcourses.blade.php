@@ -10,7 +10,7 @@
 
         <h1 class="text-center">Courses by You</h1>
         <br>
-            @if(!count($courses)>0)
+            @if(!count($mentor_courses)>0)
             <div class="row text-center">
             <h1>You don't have any course Created</h1>
             <h2> Please Create one below</h2>
@@ -41,7 +41,7 @@
         @endif  --}}
         <div class="table-responsive">
         <table class="table table-hover">
-            @foreach($courses as $course)
+            @foreach($mentor_courses as $course)
             <tr>
                 <td>
                    <b>{{$course['name']}}</b>

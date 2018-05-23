@@ -12,7 +12,7 @@ function makeColor(){
 
 <script src="/js/toastr.min.js"></script>
 <style>
-    .navbar{                                                                                                                        ``````````````````````````````````````````````````````````
+    .navbar{                            
         margin-bottom:0px !important;
         border-top: 0px;
     }

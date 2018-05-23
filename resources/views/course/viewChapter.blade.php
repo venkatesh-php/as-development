@@ -42,7 +42,11 @@
 @section('content')
    <div class="container" id="chapter_data">
        <h2 class="text-center">{{$chapter->name}}</h2>
+       @if(isStudent())
         <a  class="btn btn-primary" href="{{ url('student/course',['course_id'=>he($chapter->course_id)]) }}">Back</a>
+        @elseif(isMentor())
+        <a  class="btn btn-primary" href="{{ url('course',['course_id'=>he($chapter->course_id)]) }}">Back</a>
+        @endif
                         <hr>
                         <p class="text-justify"><b>Instructions: </b>{{$chapter->instructions}}</p>
         <hr>
@@ -92,7 +96,7 @@
                   <p class="label label-chapter">{{ $task->reviewercredits}}</p>  --}}
                   {{--  <p class="card-text">Guide: {{$task->gname}}</p>  --}}
                   </div>
-                    @if(isStudent())
+                    @if(isStudent() || isMentor())
                         @if(!isset ( $task->status))
                         <a  class="btn btn-warning"                
                             href="{{ route('assigntask',['coursetask_id'=>he($task->coursetask_id),'course_id'=>$chapter->course_id]) }}">Attempt</a>

@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => ('role:student'),'prefix' => 'student'], function () {
+// Route::group(['middleware' => ('role:student'),'prefix' => 'student'], function () {
 
     /*Show mentors dashboard when logged in */
     Route::get('dashboard','student\studentController@showDashboard');
@@ -47,4 +47,4 @@ Route::group(['middleware' => ('role:student'),'prefix' => 'student'], function 
     
     Route::get('course/{coursetask_id}/assign','student\studentController@assignTask')
         ->name('assigntask');
-});
+// });

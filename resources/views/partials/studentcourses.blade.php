@@ -49,7 +49,6 @@
    }
             
     </script>
-
     <div class="container">
     @if(!count($studentData->enrollment)>0)
     <div class="row text-center">
@@ -58,7 +57,7 @@
    
     </div>
     @else
-    <h1 class="text-center">Current courses</h1>
+    <h1 class="text-center">Current Enrolled Courses</h1>
     @endif
     <div class="row">
             @foreach($studentData->enrollment as $enrollment)
