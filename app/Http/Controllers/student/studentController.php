@@ -418,15 +418,11 @@ class studentController extends Controller
             DB::table('chapterstatuses')->where('chapter_id',$chapter_id)->where('user_id',Auth::user()->id)
             ->update(['status' => 1,'quiz_score'=>$quizscore,'task_credits'=>$task_credits]); 
             // return
-            $course_id=chapter::where('id',$chapter_id)
-            ->select('course_id')->first();
-            $chids=chapter::where('course_id',$course_id->course_id)
-            ->select('id')->get()->toArray();
+            $course_id=chapter::where('id',$chapter_id)->select('course_id')->first();
+            $chids=chapter::where('course_id',$course_id->course_id)->select('id')->get()->toArray();
             // return $chids;
             //  [$chapter_id,$course_id,$chids ];
-            $ch_statuses=chapterstatuses::whereIn('chapter_id',$chids)
-
-            ->select('id')->get();
+            $ch_statuses=chapterstatuses::whereIn('chapter_id',$chids)->where('user_id',Auth::user()->id)->select('id')->get();
 
             if(count($chids)==count($ch_statuses)){
                 // return
