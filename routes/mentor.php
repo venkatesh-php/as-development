@@ -23,7 +23,7 @@ Route::group(['prefix' => 'mentor'], function () {
      * */
     Route::group(['middleware' =>[('role:mentor'),'Newmentor']],function(){
         /* Show mentors dashboard when logged in */
-        Route::get('dashboard','mentor\mentorController@showDashboard')->name('mentorDash');
+        // Route::get('dashboard','mentor\mentorController@showDashboard')->name('mentorDash');
 
         /*Route for displaying course creation page*/
         Route::get('course','mentor\mentorController@createCourse')

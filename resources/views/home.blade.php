@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-        <h3 class="text-center">How to complete a course? : <a class="btn btn-primary" href="/download/Course-Guide.pdf" >Download</a></h3>
+        <h3 class="text-center">How to complete a course? : <a class="btn btn-default" href="/download/Course-Guide.pdf" >Download</a></h3>
         
         </div>
         
@@ -40,7 +40,7 @@
             
             @if(isAdmin())
             <div class="row">
-            <a class="btn btn-info" value='review' href="{{ route('TaskMigrate.show','review') }}">No.of tasks to be Guide :{{$review}}</a>
+            <a class="btn btn-default" value='review' href="{{ route('TaskMigrate.show','review') }}">No.of tasks to be Guide :{{$review}}</a>
             </div>
             <li>
                 <a href="{{ route('ReviewCV') }}">
@@ -101,7 +101,7 @@
             @elseif(isMentor())    
                 <div class="container">
                     <div class="row">
-                        <a class="btn btn-primary" value='review' href="{{ route('TaskMigrate.show','review') }}">No.of tasks to be Guide :{{$review}}</a>
+                        <a class="btn btn-default" value='review' href="{{ route('TaskMigrate.show','review') }}">No.of tasks to be Guide :{{$review}}</a>
                     </div>
                 </div>
 
@@ -109,11 +109,11 @@
                     @include('partials.mentorcourses')
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <h3 class="text-center"><a  class="btn btn-primary" href="{{ route('createCourse') }}">Create New Course</a></h3>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row">
                
