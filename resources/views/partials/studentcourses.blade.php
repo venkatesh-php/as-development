@@ -66,21 +66,13 @@
                         <a href="{{route('viewCourse',['id'=>he($enrollment->course->id)])}}" role="button">
                             <div class="col-sm-4 col-sm-offset-1 panel" >
                                 <div class="course_header">
+                                    <h3>{{ $enrollment->course->name}} </h3>
+                                    @if($enrollment->ch_completed>0)
+                                        <span href="#" class="label btn-ongoing">In Progress</span>
+                                        @else
                                     
-                                        <h3>{{ $enrollment->course->name}} </h3>
-                                @if($enrollment->ch_completed>0)
-                                    <span href="#" class="label btn-ongoing">In Progress</span>
-                                    @else
-                                
-                                    <span href="#" class="label btn-danger">Enrolled</span>
+                                        <span href="#" class="label btn-danger">Enrolled</span>
                                     @endif
-
-                               <!--  </div class="course_body">
-                                    @foreach ($ongoingtasks as $key => $task)
-                                        <a class="btn btn-primary btn-xs" href="{{ route('UserTasks.edit',['id'=>$task->id]) }}">OnGoing Work</a>
-                                        <a class="btn btn-default btn-xs" href="{{route('viewChapter',['course_id'=>he($task->course_id),'id'=>he($task->chapter_id)])}}" class="button btn btn-preview">OnGoing Chapter</a>
-                                    @endforeach
-                                <div>-->
                                 </div>
                                 <hr>
                                 <h4>{{$enrollment->creds_earned}} credits earned</h4>
