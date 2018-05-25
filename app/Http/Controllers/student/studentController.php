@@ -326,7 +326,7 @@ class studentController extends Controller
                     'guide_id' => $ctaskdetails->priority_guide_id,
                     'reviewer_id' => $ctaskdetails->priority_reviewer_id,
                     'course_chapter_id'=>$ctaskdetails->chapter_id,
-                    'status'=>'',
+                    'status'=>'initiated',
                     'target_at' => Carbon::now('Asia/Kolkata')->addDays($ctaskdetails->time_required),
 
                 ];    

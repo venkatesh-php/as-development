@@ -131,14 +131,40 @@
 
 
             @elseif(isStudent())
-            <div class = "row">
-           {{--<a class="btn btn-primary" href="{{ route('UserTasks.edit',['id'=>$ongoingtasks->id]) }}">View Work</a> --}} 
-            {{--<a href="{{route('viewChapter',['course_id'=>$ongoingtasks->course_id,'id'=>$ongoingtasks->course_chapter_id])}}" class="button btn btn-preview"> view chapter </a> --}} 
-                                                
-            </div>
+            
                 <div class="row">
                  @include('partials.studentcourses')
-                 </div>
+                </div>
+                
+                @if(count($ongoingtasks)>=1)
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class ="table-responsive">
+                                <h2 class="text-center">OnGoing Courses and Chapters</h2>
+                                <table class="table table-striped">
+                                    <tr style="color:#2471A3">
+                                        <th>Course</th> 
+                                        <th>Chapter</th>
+                                        <th>View Chapter</th>
+                                        <th>View Work</th>
+                                    </tr>
+                                    @foreach ($ongoingtasks as $key => $task)
+                                    
+                                    <tr style="color:454545">
+                                        <td>{{ $task->course_name }}</td> 
+                                        <td>{{ $task->chapter_name }}</td>   
+                                        <td><a class="btn btn-primary btn-xs" href="{{route('viewChapter',['course_id'=>he($task->course_id),'id'=>he($task->chapter_id)])}}"> View Chapter </a></td>
+                                        <td><a class="btn btn-success btn-xs" href="{{ route('UserTasks.edit',['id'=>$task->id]) }}">View Work</a></td>
+                                    </tr>
+                                    @endforeach
+                                </table>                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
                 <div class="row">
                  @include('partials.couse-library')
                  </div>
