@@ -61,10 +61,10 @@ class HomeController extends Controller
        
         if(isMentor()){
             // return  
-        $courses = Auth::user()->course()->get();
+        $mentor_courses = Auth::user()->course()->get();
         /*render course list page*/
         // return $courses;
-        foreach($courses as $course){
+        foreach($mentor_courses as $course){
             $course->enroll =  enrollment::where('course_id',$course->id)->select('course_id','student_id')->count();
             $course->student_list = enrollment::orderBy('id','DESC')
             ->join('users','enrollments.student_id','users.id')
@@ -74,7 +74,54 @@ class HomeController extends Controller
         }        
         // return $courses;
 
-            return view('home')->with('courses', $courses)->with('coins',$coins);
+
+        $courses = course::all();
+            // return
+            $studentData = Auth::user()->load('enrollment.course');
+            // return $studentData->enrollment;
+            foreach($studentData->enrollment as $course ){
+                $chapters=chapter::where('course_id',$course->course_id)
+                ->select('id')->get();
+            $coursestatuses=
+            chapterstatuses::whereIn('chapter_id',$chapters->toArray())->where('user_id',Auth::user()->id)
+            ->select('*')->get();
+            $course->ch_completed=$coursestatuses->sum('status');
+            $course->ch_outof=count($chapters);
+            $course->creds_earned=$coursestatuses->sum('task_credits')
+            +$coursestatuses->sum('quiz_score')*constants::max_credits_each_chapter/100;
+            // $course->creds_outof=40;
+            // $course->bonus_creds=20;
+            }
+            // return $studentData;
+            $enrollments = enrollment::where('student_id',Auth::user()->id)->get();
+            $ongoingtasks = AssignTasks::where('user_id',Auth::user()->id)
+            ->where('status', '!=' , 'approved')
+            ->join('chapters','course_chapter_id','chapters.id')
+            ->select('assign_tasks.id','assign_tasks.status','course_chapter_id','chapters.course_id')->get();
+            // $constants=new constants;
+            // return constants::perc_cred_bonus_on_coursecompletion;
+            foreach($courses as $course){
+                $chapters_ids = chapter::where('course_id',$course->id)->select('id')->get();
+                // foreach($chapters_ids as $chapters_id){
+                   $chapter_tasks= coursetask::whereIn('chapter_id',$chapters_ids)
+                   ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
+                   ->select('usercredits')->get();
+                   $course->no_tasks=count($chapter_tasks);
+                //    return
+                   $course->max_credits=$chapter_tasks->sum('usercredits')+count($chapters_ids)*constants::max_credits_each_chapter;
+                   $course->bonus_credits=
+                   $course->max_credits*constants::perc_cred_bonus_on_coursecompletion/constants::ndays_assumed_4course_completion;
+                // } 
+                foreach($enrollments as $enrollment){
+                    if($course->id==$enrollment->course_id){
+                        $course->enrolled=true;
+                        }
+                    }
+                }
+                    
+             
+
+            return view('home')->with('mentor_courses', $mentor_courses)->with('coins',$coins)->with('studentData',$studentData)->with('courses', $courses);
 
         }
         elseif(isAdmin()){

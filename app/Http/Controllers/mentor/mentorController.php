@@ -343,7 +343,7 @@ class mentorController extends Controller
         ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
         ->select('admin_tasks.*','coursetasks.id as coursetask_id')
         ->get();
-        return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
+        return view('course.viewChapterMentor')->with('chapter',$chapter)->with('tasks',$tasks);
         // return view('course.viewChapter')->with('chapter',$chapter);
     }
 
@@ -375,7 +375,7 @@ class mentorController extends Controller
         ->select('admin_tasks.*','coursetasks.id as coursetask_id')
         ->get();
 
-        return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
+        return view('course.viewChapterMentor')->with('chapter',$chapter)->with('tasks',$tasks);
     }
 
     /*Preview a particular chapter*/

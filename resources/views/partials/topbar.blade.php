@@ -30,7 +30,7 @@
                     ?>
                     <a class="navbar-brand" href="{{ url('/home') }}">
 
-                        <b style="color:white">{{ config('app.name', 'Laravel') }}( Your have: <span style="color:red">{{$coins}} coins</span>)</b>
+                        <b style="color:white">{{ config('app.name', 'Laravel') }}( You have: <span style="color:yellow">{{$coins}} coins</span>)</b>
                         
 
                     </a>
