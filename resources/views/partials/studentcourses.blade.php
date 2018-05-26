@@ -52,12 +52,12 @@
     <div class="container">
     @if(!count($studentData->enrollment)>0)
     <div class="row text-center">
-    <h1>You have not enrolled any course yet.</h1>
-    <h2> Please enroll from library </h2>
+    <h2>You have not enrolled any course yet.</h2>
+    <h3> Please enroll from library </h3>
    
     </div>
     @else
-    <h1 class="text-center">Current Enrolled Courses</h1>
+    <h2 class="text-center">Current Enrolled Courses</h2>
     @endif
     <div class="row">
             @foreach($studentData->enrollment as $enrollment)

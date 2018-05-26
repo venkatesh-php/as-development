@@ -16,11 +16,11 @@
             <div class="pull-left">
                 <h1>
                 
-                <a class="btn btn-primary btn-lg" href="{{ route('UserTasks.index') }}">To get Started :{{$start}}</a>
-                <a class="btn btn-info btn-lg" value='review' href="{{ route('UserTasks.show','review') }}">To be Reviewed :{{$review}}</a>
-                <a class="btn btn-warning btn-lg" value='redo' href="{{ route('UserTasks.show','redo') }}">To be Refined :{{$redo}} </a>
-                <a class="btn btn-success btn-lg" value='approved' href="{{ route('UserTasks.show','approved') }}">Approved :{{$approved}}</a>
-                <a class="btn btn-danger btn-lg" value='drop' href="{{ route('UserTasks.show','drop') }}"> Dropped :{{$drop}}</a>
+                <a class="btn btn-primary btn-xs" href="{{ route('UserTasks.index') }}">To get Started :{{$start}}</a>
+                <a class="btn btn-info btn-xs" value='review' href="{{ route('UserTasks.show','review') }}">To be Reviewed :{{$review}}</a>
+                <a class="btn btn-warning btn-xs" value='redo' href="{{ route('UserTasks.show','redo') }}">To be Refined :{{$redo}} </a>
+                <a class="btn btn-success btn-xs" value='approved' href="{{ route('UserTasks.show','approved') }}">Approved :{{$approved}}</a>
+                <a class="btn btn-danger btn-xs" value='drop' href="{{ route('UserTasks.show','drop') }}"> Dropped :{{$drop}}</a>
                 </h1>
             </div>
         </div>
