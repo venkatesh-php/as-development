@@ -16,9 +16,13 @@ $course->description ='';
 }
                 
 ?>
+    <div class="row">
+        <div class="col-md-10">
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ url('/home') }}">Back</a>
+                <a class="btn btn-primary" href="{{ URL::previous()}}"> Back</a>
             </div>
+        </div>
+    </div>
     <div class="container" id="course_form">
          @if($course->id==0)
         <h1 class="text-center">Create a new course</h1>

@@ -1,18 +1,23 @@
-
+<style>
+    .main{
+        position: fixed;
+    }
+</style>
 <header class="main-header">
-
-    <a href="{{ url('/home') }}" class="logo"
-       style="font-size: 16px;">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini">
-        <i class="fa fa-adn"></i></span>
-        <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg">
-         <h3>AMEYEM</h3>
-         </span>
-    </a>
+    <div class="main">
+        <a href="{{ url('/home') }}" class="logo"
+        style="font-size: 16px;">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini">
+            <i class="fa fa-adn"></i></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg">
+            <h3>AMEYEM</h3>
+            </span>
+        </a>
+    </div>
    
-     <nav class="navbar navbar-default">
+     <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">

@@ -5,6 +5,7 @@
     }
 </style>
 @section('content')
+<div style="margin-top: 50px;"></div>
     <div class="container">
         <h1 class="text-center">Registerd students</h1>
         <table class="table table-bordered table-hover table-responsive">

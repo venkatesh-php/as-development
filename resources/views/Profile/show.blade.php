@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<div style="margin-top: 50px;"></div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-10">
@@ -7,6 +8,8 @@
                 <a class="btn btn-primary" href="{{ URL::previous()}}"> Back</a>
             </div>
         </div>
+    </div>
+    <div class="row">
 
         <div class="col-md-10">
         

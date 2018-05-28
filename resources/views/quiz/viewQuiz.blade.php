@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<div style="margin-top: 50px;"></div>
     <?php  $questions = $quiz_data->question ?>
      <div id="wrapper">
         <div class="panel">
