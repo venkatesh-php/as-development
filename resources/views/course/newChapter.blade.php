@@ -15,6 +15,7 @@
 <head>
 
 @section('content')
+<div style="margin-top: 50px;"></div>
 <body>
 
     <div class="container" id="course-wrapper">

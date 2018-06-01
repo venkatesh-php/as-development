@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
+<div style="margin-top: 50px;"></div>
 
   <div class="container">
     <div class="row">

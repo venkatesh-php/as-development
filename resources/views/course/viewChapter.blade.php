@@ -40,6 +40,7 @@
     }
 </style>
 @section('content')
+<div style="margin-top: 50px;"></div>
    <div class="container" id="chapter_data">
        <h2 class="text-center">{{$chapter->name}}</h2>
         <a  class="btn btn-primary" href="{{ url('course',['course_id'=>he($chapter->course_id)]) }}">Back</a>      

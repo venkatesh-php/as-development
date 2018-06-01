@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div style="margin-top: 50px;"></div>
     <h3 class="page-title">@lang('global.permissions.title')</h3>
     
     {!! Form::model($permission, ['method' => 'PUT', 'route' => ['admin.permissions.update', $permission->id]]) !!}

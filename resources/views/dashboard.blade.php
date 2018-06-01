@@ -2,6 +2,7 @@
 {{--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>  --}}
 @extends('layouts.app')
 @section('content')
+<div style="margin-top: 50px;"></div>
 
 <!--<h1>{{Auth::user()->id }}</h1>
 <h2>{{Auth::user()->email }}</h2>  -->

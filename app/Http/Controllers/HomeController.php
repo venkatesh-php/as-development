@@ -100,6 +100,16 @@ class HomeController extends Controller
             ->select('assign_tasks.id','assign_tasks.status','course_chapter_id','chapters.course_id')->get();
             // $constants=new constants;
             // return constants::perc_cred_bonus_on_coursecompletion;
+            $ongoingtasks = AssignTasks::orderBy('id','DESC')
+            ->where('assign_tasks.user_id',Auth::user()->id)
+            ->where('assign_tasks.status', '!=' , 'approved')
+            ->join('coursetasks','assign_tasks.task_id','coursetasks.task_id')
+            ->join('chapters','coursetasks.chapter_id','chapters.id')
+            ->join('courses','chapters.course_id','courses.id')
+            ->join('courses as cname','cname.id','courses.id')
+            ->join('chapters as cpname','cpname.id','chapters.id')
+            ->select('assign_tasks.*','chapters.course_id','coursetasks.chapter_id','cname.name as course_name','cpname.name as chapter_name')->get();
+
             foreach($courses as $course){
                 $chapters_ids = chapter::where('course_id',$course->id)->select('id')->get();
                 // foreach($chapters_ids as $chapters_id){
@@ -121,7 +131,7 @@ class HomeController extends Controller
                     
              
 
-            return view('home')->with('mentor_courses', $mentor_courses)->with('coins',$coins)->with('studentData',$studentData)->with('courses', $courses);
+            return view('home')->with('mentor_courses', $mentor_courses)->with('coins',$coins)->with('studentData',$studentData)->with('ongoingtasks',$ongoingtasks)->with('courses', $courses);
 
         }
         elseif(isAdmin()){
@@ -155,11 +165,16 @@ class HomeController extends Controller
             }
             // return $studentData;
             $enrollments = enrollment::where('student_id',Auth::user()->id)->get();
-            $ongoingtasks = AssignTasks::where('user_id',Auth::user()->id)
-            ->where('status', '!=' , 'approved')
-            ->join('chapters','course_chapter_id','chapters.id')
-            ->select('assign_tasks.id','assign_tasks.status','course_chapter_id','chapters.course_id')->get();
-            // $constants=new constants;
+            $ongoingtasks = AssignTasks::orderBy('id','DESC')
+            ->where('assign_tasks.user_id',Auth::user()->id)
+            ->where('assign_tasks.status', '!=' , 'approved')
+            ->join('coursetasks','assign_tasks.task_id','coursetasks.task_id')
+            ->join('chapters','coursetasks.chapter_id','chapters.id')
+            ->join('courses','chapters.course_id','courses.id')
+            ->join('courses as cname','cname.id','courses.id')
+            ->join('chapters as cpname','cpname.id','chapters.id')
+            ->select('assign_tasks.*','chapters.course_id','coursetasks.chapter_id','cname.name as course_name','cpname.name as chapter_name')->get();
+            // return $ongoingtasks;
             // return constants::perc_cred_bonus_on_coursecompletion;
             foreach($courses as $course){
                 $chapters_ids = chapter::where('course_id',$course->id)->select('id')->get();
@@ -180,10 +195,10 @@ class HomeController extends Controller
                     
                 }
             }
-            // return $courses;
+            // return $chapters_ids;
 
         return view('home')->with('studentData',$studentData)
-        ->with('coins',$coins)
+        ->with('coins',$coins)->with('ongoingtasks',$ongoingtasks)
         ->with('courses', $courses);
 
         }

@@ -8,12 +8,12 @@
     <div class="container" id="course_list">
 
 
-        <h1 class="text-center">Courses by You</h1>
+        <h2 class="text-center">Courses by You</h2>
         <br>
             @if(!count($mentor_courses)>0)
             <div class="row text-center">
-            <h1>You don't have any course Created</h1>
-            <h2> Please Create one below</h2>
+            <h3>You dind't create any course so far</h3>
+            <h4> Please Create New Course</h4>
         
             </div>
             @endif

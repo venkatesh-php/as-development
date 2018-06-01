@@ -5,6 +5,7 @@
     }
 </style>
 @section('content')
+<div style="margin-top: 50px;"></div>
     <div class="container" id="course_list">
         <h1 class="text-center">Mentors</h1>
         <br>

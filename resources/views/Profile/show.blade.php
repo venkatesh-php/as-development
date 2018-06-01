@@ -1,18 +1,18 @@
 @extends('layouts.app')
 @section('content')
+<div style="margin-top: 50px;"></div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-12 margin-tb">
-            
+        <div class="col-md-10">
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ URL::previous()}}"> Back</a>
             </div>
         </div>
     </div>
-</div>
-<div class="container-fluid">
     <div class="row">
+
         <div class="col-md-10">
+        
             <div class="panel panel-primary">
                 <div style="color:white" class="panel-heading"><center>Welcome to User Profile </center></div>
 
@@ -56,13 +56,17 @@
                             </div>
                         </div>   
                     </div>
+                    <div class="row">
+                        <div class="pull-right">
+                            <a class="btn btn-primary" href="{{ route('viewprofile.edit',$users->id) }}"> Edit profile</a>
+                        </div>
+                    </div>
+               
                 </div>
             </div>
         </div>
     </div>
-    <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('viewprofile.edit',$users->id) }}"> Edit profile</a>
-              </div>
+    
 </div>
 
 

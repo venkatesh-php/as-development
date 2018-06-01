@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<div style="margin-top: 50px;"></div>
 
 <div class="container-fluid">   
     <div class="row">
@@ -17,12 +18,12 @@
                 <h1>
                 
                 
-                <a class="btn btn-info btn-lg" value='review' href="{{ route('TaskMigrate.show','review') }}">To be Reviewed :{{$review}}</a>
-                <a class="btn btn-warning btn-lg" value='redo' href="{{ route('TaskMigrate.show','redo') }}">To be Refined :{{$redo}}</a>
+                <a class="btn btn-info btn-xs" value='review' href="{{ route('TaskMigrate.show','review') }}">To be Reviewed :{{$review}}</a>
+                <a class="btn btn-warning btn-xs" value='redo' href="{{ route('TaskMigrate.show','redo') }}">To be Refined :{{$redo}}</a>
                 <!-- <a class="btn btn-primary btn-lg" href="{{ route('TaskMigrate.index') }}">To get Started</a> -->
-                <a class="btn btn-danger btn-lg" value='drop' href="{{ route('TaskMigrate.show','drop') }}"> Dropped :{{$drop}}</a>
-                <a class="btn btn-primary btn-lg" value='review_for_approve' href="{{ route('TaskMigrate.show','review_for_approve') }}"> Review for Approve :{{$review_for_approve}}</a>
-                <a class="btn btn-success btn-lg" value='approved' href="{{ route('TaskMigrate.show','approved') }}">Approved :{{$approved}}</a>
+                <a class="btn btn-danger btn-xs" value='drop' href="{{ route('TaskMigrate.show','drop') }}"> Dropped :{{$drop}}</a>
+                <a class="btn btn-primary btn-xs" value='review_for_approve' href="{{ route('TaskMigrate.show','review_for_approve') }}"> Review for Approve :{{$review_for_approve}}</a>
+                <a class="btn btn-success btn-xs" value='approved' href="{{ route('TaskMigrate.show','approved') }}">Approved :{{$approved}}</a>
 
                
                 </h1>

@@ -12,6 +12,7 @@
 </style>
 
 @section('content')
+<div style="margin-top: 50px;"></div>
 <body>
 
     {{--rich text editor scripts & styles--}}

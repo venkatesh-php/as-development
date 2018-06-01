@@ -71,22 +71,31 @@
 
 </style>
 @section('content')
-            <?php $count = 0 ?>
-            <?php $id= he($course->id)?>
-            
-            <div class="cover">
-                
-                <div class="panel panel-success transparent">                       
-                        <div class=" panel-heading">
-                            <h2 class="text-center  text-uppercase">{{$course->name}}</h2>                      
-                        </div>
-                        <div class=" panel-body transparent2">
-                            <h2 class="text-left"> Rules &amp; Instructions for Course<h2>
-                            <h4 class="text-justify">{{$course->description}}</h4>
-                        </div>
-                </div>                         
-                        
+<div style="margin-top: 50px;"></div>
+    <?php $count = 0 ?>
+    <?php $id= he($course->id)?>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="pull-right">
+                <a class="btn btn-primary" href="/home"> Back</a>
             </div>
+        </div>
+    </div>
+        <div class="container">
+            <div class="row">
+                <div class="panel panel-success transparent">                       
+                    <div class=" panel-heading">
+                        <h2 class="text-center  text-uppercase">{{$course->name}}</h2>                      
+                    </div>
+                    <div class=" panel-body transparent2">
+                        <h4 class="text-center"> <b><u>Rules &amp; Instructions for Course</u></b><h4>
+                        <h4 class="text-justify">{{$course->description}}</h4>
+                    </div>
+                </div>  
+            </div>
+        </div>                       
+                        
+            <!-- </div> -->
 
 
             <div class="container" id="manage">
