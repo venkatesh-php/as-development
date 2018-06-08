@@ -40,7 +40,7 @@
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $details->id }}</td> 
-                            <td>{{ $details->name }}</td>
+                            <td>{{ $details->first_name }} {{ $details->last_name }}</td>
                             <td>
                                 <?php
                                 $institute_name = DB::table('institutes')

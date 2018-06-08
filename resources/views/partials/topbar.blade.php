@@ -12,7 +12,7 @@
             <i class="fa fa-adn"></i></span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg">
-            <h3>AMEYEM</h3>
+            <h3 style="font-family: Times New Roman, Times, serif;">Ameyem</h3>
             </span>
         </a>
     </div>
