@@ -10,6 +10,32 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-10">
+            <div class="col-lg-6 col-xs-12 col-md-6 col-lg-6">   
+                <h1>{{ $users->first_name }} {{ $users->last_name }}</h1>
+                <h2>{{ $users->email  }}</h2>
+                <h2>{{ $users->phone_number  }}</h2>
+                    
+            </div>   
+
+            <div class="pull-right">
+                <!-- <div class="container"> -->
+                    <!-- <img src="/public/share.png" class="img-rounded" alt="http://www.skills.ameyem.com/images/logo.png" width="304" height="236"> -->
+                    @if($users->profilepic == Null)
+                    <img src="{{URL::asset('/uploads/dummy_pic.jpg')}}" alt="Profile pic" height="200" width="200">
+                    @else
+                    <img src="{{URL::asset('/uploads/'.$users->profilepic)}}" alt="Profile pic" height="200" width="200">
+                    @endif
+                    
+                    <div class="row">
+                        @if($users->id == Auth::user()->id)
+                            <a class="btn btn-primary btn-xs" href="{{ route('UserProfile.create',$users->id) }}"> Update Profile pic</a>
+                        @endif
+                   </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
 
         <div class="col-md-10">
         

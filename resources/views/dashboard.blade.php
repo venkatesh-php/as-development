@@ -99,7 +99,7 @@
 
                                 <div class="col-lg-3">
                                     <div class="panel panel-primary text-center no-boder">
-                                        <a style="text-decoration:none;" href="{{ route('Profile.index') }}">
+                                        <a style="text-decoration:none;" href="{{ route('UserProfile.index') }}">
                                             <div class="alert alert-warning">
                                                 <i class="fa fa-users fa-3x"></i>
                                                 <h3>Profiles</h3>
@@ -150,7 +150,11 @@
     <div class="row">
         <div class="col-md-10">
             <div class="panel panel-primary">
+                @if(Auth::user()->role_id <= 5)
                 <div style="color:white" class="panel-heading"><center>Welcome to Progress Panel of (as) Guide </center></div>
+                @else
+                <div style="color:white" class="panel-heading"><center>Welcome to Progress Panel of Student </center></div>
+                @endif
 
                 <div class="panel-body">
                     <div class="row">

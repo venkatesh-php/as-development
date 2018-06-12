@@ -129,12 +129,14 @@
         Route::resource('AdminTasks','AdminTasksController');
         Route::get('mentor/course/{id}/AdminTasks/gettasks', ['as' => 'AdminTasks.getTasks',   'uses' => 'AdminTasksController@getTasks']);
         Route::resource('AssignTasks','AssignTasksController');
-        Route::resource('Profile','ProfileController');
+        Route::resource('UserProfile','UserProfileController');
+        Route::resource('Profiles','ProfilesController');
         Route::resource('viewprofile','ViewprofileController');
         Route::resource('TaskMigrate','TaskMigrateController');
         Route::resource('UserTasks','UserTasksController');
         Route::resource('Charts','ChartController');
         Route::resource('Subject','SubjectController');
+        Route::resource('User','UserController');
 
         Route::resource('institute','InstitutesController');
 

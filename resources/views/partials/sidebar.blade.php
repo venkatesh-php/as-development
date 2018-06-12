@@ -11,21 +11,26 @@
         <ul class="sidebar-menu">
 
             <li>
-                <a href="{{ route('Profile.show',Auth::user()->id) }}">
-                    <i class="fa fa-user"></i>
-                    <span class="title">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</span>
+                <a href="{{ route('UserProfile.show',Auth::user()->id) }}">
+                @if(Auth::user()->profilepic == Null)
+                    <!-- <i class="fa fa-user"></i> -->
+                    <img src="{{URL::asset('/uploads/dummy_pic.jpg')}}" alt="Profile pic" height="20" width="20">
+                    @else
+                    <img src="{{URL::asset('/uploads/'.Auth::user()->profilepic)}}" alt="Profile pic" height="20" width="20">
+                    @endif
+                    <span class="title"><b>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</b></span>
                 </a>
             </li>
             <li class="{{ $request->segment(1) == 'home' ? 'active' : '' }}">
                 <a href="{{ url('/home') }}">
                     <i class="fa fa-home"></i>
-                    <span class="title">HOME</span>
+                    <span class="title"><b>Home</b></span>
                 </a>
             </li>
             <li class="{{ $request->segment(1) == 'dashboard' ? 'active' : '' }}">
                 <a href="{{ url('/dashboard') }}">
                     <i class="fa fa-dashboard"></i>
-                    <span class="title">Dashboard</span>
+                    <span class="title"><b>Dashboard</b></span>
                 </a>
             </li>
             
@@ -33,7 +38,7 @@
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users"></i>
-                    <span class="title">@lang('global.user-management.title')</span>
+                    <span class="title"><b>@lang('global.user-management.title')</b></span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -44,7 +49,7 @@
                         <a href="{{ route('admin.permissions.index') }}">
                             <i class="fa fa-briefcase"></i>
                             <span class="title">
-                                @lang('global.permissions.title')
+                            <b> @lang('global.permissions.title')</b>
                             </span>
                         </a>
                     </li>
@@ -52,7 +57,7 @@
                         <a href="{{ route('admin.roles.index') }}">
                             <i class="fa fa-briefcase"></i>
                             <span class="title">
-                                @lang('global.roles.title')
+                            <b> @lang('global.roles.title')</b>
                             </span>
                         </a>
                     </li>
@@ -60,7 +65,7 @@
                         <a href="{{ route('admin.users.index') }}">
                             <i class="fa fa-user"></i>
                             <span class="title">
-                                @lang('global.users.title')
+                            <b>@lang('global.users.title')</b>
                             </span>
                         </a>
                     </li>
@@ -69,7 +74,7 @@
             <li>
                 <a href="{{ route('institute.index') }}">
                     <i class="fa fa-building"></i>
-                    <span class="title">Add institute</span>
+                    <span class="title"><b>Add institute</b></span>
                 </a>
             
             </li>            
@@ -84,14 +89,14 @@
                 <a href="{{ route('createCourse') }}">
                 
                     <i class="fa fa-book"></i>
-                    <span class="title">New Course</span>
+                    <span class="title"><b>New Course</b></span>
                 </a>
             </li>
             {{--   <li>
                 <a href="{{ route('courses') }}">
  
                 <i class="fa fa-archive"></i>
-                    <span class="title">My courses</span>
+                    <span class="title"><b>My courses</b></span>
                 </a>
             </li>  --}}
             <!-- <li><a href="#">Students</a></li>   -->
@@ -100,21 +105,21 @@
                 <a href="{{ route('ReviewCV') }}">
     
                     <i class="fa fa-male"></i>
-                    <span class="title">Mentors</span>
+                    <span class="title"><b>Mentors</b></span>
                 </a>
             </li>
             <li>
                 <a href="{{ route('Allcourses') }}">
           
                     <i class="	fa fa-folder"></i>
-                    <span class="title">Courses</span>
+                    <span class="title"><b>Courses</b></span>
                 </a>
             </li>
             <li>
                 <a href="{{ route('Allstudents') }}">
               
                     <i class="fa fa-users"></i>
-                    <span class="title">Students</span>
+                    <span class="title"><b>Students</b></span>
                 </a>
             </li>
             @elseif(isStudent())
@@ -122,14 +127,14 @@
                 <a href="{{ route('UserTasks.index') }}">
                
                     <i class="fa fa-tasks"></i>
-                    <span class="title">Tasks</span>
+                    <span class="title"><b>Tasks</b></span>
                 </a>
             </li>
             {{--   <li>
                 <a href="{{ route('studentCourses') }}">
                   
                     <i class="fa fa-book"></i>
-                    <span class="title">My courses</span>
+                    <span class="title"><b>My courses</b></span>
                 </a>
             </li>  --}}
             @endif
@@ -139,21 +144,21 @@
                 <a href="{{ route('forumFeed') }}">
                     
                     <i class="fa fa-desktop"></i>
-                    <span class="title">Forum</span>
+                    <span class="title"><b>Forum</b></span>
                 </a>
             </li>
 
             <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
                 <a href="{{ route('auth.change_password') }}">
                     <i class="fa fa-key"></i>
-                    <span class="title">Change password</span>
+                    <span class="title"><b>Change password</b></span>
                 </a>
             </li>
 
             <li>
                 <a href="#logout" onclick="$('#logout').submit();">
                     <i class="fa fa-arrow-left"></i>
-                    <span class="title">@lang('global.app_logout')</span>
+                    <span class="title"><b>@lang('global.app_logout')</b></span>
                 </a>
             </li>
         </ul>
