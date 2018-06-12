@@ -64,12 +64,21 @@ class UserProfileController extends Controller
      
         if($file = $request->hasFile('profilepic')) {
            
-           $file = $request->file('profilepic');           
-           $fileName = $file->getClientOriginalName();
-           $destinationPath = public_path().'/uploads/';
-           $file->move($destinationPath,$fileName);
+           $file = $request->file('profilepic');      
+           
+           
 
-           $file = $fileName;
+           $temp = explode(".", $_FILES["profilepic"]["name"]);
+           $newfilename = round(microtime(true)) . '.' . end($temp);
+        //    move_uploaded_file($_FILES["file"]["tmp_name"], "../img/imageDirectory/" . $newfilename);
+
+
+// return $newfilename;
+        //    $fileName = $file->getClientOriginalName();
+           $destinationPath = public_path().'/uploads/';
+           $file->move($destinationPath,$newfilename);
+
+           $file = $newfilename;
 
             $requestData = $request->all();
             $requestData['profilepic'] = $file;
