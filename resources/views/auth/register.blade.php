@@ -284,7 +284,7 @@
                             <?php 
                             use App\batch;
                             $batches = batch::all(); ?>
-                            <option value="" disabled="disabled" selected="selected">Select Your Batch</option>
+                            <option value="" disabled="disabled" selected="selected">Select Your Batch Starting Year</option>
                                 @foreach ($batches as $batch)
                                 @if($batch->id==old('batch_id'))
                                 <option value="{{$batch->id}}" selected>{{$batch->name}} </option>  

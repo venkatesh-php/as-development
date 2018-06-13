@@ -8,7 +8,7 @@
                 <h2 style="color:#2471A3">Edit Profile</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('Profile.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('UserProfile.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
         </div>
     @endif
 
-    {!! Form::model($users, ['method' => 'PATCH','route' => ['Profile.update', $users->id]]) !!}
+    {!! Form::model($users, ['method' => 'PATCH','route' => ['UserProfile.update', $users->id]]) !!}
     <div class="row">
 
     <div class="col-xs-12 col-sm-12 col-md-12">

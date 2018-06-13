@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\profile;
-use Image;
-
+use App\UserProfile;
+use Illuminate\Http\Request;
 use DB;
 use Auth;
+use Image;
 use Charts;
 use App\Role;
 use App\User;
@@ -16,12 +16,9 @@ use App\AdminTasks;
 use App\AssignTasks;
 use App\Institutes;
 use App\Http\Requests;
-use Illuminate\Http\Request;
 use App\Http\Controllers\DateTime;
 
-
-
-class ProfileController extends Controller
+class UserProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,9 +31,8 @@ class ProfileController extends Controller
         ->where('users.institutes_id',Auth::user()->institutes_id)
         ->paginate(15);
 
-        return view('Profile.index',compact('users'))
+        return view('UserProfile.index',compact('users'))
             ->with('i', ($request->input('page', 1) - 1) * 15);
-            
     }
 
     /**
@@ -46,8 +42,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-       
-        //
+        return view('UserProfile.create');
     }
 
     /**
@@ -58,30 +53,56 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+        $id = Auth::user()->id;
+        // return $id;
         $this->validate($request, [
-            'name' => '',
-            'email' => '',
-            'phone_number' => '',
-            'dob' => '',
-            'qualification' => '',
-            'specialization' => '',
-            'marks' => '',
-            'passout' => '',
-            'collegeaddress' => '',
-            'homeaddress' => '',
+            'user_id' => '',
+            'profilepic' => 'image | mimes:jpeg,bmp,png,jpg| max:500',
+           
         ]);
+        $product = new UserProfile($request->file());
+     
+        if($file = $request->hasFile('profilepic')) {
+           
+           $file = $request->file('profilepic');      
+           
+           
+
+           $temp = explode(".", $_FILES["profilepic"]["name"]);
+           $newfilename = round(microtime(true)) . '.' . end($temp);
+        //    move_uploaded_file($_FILES["file"]["tmp_name"], "../img/imageDirectory/" . $newfilename);
 
 
-        User::create($request->all());
-        return redirect()->route('Profile.index')
+// return $newfilename;
+        //    $fileName = $file->getClientOriginalName();
+           $destinationPath = public_path().'/uploads/';
+           $file->move($destinationPath,$newfilename);
+
+           $file = $newfilename;
+
+            $requestData = $request->all();
+            $requestData['profilepic'] = $file;
+            // $product->uploads = $file;        
+        }
+        else
+        {
+            $requestData = $request->all();
+        }
+        // return $requestData;
+
+        UserProfile::create($requestData);
+
+        DB::table('users')->where('id', $requestData['user_id'])
+        ->update(['profilepic' => $requestData['profilepic']]);
+
+        return redirect()->route('UserProfile.show',compact('id'))
                         ->with('success','Profile created successfully');
     }
-   
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\profile  $profile
+     * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -188,27 +209,28 @@ class ProfileController extends Controller
                     // $institute_name = DB::table('institutes')->where('institutes.id',Auth::User()->institutes_id)->select('institutes.name')->get();
 
 
-                    return view('Profile.show', ['assign_chart' => $assign_chart,'completed_chart' => $completed_chart,'progress_chart' => $progress_chart])->with(compact('users','totaltasks','totalcredits','days','completedtasks','droptasks','created_at'));
+                    return view('UserProfile.show', ['assign_chart' => $assign_chart,'completed_chart' => $completed_chart,'progress_chart' => $progress_chart])->with(compact('users','totaltasks','totalcredits','days','completedtasks','droptasks','created_at'));
                             // return view('Profile.show',compact('users'));
-}
+
+    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\profile  $profile
+     * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $users = User::find($id);
-        return view('Profile.edit',compact('users'));
+        return view('UserProfile.edit',compact('users'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\profile  $profile
+     * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -229,20 +251,20 @@ class ProfileController extends Controller
 
 
         User::find($id)->update($request->all());
-        return redirect()->route('Profile.index')
+        return redirect()->route('UserProfile.index')
                         ->with('success','Profile updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\profile  $profile
+     * @param  \App\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('Profile.index')
+        return redirect()->route('UserProfile.index')
                         ->with('success','Profile deleted successfully');
     }
 }

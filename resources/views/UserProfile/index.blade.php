@@ -40,7 +40,7 @@
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $details->id }}</td> 
-                            <td>{{ $details->name }}</td>
+                            <td>{{ $details->first_name }} {{ $details->last_name }}</td>
                             <td>
                                 <?php
                                 $institute_name = DB::table('institutes')
@@ -95,11 +95,11 @@
                             </td>
                             
                             <td>
-                                <a class="btn btn-info" href="{{ route('Profile.show',$details->id) }}">Show</a>
-                                <a class="btn btn-primary" href="{{ route('Profile.edit',$details->id) }}">Edit</a>
+                                <a class="btn btn-info" href="{{ route('UserProfile.show',$details->id) }}">Show</a>
+                                <a class="btn btn-primary" href="{{ route('UserProfile.edit',$details->id) }}">Edit</a>
 
                                 
-                                <!-- {!! Form::open(['method' => 'DELETE','route' => ['Profile.destroy', $details->id],'style'=>'display:inline']) !!}
+                                <!-- {!! Form::open(['method' => 'DELETE','route' => ['UserProfile.destroy', $details->id],'style'=>'display:inline']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!} 
                                 {!! Form::close() !!}  -->
                             </td>
