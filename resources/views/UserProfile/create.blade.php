@@ -39,7 +39,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                     
-            <strong>  Select file to Upload:</strong><br>
+            <strong>  Select file to Upload:</strong> (Image should be less than 500 kb)
                 {!! Form::file('profilepic') !!}
                 
             </div>

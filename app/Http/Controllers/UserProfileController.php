@@ -57,7 +57,7 @@ class UserProfileController extends Controller
         // return $id;
         $this->validate($request, [
             'user_id' => '',
-            'profilepic' => '',
+            'profilepic' => 'image | mimes:jpeg,bmp,png,jpg| max:500',
            
         ]);
         $product = new UserProfile($request->file());
