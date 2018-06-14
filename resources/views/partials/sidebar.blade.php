@@ -14,9 +14,9 @@
                 <a href="{{ route('UserProfile.show',Auth::user()->id) }}">
                 @if(Auth::user()->profilepic == Null)
                     <!-- <i class="fa fa-user"></i> -->
-                    <img src="{{URL::asset('/uploads/dummy_pic.jpg')}}" alt="Profile pic" height="20" width="20">
+                    <img src="{{route('profileImage',['name'=>'dummy_pic.jpg'])}}" alt="" height="20" width="20">
                     @else
-                    <img src="{{URL::asset('/uploads/'.Auth::user()->profilepic)}}" alt="Profile pic" height="20" width="20">
+                    <img src="{{route('profileImage',['name'=>Auth::user()->profilepic])}}" alt="" height="20" width="20">
                     @endif
                     <span class="title"><b>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</b></span>
                 </a>

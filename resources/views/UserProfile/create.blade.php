@@ -27,6 +27,7 @@
     @endif
 
    {!! Form::open(array('route' => 'UserProfile.store','method' => 'POST','files' => true)) !!}
+   <form action="{{ route('UserProfile.store') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
     <div class="row">
 
         <div class="col-xs-12 col-sm-12 col-md-12" style='display:none'>
@@ -39,8 +40,12 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                     
-            <strong>  Select file to Upload:</strong> (Image should be less than 500 kb)
-                {!! Form::file('profilepic') !!}
+            <!-- <strong>  Select file to Upload:</strong> (Image should be less than 500 kb)
+                {!! Form::file('profilepic') !!} -->
+           
+                        <label for="name">Profile image</label>
+                        <input type="file" class="form-control" name="profilepic" id="profilepic" required>
+                    
                 
             </div>
         </div>

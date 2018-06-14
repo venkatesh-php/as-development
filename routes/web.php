@@ -110,6 +110,9 @@
         Route::get('cover/{id}','mentor\mentorController@coverImage')
         ->name('coverImage');
 
+        Route::get('profilepic/{id}','mentor\mentorController@profileImage')
+        ->name('profileImage');
+
 
         /*serve a course's video lesson */
         Route::get('videos/{id}','mentor\mentorController@serveVideo')
