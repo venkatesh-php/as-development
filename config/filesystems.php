@@ -82,6 +82,11 @@ return [
             'region' => 'your-region',
             'bucket' => 'your-bucket',
         ],
+        'profilepic' =>[
+            'driver' =>'local',
+            'root' => storage_path('app/public/profilepic'),
+            'visibility' => 'public',
+        ],
 
     ],
 

@@ -355,6 +355,13 @@ class mentorController extends Controller
         $response->header('Content-Type', 'image/png');
         return $response;
     }
+    /*serve the users profile image */
+    public function profileImage($name){
+        $profilepic = Storage::disk('profilepic')->get($name);
+        $response = Response::make($profilepic, 200);
+        $response->header('Content-Type', 'image/png/jpg/jpeg');
+        return $response;
+    }
 
     /*serve  a specified chapters video tutorial*/
     public function serveVideo($id){

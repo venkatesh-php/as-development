@@ -54,46 +54,18 @@ class UserProfileController extends Controller
     public function store(Request $request)
     {
         $id = Auth::user()->id;
-        // return $id;
         $this->validate($request, [
             'user_id' => '',
             'profilepic' => 'image | mimes:jpeg,bmp,png,jpg| max:500',
            
         ]);
-        $product = new UserProfile($request->file());
-     
-        if($file = $request->hasFile('profilepic')) {
-           
-           $file = $request->file('profilepic');      
-           
-           
 
-           $temp = explode(".", $_FILES["profilepic"]["name"]);
-           $newfilename = round(microtime(true)) . '.' . end($temp);
-        //    move_uploaded_file($_FILES["file"]["tmp_name"], "../img/imageDirectory/" . $newfilename);
+        $profile = new UserProfile();
+        $profile->user_id = $request->user_id;
+        $profile->profilepic = storeFile($request->profilepic,'profilepic');
 
-
-// return $newfilename;
-        //    $fileName = $file->getClientOriginalName();
-           $destinationPath = public_path().'/uploads/';
-           $file->move($destinationPath,$newfilename);
-
-           $file = $newfilename;
-
-            $requestData = $request->all();
-            $requestData['profilepic'] = $file;
-            // $product->uploads = $file;        
-        }
-        else
-        {
-            $requestData = $request->all();
-        }
-        // return $requestData;
-
-        UserProfile::create($requestData);
-
-        DB::table('users')->where('id', $requestData['user_id'])
-        ->update(['profilepic' => $requestData['profilepic']]);
+        DB::table('users')->where('id', $profile['user_id'])
+        ->update(['profilepic' => $profile['profilepic']]);
 
         return redirect()->route('UserProfile.show',compact('id'))
                         ->with('success','Profile created successfully');
