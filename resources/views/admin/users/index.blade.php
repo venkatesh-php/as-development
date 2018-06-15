@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div style="margin-top: 50px;"></div>
+
     <h3 class="page-title">@lang('global.users.title')</h3>
     <p>
         <a href="{{ route('admin.users.create') }}" class="btn btn-success">@lang('global.app_add_new')</a>

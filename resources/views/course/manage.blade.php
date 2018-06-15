@@ -71,7 +71,7 @@
 
 </style>
 @section('content')
-<div style="margin-top: 50px;"></div>
+
     <?php $count = 0 ?>
     <?php $id= he($course->id)?>
     <div class="row">
