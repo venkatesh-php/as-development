@@ -57,7 +57,7 @@ class UserProfileController extends Controller
         $id = Auth::user()->id;
         $this->validate($request, [
             'user_id' => '',
-            'profilepic' => 'image | mimes:jpeg,bmp,png,jpg| max:500',
+            'profilepic' => 'image | mimes:jpeg,bmp,png,jpg| max:1024',
            
         ]);
         
