@@ -8,6 +8,7 @@ use DB;
 use Auth;
 use Image;
 use Charts;
+use Storage;
 use App\Role;
 use App\User;
 use App\Chart;
@@ -59,13 +60,18 @@ class UserProfileController extends Controller
             'profilepic' => 'image | mimes:jpeg,bmp,png,jpg| max:500',
            
         ]);
-
+        
         $profile = new UserProfile();
         $profile->user_id = $request->user_id;
         $profile->profilepic = storeFile($request->profilepic,'profilepic');
 
         DB::table('users')->where('id', $profile['user_id'])
         ->update(['profilepic' => $profile['profilepic']]);
+
+        if(isset(Auth::user()->profilepic)){   
+            Storage::disk('profilepic')->delete(Auth::user()->profilepic);
+        } 
+
 
         return redirect()->route('UserProfile.show',compact('id'))
                         ->with('success','Profile created successfully');

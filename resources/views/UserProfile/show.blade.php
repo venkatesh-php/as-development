@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+<!-- <div style="margin-top: 50px;"></div> -->
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-10">
@@ -12,9 +12,9 @@
     <div class="row">
         <div class="col-md-10">
             <div class="col-lg-6 col-xs-12 col-md-6 col-lg-6">   
-                <h1 style="color:#2471A3">{{ $users->first_name }} {{ $users->last_name }}</h1>
-                <h2>{{ $users->email  }}</h2>
-                <h2>{{ $users->phone_number  }}</h2>
+                <h2 style="color:#2471A3">{{ $users->first_name }} {{ $users->last_name }}</h2>
+                <h3>{{ $users->email  }}</h3>
+                <h3>{{ $users->phone_number  }}</h3>
                     
             </div>   
 
