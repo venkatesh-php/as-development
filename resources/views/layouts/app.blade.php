@@ -31,7 +31,7 @@
                     {{ $siteTitle }}
                 </h3>
             @endif
-            <div class="container" style="margin-top:50px">
+            <div class="container-fluid" style="margin-top:50px">
                 <div class="row">
                     <div class="col-md-12">
 

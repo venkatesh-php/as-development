@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div style="margin-top: 50px;"></div>
+
 
 
 
@@ -20,9 +20,9 @@
           <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="text-center">
             @if($users->profilepic == Null)
-                    <img src="{{URL::asset('/uploads/dummy_pic.jpg')}}" alt="Profile pic" height="200" width="200">
+                    <img src="{{route('profileImage',['name'=>'dummy_pic.jpg'])}}" alt="" height="200" width="200">
                     @else
-                    <img src="{{URL::asset('/uploads/'.$users->profilepic)}}" alt="Profile pic" height="200" width="200">
+                    <img src="{{route('profileImage',['name'=>$users->profilepic])}}" alt="" height="200" width="200">
                     @endif
               <!-- <img src="http://www.skills.ameyem.com/images/logo.png" class="avatar img-circle img-thumbnail" alt="avatar"> -->
               <!-- <h6>Upload a different photo...</h6>

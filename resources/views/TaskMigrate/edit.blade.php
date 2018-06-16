@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div style="margin-top: 50px;"></div>
+
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript">

@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div style="margin-top: 50px;"></div>
+
 <?php
     use App\AssignTasks;
     $review = AssignTasks::orderBy('id','DESC')->where('assign_tasks.status','review')->where('assign_tasks.guide_id',Auth::user()->id)->count();
