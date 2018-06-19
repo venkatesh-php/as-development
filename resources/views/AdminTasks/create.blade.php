@@ -120,7 +120,8 @@
                                 <div class="form-group">
                                         
                                 <strong>  Select file to Upload:</strong><br>
-                                    {!! Form::file('uploads') !!}
+                                    <!-- {!! Form::file('uploads') !!} -->
+                                    <input type="file" class="form-control" name="uploads" id="uploads"> 
                                     
                                 </div>
                             </div>
