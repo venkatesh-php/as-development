@@ -87,6 +87,11 @@ return [
             'root' => storage_path('app/public/profilepic'),
             'visibility' => 'public',
         ],
+        'uploads' =>[
+            'driver' =>'local',
+            'root' => storage_path('app/public/uploads'),
+            'visibility' => 'public',
+        ],
 
     ],
 

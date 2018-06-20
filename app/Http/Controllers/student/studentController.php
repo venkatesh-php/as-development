@@ -433,7 +433,7 @@ class studentController extends Controller
         
          }   else{
 
-            return "You have already submitted quiz...";
+            return  "You have already submitted quiz...";
          }   
 
         

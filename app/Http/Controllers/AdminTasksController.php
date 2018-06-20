@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use DB;
 use Auth;
+use Storage;
 use App\User;
 use App\subject;
 use App\AdminTasks;
 use App\AssignTasks;
 use App\work_nature;
 use Illuminate\Http\Request;
+use Illuminate\Http\PUT;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+// use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
@@ -79,7 +81,6 @@ class AdminTasksController extends Controller
 
         // |image|mimes:jpeg,png,jpg,gif,svg|max:20048
         
-        
         $this->validate($request, [
             'institutes_id' =>'required',
             'user_id' => 'required',
@@ -91,30 +92,24 @@ class AdminTasksController extends Controller
             'usercredits' => 'required',
             'guidecredits' => 'required',
             'reviewercredits' => 'required',
-            'uploads' => '',
+            'uploads' => 'file | mimes:rar,zip,jpg,jpeg,png,pdf,ppt,pptx,xls,xlsx,doc,docx |max:5120',
         ]);
           
-        $product = new AdminTasks($request->file());
-     
-        if($file = $request->hasFile('uploads') && $request->file('uploads')->isValid()) {
-           
-           $file = $request->file('uploads');           
-           $fileName = $file->getClientOriginalName();
-           $destinationPath = public_path().'/uploads/';
-           $file->move($destinationPath,$fileName);
+        $task = new AdminTasks;
+        $task->institutes_id = $request->institutes_id;
+        $task->user_id = $request->user_id;
+        $task->worknature = $request->worknature;
+        $task->subject = $request->subject;
+        $task->worktitle = $request->worktitle;
+        $task->workdescription = $request->workdescription;
+        $task->whatinitforme = $request->whatinitforme;
+        $task->usercredits = $request->usercredits;
+        $task->guidecredits = $request->guidecredits;
+        $task->reviewercredits = $request->reviewercredits;
+        $task->uploads = storeFile($request->uploads,'uploads');
+        // return $task;
+        $task->save();
 
-           $file = $fileName;
-
-            $requestData = $request->all();
-            $requestData['uploads'] = $file;
-            // $product->uploads = $file;        
-        }
-        else
-        {
-            $requestData = $request->all();
-        }
-     
-        AdminTasks::create($requestData);
         return redirect()->route('AdminTasks.index')
                         ->with('success','AdminTasks created successfully');
      }
@@ -158,11 +153,13 @@ class AdminTasksController extends Controller
     public function edit($id)
     {
         $admin_tasks = AdminTasks::find($id);
+        // return $admin_tasks;
         
         $subjects = DB::table('subjects')
                     ->where('subjects.user_id',Auth::user()->id)
                     ->select('subjects.*')->get();
-        return view('AdminTasks.edit',compact('admin_tasks','subjects'));
+        $work_nature = DB::table('work_nature')->get();
+        return view('AdminTasks.edit',compact('admin_tasks','subjects','work_nature'));
     }
 
 
@@ -173,42 +170,10 @@ class AdminTasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update( $id,Request $request)
     {
-        $this->validate($request, [
-            'worknature' => '',
-            'subject' => '',
-            'worktitle' => '',
-            'workdescription' => '',
-            'whatinitforme' => '',
-            'usercredits' => '',
-            'guidecredits' => '',
-            'reviewercredits' => '',
-            'uploads' => '',
-           
-        ]);
-        $product = new AdminTasks($request->file());
-     
-        if($file = $request->hasFile('uploads') && $request->file('uploads')->isValid()) {
-           
-           $file = $request->file('uploads');           
-           $fileName = $file->getClientOriginalName();
-           $destinationPath = public_path().'/uploads/';
-           $file->move($destinationPath,$fileName);
-
-           $file = $fileName;
-
-            $requestData = $request->all();
-            $requestData['uploads'] = $file;
-            // $product->uploads = $file;        
-        }else{
-            $requestData = $request->all();
-        }
-
-
-        AdminTasks::find($id)->update($request->all());
-        return redirect()->route('AdminTasks.index')
-                        ->with('success','AdminTasks updated successfully');
+        //
+       
     }
 
 
@@ -224,6 +189,41 @@ class AdminTasksController extends Controller
         return redirect()->route('AdminTasks.index')
                         ->with('success','AdminTasks deleted successfully');
     }
+
+
+
+    public  function updateTask($id,Request $request){
+    
+       return $id;
+        $task = AdminTasks::findOrFail($id);
+        $task->institutes_id = $request->institutes_id;
+        $task->user_id = $request->user_id;
+        $task->worknature = $request->worknature;
+        $task->subject = $request->subject;
+        $task->worktitle = $request->worktitle;
+        $task->workdescription = $request->workdescription;
+        $task->whatinitforme = $request->whatinitforme;
+        $task->usercredits = $request->usercredits;
+        $task->guidecredits = $request->guidecredits;
+        $task->reviewercredits = $request->reviewercredits;
+        // $task->uploads = $request->uploads;
+
+        /*upload files to disk*/
+        if(isset($request->uploads)){
+            if(isset( $task->uploads )){
+            Storage::disk('uploads')->delete($task->uploads);
+            }
+            $uploads = storeFile($request->uploads,'uploads');
+            /*update chapter instance*/
+            $request['uploads'] = $uploads;
+            $task->uploads=$uploads;
+        }
+
+        AdminTasks::where('id',$id)->update($request->except(['_token']));
+        return route('AdminTasks.index')->with('success','AdminTasks created successfully');
+
+    }
+
 
     
 

@@ -444,4 +444,86 @@ class mentorController extends Controller
         ->delete();
         return redirect()->back();
     }
+
+    public function questionEdit($chapter_id,$question_id){
+        // return [hd($chapter_id),hd($question_id)];
+        $chapter_id = hd($chapter_id);
+        $quiz_id = hd($question_id);
+        $values = question::where('id',hd($question_id))->select('questions.*')->get();
+        // return $values;
+        return view('quiz/questionEdit',['chapter_id'=>he($chapter_id),'quiz_id'=>he($quiz_id)])->with('values',$values);
+    }
+
+    /*update a question for the quiz*/
+    public function questionUpdate($chapter_id,$question_id,Request $request){
+        /*find the chapter*/
+        $question_id = hd($question_id);
+        $chapter_id = hd($chapter_id);
+         
+//  return [hd($quiz_id)];
+        
+   
+        $chapter = chapter::findOrFail($chapter_id);
+
+        /*select the quiz associated with the chapter*/
+        $quiz = quiz::firstOrCreate(['chapter_id'=>$chapter_id]);
+        $question = question::find($question_id);
+        $question->question = $request->question;
+        $question->optionA = $request->optionA;
+        $question->optionB = $request->optionB;
+        $question->optionC = $request->optionC;
+        $question->optionD = $request->optionD;
+        $question->answer = $request->answer;
+        $question->quiz_id = $quiz->id;
+        $question->update();
+        return redirect()->route('createQuiz',['id'=>he($chapter_id)]);
+    }
+
+
+
+     /*update the task */
+     public function updateTask($id,Request $request){
+        /*find the chapter*/
+        // return $request->all();
+        $this->validate($request, [
+            'institutes_id' =>'required',
+            'user_id' => 'required',
+            'worknature' => 'required',
+            'subject' => 'required',
+            'worktitle' => 'required',
+            'workdescription' => 'required',
+            'whatinitforme' => 'required',
+            'usercredits' => 'required',
+            'guidecredits' => 'required',
+            'reviewercredits' => 'required',
+            'uploads' => 'file | mimes:rar,zip,jpg,jpeg,png,pdf,ppt,pptx,xls,xlsx,doc,docx |max:5120',
+           
+        ]);
+        $task = AdminTasks::find($id);
+        $task->institutes_id = $request->institutes_id;
+        $task->user_id = $request->user_id;
+        $task->worknature = $request->worknature;
+        $task->subject = $request->subject;
+        $task->worktitle = $request->worktitle;
+        $task->workdescription = $request->workdescription;
+        $task->whatinitforme = $request->whatinitforme;
+        $task->usercredits = $request->usercredits;
+        $task->guidecredits = $request->guidecredits;
+        $task->reviewercredits = $request->reviewercredits;
+
+        if(isset($request->uploads)){
+            if(isset( $task->uploads )){
+            Storage::disk('uploads')->delete($task->uploads);
+            }
+            $uploads = storeFile($request->uploads,'uploads');
+            /*update admintask instance*/
+            $request['uploads'] = $uploads;
+            $task->uploads=$uploads;
+        }
+
+        $task->update();
+
+        return redirect()->route('AdminTasks.index')
+                        ->with('success','AdminTasks Updated successfully');
+    }
 }
