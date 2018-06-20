@@ -85,7 +85,7 @@
                             {!! Form::close() !!}  --}}
                         </td>
                         @if ($task->uploads)
-                        <td><a class="btn btn-info btn-xs" href="/download/{{ $task->uploads}}" download="{{ $task->uploads}}">FileLinks</a></td>
+                        <td><a class="btn btn-info btn-xs" href="{{ route('download',$task->uploads) }}">FileLinks</a></td>
                         @else
                         <td>Nill</td>
                         @endif
