@@ -444,4 +444,38 @@ class mentorController extends Controller
         ->delete();
         return redirect()->back();
     }
+
+    public function questionEdit($chapter_id,$question_id){
+        // return [hd($chapter_id),hd($question_id)];
+        $chapter_id = hd($chapter_id);
+        $quiz_id = hd($question_id);
+        $values = question::where('id',hd($question_id))->select('questions.*')->get();
+        // return $values;
+        return view('quiz/questionEdit',['chapter_id'=>he($chapter_id),'quiz_id'=>he($quiz_id)])->with('values',$values);
+    }
+
+    /*update a question for the quiz*/
+    public function questionUpdate($chapter_id,$question_id,Request $request){
+        /*find the chapter*/
+        $question_id = hd($question_id);
+        $chapter_id = hd($chapter_id);
+         
+//  return [hd($quiz_id)];
+        
+   
+        $chapter = chapter::findOrFail($chapter_id);
+
+        /*select the quiz associated with the chapter*/
+        $quiz = quiz::firstOrCreate(['chapter_id'=>$chapter_id]);
+        $question = question::find($question_id);
+        $question->question = $request->question;
+        $question->optionA = $request->optionA;
+        $question->optionB = $request->optionB;
+        $question->optionC = $request->optionC;
+        $question->optionD = $request->optionD;
+        $question->answer = $request->answer;
+        $question->quiz_id = $quiz->id;
+        $question->update();
+        return redirect()->route('createQuiz',['id'=>he($chapter_id)]);
+    }
 }

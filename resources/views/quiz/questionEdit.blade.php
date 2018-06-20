@@ -20,91 +20,63 @@
 
 
     </style>
-    <?php $i = 1; ?>
-    <!-- @include('partials.chapterCover',['course'=>$course]) -->
     <div class="container">
-        <div class="pull-right">
-                <a  class="btn btn-primary" href="{{route('manageCourse',['id'=>he($course->id)]) }}">Back</a>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="pull-right">
+                    <a class="btn btn-primary" href="{{ URL::previous() }}">Back</a>
+                </div>
+            </div>
         </div>
     </div>
-
-    <h1 class="text-center">Quiz maker</h1>
-    <div class="container" id="quiz_maker">
-        <br>
-        <button type="button" class="btn btn-success btn-lg center-block" data-toggle="modal" data-target="#addquestion">
-            <b>Add question</b>
-        </button>
-        <br>
-        <div id="questions_container">
-            <hr><h3 class="text-left">Questions</h3><hr>
-            @foreach($questions as $question)
-                <div class="panel panel-default quiz_table">
-                   <div class="panel-heading">
-                       <span class="qbox">{{ $i++ }} )</span><br><br>
-                       <span class='question'>{!! $question->question !!}</span>
-                   </div>
-                    <div class="panel-body">
-                        <table class="table table-hover table-responsive">
-                           
-                           <tr><th>Option A</th><td><span class='optionA'>{!! $question->optionA !!}</span></td></tr>
-                           <tr><th>Option B</th><td><span class='optionB'>{!! $question->optionB !!}</span></td></tr>
-                           <tr><th>Option C</th><td><span class='optionC'>{!! $question->optionC !!}</span></td></tr>
-                           <tr><th>Option D</th><td><span class='optionD'>{!! $question->optionD !!}</span></td></tr>
-                           <tr><th>Answer</th><td><button class="button btn btn-primary">option {{$question->answer}}</button></td></tr>
-                           <tr>
-                                <th>Options</th>
-                                <td>
-                                    <a href="{{ route('questionEdit',[he($chapter_id),he($question->id)]) }}"  class="button btn btn-success">Edit</a>
-                                    <a id="FormDeleteTime" href="{{ route('qstnDelete',[he($chapter_id),he($question->id)]) }}"  class="button btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                                
-                        </table>
-                    </div>
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div style="color:white" class="panel-heading">
+                    <center>Update Question</center>
                 </div>
-            @endforeach
-        </div>
-        {{--add question form--}}
-        <div id="addquestion" class="modal fade" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form action="#" class="modal-body" method="post">
+
+                <div class="panel-body">
+    
+                    <!-- <form action="questionUpdate" class="modal-body" method="post"> -->
+                    <form action="{{ route('questionUpdate',['chapter_id'=>$chapter_id,'question_id'=>$quiz_id]) }}" id="chapter_form" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        <div class="modal-header">
-                            <h2 class="text-center">Add new Question</h2>
-                        </div>
-                        {{--quiz question--}}
+                        
+
+                        
+                        @foreach($values as $value)
+                        <!-- {!! $value->id !!} -->
                         <div class="form-group">
                             <label for="question">Question</label>
-                    <textarea name="question" id="question" cols="30"
-                              rows="2" class="form-control"></textarea>
+                            <textarea name="question" id="question" cols="30" rows="2" class="form-control">{!! $value->question !!}</textarea>
                         </div>
 
-                        {{--option A--}}
+                        
                         <div class="form-group">
                             <label for="optionA">Option A</label>
-                            <textarea name="optionA" id="optionA" cols="20" rows="2" class="form-control"></textarea>
+                            <textarea name="optionA" id="optionA" cols="20" rows="2" class="form-control">{!! $value->optionA !!}</textarea>
                         </div>
 
-                        {{--option B--}}
+                     
                         <div class="form-group">
                             <label for="optionB">option B</label>
-                            <textarea name="optionB" id="optionB" cols="20" rows="2" class="form-control"></textarea>
+                            <textarea name="optionB" id="optionB" cols="20" rows="2" class="form-control">{!! $value->optionB !!}</textarea>
                         </div>
 
-                        {{--option C--}}
+                     
                         <div class="form-group">
                             <label for="optionC">option C</label>
-                            <textarea name="optionC" id="optionC" cols="20" rows="2" class="form-control"></textarea>
+                            <textarea name="optionC" id="optionC" cols="20" rows="2" class="form-control">{!! $value->optionC !!}</textarea>
                         </div>
 
-                        {{--option D--}}
+                   
                         <div class="form-group">
                             <label for="optionD">option D</label>
-                            <textarea name="optionD" id="optionD" cols="20" rows="2" class="form-control"></textarea>
+                            <textarea name="optionD" id="optionD" cols="20" rows="2" class="form-control">{!! $value->optionD !!}</textarea>
                         </div>
 
-                        {{--Answer--}}
+                        
                         <div class="form-group">
                             <label for="optionB">Answer</label>
                             <select class="form-control" name="answer">
@@ -114,6 +86,7 @@
                                 <option value="D">option D</option>
                             </select>
                         </div>
+                        @endforeach
 
                         <div class="modal-footer">
                             <input type="submit" class="button btn btn-submit pull-right">
@@ -123,6 +96,9 @@
                 </div>
             </div>
         </div>
+
+</div>
+
     </div>
     <script src="/js/app.js"></script>
 
@@ -146,31 +122,31 @@
 		CKEDITOR.replace( 'question', {
 			extraPlugins: 'mathjax',
 			mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-			height: 250,
+			height: 150,
             width: 580
 		} );
         CKEDITOR.replace( 'optionA', {
 			extraPlugins: 'mathjax',
 			mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-			height: 250,
+			height: 150,
             width: 580
 		} );
         CKEDITOR.replace( 'optionB', {
 			extraPlugins: 'mathjax',
 			mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-			height: 250,
+			height: 150,
             width: 580
 		} );
         CKEDITOR.replace( 'optionC', {
 			extraPlugins: 'mathjax',
 			mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-			height: 250,
+			height: 150,
             width: 580
 		} );
         CKEDITOR.replace( 'optionD', {
 			extraPlugins: 'mathjax',
 			mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-			height: 250,
+			height: 150,
             width: 580
 		} );
 		if ( CKEDITOR.env.ie && CKEDITOR.env.version == 8 ) {
