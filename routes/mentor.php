@@ -59,6 +59,8 @@ Route::group(['prefix' => 'mentor'], function () {
         Route::post('course/chapter/{id}','mentor\mentorController@updateChapter')
             ->name('updateChapter');
 
+        Route::post('AdminTask/{id}','mentor\mentorController@updateTask')
+            ->name('updateTask');
 
         /*Delete a particular course*/
         Route::get('courses/{id}/delete','Admin\adminController@deleteCourse')

@@ -92,7 +92,7 @@ class AdminTasksController extends Controller
             'usercredits' => 'required',
             'guidecredits' => 'required',
             'reviewercredits' => 'required',
-            'uploads' => 'file | mimes:rar,zip |max:1024',
+            'uploads' => 'file | mimes:rar,zip,jpg,jpeg,png,pdf,ppt,pptx,xls,xlsx,doc,docx |max:5120',
         ]);
           
         $task = new AdminTasks;
@@ -153,6 +153,7 @@ class AdminTasksController extends Controller
     public function edit($id)
     {
         $admin_tasks = AdminTasks::find($id);
+        // return $admin_tasks;
         
         $subjects = DB::table('subjects')
                     ->where('subjects.user_id',Auth::user()->id)
@@ -171,53 +172,7 @@ class AdminTasksController extends Controller
      */
     public function update( $id,Request $request)
     {
-        $this->validate($request, [
-            'institutes_id' =>'required',
-            'user_id' => 'required',
-            'worknature' => 'required',
-            'subject' => 'required',
-            'worktitle' => 'required',
-            'workdescription' => 'required',
-            'whatinitforme' => 'required',
-            'usercredits' => 'required',
-            'guidecredits' => 'required',
-            'reviewercredits' => 'required',
-            // 'uploads' => 'max:1024',
-           
-        ]);
-        
-        $task = AdminTasks::find($id);
-        $task->institutes_id = $request->institutes_id;
-        $task->user_id = $request->user_id;
-        $task->worknature = $request->worknature;
-        $task->subject = $request->subject;
-        $task->worktitle = $request->worktitle;
-        $task->workdescription = $request->workdescription;
-        $task->whatinitforme = $request->whatinitforme;
-        $task->usercredits = $request->usercredits;
-        $task->guidecredits = $request->guidecredits;
-        $task->reviewercredits = $request->reviewercredits;
-        // $task->uploads = time().str_random(10).'.'.$request->uploads->getClientOriginalExtension();
-        // $task->uploads = storeFile($request->uploads,'uploads');
-
-         /*upload files to disk*/
-        //  if(isset($request->uploads)){
-        //     if(isset( $task->uploads )){
-        //     Storage::disk('uploads')->delete($task->uploads);
-        //     }
-        //     $uploads = storeFile($request->uploads,'uploads');
-        //     /*update chapter instance*/
-        //     $request['uploads'] = $uploads;
-        //     $task->uploads=$uploads;
-        // }
-        // return $task;
-        $task->update();
-
-        return redirect()->route('AdminTasks.index')
-                        ->with('success','AdminTasks Updated successfully');
-
-
-        // AdminTasks::find($id)->update($request->all());
+        //
        
     }
 

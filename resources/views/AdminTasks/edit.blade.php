@@ -34,10 +34,11 @@
                 </div>
 
                 <div class="panel-body">
-                    {!! Form::model($admin_tasks, ['method' => 'PATCH','route' => ['AdminTasks.update', $admin_tasks->id,'files' => true]]) !!}
-                    <!-- <form action="{{ route('AdminTasks.update',['id'=>$admin_tasks->id]) }}" id="chapter_form" method="patch" enctype="multipart/form-data"> -->
+                    {{-- {!! Form::model($admin_tasks, ['method' => 'PATCH','route' => ['AdminTasks.update', $admin_tasks->id,'files' => true]]) !!} --}}
+                    <form action="{{ route('updateTask',['id'=>$admin_tasks->id]) }}" id="chapter_form" method="post" enctype="multipart/form-data">
                         <div class="row">
-                            
+
+                     
                         <div class="col-xs-12 col-sm-12 col-md-12" style='display:none'>
                                 <div class="form-group">
                                     <strong>Institute ID:</strong>
@@ -77,7 +78,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12" style="color:#006699">
                                 <div class="form-group">
                                     <strong>Work Title:</strong>
-                                    {!! Form::text('worktitle', null, array('placeholder' => 'Work Title','class' => 'form-control')) !!}
+                                    {!! Form::text('worktitle', $admin_tasks->worktitle, array('placeholder' => 'Work Title','class' => 'form-control')) !!}
                                 </div>
                             </div>
 
@@ -85,13 +86,13 @@
                             <div class="col-xs-12 col-sm-12 col-md-12" style="color:#006699">
                                 <div class="form-group">
                                     <strong>Work Description:</strong>
-                                    {!! Form::textarea('workdescription', null, array('placeholder' => 'Work Description','class' => 'form-control')) !!}
+                                    {!! Form::textarea('workdescription', $admin_tasks->workdescription, array('placeholder' => 'Work Description','class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12" style="color:#006699">
                                 <div class="form-group">
                                     <strong>What In IT For Me:</strong>
-                                    {!! Form::text('whatinitforme', null, array('placeholder' => 'What In IT For Me','class' => 'form-control')) !!}
+                                    {!! Form::text('whatinitforme', $admin_tasks->whatinitforme, array('placeholder' => 'What In IT For Me','class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12" style="color:#006699">
@@ -105,14 +106,14 @@
                                     {!! Form::selectRange('reviewercredits', 2, 5) !!}
                                 </div>
                             </div>
-                           <!-- <div class="col-xs-12 col-sm-12 col-md-12" style="color:#006699">
+                           <div class="col-xs-12 col-sm-12 col-md-12" style="color:#006699">
                                 <div class="form-group">            
-                                    <strong>  Select file to Upload:</strong><br>
-                                            <!-- {!! Form::file('uploads') !!}      
-                                               
+                                    <strong>  Select file to Upload:</strong> ( if you upload the new file, old file delete automatically)<br>    
                                         <input type="file" class="form-control" name="uploads" id="uploads">         
                                 </div>
-                            </div>    -->
+                            </div>    
+
+                         
 
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -120,7 +121,8 @@
 
 
                         </div>
-                    {!! Form::close() !!}
+                    {{--  {!! Form::close() !!} --}}
+                    <form>
 
 
                 </div>
