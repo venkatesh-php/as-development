@@ -127,7 +127,7 @@ input:focus{
                                 <p><b>Description</b> : {{$task_details->workdescription}}</p>
                                 @if ($task_details->uploads)
                             <b>Files to download</b>
-                                <label><a class="btn btn-info btn-xs" href="/download/{{ $task_details->uploads}}" download="{{ $task_details->uploads}}">Download</a></label>
+                                <label><a class="btn btn-info btn-xs" href="{{ route('download',$task_details->uploads) }}">Download</a></label>
                             @endif
                             <div>
                             <p class="btn btn-primary"> User Credits: {{$task_details->usercredits}}</p>

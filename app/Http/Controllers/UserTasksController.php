@@ -77,37 +77,25 @@ class UserTasksController extends Controller
             'request_for' => 'required',
             'request_by' => 'required',
             'message' => 'required',
-            'uploads' => '',
+            'uploads' => 'file | mimes:rar,zip,jpg,jpeg,png,pdf,ppt,pptx,xls,xlsx,doc,docx,bmp |max:5120',
             'created_at' => '',
 
         ]);
 
-        $product = new UserTasks($request->file());
-     
-        if($file = $request->hasFile('uploads')) {
-           
-           $file = $request->file('uploads');           
-           $fileName = $file->getClientOriginalName();
-           $destinationPath = public_path().'/uploads/';
-           $file->move($destinationPath,$fileName);
+        $task = new UserTasks;
+        $task->assigntask_id = $request->assigntask_id;
+        $task->request_for = $request->request_for;
+        $task->request_by = $request->request_by;
+        $task->message = $request->message;
+        $task->uploads = storeFile($request->uploads,'uploads');
+        $task->created_at = $request->created_at;
 
-           $file = $fileName;
+        // return $task;
 
-            $requestData = $request->all();
-            $requestData['uploads'] = $file;
-            // $product->uploads = $file;
-      
-         
-        }
-        else
-        {
-            $requestData = $request->all();
-        }
-
-        DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-        ->update(['status' => $requestData['request_for']]);
+        DB::table('assign_tasks')->where('id', $task->assigntask_id)
+        ->update(['status' => $task->request_for]);
  
-        UserTasks::create($requestData);
+       $task->save();
         if(isset($request->course_id)){
             return redirect()->route('viewCourse',['id'=>$request->course_id]);
         }

@@ -88,7 +88,7 @@
             <td>{{ $task->request_for }}</td>
             <td>{{ $task->message }}</td>
             @if ($task->uploads)
-            <td><a class="btn btn-info btn-xs" href="/download/{{ $task->uploads}}" download="{{ $task->uploads}}">File Links</a></td>
+            <td><a class="btn btn-info btn-xs" href="{{ route('download',$task->uploads) }}">File Links</a></td>
             @else
             <td>Nill</td>
             @endif

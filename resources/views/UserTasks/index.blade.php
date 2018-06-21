@@ -68,7 +68,7 @@
                         <td>{{ $task->created_at}}</td>
                         <td>{{ $task->updated_at}}</td>
                         @if ($task->uploads)
-                        <td><a class="btn btn-default btn-xs" href="/download/{{ $task->uploads}}" download="{{ $task->uploads}}">Download</a></td>
+                        <td><a class="btn btn-default btn-xs" href="{{ route('download',$task->uploads) }}">Download</a></td>
                         @else
                         <td>Nill</td>
                         @endif

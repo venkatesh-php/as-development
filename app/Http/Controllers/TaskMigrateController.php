@@ -86,61 +86,52 @@ class TaskMigrateController extends Controller
             'rating_to_user' => 'nullable',
             'rating_to_guide' => 'nullable',
             'message' => 'required',
-            'uploads' => '',
+            'uploads' => 'file | mimes:rar,zip,jpg,jpeg,png,pdf,ppt,pptx,xls,xlsx,doc,docx,bmp |max:5120',
             'created_at' => '',
 
         ]);
 
-        $product = new UserTasks($request->file());
-  
-        if($file = $request->hasFile('uploads')) {
-           
-           $file = $request->file('uploads');           
-           $fileName = $file->getClientOriginalName();
-           $destinationPath = public_path().'/uploads/';
-           $file->move($destinationPath,$fileName);
+        $task = new UserTasks;
+        $task->assigntask_id = $request->assigntask_id;
+        $task->request_for = $request->request_for;
+        $task->request_by = $request->request_by;
+        $task->rating_to_user = $request->rating_to_user;
+        $task->rating_to_guide = $request->rating_to_guide;
+        $task->message = $request->message;
+        $task->uploads = storeFile($request->uploads,'uploads');
+        $task->created_at = $request->created_at;
 
-           $file = $fileName;
+        // return $task;
+        
 
-            
-            $requestData['uploads'] = $file;
-
-        }
-        else
-        {
-            $requestData = $request->all();
-        }
-
-        if($requestData['request_for']=='approved'){
-            $reserved_credits=DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
+        if($task->request_for =='approved'){
+            $reserved_credits=DB::table('assign_tasks')->where('assign_tasks.id', $task->assigntask_id) 
             ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
             ->select('admin_tasks.usercredits')->get()->pluck('usercredits')[0];
 
-            $reserved_guide_credits=DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
+            $reserved_guide_credits=DB::table('assign_tasks')->where('assign_tasks.id', $task->assigntask_id) 
             ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
             ->select('admin_tasks.guidecredits')->get()->pluck('guidecredits')[0];
 
-            $reserved_reviewer_credits=DB::table('assign_tasks')->where('assign_tasks.id', $requestData['assigntask_id']) 
+            $reserved_reviewer_credits=DB::table('assign_tasks')->where('assign_tasks.id', $task->assigntask_id) 
             ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
             ->select('admin_tasks.reviewercredits')->get()->pluck('reviewercredits')[0];
 
-            DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
-            ->update(['user_credits' => $requestData['rating_to_user']*$reserved_credits/10,'guide_credits' => $requestData['rating_to_guide']*$reserved_guide_credits/10,
+            DB::table('assign_tasks')->where('id', $task->assigntask_id)  
+            ->update(['user_credits' => $task->rating_to_user * $reserved_credits/10,'guide_credits' => $task->rating_to_guide * $reserved_guide_credits/10,
             'reviewer_credits' => 10*$reserved_guide_credits/10,
-            'status' => $requestData['request_for'],'completed_at' => Carbon::now('Asia/Kolkata')]);
-        
-        
+            'status' => $task->request_for,'completed_at' => Carbon::now('Asia/Kolkata')]); 
         }
 
-        DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])  
-        ->update(['status' => $requestData['request_for'],'completed_at' => Carbon::now('Asia/Kolkata')]);
+        DB::table('assign_tasks')->where('id', $task->assigntask_id)  
+        ->update(['status' => $task->request_for,'completed_at' => Carbon::now('Asia/Kolkata')]);
 
     
         
-        unset($requestData['rating_to_user']);//removed as there is no column of obtained marks 
-        unset($requestData['rating_to_guide']);
+        unset($task->rating_to_user);//removed as there is no column of obtained marks 
+        unset($task->rating_to_guide);
 
-        UserTasks::create($requestData);
+        $task->save();
  
     return redirect()->route('TaskMigrate.index');
                    

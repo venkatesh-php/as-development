@@ -92,7 +92,7 @@ class AdminTasksController extends Controller
             'usercredits' => 'required',
             'guidecredits' => 'required',
             'reviewercredits' => 'required',
-            'uploads' => 'file | mimes:rar,zip,jpg,jpeg,png,pdf,ppt,pptx,xls,xlsx,doc,docx |max:5120',
+            'uploads' => 'file | mimes:rar,zip,jpg,jpeg,png,pdf,ppt,pptx,xls,xlsx,doc,docx,bmp |max:5120',
         ]);
           
         $task = new AdminTasks;
