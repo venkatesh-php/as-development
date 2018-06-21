@@ -241,7 +241,7 @@ class TaskMigrateController extends Controller
         ->join('users as users_u','users_u.id','user_tasks.request_by')
 
         ->where( 'assign_tasks.id',$id)
-        ->select('user_tasks.*','users_u.name')->get();
+        ->select('user_tasks.*','users_u.first_name','users_u.profilepic')->get();
         $assign_tasks = AssignTasks::find($id);
         
 
