@@ -191,41 +191,4 @@ class AdminTasksController extends Controller
     }
 
 
-
-    public  function updateTask($id,Request $request){
-    
-       return $id;
-        $task = AdminTasks::findOrFail($id);
-        $task->institutes_id = $request->institutes_id;
-        $task->user_id = $request->user_id;
-        $task->worknature = $request->worknature;
-        $task->subject = $request->subject;
-        $task->worktitle = $request->worktitle;
-        $task->workdescription = $request->workdescription;
-        $task->whatinitforme = $request->whatinitforme;
-        $task->usercredits = $request->usercredits;
-        $task->guidecredits = $request->guidecredits;
-        $task->reviewercredits = $request->reviewercredits;
-        // $task->uploads = $request->uploads;
-
-        /*upload files to disk*/
-        if(isset($request->uploads)){
-            if(isset( $task->uploads )){
-            Storage::disk('uploads')->delete($task->uploads);
-            }
-            $uploads = storeFile($request->uploads,'uploads');
-            /*update chapter instance*/
-            $request['uploads'] = $uploads;
-            $task->uploads=$uploads;
-        }
-
-        AdminTasks::where('id',$id)->update($request->except(['_token']));
-        return route('AdminTasks.index')->with('success','AdminTasks created successfully');
-
-    }
-
-
-    
-
-
 }
