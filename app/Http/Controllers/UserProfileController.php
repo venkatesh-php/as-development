@@ -229,7 +229,6 @@ class UserProfileController extends Controller
         $this->validate($request, [
             'first_name' => '',
             'last_name' => '',
-            'email' => '',
             'phone_number' => '',
             'dob' => '',
             'qualification' => '',

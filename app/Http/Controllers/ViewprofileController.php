@@ -50,7 +50,8 @@ class ViewprofileController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => '',
+            'first_name' => '',
+            'last_name' => '',
             'email' => '',
             'phone_number' => '',
             'dob' => '',
@@ -114,29 +115,6 @@ class ViewprofileController extends Controller
             'homeaddress' => '',
             'profilepic' => '',
         ]);
-
-        $product = new User($request->file());
-     
-        if($file = $request->hasFile('profilepic')) {
-           
-           $file = $request->file('profilepic');           
-           $fileName = $file->getClientOriginalName();
-           $destinationPath = public_path().'/uploads/';
-           $file->move($destinationPath,$fileName);
-
-           $file = $fileName;
-
-            $requestData = $request->all();
-            $requestData['profilepic'] = $file;
-            // $product->uploads = $file;        
-        }
-        else
-        {
-            $requestData = $request->all();
-        }
-     
-       
-
 
         User::find($id)->update($request->all());
         return redirect()->route('viewprofile.index')

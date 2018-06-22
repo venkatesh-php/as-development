@@ -48,7 +48,7 @@
 
                                 <table class="table table-striped" style="color:#2471A3">
                                 <tr>
-                                    <th>Full Name</th><td>{{ $users->first_name }}{{ $users->last_name }}</td>
+                                    <th>Full Name</th><td>{{ $users->first_name }} {{ $users->last_name }}</td>
                                 </tr>
                                 <tr>
                                     <th>Email</th><td>{{ $users->email  }}</td>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="row">
                         <div class="pull-right">
-                            <a class="btn btn-primary" href="{{ route('viewprofile.edit',$users->id) }}"> Edit profile</a>
+                            <a class="btn btn-primary" href="{{ route('UserProfile.edit',$users->id) }}"> Edit profile</a>
                         </div>
                     </div>
                
