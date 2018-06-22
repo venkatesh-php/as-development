@@ -3,6 +3,36 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+
+.frame{
+    background:#ffffff;
+    height:150px;
+    overflow:none;
+    padding:0;
+}
+
+.ul {
+    width:100%;
+    height:50%;
+    list-style-type: none;
+    padding-top:0px;
+    position:absolute;
+    bottom:107px;
+    display:;
+    flex-direction: ;
+    top:230px;
+    overflow-y:scroll;
+}
+.macro{
+    margin-top:20px;width:100%;border-radius:5px;padding:5px;display:;
+}
+.msj-rta{
+    float:left;background:white;
+}
+
+
+</style>
 
 <?php
     use App\AssignTasks;
@@ -43,7 +73,7 @@
             <div class="row">
             <a class="btn btn-default" value='review' href="{{ route('TaskMigrate.show','review') }}">No.of tasks to be Guide :{{$review}}</a>
             </div>
-            <li>
+            <!-- <li>
                 <a href="{{ route('ReviewCV') }}">
     
                     <i class="fa fa-male"></i>
@@ -63,38 +93,50 @@
                     <i class="fa fa-users"></i>
                     <span class="title">Students</span>
                 </a>
-            </li>
-            <h1 style="color:green">Total Users :<span style="color:#347ab7">{{$users->count()}}</span></h1>
+            </li> -->
+            <div class="row"><h1 style="color:green">Total Users :<span style="color:#347ab7">{{$users->count()}}</span></h1></div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <tr style="color:#2471A3">
+                    <ul class="ul">
+                        <div class="col-sm-12">
+                            <!-- <li style="width:100%;">    -->
+                                <div class="msj-rta macro"> 
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <tr style="color:#2471A3">
+                                                <th>User Name</th>
+                                                <th>Email</th>
+                                                <th>Institute</th> 
+                                                <th>Role</th>
+                                                <th>Phone</th>
+                                                <th>Created At</th>
+                                            </tr>
+                               
+                                            @foreach ($users as $key => $user)
+                                            
+                                            <tr style="color:454545">
+                                            
+                                                <td>{{ $user->first_name}}{{ $user->last_name }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->iname }}</td> 
+                                                <td>{{ $user->rname }}</td>
+                                                <td>{{ $user->phone_number }}</td>
+                                                <td>{{ $user->created_at }}</td>
+                                            </tr>
+                                            @endforeach
                                 
-                                    <th>User Name</th>
-                                    <th>Institute</th> 
-                                    <th>Role</th>
-                                    <th>Created At</th>
-                                    
-                                    
-                                    
-                                </tr>
-                                @foreach ($users as $key => $user)
-                                
-                                <tr style="color:454545">
-                                
-                                    <td>{{ $user->name}}</td>
-                                    <td>{{ $user->iname }}</td> 
-                                    <td>{{ $user->rname }}</td>
-                                    <td>{{ $user->created_at }}</td>
-                                </tr>
-                                @endforeach
-                            </table>
+                                        </table>
+                                    </div>
+                                </div>
+                            <!-- </li> -->
                         </div>
-                    </div>
+                    </ul>
                 </div>
             </div>
+            <div style="height=250px">
+            </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <div class="container">
+        
 
             <!-- <h1>Total Users : {{$users}}</h1> -->
 

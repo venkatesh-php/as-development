@@ -28,12 +28,25 @@ class UserProfileController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::orderBy('id','asc')
-        ->where('users.institutes_id',Auth::user()->institutes_id)
-        ->paginate(15);
+        if(Auth::user()->id == 1){
+
+            $users = User::orderBy('id','asc')
+                ->paginate(50);
+
+            return view('UserProfile.index',compact('users'))
+                ->with('i', ($request->input('page', 1) - 1) * 50);
+
+        }
+        else{
+            $users = User::orderBy('id','asc')
+                ->where('users.institutes_id',Auth::user()->institutes_id)
+                ->paginate(15);
 
         return view('UserProfile.index',compact('users'))
             ->with('i', ($request->input('page', 1) - 1) * 15);
+
+        }
+        
     }
 
     /**
@@ -183,11 +196,11 @@ class UserProfileController extends Controller
                     $interval = $datetime1->diff($datetime2);
                     $days = $interval->format('%a');//Its counts all days
 
-                    // $role = DB::table('roles')->where('roles.id',Auth::User()->role_id)->select('roles.name')->get();
-                    // $institute_name = DB::table('institutes')->where('institutes.id',Auth::User()->institutes_id)->select('institutes.name')->get();
+                    $role = DB::table('roles')->where('roles.id',$users->role_id)->select('roles.name')->get();
+                    $institute_name = DB::table('institutes')->where('institutes.id',$users->institutes_id)->select('institutes.name')->get();
 
 
-                    return view('UserProfile.show', ['assign_chart' => $assign_chart,'completed_chart' => $completed_chart,'progress_chart' => $progress_chart])->with(compact('users','totaltasks','totalcredits','days','completedtasks','droptasks','created_at'));
+                    return view('UserProfile.show', ['assign_chart' => $assign_chart,'completed_chart' => $completed_chart,'progress_chart' => $progress_chart])->with(compact('users','totaltasks','totalcredits','days','completedtasks','droptasks','created_at','role','institute_name'));
                             // return view('Profile.show',compact('users'));
 
     }
@@ -216,7 +229,6 @@ class UserProfileController extends Controller
         $this->validate($request, [
             'first_name' => '',
             'last_name' => '',
-            'email' => '',
             'phone_number' => '',
             'dob' => '',
             'qualification' => '',

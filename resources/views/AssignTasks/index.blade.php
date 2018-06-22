@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
             <div class="pull-left">
-                <h2>Assigned Tasks</h2>
+                <span style="color:#2471A3"><h2>Assigned Tasks</h2><h5>Here You can see tasks,only you has a guide</h5></span>
             </div>
              <div class="pull-right">
                 <a class="btn btn-success" href="{{ url('/dashboard') }}">Back</a>
@@ -29,7 +29,7 @@
                 <table class="table table-striped" style="color:#2471A3">
                     <tr>
                         <th>No</th>
-                        <th>Task ID</th>
+                        <th>Assign Task ID</th>
                         <th>User Name</th>
                         <th>Guide Name</th>
                         <th>Reviewer Name</th>
@@ -43,7 +43,7 @@
                     @foreach ($assign_tasks as $key => $task)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $task->task_id }}</td>
+                            <td>{{ $task->id }}</td>
                             <td>{{ $task->name }}</td>
                             <td>{{ $task->gname }}</td>
                             <td>{{ $task->rname}}</td>
@@ -68,4 +68,6 @@
         </div>
     </div>
 </div>
+
+<h5>*Note : If status is empty or NA or initiated means tasks are in starting stage </h5>
 @endsection

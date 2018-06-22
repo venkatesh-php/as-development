@@ -92,7 +92,7 @@ class AdminTasksController extends Controller
             'usercredits' => 'required',
             'guidecredits' => 'required',
             'reviewercredits' => 'required',
-            'uploads' => 'file | mimes:rar,zip,jpg,jpeg,png,pdf,ppt,pptx,xls,xlsx,doc,docx |max:5120',
+            'uploads' => 'file | mimes:rar,zip,jpg,jpeg,png,pdf,ppt,pptx,xls,xlsx,doc,docx,bmp |max:5120',
         ]);
           
         $task = new AdminTasks;
@@ -189,43 +189,6 @@ class AdminTasksController extends Controller
         return redirect()->route('AdminTasks.index')
                         ->with('success','AdminTasks deleted successfully');
     }
-
-
-
-    public  function updateTask($id,Request $request){
-    
-       return $id;
-        $task = AdminTasks::findOrFail($id);
-        $task->institutes_id = $request->institutes_id;
-        $task->user_id = $request->user_id;
-        $task->worknature = $request->worknature;
-        $task->subject = $request->subject;
-        $task->worktitle = $request->worktitle;
-        $task->workdescription = $request->workdescription;
-        $task->whatinitforme = $request->whatinitforme;
-        $task->usercredits = $request->usercredits;
-        $task->guidecredits = $request->guidecredits;
-        $task->reviewercredits = $request->reviewercredits;
-        // $task->uploads = $request->uploads;
-
-        /*upload files to disk*/
-        if(isset($request->uploads)){
-            if(isset( $task->uploads )){
-            Storage::disk('uploads')->delete($task->uploads);
-            }
-            $uploads = storeFile($request->uploads,'uploads');
-            /*update chapter instance*/
-            $request['uploads'] = $uploads;
-            $task->uploads=$uploads;
-        }
-
-        AdminTasks::where('id',$id)->update($request->except(['_token']));
-        return route('AdminTasks.index')->with('success','AdminTasks created successfully');
-
-    }
-
-
-    
 
 
 }

@@ -41,7 +41,7 @@ class UserTasksController extends Controller
                   ->orWhere('assign_tasks.status','NA')
                   ->orWhere('assign_tasks.status','initiated');
         })
-        ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name as uname','users_s.name as sname','users_g.name as gname','users_r.name as rname')
+        ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.first_name as first_name','users_u.last_name as last_name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
         ->get();
         
         $start = $assign_tasks->count();
@@ -77,37 +77,25 @@ class UserTasksController extends Controller
             'request_for' => 'required',
             'request_by' => 'required',
             'message' => 'required',
-            'uploads' => '',
+            'uploads' => 'file | mimes:rar,zip,jpg,jpeg,png,pdf,ppt,pptx,xls,xlsx,doc,docx,bmp |max:5120',
             'created_at' => '',
 
         ]);
 
-        $product = new UserTasks($request->file());
-     
-        if($file = $request->hasFile('uploads')) {
-           
-           $file = $request->file('uploads');           
-           $fileName = $file->getClientOriginalName();
-           $destinationPath = public_path().'/uploads/';
-           $file->move($destinationPath,$fileName);
+        $task = new UserTasks;
+        $task->assigntask_id = $request->assigntask_id;
+        $task->request_for = $request->request_for;
+        $task->request_by = $request->request_by;
+        $task->message = $request->message;
+        $task->uploads = storeFile($request->uploads,'uploads');
+        $task->created_at = $request->created_at;
 
-           $file = $fileName;
+        // return $task;
 
-            $requestData = $request->all();
-            $requestData['uploads'] = $file;
-            // $product->uploads = $file;
-      
-         
-        }
-        else
-        {
-            $requestData = $request->all();
-        }
-
-        DB::table('assign_tasks')->where('id', $requestData['assigntask_id'])
-        ->update(['status' => $requestData['request_for']]);
+        DB::table('assign_tasks')->where('id', $task->assigntask_id)
+        ->update(['status' => $task->request_for]);
  
-        UserTasks::create($requestData);
+       $task->save();
         if(isset($request->course_id)){
             return redirect()->route('viewCourse',['id'=>$request->course_id]);
         }
@@ -136,7 +124,7 @@ class UserTasksController extends Controller
 
             ->where('assign_tasks.status',$cop_str)
             ->where('assign_tasks.user_id',Auth::user()->id)
-            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name as uname','users_s.name as sname','users_g.name as gname','users_r.name as rname')
+            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.first_name as first_name','users_u.last_name as last_name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
             ->get();
 
             $start      = AssignTasks::orderBy('id','DESC')->where(function ($query) {
@@ -169,8 +157,8 @@ class UserTasksController extends Controller
         ->join('users as users_u','users_u.id','user_tasks.request_by')
 
         ->where( 'assign_tasks.id',$assign_task_id)
-        ->select('user_tasks.*','users_u.first_name')->get();
-        // return
+        ->select('user_tasks.*','users_u.first_name','users_u.profilepic')->get();
+        // return $user_tasks;
         $assign_tasks = AssignTasks::find($assign_task_id);
 
         $task_details = AdminTasks::find($assign_tasks->task_id);

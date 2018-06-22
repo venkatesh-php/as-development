@@ -363,6 +363,7 @@ class studentController extends Controller
         $chapter_id = hd($request->chapter_id);
         // return
         $questions = chapter::find($chapter_id)->quiz->question()->get();
+        // return $questions;
         $quizstatuses = quizstatuses::whereIn('question_id',array_column($questions->toArray(),'id'))
         ->where('user_id',Auth::user()->id)->get();
 
@@ -392,6 +393,7 @@ class studentController extends Controller
                             $question->answerd = false;
                             $quizstatuses->result = 'false';
                         }
+                        $question->user_answer = $value;
                         
                         $quizstatuses->save();
 
@@ -436,7 +438,6 @@ class studentController extends Controller
             return  "You have already submitted quiz...";
          }   
 
-        
 
         
         return view('quiz.review')->with(['questions'=>$questions,'results'=>collect($results)]);
@@ -589,6 +590,7 @@ public function postFeedback(Request $request,$id){
                     else{
                         $question->answerd = false;
                     }
+                    $question->user_answer = $result->answer;
                 }
             }
         }

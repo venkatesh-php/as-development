@@ -60,7 +60,7 @@
                     @foreach ($assign_tasks as $key => $task)
                     
                     <tr style="color:454545">
-                        <td>{{ $task->name}}</td>
+                        <td>{{ $task->first_name}} {{ $task->last_name}}</td>
                         <td>{{ $task->task_id }}</td> 
                         <td>{{ $task->worktitle }}</td>
                         <td>{{ $task->workdescription }}</td>
@@ -72,7 +72,7 @@
                         <td>{{ $task->created_at}}</td>
                         <td>{{ $task->updated_at}}</td>
                         @if ($task->uploads)
-                        <td><a class="btn btn-default btn-xs" href="/download/{{ $task->uploads}}" download="{{ $task->uploads}}">Download</a></td>
+                        <td><a class="btn btn-default btn-xs" href="{{ route('download',$task->uploads) }}">Download</a></td>
                         @else
                         <td>Nill</td>
                         @endif

@@ -48,7 +48,7 @@
 
                                 <table class="table table-striped" style="color:#2471A3">
                                 <tr>
-                                    <th>Full Name</th><td>{{ $users->first_name }}{{ $users->last_name }}</td>
+                                    <th>Full Name</th><td>{{ $users->first_name }} {{ $users->last_name }}</td>
                                 </tr>
                                 <tr>
                                     <th>Email</th><td>{{ $users->email  }}</td>
@@ -82,9 +82,11 @@
                         </div>   
                     </div>
                     <div class="row">
+                    @if($users->id == Auth::user()->id)
                         <div class="pull-right">
-                            <a class="btn btn-primary" href="{{ route('viewprofile.edit',$users->id) }}"> Edit profile</a>
+                            <a class="btn btn-primary" href="{{ route('UserProfile.edit',$users->id) }}"> Edit profile</a>
                         </div>
+                        @endif
                     </div>
                
                 </div>
@@ -102,6 +104,12 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-5">
+                        @foreach($role as $roles)
+                            <h3 style="color:red"> Role : {{$roles->name}} </h3> 
+                        @endforeach
+                        @foreach($institute_name as $i_name )
+                            <h3 style="color:green"> In {{ $i_name->name }} </h3>
+                        @endforeach
                             @foreach($created_at as $create)
                                 <h3>ASDP Start date : {{ $create->created_at}}</h3> 
                             @endforeach 

@@ -106,7 +106,13 @@
                                             </div>
                                         </a>
                                         <div class="panel-footer">
-                                            <span class="panel-eyecandy-title">Total Users : {{ $totalusers }}
+                                            <span class="panel-eyecandy-title">Total Users : 
+                                            @if(Auth::user()->id == 1)
+                                            {{ $allusers }}
+                                            @else
+                                            {{ $totalusers }}
+                                            @endif
+
                                             </span>
                                         </div>
                                     </div>
