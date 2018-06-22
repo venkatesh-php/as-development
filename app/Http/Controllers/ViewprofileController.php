@@ -52,7 +52,6 @@ class ViewprofileController extends Controller
         $this->validate($request, [
             'first_name' => '',
             'last_name' => '',
-            'email' => '',
             'phone_number' => '',
             'dob' => '',
             'qualification' => '',
@@ -103,8 +102,8 @@ class ViewprofileController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => '',
-            'email' => '',
+            'first_name' => '',
+            'last_name' => '',
             'phone_number' => '',
             'dob' => '',
             'qualification' => '',

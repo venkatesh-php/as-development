@@ -82,9 +82,11 @@
                         </div>   
                     </div>
                     <div class="row">
+                    @if($users->id == Auth::user()->id)
                         <div class="pull-right">
                             <a class="btn btn-primary" href="{{ route('UserProfile.edit',$users->id) }}"> Edit profile</a>
                         </div>
+                        @endif
                     </div>
                
                 </div>

@@ -96,7 +96,7 @@
                             
                             <td>
                                 <a class="btn btn-info" href="{{ route('UserProfile.show',$details->id) }}">Show</a>
-                                <a class="btn btn-primary" href="{{ route('UserProfile.edit',$details->id) }}">Edit</a>
+                                <!-- <a class="btn btn-primary" href="{{ route('UserProfile.edit',$details->id) }}">Edit</a> -->
 
                                 
                                 <!-- {!! Form::open(['method' => 'DELETE','route' => ['UserProfile.destroy', $details->id],'style'=>'display:inline']) !!}
