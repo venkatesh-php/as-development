@@ -102,6 +102,12 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-5">
+                        @foreach($role as $roles)
+                            <h3 style="color:red"> Role : {{$roles->name}} </h3> 
+                        @endforeach
+                        @foreach($institute_name as $i_name )
+                            <h3 style="color:green"> In {{ $i_name->name }} </h3>
+                        @endforeach
                             @foreach($created_at as $create)
                                 <h3>ASDP Start date : {{ $create->created_at}}</h3> 
                             @endforeach 

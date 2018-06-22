@@ -42,7 +42,7 @@ class TaskMigrateController extends Controller
             ->join('users as users_g','users_g.id','assign_tasks.guide_id')
             ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
 
-            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
+            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.first_name as first_name','users_u.last_name as last_name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
             ->orderBy('assign_tasks.task_id','desc')->get();  
 
             $review = $assign_tasks->count();
@@ -157,7 +157,7 @@ class TaskMigrateController extends Controller
                 ->join('users as users_g','users_g.id','assign_tasks.guide_id')
                 ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
 
-                ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
+                ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.first_name as first_name','users_u.last_name as last_name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
                 ->get();
 
                 $review = AssignTasks::orderBy('id','DESC')->where('assign_tasks.status','review')->where('assign_tasks.guide_id',Auth::user()->id)->count();
@@ -180,7 +180,7 @@ class TaskMigrateController extends Controller
                 ->join('users as users_g','users_g.id','assign_tasks.guide_id')
                 ->join('users as users_r','users_r.id','assign_tasks.reviewer_id')
  
-                ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
+                ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.first_name as first_name','users_u.last_name as last_name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
                 ->get();
 
                 $review = AssignTasks::orderBy('id','DESC')->where('assign_tasks.status','review')->where('assign_tasks.guide_id',Auth::user()->id)->count();

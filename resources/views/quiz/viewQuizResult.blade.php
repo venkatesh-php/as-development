@@ -74,7 +74,7 @@
                         <div class="panel-heading">
                                 <div class="row">
                                         <span class="qbox {{$statusColor}}-bg">{{ $i++ }} )</span>
-                                        <button class="pull-right button btn {{$statusColor}}-bg">Your Answer is {{$buttonText}}</button>
+                                        <button class="pull-right button btn {{$statusColor}}-bg">Your Answer {{$question->user_answer}} is {{$buttonText}}</button>
                                         <button class="pull-right btn btn-primary">Correct Answer is : {{$question->answer}}</button><br><br>
                                 </div>
                                 <div class="row">

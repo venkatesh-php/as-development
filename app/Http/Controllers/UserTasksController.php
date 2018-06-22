@@ -41,7 +41,7 @@ class UserTasksController extends Controller
                   ->orWhere('assign_tasks.status','NA')
                   ->orWhere('assign_tasks.status','initiated');
         })
-        ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name as uname','users_s.name as sname','users_g.name as gname','users_r.name as rname')
+        ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.first_name as first_name','users_u.last_name as last_name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
         ->get();
         
         $start = $assign_tasks->count();
@@ -124,7 +124,7 @@ class UserTasksController extends Controller
 
             ->where('assign_tasks.status',$cop_str)
             ->where('assign_tasks.user_id',Auth::user()->id)
-            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.name as uname','users_s.name as sname','users_g.name as gname','users_r.name as rname')
+            ->select('assign_tasks.*','admin_tasks.worktitle','admin_tasks.workdescription','admin_tasks.whatinitforme','admin_tasks.usercredits','admin_tasks.uploads','users_u.first_name as first_name','users_u.last_name as last_name','users_s.name as sname','users_g.name as gname','users_r.name as rname')
             ->get();
 
             $start      = AssignTasks::orderBy('id','DESC')->where(function ($query) {

@@ -104,17 +104,31 @@ class AssignTasksController extends Controller
     {
         $wid = $request->wid;
 
-        $users = DB::table('users')
-        ->where('users.institutes_id',Auth::User()->institutes_id)
-        ->where('users.branch_id',$bid)
-        ->select('users.*')
-        ->get();
- 
-        $teachers = DB::table('users')
-            ->where('users.institutes_id',Auth::User()->institutes_id)        
-            ->where('users.role_id','<=',5) 
+        if(Auth::user()->id == 1){
+            $users = DB::table('users')
+            ->where('users.branch_id',$bid)
             ->select('users.*')
             ->get();
+     
+        $teachers = DB::table('users')     
+                ->where('users.role_id','<=',5) 
+                ->select('users.*')
+                ->get();
+        }
+        else{
+            $users = DB::table('users')
+            ->where('users.institutes_id',Auth::User()->institutes_id)
+            ->where('users.branch_id',$bid)
+            ->select('users.*')
+            ->get();
+     
+            $teachers = DB::table('users')
+                ->where('users.institutes_id',Auth::User()->institutes_id)        
+                ->where('users.role_id','<=',5) 
+                ->select('users.*')
+                ->get();
+
+        }
 
         $branches = DB::table('branches')
             ->select('branches.*')->get();
@@ -133,17 +147,31 @@ class AssignTasksController extends Controller
      */
     public function edit($id)
     {
-        $users = DB::table('users')
+        if(Auth::user()->id == 1){
+            $users = DB::table('users')
+            ->where('users.role_id','>',5)
+            ->select('users.*')
+            ->get();
+     
+        $teachers = DB::table('users')     
+                ->where('users.role_id','<=',5) 
+                ->select('users.*')
+                ->get();
+        }
+        else{
+            $users = DB::table('users')
             ->where('users.institutes_id',Auth::User()->institutes_id)
             ->where('users.role_id','>',5)
             ->select('users.*')
             ->get();
      
-        $teachers = DB::table('users')
+            $teachers = DB::table('users')
                 ->where('users.institutes_id',Auth::User()->institutes_id)        
                 ->where('users.role_id','<=',5) 
                 ->select('users.*')
                 ->get();
+
+        }
 
         $branches = DB::table('branches')
             ->select('branches.*')->get();

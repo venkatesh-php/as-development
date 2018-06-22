@@ -56,7 +56,7 @@
                     @foreach ($assign_tasks as $key => $task)
                     
                     <tr style="color:454545">
-                        <td>{{ $task->uname}}</td>
+                        <td>{{ $task->first_name}} {{ $task->last_name}}</td>
                         <td>{{ $task->task_id }}</td> 
                         <td>{{ $task->worktitle }}</td>
                         <td>{{ $task->workdescription }}</td>

@@ -244,6 +244,8 @@ class DashboardController extends Controller
                    ->where('users.institutes_id',Auth::user()->institutes_id);
            $totalusers = $users->count();
 
+           $allusers = User::count();
+
            // Total comments of Teacher assigned tasks
            $totalcomments = DB::table('user_tasks')
            ->join('assign_tasks','user_tasks.assigntask_id','assign_tasks.id')
@@ -272,7 +274,7 @@ class DashboardController extends Controller
         }
         
         return view('dashboard', ['assign_chart' => $assign_chart,'completed_chart' => $completed_chart,'progress_chart' => $progress_chart])
-        ->with(compact('total_user_tasks','totaltasks','totalassigntasks','totalusers','totalcomments','totalcredits','days','completedtasks','droptasks','institute_name','role'));
+        ->with(compact('total_user_tasks','totaltasks','totalassigntasks','totalusers','allusers','totalcomments','totalcredits','days','completedtasks','droptasks','institute_name','role'));
 
     }
 
