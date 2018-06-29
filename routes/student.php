@@ -47,4 +47,23 @@
     
     Route::get('course/{coursetask_id}/assign','student\studentController@assignTask')
         ->name('assigntask');
+
+
+
+
+
+    Route::get('/quizzes','student\studentController@quizzes')
+        ->name('quizzes');
+
+    Route::get('/quizAttempt/{id}','student\studentController@quizAttempt')
+        ->name('quizAttempt');
+
+    Route::get('/quizAttempt/{id}/{question_id}','student\studentController@search_question')
+        ->name('search_question');
+
+    Route::post('/quizAttempt/{id}/{question_id}','student\studentController@save_answer')
+        ->name('save_answer');
+
+    Route::get('quizzes/{id}','student\studentController@viewResult')
+        ->name('viewResult');
 // });

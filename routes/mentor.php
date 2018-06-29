@@ -100,6 +100,24 @@ Route::group(['prefix' => 'mentor'], function () {
         /*submit quiz */
         Route::post('chapter/{id}/quiz','mentor\mentorController@createQuiz')
             ->name('createQuiz');
+
+        Route::get('quiz/edit/{id}','mentor\mentorController@quizEdit')
+            ->name('quizEdit');
+
+        Route::get('quiz/edit/{id}/add','mentor\mentorController@addquestion')
+            ->name('addquestion');
+
+        Route::post('quiz/edit/{id}/add','mentor\mentorController@savequestion')
+            ->name('savequestion');
+
+        Route::get('quiz/{id}/que2/{qid}','mentor\mentorController@q2Edit')
+        ->name('q2Edit');
+
+        Route::post('quiz/{id}/que2/{qid}','mentor\mentorController@q2Update')
+        ->name('q2Update');
+
+        Route::get('quiz/{id}/ques/{qid}','mentor\mentorController@questionDelete')
+        ->name('questionDelete');
     });
 
 });
