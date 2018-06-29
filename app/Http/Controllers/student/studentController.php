@@ -14,6 +14,9 @@ use App\coursetask;
 use App\AssignTasks;
 use App\quizstatuses;
 use App\chapterstatuses;
+use App\online_quiz_statuses;
+use App\online_quiz_questions;
+use App\online_quiz_results;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
@@ -613,6 +616,228 @@ public function postFeedback(Request $request,$id){
 
         
         return view('quiz.viewQuizResult')->with(['questions'=>$questions,'results'=>collect($results)]);
+    }
+
+/*############################################################################################################################################### */
+
+    public function quizzes()
+    {
+        $quizzes =  DB::table('online_quizzes')
+        ->select('online_quizzes.*')->get();
+        // return $quizzes;
+        return view('online_quiz.online',compact('quizzes'));
+    }
+
+/*############################################################################################################################################### */
+
+    public function quizAttempt($id)
+    {
+        $quiz_id = $id;
+        // return $quiz_id;
+        $all_questions = DB::table('online_quiz_questions')
+        ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
+        ->where('online_quiz_questions.online_quiz_id',$quiz_id)
+        ->select('online_quiz_questions.id')->get();
+       
+        foreach ($all_questions as $question){
+            // $id = $question->id;
+            $first_value = reset($question);break;
+        }
+// return $first_value;
+        $single_questions = DB::table('online_quiz_questions')
+        ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
+        ->where('online_quiz_questions.id',$first_value)
+        ->select('online_quiz_questions.*')->get();
+
+        $quiz_status = DB::table('online_quiz_statuses')
+        ->join('online_quiz_questions','online_quiz_statuses.online_quiz_question_id','=','online_quiz_questions.id')
+        ->where('online_quiz_questions.online_quiz_id',$quiz_id)
+        ->where('online_quiz_statuses.user_id', Auth::user()->id)
+        ->select('online_quiz_statuses.*')->get();
+
+
+        return view('online_quiz.quizAttempt')->with('quiz_id',$quiz_id)->with('single_questions',$single_questions)->with('all_questions',$all_questions)
+        ->with('quiz_status',$quiz_status);
+    }
+
+/*############################################################################################################################################### */
+
+    public function search_question($id,$question_id)
+    {
+        $quiz_id = $id;
+
+        $single_questions = DB::table('online_quiz_questions')
+        ->where('online_quiz_questions.id',$question_id)
+        ->select('online_quiz_questions.*')->get();
+
+        $all_questions = DB::table('online_quiz_questions')
+        ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
+        ->where('online_quiz_questions.online_quiz_id',$quiz_id)
+        ->select('online_quiz_questions.*')->get();
+
+        $question_status = DB::table('online_quiz_statuses')
+        ->where('online_quiz_statuses.online_quiz_question_id',$question_id)
+        ->where('online_quiz_statuses.user_id', Auth::user()->id)->get();
+
+        return view('online_quiz.quizAttempt')->with('quiz_id',$quiz_id)->with('single_questions',$single_questions)->with('all_questions',$all_questions)
+        ->with('question_status',$question_status);
+    }
+
+/*############################################################################################################################################### */
+
+    public function save_answer($id,$question_id,Request $request)
+    {
+        $quiz_id = $id;
+        // return $quiz_id;
+
+        $all_questions = DB::table('online_quiz_questions')
+        ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
+        ->where('online_quiz_questions.online_quiz_id',$quiz_id)
+        ->select('online_quiz_questions.id')->get();
+
+        $count = $all_questions->count();
+
+        $questions = DB::table('online_quiz_questions')
+        ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
+        ->where('online_quiz_questions.id',$question_id)
+        ->select('online_quiz_questions.*')->get();
+
+        $quiz_data = $request->except('_token');
+        // return $quiz_data;
+
+        $question_status = DB::table('online_quiz_statuses')
+        ->where('online_quiz_statuses.online_quiz_question_id',$question_id)
+        ->where('online_quiz_statuses.user_id', Auth::user()->id)->count();
+
+        // return $question_status;
+
+        if($question_status == 0)
+        {
+            foreach ($questions as $question)
+            {
+                foreach ($quiz_data as $key => $value)
+                {
+                    if($question_id == hd($key))
+                    {
+    
+                        $save = new online_quiz_statuses();
+                        $save->online_quiz_question_id = $question_id;
+                        $save->user_id = Auth::user()->id;
+                        $save->user_answer = $value;
+                        
+                        if($question->answer == $value)
+                        {
+                            $save->result = 'true';
+                        }
+                        else
+                        {
+                            $save->result = 'false';
+                        }
+                        
+                        // return $save;
+                        $save->save();
+                    }
+                }
+            }
+        }
+
+        foreach ($all_questions as $question){
+            // $id = $question->id;
+            $first_value = reset($question);break;
+        }
+
+        foreach ($all_questions as $question){
+            // $id = $question->id;
+            $last_value = $question->id;
+        }
+        // return $question_id;
+            
+        
+        if($last_value == $question_id)
+        {
+            return redirect()->route('search_question',[$quiz_id,$first_value])->with('success','Answer saved successfully');
+        }
+        else
+        {
+            return redirect()->route('search_question',[$quiz_id,++$question_id])->with('success','Answer saved successfully');
+        }
+          
+        
+            
+        
+    }
+
+/*######################################################################################################################################################*/
+
+    public function viewResult($id,Request $request){
+        $score = null;
+        $total = null;
+        // return
+        $quiz_id = $request->id;
+        $questions = online_quiz_questions::where('online_quiz_id',$quiz_id)->get();
+        // return $questions;
+        $total_questions = $questions->count();
+        /*
+            Evaluate each question attended
+            Check whether the answer is correct
+        */
+        foreach ($questions as $question){
+            $quiz_data = online_quiz_statuses::where('online_quiz_question_id',$question->id)->where('user_id',Auth::user()->id)->get();
+            // return $quiz_data;
+            foreach ($quiz_data as $result){
+                if($question->id == $result->online_quiz_question_id){
+                    $total = $total+1;
+                    if($question->answer == $result->user_answer){
+                        $score+=1;
+                        $question->answerd = true;
+                    }
+                    else{
+                        $question->answerd = false;
+                    }
+                    $question->user_answer = $result->user_answer;
+                }
+            }
+        }
+        /* inserting results into quizstatuses table */
+
+        /*checking wether the score is above 80%*/
+        if(($score/$total)*100 >= constants::min_score_for_pass ){
+            $status ='passed';
+        }
+        else{
+            $status = 'failed';
+        }
+
+
+        if($score == 0)
+        {
+            $score = 0;
+        }
+        /*quiz results*/
+        $results = [
+            'total' => $total, 
+            'score' =>$score,
+            'status'=>$status
+        ];
+        if($score == 0)
+        {
+            $score = 0;
+        }
+        $enquiry = DB::table('online_quiz_results')->where('user_id',Auth::user()->id)->where('quiz_id',$quiz_id)->count();
+        // return $enquiry;
+        //store all quiz results in online_quiz_results table.
+        if($enquiry == 0)
+        {
+            $quiz_results = new online_quiz_results();
+            $quiz_results->user_id = Auth::user()->id;
+            $quiz_results->quiz_id = $quiz_id;
+            $quiz_results->score = $score;
+            $quiz_results->total = $total_questions;
+            $quiz_results->save(); 
+        }
+
+        return view('online_quiz.viewResult')->with(['questions'=>$questions,'results'=>collect($results)]);
+    
     }
 
 

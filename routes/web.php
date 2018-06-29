@@ -140,6 +140,8 @@
         Route::resource('Charts','ChartController');
         Route::resource('Subject','SubjectController');
         Route::resource('User','UserController');
+        Route::resource('online_quiz','OnlineQuizController');
+        Route::resource('online_quiz_questions','OnlineQuizQuestionsController');
 
         Route::resource('institute','InstitutesController');
 

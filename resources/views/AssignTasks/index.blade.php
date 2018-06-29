@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
             <div class="pull-left">
-                <span style="color:#2471A3"><h2>Assigned Tasks</h2><h5>Here You can see tasks,only you has a guide</h5></span>
+                <span style="color:#2471A3"><h2>Assigned Tasks</h2><h5>Here You can see tasks,only you as a guide</h5></span>
             </div>
              <div class="pull-right">
                 <a class="btn btn-success" href="{{ url('/dashboard') }}">Back</a>

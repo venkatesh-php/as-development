@@ -12,6 +12,7 @@ use App\coursetask;
 use Auth;
 use DB;
 use App\AdminTasks;
+use App\online_quiz_questions;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Arr;
@@ -526,4 +527,78 @@ class mentorController extends Controller
         return redirect()->route('AdminTasks.index')
                         ->with('success','AdminTasks Updated successfully');
     }
+
+
+
+    public function quizEdit($id)
+    {
+        $quiz_id = $id;
+        // return $quiz_id;
+        $questions = DB::table('online_quiz_questions')
+        ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
+        ->where('online_quiz_questions.online_quiz_id',$quiz_id)
+        ->select('online_quiz_questions.*')->get();
+
+        return view('online_quiz_questions.quizEdit')->with('quiz_id',$quiz_id)->with('questions',$questions);
+    }
+
+    public function addquestion($id)
+    {
+        $quiz_id = $id;
+        return view('online_quiz_questions.addquestion')->with('quiz_id',$quiz_id);
+    }
+
+
+    public function savequestion($id,Request $request )
+    {
+        $quiz_id = $id;
+        // return $quiz_id;
+
+    $questions = DB::table('online_quiz_questions')
+        ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
+        ->where('online_quiz_questions.online_quiz_id',$quiz_id)
+        ->select('online_quiz_questions.*')->get();
+    
+        $question = new online_quiz_questions();
+        $question->question = $request->question;
+        $question->optionA = $request->optionA;
+        $question->optionB = $request->optionB;
+        $question->optionC = $request->optionC;
+        $question->optionD = $request->optionD;
+        $question->answer = $request->answer;
+        $question->online_quiz_id = $request->online_quiz_id;
+        // return $question;
+        $question->save();
+        return redirect()->route('quizEdit',['id'=>$quiz_id]);
+    }
+
+    public function q2Edit($quiz_id,$question_id)
+    {
+        $values = online_quiz_questions::where('id',$question_id)->select('online_quiz_questions.*')->get();
+        // return $values;
+        return view('online_quiz_questions/QueEdit',['quiz_id'=>$quiz_id,'question_id'=>$question_id])->with('values',$values);
+    }
+
+    /*update a question for the quiz*/
+    public function q2Update($quiz_id,$question_id,Request $request){
+   
+        $question = online_quiz_questions::find($question_id);
+        $question->question = $request->question;
+        $question->optionA = $request->optionA;
+        $question->optionB = $request->optionB;
+        $question->optionC = $request->optionC;
+        $question->optionD = $request->optionD;
+        $question->answer = $request->answer;
+        $question->online_quiz_id = $request->online_quiz_id;
+        $question->update();
+        return redirect()->route('quizEdit',['id'=>$quiz_id]);
+    }
+
+
+    public function questionDelete($quiz_id,$question_id){
+        online_quiz_questions::where('id',$question_id)
+        ->delete();
+        return redirect()->back();
+    }
+
 }

@@ -99,6 +99,13 @@
                     <span class="title"><b>My courses</b></span>
                 </a>
             </li>  --}}
+
+            <li>
+                <a href="{{ route('online_quiz.index') }}">
+                    <i class="fa fa-list-alt"></i>
+                    <span class="title"><b>Quiz Manager</b></span>
+                </a>
+            </li> 
             <!-- <li><a href="#">Students</a></li>   -->
             @elseif(isAdmin())
             <li>
@@ -139,7 +146,13 @@
             </li>  --}}
             @endif
 
-            
+            <li>
+                <a href="{{ route('quizzes') }}">
+                    <i class="fa fa-list-alt"></i>
+                    <span class="title"><b>Online Quizzes </b></span>
+                </a>
+            </li>
+
             <li class="{{ $request->segment(1) == 'forumFeed' ? 'active' : '' }}">
                 <a href="{{ route('forumFeed') }}">
                     
