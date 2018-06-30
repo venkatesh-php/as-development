@@ -1,6 +1,29 @@
 @extends('layouts.app')
 @section('content')
 
+<style>
+        #quiz_maker{
+                background: white;
+        }
+        .qbox{
+                padding:2px;
+                /* margin:5px; */
+                color:black;
+                font-weight:bold;
+                box-shadow: 1px 1px 1px rgba(90, 90, 94, 0.3);
+        }
+       
+        .correct-bg{
+                background: #5bc20b;
+                color:white;
+        }
+        .current-bg{
+                background: #347AB6;
+                color:white;
+        }
+
+</style>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
@@ -11,6 +34,22 @@
     </div>
 </div>
 
+
+<!-- <div class="container">  -->
+    <!-- <div class="panel panel-primary"> -->
+                <div>
+                    <h4><u><b>Instructions to Attempt Quiz</b></u></h4>
+                </div>
+                <!-- <div class="panel-body"> -->
+                <h4>1.One question display at a time.Each question has one minute time.Once Answer saved can't change.</h4>
+                <h4>2.<span class="qbox correct-bg">1</span>Answerd question, <span class="qbox current-bg">1</span>Current Questions,<span class="qbox">1</span>Questions not Attempted.</h4>
+                <h4>3.If all questions attempted Final submit will display.</h4>
+            
+
+                <!-- </div> -->
+       
+    <!-- </div> -->
+<!-- </div> -->
 
 <div class="container-fluid">
     <div class="row">
