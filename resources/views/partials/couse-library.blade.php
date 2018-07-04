@@ -100,7 +100,7 @@ function makeColor(){
                                     <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
                                     <p>{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
-                                    <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p>
+                                    <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p><br>
                                     <a href="" class="btn button pull-right clear btn-enroll center-block btn-success" disabled>Enrolled</a>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@ function makeColor(){
                                     <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
                                     <p>{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
-                                    <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p>
+                                    <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p><br>
                                     <a href="{{route('enroll',['id'=>he($course->id)])}}" class="btn button pull-right clear btn-enroll center-block btn-primary">Enroll</a>
                                 </div>
                             </div>

@@ -40,98 +40,103 @@ class studentController extends Controller
         
         $course_id = hd($id);
         // return $course_id;
-        if (Auth::user()->enrollment()->where('status', 1)->count() < 3)
+        if(Auth::user()->status == 1)
         {
-            $enrollment = Auth::user()->enrollment()->where('course_id', $course_id)->get()->count();
-
-            if ($enrollment ==0)  
+            if (Auth::user()->enrollment()->where('status', 1)->count() < 3)
             {
-                if(!isset($request->guide_id)){
-                    $course=course::find($course_id);
-                    // return
-                    $teachers = User::
-                    where('institutes_id',User::find($course->user_id)->institutes_id)        
-                    ->where('role_id','<=',5) 
-                    ->select('id','first_name','last_name','email')
-                    ->get();
-                    
-                    return view('course.enroll')->with('course', $course)->with('teachers',  $teachers );
-                }
-                else{
-                    // return
-                    $coinsleft=DB::table('coinsinouts')->where('user_id',Auth::user()->id)->sum('coins');
-                    $coinsrequired=course::find($course_id)->cost;
-                    if($coinsrequired<$coinsleft){
+                $enrollment = Auth::user()->enrollment()->where('course_id', $course_id)->get()->count();
 
-                $enrollment = new  enrollment();
-                $enrollment->student_id = Auth::user()->id;
-                $enrollment->course_id = $course_id;
-                $enrollment->status = 1;
-                $enrollment->guide_id = $request->guide_id;
-                $enrollment->reviewer_id = $request->reviewer_id;
-                // return $enrollment;
-                $enrollment->save();
-                // return enrollment::where('student_id', Auth::user()->id)
-                // ->where('course_id' , $course_id)->first()->id;
-                // DB::table('coinsinouts')->insert([
-                // 'user_id'=> Auth::user()->id,
-                // 'nature_id'=>2,
-                // 'enrollment_id'=>enrollment::where('student_id', Auth::user()->id)
-                // ->where('course_id' , $course_id)->first()->id,
-                // 'coins'=>-$coinsrequired,
-                // "created_at" =>  \Carbon\Carbon::now(), # \Datetime()
-                // "updated_at" => \Carbon\Carbon::now(),  # \Datetime()
-                // ]); 
-                $coinsinout = new  coinsinout();
-                
-                $coinsinout->nature_id = 2;
-                $coinsinout->user_id = Auth::user()->id;
-                $coinsinout->enrollment_id = enrollment::where('student_id', Auth::user()->id)
-                ->where('course_id' , $course_id)->first()->id;
-                $coinsinout->coins = -$coinsrequired;
-                // return $coinsinout;
-                $coinsinout->save();
-                // $coins =100;
+                if ($enrollment ==0)  
+                {
+                    if(!isset($request->guide_id))
+                        {
+                            $course=course::find($course_id);
+                            // return
+                            $teachers = User::
+                            where('institutes_id',User::find($course->user_id)->institutes_id)        
+                            ->where('role_id','<=',5) 
+                            ->select('id','first_name','last_name','email')
+                            ->get();
+                            
+                            return view('course.enroll')->with('course', $course)->with('teachers',  $teachers );
+                        }
+                        else
+                        {
+                            // return
+                            $coinsleft=DB::table('coinsinouts')->where('user_id',Auth::user()->id)->sum('coins');
+                            $coinsrequired=course::find($course_id)->cost;
+                            if($coinsrequired<$coinsleft)
+                            {
 
-                return redirect()->route('public.home')->with([
-                    'title' => 'Enrollment success',
-                    'message' => 'You have been enrolled to the course',
-                    'type' => 'success',
-                ]);
+                                $enrollment = new  enrollment();
+                                $enrollment->student_id = Auth::user()->id;
+                                $enrollment->course_id = $course_id;
+                                $enrollment->status = 1;
+                                $enrollment->guide_id = $request->guide_id;
+                                $enrollment->reviewer_id = $request->reviewer_id;
+                                // return $enrollment;
+                                $enrollment->save();
+                                // return enrollment::where('student_id', Auth::user()->id)
+                                // ->where('course_id' , $course_id)->first()->id;
+                                // DB::table('coinsinouts')->insert([
+                                // 'user_id'=> Auth::user()->id,
+                                // 'nature_id'=>2,
+                                // 'enrollment_id'=>enrollment::where('student_id', Auth::user()->id)
+                                // ->where('course_id' , $course_id)->first()->id,
+                                // 'coins'=>-$coinsrequired,
+                                // "created_at" =>  \Carbon\Carbon::now(), # \Datetime()
+                                // "updated_at" => \Carbon\Carbon::now(),  # \Datetime()
+                                // ]); 
+                                $coinsinout = new  coinsinout();
+                                
+                                $coinsinout->nature_id = 2;
+                                $coinsinout->user_id = Auth::user()->id;
+                                $coinsinout->enrollment_id = enrollment::where('student_id', Auth::user()->id)
+                                ->where('course_id' , $course_id)->first()->id;
+                                $coinsinout->coins = -$coinsrequired;
+                                // return $coinsinout;
+                                $coinsinout->save();
+                                // $coins =100;
 
-                        
-
-                        
-                    }else{
-                        return redirect()->route('public.home')->with([
-                            'title' => 'Enrollment failed',
-                            'message' => 'You do not have sufficient coins to enroll please earn coins first',
-                            'type' => 'warning',
-                        ]);
+                                return redirect()->route('public.home')->with([
+                                    'title' => 'Enrollment success',
+                                    'message' => 'You have been enrolled to the course',
+                                    'type' => 'success',
+                                ]);   
+                            }
+                            else
+                            {
+                                return redirect()->route('public.home')->with([
+                                    'title' => 'Enrollment failed',
+                                    'message' => 'You do not have sufficient coins to enroll please earn coins first',
+                                    'type' => 'warning',
+                                ]);
+                            }
+                        }    
                     }
+                else
+                {
+                    return redirect()->back()->with([
+                        'title' => 'Enrollment failed',
+                        'message' => 'You have already enrolled for this course',
+                        'type' => 'warning',
+                    ]);
                 }
-
-            
-            
-
-                
             } 
-            else
+            else 
             {
                 return redirect()->back()->with([
                     'title' => 'Enrollment failed',
-                    'message' => 'You have already enrolled for this course',
-                    'type' => 'warning',
+                    'message' => 'You have already enrolled for three courses,Please complete one to open another slot!!!',
+                    'type' => 'error',
                 ]);
             }
-        } 
-        else 
+        }
+        else
         {
-            return redirect()->back()->with([
-                'title' => 'Enrollment failed',
-                'message' => 'You have already enrolled for three courses,Please complete one to open another slot!!!',
-                'type' => 'error',
-            ]);
+            return redirect()->back()->with('alert','Your account is not activated or Blocked.You are not permited to enroll course ,Please contact Admin.
+             e-mail : info@ameyem.com or Arun Babu : 8800197778, Venkat : 9848041175, Office : 0866-2470778');
+
         }
     }
 

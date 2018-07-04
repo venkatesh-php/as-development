@@ -38,6 +38,11 @@
     use App\AssignTasks;
     $review = AssignTasks::orderBy('id','DESC')->where('assign_tasks.status','review')->where('assign_tasks.guide_id',Auth::user()->id)->count();
 ?>
+@if ($message = Session::get('alert'))
+    <div class="alert alert-danger">
+        <p>{{ $message }}</p>
+    </div>
+@endif
 <div class="container">
 
     <div class="row">
