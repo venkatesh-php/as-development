@@ -40,8 +40,8 @@ class studentController extends Controller
         
         $course_id = hd($id);
         // return $course_id;
-        if(Auth::user()->status == 1)
-        {
+        // if(Auth::user()->status == 1)
+        // {
             if (Auth::user()->enrollment()->where('status', 1)->count() < 3)
             {
                 $enrollment = Auth::user()->enrollment()->where('course_id', $course_id)->get()->count();
@@ -131,13 +131,13 @@ class studentController extends Controller
                     'type' => 'error',
                 ]);
             }
-        }
-        else
-        {
-            return redirect()->back()->with('alert','Your account is not activated or Blocked.You are not permited to enroll course ,Please contact Admin.
-             e-mail : info@ameyem.com or Arun Babu : 8800197778, Venkat : 9848041175, Office : 0866-2470778');
+        // }
+        // else
+        // {
+        //     return redirect()->back()->with('alert','Your account is not activated or Blocked.You are not permited to enroll course ,Please contact Admin.
+        //      e-mail : info@ameyem.com or Arun Babu : 8800197778, Venkat : 9848041175, Office : 0866-2470778');
 
-        }
+        // }
     }
 
 /*##############################################################################################*/ 
