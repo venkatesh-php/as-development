@@ -40,99 +40,104 @@ class studentController extends Controller
         
         $course_id = hd($id);
         // return $course_id;
-        if (Auth::user()->enrollment()->where('status', 1)->count() < 3)
-        {
-            $enrollment = Auth::user()->enrollment()->where('course_id', $course_id)->get()->count();
-
-            if ($enrollment ==0)  
+        // if(Auth::user()->status == 1)
+        // {
+            if (Auth::user()->enrollment()->where('status', 1)->count() < 3)
             {
-                if(!isset($request->guide_id)){
-                    $course=course::find($course_id);
-                    // return
-                    $teachers = User::
-                    where('institutes_id',User::find($course->user_id)->institutes_id)        
-                    ->where('role_id','<=',5) 
-                    ->select('id','first_name','last_name','email')
-                    ->get();
-                    
-                    return view('course.enroll')->with('course', $course)->with('teachers',  $teachers );
-                }
-                else{
-                    // return
-                    $coinsleft=DB::table('coinsinouts')->where('user_id',Auth::user()->id)->sum('coins');
-                    $coinsrequired=course::find($course_id)->cost;
-                    if($coinsrequired<$coinsleft){
+                $enrollment = Auth::user()->enrollment()->where('course_id', $course_id)->get()->count();
 
-                $enrollment = new  enrollment();
-                $enrollment->student_id = Auth::user()->id;
-                $enrollment->course_id = $course_id;
-                $enrollment->status = 1;
-                $enrollment->guide_id = $request->guide_id;
-                $enrollment->reviewer_id = $request->reviewer_id;
-                // return $enrollment;
-                $enrollment->save();
-                // return enrollment::where('student_id', Auth::user()->id)
-                // ->where('course_id' , $course_id)->first()->id;
-                // DB::table('coinsinouts')->insert([
-                // 'user_id'=> Auth::user()->id,
-                // 'nature_id'=>2,
-                // 'enrollment_id'=>enrollment::where('student_id', Auth::user()->id)
-                // ->where('course_id' , $course_id)->first()->id,
-                // 'coins'=>-$coinsrequired,
-                // "created_at" =>  \Carbon\Carbon::now(), # \Datetime()
-                // "updated_at" => \Carbon\Carbon::now(),  # \Datetime()
-                // ]); 
-                $coinsinout = new  coinsinout();
-                
-                $coinsinout->nature_id = 2;
-                $coinsinout->user_id = Auth::user()->id;
-                $coinsinout->enrollment_id = enrollment::where('student_id', Auth::user()->id)
-                ->where('course_id' , $course_id)->first()->id;
-                $coinsinout->coins = -$coinsrequired;
-                // return $coinsinout;
-                $coinsinout->save();
-                // $coins =100;
+                if ($enrollment ==0)  
+                {
+                    if(!isset($request->guide_id))
+                        {
+                            $course=course::find($course_id);
+                            // return
+                            $teachers = User::
+                            where('institutes_id',User::find($course->user_id)->institutes_id)        
+                            ->where('role_id','<=',5) 
+                            ->select('id','first_name','last_name','email')
+                            ->get();
+                            
+                            return view('course.enroll')->with('course', $course)->with('teachers',  $teachers );
+                        }
+                        else
+                        {
+                            // return
+                            $coinsleft=DB::table('coinsinouts')->where('user_id',Auth::user()->id)->sum('coins');
+                            $coinsrequired=course::find($course_id)->cost;
+                            if($coinsrequired<$coinsleft)
+                            {
 
-                return redirect()->route('public.home')->with([
-                    'title' => 'Enrollment success',
-                    'message' => 'You have been enrolled to the course',
-                    'type' => 'success',
-                ]);
+                                $enrollment = new  enrollment();
+                                $enrollment->student_id = Auth::user()->id;
+                                $enrollment->course_id = $course_id;
+                                $enrollment->status = 1;
+                                $enrollment->guide_id = $request->guide_id;
+                                $enrollment->reviewer_id = $request->reviewer_id;
+                                // return $enrollment;
+                                $enrollment->save();
+                                // return enrollment::where('student_id', Auth::user()->id)
+                                // ->where('course_id' , $course_id)->first()->id;
+                                // DB::table('coinsinouts')->insert([
+                                // 'user_id'=> Auth::user()->id,
+                                // 'nature_id'=>2,
+                                // 'enrollment_id'=>enrollment::where('student_id', Auth::user()->id)
+                                // ->where('course_id' , $course_id)->first()->id,
+                                // 'coins'=>-$coinsrequired,
+                                // "created_at" =>  \Carbon\Carbon::now(), # \Datetime()
+                                // "updated_at" => \Carbon\Carbon::now(),  # \Datetime()
+                                // ]); 
+                                $coinsinout = new  coinsinout();
+                                
+                                $coinsinout->nature_id = 2;
+                                $coinsinout->user_id = Auth::user()->id;
+                                $coinsinout->enrollment_id = enrollment::where('student_id', Auth::user()->id)
+                                ->where('course_id' , $course_id)->first()->id;
+                                $coinsinout->coins = -$coinsrequired;
+                                // return $coinsinout;
+                                $coinsinout->save();
+                                // $coins =100;
 
-                        
-
-                        
-                    }else{
-                        return redirect()->route('public.home')->with([
-                            'title' => 'Enrollment failed',
-                            'message' => 'You do not have sufficient coins to enroll please earn coins first',
-                            'type' => 'warning',
-                        ]);
+                                return redirect()->route('public.home')->with([
+                                    'title' => 'Enrollment success',
+                                    'message' => 'You have been enrolled to the course',
+                                    'type' => 'success',
+                                ]);   
+                            }
+                            else
+                            {
+                                return redirect()->route('public.home')->with([
+                                    'title' => 'Enrollment failed',
+                                    'message' => 'You do not have sufficient coins to enroll please earn coins first',
+                                    'type' => 'warning',
+                                ]);
+                            }
+                        }    
                     }
+                else
+                {
+                    return redirect()->back()->with([
+                        'title' => 'Enrollment failed',
+                        'message' => 'You have already enrolled for this course',
+                        'type' => 'warning',
+                    ]);
                 }
-
-            
-            
-
-                
             } 
-            else
+            else 
             {
                 return redirect()->back()->with([
                     'title' => 'Enrollment failed',
-                    'message' => 'You have already enrolled for this course',
-                    'type' => 'warning',
+                    'message' => 'You have already enrolled for three courses,Please complete one to open another slot!!!',
+                    'type' => 'error',
                 ]);
             }
-        } 
-        else 
-        {
-            return redirect()->back()->with([
-                'title' => 'Enrollment failed',
-                'message' => 'You have already enrolled for three courses,Please complete one to open another slot!!!',
-                'type' => 'error',
-            ]);
-        }
+        // }
+        // else
+        // {
+        //     return redirect()->back()->with('alert','Your account is not activated or Blocked.You are not permited to enroll course ,Please contact Admin.
+        //      e-mail : info@ameyem.com or Arun Babu : 8800197778, Venkat : 9848041175, Office : 0866-2470778');
+
+        // }
     }
 
 /*##############################################################################################*/ 
@@ -639,25 +644,16 @@ public function postFeedback(Request $request,$id){
         ->where('online_quiz_questions.online_quiz_id',$quiz_id)
         ->select('online_quiz_questions.id')->get();
        
-        foreach ($all_questions as $question){
-            // $id = $question->id;
-            $first_value = reset($question);break;
-        }
-// return $first_value;
+        $first_value = $all_questions[0]->id;
+
         $single_questions = DB::table('online_quiz_questions')
         ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
         ->where('online_quiz_questions.id',$first_value)
         ->select('online_quiz_questions.*')->get();
+        $question_id=0;
+        return view('online_quiz.quizAttempt')->with('quiz_id',$quiz_id)->with('question',$single_questions[0])->with('all_questions',$all_questions)
+        ->with('question_id',$question_id);
 
-        $quiz_status = DB::table('online_quiz_statuses')
-        ->join('online_quiz_questions','online_quiz_statuses.online_quiz_question_id','=','online_quiz_questions.id')
-        ->where('online_quiz_questions.online_quiz_id',$quiz_id)
-        ->where('online_quiz_statuses.user_id', Auth::user()->id)
-        ->select('online_quiz_statuses.*')->get();
-
-
-        return view('online_quiz.quizAttempt')->with('quiz_id',$quiz_id)->with('single_questions',$single_questions)->with('all_questions',$all_questions)
-        ->with('quiz_status',$quiz_status);
     }
 
 /*############################################################################################################################################### */
@@ -666,21 +662,20 @@ public function postFeedback(Request $request,$id){
     {
         $quiz_id = $id;
 
-        $single_questions = DB::table('online_quiz_questions')
-        ->where('online_quiz_questions.id',$question_id)
-        ->select('online_quiz_questions.*')->get();
+        
 
         $all_questions = DB::table('online_quiz_questions')
         ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
         ->where('online_quiz_questions.online_quiz_id',$quiz_id)
         ->select('online_quiz_questions.*')->get();
+      $single_questions = DB::table('online_quiz_questions')
+        ->where('online_quiz_questions.id',$all_questions[$question_id]->id)
+        ->select('online_quiz_questions.*')->get();
 
-        $question_status = DB::table('online_quiz_statuses')
-        ->where('online_quiz_statuses.online_quiz_question_id',$question_id)
-        ->where('online_quiz_statuses.user_id', Auth::user()->id)->get();
 
-        return view('online_quiz.quizAttempt')->with('quiz_id',$quiz_id)->with('single_questions',$single_questions)->with('all_questions',$all_questions)
-        ->with('question_status',$question_status);
+        return view('online_quiz.quizAttempt')->with('quiz_id',$quiz_id)->with('question',$single_questions[0])->with('all_questions',$all_questions)
+        ->with('question_id',$question_id);
+   
     }
 
 /*############################################################################################################################################### */
@@ -694,21 +689,21 @@ public function postFeedback(Request $request,$id){
         ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
         ->where('online_quiz_questions.online_quiz_id',$quiz_id)
         ->select('online_quiz_questions.id')->get();
+        $qid=$all_questions[$question_id]->id;
 
-        $count = $all_questions->count();
 
         $questions = DB::table('online_quiz_questions')
         ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
-        ->where('online_quiz_questions.id',$question_id)
+        ->where('online_quiz_questions.id',$qid)
         ->select('online_quiz_questions.*')->get();
 
         $quiz_data = $request->except('_token');
         // return $quiz_data;
 
         $question_status = DB::table('online_quiz_statuses')
-        ->where('online_quiz_statuses.online_quiz_question_id',$question_id)
+        ->where('online_quiz_statuses.online_quiz_question_id',$qid)
         ->where('online_quiz_statuses.user_id', Auth::user()->id)->count();
-
+        
         // return $question_status;
 
         if($question_status == 0)
@@ -717,11 +712,11 @@ public function postFeedback(Request $request,$id){
             {
                 foreach ($quiz_data as $key => $value)
                 {
-                    if($question_id == hd($key))
+                    if($qid == hd($key))
                     {
     
                         $save = new online_quiz_statuses();
-                        $save->online_quiz_question_id = $question_id;
+                        $save->online_quiz_question_id = $qid;
                         $save->user_id = Auth::user()->id;
                         $save->user_answer = $value;
                         
@@ -741,21 +736,11 @@ public function postFeedback(Request $request,$id){
             }
         }
 
-        foreach ($all_questions as $question){
-            // $id = $question->id;
-            $first_value = reset($question);break;
-        }
-
-        foreach ($all_questions as $question){
-            // $id = $question->id;
-            $last_value = $question->id;
-        }
-        // return $question_id;
             
         
-        if($last_value == $question_id)
+        if($all_questions->count()-1 == $question_id)
         {
-            return redirect()->route('search_question',[$quiz_id,$first_value])->with('success','Answer saved successfully');
+            return redirect()->route('search_question',[$quiz_id,0])->with('success','Answer saved successfully');
         }
         else
         {

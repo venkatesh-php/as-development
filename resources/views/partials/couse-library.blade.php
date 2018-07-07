@@ -88,9 +88,9 @@ function makeColor(){
     @endif
         <div class="container" id="courseList">
             <hr><h1 class="text-center">Course library</h1>
-            <h5 class="text-center">Chance to Enroll 3 Courses at a time</h5> <hr>
+            <h5 class="text-center">Chance to Enroll 3 Courses at a time</h5> <hr>    
             @foreach($courses as $course)
-                        @if(isset($course->enrolled ))
+                     @if(isset($course->enrolled ))
                         <div class="col-md-4">
                             <div class="thumbnail">
                                 {{--course image--}}
@@ -98,9 +98,9 @@ function makeColor(){
                                 {{--course details--}}
                                 <div class="caption">
                                     <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
-                                    <p>{{$course->description}}</p>
+                                    <p style="height:100px;overflow-y:scroll;">{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
-                                    <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p>
+                                    <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p><br>
                                     <a href="" class="btn button pull-right clear btn-enroll center-block btn-success" disabled>Enrolled</a>
                                 </div>
                             </div>
@@ -113,9 +113,9 @@ function makeColor(){
                                 {{--course details--}}
                                 <div class="caption">
                                     <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
-                                    <p>{{$course->description}}</p>
+                                    <p style="height:100px;overflow-y:scroll;">{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
-                                    <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p>
+                                    <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p><br>
                                     <a href="{{route('enroll',['id'=>he($course->id)])}}" class="btn button pull-right clear btn-enroll center-block btn-primary">Enroll</a>
                                 </div>
                             </div>

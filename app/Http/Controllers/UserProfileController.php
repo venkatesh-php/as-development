@@ -241,7 +241,7 @@ class UserProfileController extends Controller
 
 
         User::find($id)->update($request->all());
-        return redirect()->route('UserProfile.index')
+        return redirect()->route('UserProfile.show',compact('id'))
                         ->with('success','Profile updated successfully');
     }
 

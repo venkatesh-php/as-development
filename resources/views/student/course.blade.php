@@ -78,7 +78,7 @@ function makeColor(){
             <div class="row">
                 <div class="col-md-10">
                     <div class="pull-right">
-                        <a class="btn btn-primary" href="{{ URL::previous()}}"> Back</a>
+                        <a class="btn btn-primary" href="/home"> Back</a>
                     </div>
                 </div>
             </div>
