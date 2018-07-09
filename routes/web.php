@@ -30,6 +30,8 @@
 // Public Routes
 
         // Homepage Route
+        Route::get( '/_debugbar/assets/stylesheets', '\Barryvdh\Debugbar\Controllers\AssetController@css' );
+        Route::get( '/_debugbar/assets/javascript', '\Barryvdh\Debugbar\Controllers\AssetController@js' );
     Route::get('/', 'WelcomeController@welcome')->name('welcome');
     
     // Route::get('/', function () { return redirect('/admin/home'); });
