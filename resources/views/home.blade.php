@@ -47,7 +47,7 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-        <h3 class="text-center">How to complete a course? : <a class="btn btn-default" href="{{ route('download',Course-Guide.pdf) }}">Download</a></h3>
+        <h3 class="text-center">How to complete a course? : <a class="btn btn-default" href="{{ route('download',"Course-Guide.pdf") }}">Download</a></h3>
         <!-- "/download/Course-Guide.pdf"  -->
         </div>
         
