@@ -165,10 +165,13 @@
         </div>
         <div class="col-md-8">
         <marquee direction="left" onmouseover="this.stop()" onmouseout="this.start()" scrolldelay="50">
-            <label>How to Use this Portal? -Students </label><a class="btn" href="/download/ASDP-Welcome-StudentGuide.pdf" ><b style="color:white"><i class="fa fa-download"></b></i></a>
-            <label>How to Use this Portal? -Teachers </label><a class="btn btn-small" href="/download/ASDP-Welcome-TeacherGuide.pdf" ><b style="color:white"><i class="fa fa-download"></b></i></a>
-            <label>Shape your career.. PPT </label><a class="btn btn-small" href="/download/Shape your Career- A ppt for Students.pdf"><b style="color:white"><i class="fa fa-download"></b></i></a>
+            <label>How to Use this Portal? -Students </label><a class="btn" href="{{ route('download',"ASDP-Welcome-StudentGuide.pdf") }}"><b style="color:white"><i class="fa fa-download"></b></i></a>
+            <label>How to Use this Portal? -Teachers </label><a class="btn btn-small" href="{{ route('download',"ASDP-Welcome-TeacherGuide.pdf") }}"><b style="color:white"><i class="fa fa-download"></b></i></a>
+            <label>Shape your career.. PPT </label><a class="btn btn-small" href= "{{ route('download',"Shape your Career- A ppt for Students.pdf") }}"><b style="color:white"><i class="fa fa-download"></b></i></a>
         </marquee>
+        <!-- "/download/ASDP-Welcome-StudentGuide.pdf" 
+        "/download/ASDP-Welcome-TeacherGuide.pdf" 
+        "/download/Shape your Career- A ppt for Students.pdf" -->
         </div>
         <div class="col-md-2">
         </div>
