@@ -60,6 +60,7 @@ class OnlineQuizController extends Controller
         $quiz->subject_name = $request->subject_name;
         $quiz->quiz_name = $request->quiz_name;
         $quiz->user_id = $request->user_id;
+        $quiz->publish_status = 0;
         $quiz->save();
 
         return redirect()->route('online_quiz.index')
