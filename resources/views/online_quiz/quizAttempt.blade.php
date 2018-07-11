@@ -60,11 +60,11 @@ $D = "D";
             ?>
             <!-- {{ $ques_status }} -->
             @if($ques_status == 1)
-                <a class="btn btn-xs" href="{{ route('search_question',[$quiz_id,$i]) }}"><span class="qbox correct-bg">{{ ++$i }}</span></a>
+                <a class="btn btn-xs"><span class="qbox correct-bg">{{ ++$i }}</span></a>
             @elseif($question->id == $all_question->id)
-                <a class="btn btn-xs" href="{{ route('search_question',[$quiz_id,$i]) }}"><span class="qbox current-bg">{{ ++$i }}</span></a>
+                <a class="btn btn-xs"><span class="qbox current-bg">{{ ++$i }}</span></a>
             @else
-                <a class="btn btn-xs" href="{{ route('search_question',[$quiz_id,$i]) }}"><span class="qbox">{{ ++$i }}</span></a>
+                <a class="btn btn-xs"><span class="qbox">{{ ++$i }}</span></a>
             @endif
 
         @endforeach
@@ -85,84 +85,7 @@ $count = $all_questions->count();
 
 
 <div class="container"> 
-    <?php 
-        $ques_status2 = DB::table('online_quiz_statuses')
-        ->where('online_quiz_statuses.online_quiz_question_id',$question->id)
-        ->where('online_quiz_statuses.user_id', Auth::user()->id)->get();  
-        $que_count = $ques_status2->count();
-    ?>
-        @if($que_count == 1)
-            @foreach($ques_status2 as $status)
-                <form action="{{ route('save_answer',[$quiz_id,$question->id]) }}" method="post" enctype="multipart/form-data">
-                {{ csrf_field() }}
-
-                    <div class="panel  panel-default quiz_table">
-                        <div class="panel-heading">
-                            
-                            <span class='question'><h4>{!! $question->question !!}</h4></span>
-                        </div>
-                        <div class="">
-                            <table class="table table-responsive">
-                                <tr>
-                                    <td>
-                                    @if($status->user_answer == $A)
-                                        {{ Form::radio('he($question->id)', 'A', true) }}<span class='optionA'>{!! $question->optionA !!}</span>
-                                    @else
-                                        <input type="radio" name="{{ he($question->id) }}" class="button btn btn-default" value="A" required> <span class='optionA'>{!! $question->optionA !!}</span>
-                                    @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    @if($status->user_answer == $B)
-                                        {{ Form::radio('he($question->id)', 'B', true) }}<span class='optionV'>{!! $question->optionB !!}</span>
-                                    @else
-                                    <input type="radio" name="{{ he($question->id) }}" class="button btn btn-default" value="B" required> <span class='optionB'>{!! $question->optionB !!}</span>
-                                    @endif
-                                    
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    @if($status->user_answer == $C)
-                                        {{ Form::radio('he($question->id)', 'C', true) }}<span class='optionC'>{!! $question->optionC !!}</span>
-                                    @else
-                                    <input type="radio" name="{{ he($question->id) }}" class="button btn btn-default" value="C" required> <span class='optionC'>{!! $question->optionC !!}</span>
-                                    @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    @if($status->user_answer == $D)
-                                        {{ Form::radio('he($question->id)', 'D', true) }}<span class='optionD'>{!! $question->optionD !!}</span>
-                                    @else
-                                    <input type="radio" name="{{ he($question->id) }}" class="button btn btn-default" value="D" required> <span class='optionD'>{!! $question->optionD !!}</span>
-                                    @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="display:none">
-                                        <input type="radio" name="{{ he($question->id) }}" class="button btn btn-default" value="timeout" checked="checked"> Other
-                                    </td>
-                                </tr>
-                            
-                            </table>
-                        </div>
-                    </div>
-
-                    @if($quiz_status == $count)
-                    <!-- if count of all questions in  this quiz equal to all questions in online_quiz_statuses table  -->
-                        <a id="mySubmit" class="btn btn-primary" href="{{ route('viewResult',$quiz_id) }}">Final Submit</a>
-                    @endif
-
-            </form>
-        @endforeach
-
-
-        
-@else
-
-  <form action="{{ route('save_answer',[$quiz_id,$question_id]) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('save_answer',[he($quiz_id),he($question_id)]) }}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
 
             <div class="panel  panel-default quiz_table">
@@ -219,7 +142,7 @@ $count = $all_questions->count();
                         <input id="mySubmit" type="submit" class="button btn btn-primary pull-left" value="Save & Next">
                     @endif
     </form>
-@endif
+
 </div>
 
 

@@ -28,7 +28,7 @@ class UserProfileController extends Controller
      */
     public function index(Request $request)
     {
-        if(Auth::user()->id == 1){
+        if(Auth::user()->institutes_id == 1){
 
             $users = User::orderBy('id','asc')
                 ->paginate(50);
