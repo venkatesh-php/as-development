@@ -121,7 +121,7 @@
                             <p class="label label-success"> Task{{$tcount+=1}}</p>
                             @endforeach
                             <h2 class="text-center">
-                               {{$chapter->id}}: {{$chapter->name}} 
+                               {{$chapter->name}} 
                                 
                             </h2>
                             <p class="text-justify"><b>Instructions: </b>{{$chapter->instructions}}</p>

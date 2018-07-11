@@ -149,7 +149,7 @@
                                                         <th>Branch</th>
                                                         <th>Batch</th>
                                                         <th>User Name </th>
-                                                        <th>User Email</th>
+                                                        <th>Roll Number</th>
                                                     </tr>
                                                     <h4 style="color:#336699"><input type="checkbox" id="select_all"/> Check all</h4>
                                                     @foreach ($users as $user)
@@ -218,7 +218,7 @@
                                                         
                                                         </td>
                                                         <td>{{ $user->first_name }} {{ $user->last_name }}</td>
-                                                        <td>{{ $user->email }}</td>
+                                                        <td>{{ $user->roll_number }}</td>
                                                     
                                                             
                                                     </tr>

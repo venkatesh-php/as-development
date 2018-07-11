@@ -99,7 +99,7 @@ $count = $all_questions->count();
                     <div class="panel  panel-default quiz_table">
                         <div class="panel-heading">
                             
-                            <span class='question'>{!! $question->question !!}</span>
+                            <span class='question'><h4>{!! $question->question !!}</h4></span>
                         </div>
                         <div class="">
                             <table class="table table-responsive">
@@ -168,7 +168,7 @@ $count = $all_questions->count();
             <div class="panel  panel-default quiz_table">
                 <div class="panel-heading">
                     
-                    <span class='question'>{!! $question->question !!}</span>
+                    <span class='question'><h4>{!! $question->question !!}</h4></span>
                 </div>
                 <div class="">
                     <table class="table table-responsive">
@@ -210,15 +210,21 @@ $count = $all_questions->count();
                     </table>
                 </div>
             </div>
-            
-            <input id="mySubmit" type="submit" class="button btn btn-primary pull-left" value="Save & Next">
+
+                    @if($quiz_status+1 == $count)
+                    <!-- if count of all questions in  this quiz equal to all questions in online_quiz_statuses table  -->
+                        <!-- <a id="mySubmit" class="btn btn-primary" href="{{ route('viewResult',$quiz_id) }}">Final Submit</a> -->
+                        <input id="mySubmit" type="submit" class="button btn btn-primary pull-left" value="Final Submit">
+                    @else
+                        <input id="mySubmit" type="submit" class="button btn btn-primary pull-left" value="Save & Next">
+                    @endif
     </form>
 @endif
 </div>
 
 
     
-<!-- <script>
+<script>
 
 var time4submission=60000;
 window.setTimeout(()=>document.getElementById("mySubmit").click(),time4submission+1000) ;
@@ -252,7 +258,7 @@ var x = setInterval(function() {
         document.getElementById("timestamp").innerHTML = "EXPIRED";
     }
 }, 1000);
-    </script> -->
+    </script> 
 
     <script src="https://cdn.ckeditor.com/4.9.2/standard-all/ckeditor.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"/></script>

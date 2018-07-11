@@ -740,7 +740,7 @@ public function postFeedback(Request $request,$id){
         
         if($all_questions->count()-1 == $question_id)
         {
-            return redirect()->route('search_question',[$quiz_id,0])->with('success','Answer saved successfully');
+            return redirect()->route('viewResult',[$quiz_id])->with('success','Quiz Submitted successfully');
         }
         else
         {

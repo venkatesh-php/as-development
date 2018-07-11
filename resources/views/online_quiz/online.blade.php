@@ -99,7 +99,7 @@
                                 @elseif($quiz->publish_status == 1)
                                 <a class="btn btn-primary btn-xs" href="{{ route('quizAttempt',[$quiz->id]) }}">Attempt</a>
                                 @else
-                                <a class="btn btn-primary btn-xs" href=>Quiz not Ready</a>
+                                <a class="btn btn-primary btn-xs">Quiz Not Ready</a>
                                 @endif
                         
                                 </td>

@@ -4,7 +4,9 @@
     <div class="row">
         <div class="col-md-10">
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ URL::previous()}}"> Back</a>
+                @if(Auth::user()->role_id == 5)
+                <a class="btn btn-primary" href="{{ route('UserProfile.index') }}"> Back</a>
+                @endif
             </div>
         </div>
     </div>
@@ -54,6 +56,9 @@
                                     <th>Email</th><td>{{ $users->email  }}</td>
                                 </tr>
                                 <tr>
+                                    <th>Roll Number</th><td>{{ $users->roll_number  }}</td>
+                                </tr>
+                                <tr>
                                     <th>Mobile Number</th><td>{{ $users->phone_number  }}</td>
                                 </tr>
                                 <tr>
@@ -69,7 +74,7 @@
                                     <th>Marks</th><td>{{ $users->marks  }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Passed Out</th><td>{{ $users->passout }}</td>
+                                    <th>Pass Out</th><td>{{ $users->passout }}</td>
                                 </tr>
                                 <tr>
                                     <th>College Address</th><td>{{ $users->collegeaddress }}</td>
@@ -84,7 +89,7 @@
                     <div class="row">
                     @if($users->id == Auth::user()->id)
                         <div class="pull-right">
-                            <a class="btn btn-primary" href="{{ route('UserProfile.edit',$users->id) }}"> Edit profile</a>
+                            <a class="btn btn-primary" href="{{ route('UserProfile.edit',he($users->id)) }}"> Edit profile</a>
                         </div>
                         @endif
                     </div>

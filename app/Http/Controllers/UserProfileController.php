@@ -40,10 +40,10 @@ class UserProfileController extends Controller
         else{
             $users = User::orderBy('id','asc')
                 ->where('users.institutes_id',Auth::user()->institutes_id)
-                ->paginate(15);
+                ->paginate(50);
 
         return view('UserProfile.index',compact('users'))
-            ->with('i', ($request->input('page', 1) - 1) * 15);
+            ->with('i', ($request->input('page', 1) - 1) * 50);
 
         }
         
@@ -214,7 +214,8 @@ class UserProfileController extends Controller
      */
     public function edit($id)
     {
-        $users = User::find($id);
+        $id1 = hd($id);
+        $users = User::find($id1);
         return view('UserProfile.edit',compact('users'));
     }
 
@@ -227,9 +228,11 @@ class UserProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $id1 = hd($id);
         $this->validate($request, [
             'first_name' => '',
             'last_name' => '',
+            'roll_number' => '',
             'phone_number' => '',
             'dob' => '',
             'qualification' => '',
@@ -241,7 +244,7 @@ class UserProfileController extends Controller
         ]);
 
 
-        User::find($id)->update($request->all());
+        User::find($id1)->update($request->all());
         return redirect()->route('UserProfile.show',compact('id'))
                         ->with('success','Profile updated successfully');
     }

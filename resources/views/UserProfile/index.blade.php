@@ -95,7 +95,7 @@
                             </td>
                             
                             <td>
-                                <a class="btn btn-info" href="{{ route('UserProfile.show',$details->id) }}">Show</a>
+                                <a class="btn btn-info" href="{{ route('UserProfile.show',he($details->id)) }}">Show</a>
                                 <!-- <a class="btn btn-primary" href="{{ route('UserProfile.edit',$details->id) }}">Edit</a> -->
 
                                 
