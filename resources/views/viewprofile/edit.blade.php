@@ -26,7 +26,7 @@
     </div>
 @endif
 
-    {!! Form::model($users, ['method' => 'PATCH','route' => ['viewprofile.update', $users->id]]) !!}
+    {!! Form::model($users, ['method' => 'PATCH','route' => ['viewprofile.update', he($users->id)]]) !!}
     <div class="row">
 
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -39,6 +39,13 @@
         <div class="form-group">
             <strong>Last Name:</strong>
             {!! Form::text('last_name', null, array('placeholder' => 'Enter Your Last Name','class' => 'form-control')) !!}
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Roll Number:</strong>
+            {!! Form::text('roll_number', null, array('placeholder' => 'Enter Your Roll Number','class' => 'form-control')) !!}
         </div>
     </div>
     

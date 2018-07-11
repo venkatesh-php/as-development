@@ -59,6 +59,14 @@
               </div>
 
               <div class="form-group">
+                <label class="col-lg-3 control-label">Roll Number:</label>
+                <div class="col-lg-8">
+                <p class="form-control-static">{{ $users->roll_number }}</p>
+                  
+                </div>
+              </div>
+
+              <div class="form-group">
                 <label class="col-lg-3 control-label">Mobile Number:</label>
                 <div class="col-lg-8">
                 <p class="form-control-static">{{ $users->phone_number }}</p>
@@ -100,7 +108,7 @@
               </div>
 
               <div class="form-group">
-                <label class="col-lg-3 control-label">Passed Out:</label>
+                <label class="col-lg-3 control-label">Pass Out:</label>
                 <div class="col-lg-8">
                 <p class="form-control-static">{{$users->passout}}</p>
                   
@@ -124,7 +132,7 @@
               </div>
 
                <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('viewprofile.edit',$users->id) }}"> Edit profile</a>
+                <a class="btn btn-primary" href="{{ route('viewprofile.edit',he($users->id)) }}"> Edit profile</a>
               </div>
               
             </form>

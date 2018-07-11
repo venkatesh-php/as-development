@@ -637,7 +637,7 @@ public function postFeedback(Request $request,$id){
 
     public function quizAttempt($id)
     {
-        $quiz_id = $id;
+        $quiz_id = hd($id);
         // return $quiz_id;
         $all_questions = DB::table('online_quiz_questions')
         ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
@@ -658,11 +658,10 @@ public function postFeedback(Request $request,$id){
 
 /*############################################################################################################################################### */
 
-    public function search_question($id,$question_id)
+    public function search_question($id,$q_id)
     {
-        $quiz_id = $id;
-
-        
+        $quiz_id = hd($id);
+        $question_id = hd($q_id);
 
         $all_questions = DB::table('online_quiz_questions')
         ->join('online_quizzes','online_quiz_questions.online_quiz_id','=','online_quizzes.id')
@@ -680,9 +679,10 @@ public function postFeedback(Request $request,$id){
 
 /*############################################################################################################################################### */
 
-    public function save_answer($id,$question_id,Request $request)
+    public function save_answer($id,$q_id,Request $request)
     {
-        $quiz_id = $id;
+        $quiz_id = hd($id);
+        $question_id = hd($q_id);
         // return $quiz_id;
 
         $all_questions = DB::table('online_quiz_questions')
@@ -740,11 +740,12 @@ public function postFeedback(Request $request,$id){
         
         if($all_questions->count()-1 == $question_id)
         {
-            return redirect()->route('search_question',[$quiz_id,0])->with('success','Answer saved successfully');
+            return redirect()->route('viewResult',[he($quiz_id)])->with('success','Quiz Submitted successfully');
         }
         else
         {
-            return redirect()->route('search_question',[$quiz_id,++$question_id])->with('success','Answer saved successfully');
+             $ques_id = ++$question_id;
+            return redirect()->route('search_question',[$id,he($ques_id)])->with('success','Answer saved successfully');
         }
           
         
@@ -758,7 +759,7 @@ public function postFeedback(Request $request,$id){
         $score = null;
         $total = null;
         // return
-        $quiz_id = $request->id;
+        $quiz_id = hd($request->id);
         $questions = online_quiz_questions::where('online_quiz_id',$quiz_id)->get();
         // return $questions;
         $total_questions = $questions->count();
