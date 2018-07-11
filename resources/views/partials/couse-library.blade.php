@@ -98,6 +98,7 @@ function makeColor(){
                                 {{--course details--}}
                                 <div class="caption">
                                     <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
+                                    <h5>Created By : <b>{{$course->f_name}} {{$course->l_name}}</b></h5>
                                     <p style="height:100px;overflow-y:scroll;">{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
                                     <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p><br>
@@ -113,6 +114,7 @@ function makeColor(){
                                 {{--course details--}}
                                 <div class="caption">
                                     <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
+                                    <h5>Created By :<b>{{$course->f_name}} {{$course->l_name}}</b></h5>
                                     <p style="height:100px;overflow-y:scroll;">{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
                                     <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p><br>

@@ -107,7 +107,7 @@
                                         </a>
                                         <div class="panel-footer">
                                             <span class="panel-eyecandy-title">Total Users : 
-                                            @if(Auth::user()->id == 1)
+                                            @if(Auth::user()->institutes_id == 1)
                                             {{ $allusers }}
                                             @else
                                             {{ $totalusers }}

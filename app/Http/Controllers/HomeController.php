@@ -64,6 +64,7 @@ class HomeController extends Controller
         $mentor_courses = Auth::user()->course()->get();
         /*render course list page*/
         // return $courses;
+        $users = User::all();
         foreach($mentor_courses as $course){
             $course->enroll =  enrollment::where('course_id',$course->id)->select('course_id','student_id')->count();
             $course->student_list = enrollment::orderBy('id','DESC')
@@ -122,6 +123,12 @@ class HomeController extends Controller
                    $course->bonus_credits=
                    $course->max_credits*constants::perc_cred_bonus_on_coursecompletion/constants::ndays_assumed_4course_completion;
                 // } 
+                foreach( $users as $user){
+                    if($course->user_id==$user->id){
+                        $course->f_name=$user->first_name;
+                        $course->l_name=$user->last_name;
+                    }
+                }
                 foreach($enrollments as $enrollment){
                     if($course->id==$enrollment->course_id){
                         $course->enrolled=true;
@@ -148,6 +155,7 @@ class HomeController extends Controller
         elseif(isStudent()){
             $courses = course::all();
             // return
+            $users = User::all();
             $studentData = Auth::user()->load('enrollment.course');
             // return $studentData->enrollment;
             foreach($studentData->enrollment as $course ){
@@ -188,6 +196,12 @@ class HomeController extends Controller
                    $course->bonus_credits=
                    $course->max_credits*constants::perc_cred_bonus_on_coursecompletion/constants::ndays_assumed_4course_completion;
                 // } 
+                foreach( $users as $user){
+                    if($course->user_id==$user->id){
+                        $course->f_name=$user->first_name;
+                        $course->l_name=$user->last_name;
+                    }
+                }
                 foreach($enrollments as $enrollment){
                     if($course->id==$enrollment->course_id){
                         $course->enrolled=true;
