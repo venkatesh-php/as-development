@@ -88,7 +88,8 @@ class ViewprofileController extends Controller
      */
     public function edit($id)
     {
-        $users = User::find($id);
+        $id1 = hd($id);
+        $users = User::find($id1);
         return view('viewprofile.edit',compact('users'));
     }
 
@@ -101,9 +102,11 @@ class ViewprofileController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $id = hd($id);
         $this->validate($request, [
             'first_name' => '',
             'last_name' => '',
+            'roll_number' => '',
             'phone_number' => '',
             'dob' => '',
             'qualification' => '',

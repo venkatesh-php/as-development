@@ -8,7 +8,7 @@
                 <h2 style="color:#2471A3">Edit Profile</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('UserProfile.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('UserProfile.show',he(Auth::user()->id)) }}"> Back</a>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
         </div>
     @endif
 
-    {!! Form::model($users, ['method' => 'PATCH','route' => ['UserProfile.update', $users->id]]) !!}
+    {!! Form::model($users, ['method' => 'PATCH','route' => ['UserProfile.update', he($users->id)]]) !!}
     <div class="row">
 
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -39,6 +39,13 @@
         <div class="form-group">
             <strong>Last Name:</strong>
             {!! Form::text('last_name', null, array('placeholder' => 'Enter Your Last Name','class' => 'form-control')) !!}
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Roll Number:</strong>
+            {!! Form::text('roll_number', null, array('placeholder' => 'Enter Your Roll Number','class' => 'form-control')) !!}
         </div>
     </div>
 
