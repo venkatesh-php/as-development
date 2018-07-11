@@ -76,8 +76,9 @@
     <?php $id= he($course->id)?>
     <div class="row">
         <div class="col-md-10">
+
             <div class="pull-right">
-                <a class="btn btn-primary" href="/home"> Back</a>
+                <a class="btn btn-success" href="{{ url('/home') }}">Back</a>
             </div>
         </div>
     </div>
