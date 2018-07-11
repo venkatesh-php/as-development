@@ -78,7 +78,7 @@
                                         <button class="pull-right btn btn-primary">Correct Answer is : {{$question->answer}}</button><br><br>
                                 </div>
                                 <div class="row">
-                                        <span class='question'>{!! $question->question !!}</span>
+                                        <span class='question'><h4>{!! $question->question !!}</h4></span>
                                 </div>
                         </div>
         
