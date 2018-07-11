@@ -13,6 +13,7 @@ use Auth;
 use DB;
 use App\AdminTasks;
 use App\online_quiz_questions;
+use App\online_quizzes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Arr;
@@ -353,14 +354,14 @@ class mentorController extends Controller
     public function coverImage($id){
         $cover = Storage::disk('cover')->get($id);
         $response = Response::make($cover, 200);
-        $response->header('Content-Type', 'image/png');
+        $response->header('Content-Type', 'image/png/jpg/jpeg/bmp');
         return $response;
     }
     /*serve the users profile image */
     public function profileImage($name){
         $profilepic = Storage::disk('profilepic')->get($name);
         $response = Response::make($profilepic, 200);
-        $response->header('Content-Type', 'image/png/jpg/jpeg');
+        $response->header('Content-Type', 'image/png/jpg/jpeg/bmp');
         return $response;
     }
 
@@ -599,6 +600,25 @@ class mentorController extends Controller
         online_quiz_questions::where('id',$question_id)
         ->delete();
         return redirect()->back();
+
     }
+    /*block a user*/
+    public function publishQuiz($id){
+        $id = hd($id);
+        $quiz = online_quizzes::where('id',$id)->get()->first();
+            $quiz->publish_status = 1;
+            $quiz->save();
+        return redirect()->back();
+    }
+
+    /*unblock user*/
+    public function UnpublishQuiz($id){
+        $id = hd($id);
+        $quiz = online_quizzes::where('id',$id)->get()->first();
+            $quiz->publish_status = 0;
+            $quiz->save();
+        return redirect()->back();
+    }
+    
 
 }

@@ -11,7 +11,7 @@
         <ul class="sidebar-menu">
 
             <li>
-                <a href="{{ route('UserProfile.show',Auth::user()->id) }}">
+                <a href="{{ route('UserProfile.show',he(Auth::user()->id)) }}">
                 @if(Auth::user()->profilepic == Null)
                     <!-- <i class="fa fa-user"></i> -->
                     <img src="{{route('profileImage',['name'=>'dummy_pic.jpg'])}}" alt="" height="20" width="20">

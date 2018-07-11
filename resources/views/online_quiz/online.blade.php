@@ -96,8 +96,10 @@
                                 ?>
                                 @if($quiz_status >= 1)
                                 <a class="btn btn-success btn-xs" href="{{ route('viewResult',[$quiz->id]) }}">View Result</a>
-                                @else
+                                @elseif($quiz->publish_status == 1)
                                 <a class="btn btn-primary btn-xs" href="{{ route('quizAttempt',[$quiz->id]) }}">Attempt</a>
+                                @else
+                                <a class="btn btn-primary btn-xs" href=>Quiz not Ready</a>
                                 @endif
                         
                                 </td>

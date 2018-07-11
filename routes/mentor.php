@@ -118,6 +118,12 @@ Route::group(['prefix' => 'mentor'], function () {
 
         Route::get('quiz/{id}/ques/{qid}','mentor\mentorController@questionDelete')
         ->name('questionDelete');
+        /* Publish Quiz*/
+        Route::get('quiz/{id}/publish','mentor\mentorController@publishQuiz')
+        ->name('publishQuiz');
+        /* Un - Publish Quiz*/
+        Route::get('quiz/{id}/unpublish','mentor\mentorController@UnpublishQuiz')
+        ->name('UnpublishQuiz');
     });
 
 });

@@ -97,7 +97,8 @@ class UserProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {   
+        $id = hd($id);
         $users = User::find($id);
 
         //Student Total Assigned Tasks of all Users
