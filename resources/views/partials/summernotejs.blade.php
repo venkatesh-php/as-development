@@ -1,7 +1,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
      <!-- Styles -->
     {{--  <link href="/css/app.css" rel="stylesheet">  --}}
-    <link href="/css/summernote.css" rel="stylesheet">
+    <link href="{{ url('css/summernote.css')}}" rel="stylesheet">
         <style>
         .cover{
             background-size: cover;
