@@ -98,7 +98,9 @@ class TaskMigrateController extends Controller
         $task->rating_to_user = $request->rating_to_user;
         $task->rating_to_guide = $request->rating_to_guide;
         $task->message = $request->message;
-        $task->uploads = storeFile($request->uploads,'uploads');
+        if($request->hasFile('uploads')) {
+            $task->uploads = storeFile($request->uploads,'uploads');
+            }
         $task->created_at = $request->created_at;
 
         // return $task;

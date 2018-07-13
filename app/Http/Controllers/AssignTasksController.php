@@ -147,7 +147,7 @@ class AssignTasksController extends Controller
      */
     public function edit($id)
     {
-        if(Auth::user()->id == 1){
+        if(Auth::user()->institutes_id == 1){
             $users = DB::table('users')
             ->where('users.role_id','>',5)
             ->select('users.*')

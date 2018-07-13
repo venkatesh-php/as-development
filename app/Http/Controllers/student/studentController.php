@@ -65,7 +65,7 @@ class studentController extends Controller
                             // return
                             $coinsleft=DB::table('coinsinouts')->where('user_id',Auth::user()->id)->sum('coins');
                             $coinsrequired=course::find($course_id)->cost;
-                            if($coinsrequired<$coinsleft)
+                            if($coinsrequired<=$coinsleft)
                             {
 
                                 $enrollment = new  enrollment();
@@ -106,30 +106,20 @@ class studentController extends Controller
                             }
                             else
                             {
-                                return redirect()->route('public.home')->with([
-                                    'title' => 'Enrollment failed',
-                                    'message' => 'You do not have sufficient coins to enroll please earn coins first',
-                                    'type' => 'warning',
-                                ]);
+                                return redirect()->route('public.home')
+                                ->with('alert','You dont have sufficient coins to enroll this course');
+                             
                             }
                         }    
                     }
                 else
                 {
-                    return redirect()->back()->with([
-                        'title' => 'Enrollment failed',
-                        'message' => 'You have already enrolled for this course',
-                        'type' => 'warning',
-                    ]);
+                    return redirect()->back()->with('alert','You alredy enroll this course.');
                 }
             } 
             else 
             {
-                return redirect()->back()->with([
-                    'title' => 'Enrollment failed',
-                    'message' => 'You have already enrolled for three courses,Please complete one to open another slot!!!',
-                    'type' => 'error',
-                ]);
+                return redirect()->back()->with('alert', 'You have already enrolled for three courses,Please complete one to open another slot!!!');
             }
         // }
         // else
