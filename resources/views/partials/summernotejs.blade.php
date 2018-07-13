@@ -8,10 +8,14 @@
         }
     </style>
     <!-- Scripts -->
-    <script src="/js/jquery.js"></script>
+  {{--  <script src="/js/jquery.js"></script>
     <script src="/js/popper.js"></script>
     <script src="/js/bootstrap.js"></script>
-    <script src="/js/summernote.js"></script> 
+    <script src="/js/summernote.js"></script> --}}
+    <script src="{{ url('js/jquery.js')}}"></script>
+    <script src="{{ url('js/popper.js')}}"></script>
+    <script src="{{ url('js/bootstrap.js')}}"></script>
+    <script src="{{ url('js/summernote.js')}}"></script> 
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token() ]); ?>

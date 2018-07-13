@@ -373,7 +373,7 @@ class studentController extends Controller
                 {
                     if($question->id == hd($key))
                     {
-                        $total = $total+10; 
+                        $total = $total+1; 
                         $quizstatuses = new quizstatuses();
                         $quizstatuses->question_id = $question->id;
                         $quizstatuses->user_id = Auth::user()->id;
@@ -382,7 +382,7 @@ class studentController extends Controller
 
                         if($question->answer == $value)
                         {
-                            $score+=10;
+                            $score+=1;
                             $question->answerd = true;
                             $quizstatuses->result = 'true';
                         }
@@ -580,9 +580,9 @@ public function postFeedback(Request $request,$id){
             // return $quiz_data;
             foreach ($quiz_data as $result){
                 if($question->id == $result->question_id){
-                    $total = $total+10;
+                    $total = $total+1;
                     if($question->answer == $result->answer){
-                        $score+=10;
+                        $score+=1;
                         $question->answerd = true;
                     }
                     else{

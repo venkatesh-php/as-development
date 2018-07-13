@@ -86,8 +86,8 @@
 @endsection
 {{--  <!-- Scripts -->
 
-    <script src="/js/jquery.js"></script>
-    <script src="/js/popper.js"></script>
-    <script src="/js/bootstrap.js"></script>  --}}
+    <script src="{{ url('js/jquery.js')}}"></script>
+    <script src="{{ url('js/popper.js')}}"></script>
+    <script src="{{ url('js/bootstrap.js')}}"></script>  --}}
 
 
