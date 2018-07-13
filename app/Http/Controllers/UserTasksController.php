@@ -87,7 +87,9 @@ class UserTasksController extends Controller
         $task->request_for = $request->request_for;
         $task->request_by = $request->request_by;
         $task->message = $request->message;
+        if($request->hasFile('uploads')) {
         $task->uploads = storeFile($request->uploads,'uploads');
+        }
         $task->created_at = $request->created_at;
 
         // return $task;
