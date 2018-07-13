@@ -47,7 +47,7 @@
 </style>
 
 <div id="wrapper" class="container">
-        <a  class="btn btn-primary pull-right" href="{{ /home }}">Home</a>  
+        <a  class="btn btn-primary pull-right" href="{{ url('/home') }}">Home</a>  
       
                 <h1 class="text-center"><hr>Quiz Results<hr></h1>
                 <div class="panel">
