@@ -77,7 +77,7 @@
                 @if(isMentor())
                 <p class="card-text">Description: {{$task->workdescription}}</p>
                 @if ($task->uploads)
-                     <a class="btn btn-default btn-xs" href="/download/{{ $task->uploads}}" download="{{ $task->uploads}}">File Link</a>
+                     <a class="btn btn-default btn-xs" href="{{ url('download/'. $task->uploads)}}"  download="{{ $task->uploads}}"c/a>
                 @else
                     <a class="btn btn-default btn-xs" href="#" disabled>No File</a>
                
