@@ -7,7 +7,8 @@ function makeColor(){
     return $color;
 }
 ?>
-<script src="{{url('js/toastr.min.css')}}"></script>
+
+<link rel="stylesheet" type="text/css" href="{{url('js/toastr.min.css')}}"/>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
 <script src="{{url('js/toastr.min.js')}}"></script>
