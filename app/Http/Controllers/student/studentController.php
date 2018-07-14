@@ -42,11 +42,13 @@ class studentController extends Controller
         // return $course_id;
         // if(Auth::user()->status == 1)
         // {
-            if (Auth::user()->enrollment()->where('status', 1)->count() < 3)
+            $status = enrollment::where('status', 1)->where('student_id',Auth::user()->id)->count();
+            // return $status;
+            if ($status == 0)
             {
                 $enrollment = Auth::user()->enrollment()->where('course_id', $course_id)->get()->count();
 
-                if ($enrollment ==0)  
+                if ($enrollment == 0)  
                 {
                     if(!isset($request->guide_id))
                         {
@@ -119,7 +121,7 @@ class studentController extends Controller
             } 
             else 
             {
-                return redirect()->back()->with('alert', 'You have already enrolled for three courses,Please complete one to open another slot!!!');
+                return redirect()->back()->with('alert', 'You have already enrolled for One Course,Please complete one to open another Course!!!');
             }
         // }
         // else

@@ -89,7 +89,7 @@ function makeColor(){
     @endif
         <div class="container" id="courseList">
             <hr><h1 class="text-center">Course library</h1>
-            <h5 class="text-center">Chance to Enroll 3 Courses at a time</h5> <hr>    
+            <h5 class="text-center">Chance to Enroll ONE Course at a time</h5> <hr>    
             @foreach($courses as $course)
                      @if(isset($course->enrolled ))
                         <div class="col-md-4">
@@ -99,7 +99,7 @@ function makeColor(){
                                 {{--course details--}}
                                 <div class="caption">
                                     <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
-                                    <h5>Created By : <b>{{$course->f_name}} {{$course->l_name}}</b></h5>
+                                    <h5>Created By : <b>{{$course->f_name}}</b></h5>
                                     <p style="height:100px;overflow-y:scroll;">{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
                                     <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p><br>
@@ -115,7 +115,7 @@ function makeColor(){
                                 {{--course details--}}
                                 <div class="caption">
                                     <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
-                                    <h5>Created By :<b>{{$course->f_name}} {{$course->l_name}}</b></h5>
+                                    <h5>Created By :<b>{{$course->f_name}}</b></h5>
                                     <p style="height:100px;overflow-y:scroll;">{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
                                     <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p><br>
