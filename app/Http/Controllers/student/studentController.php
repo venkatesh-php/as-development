@@ -40,13 +40,15 @@ class studentController extends Controller
         
         $course_id = hd($id);
         // return $course_id;
-        // if(Auth::user()->status == 1)
-        // {
-            if (Auth::user()->enrollment()->where('status', 1)->count() < 3)
+        if(Auth::user()->status == 1)
+        {
+            $status = enrollment::where('status', 1)->where('student_id',Auth::user()->id)->count();
+            // return $status;
+            if ($status == 0)
             {
                 $enrollment = Auth::user()->enrollment()->where('course_id', $course_id)->get()->count();
 
-                if ($enrollment ==0)  
+                if ($enrollment == 0)  
                 {
                     if(!isset($request->guide_id))
                         {
@@ -119,15 +121,15 @@ class studentController extends Controller
             } 
             else 
             {
-                return redirect()->back()->with('alert', 'You have already enrolled for three courses,Please complete one to open another slot!!!');
+                return redirect()->back()->with('alert', 'You have already enrolled for One Course,Please complete one to open another Course!!!');
             }
-        // }
-        // else
-        // {
-        //     return redirect()->back()->with('alert','Your account is not activated or Blocked.You are not permited to enroll course ,Please contact Admin.
-        //      e-mail : info@ameyem.com or Arun Babu : 8800197778, Venkat : 9848041175, Office : 0866-2470778');
+        }
+        else
+        {
+            return redirect()->back()->with('alert','Your account is not activated or Blocked.You are not permited to enroll course ,Please contact Admin.
+             e-mail : info@ameyem.com or Arun Babu : 8800197778, Venkat : 9848041175, Office : 0866-2470778');
 
-        // }
+        }
     }
 
 /*##############################################################################################*/ 
