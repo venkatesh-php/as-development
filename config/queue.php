@@ -43,7 +43,7 @@ return [
 
         'beanstalkd' => [
             'driver' => 'beanstalkd',
-            'host' => 'localhost',
+            'host' => 'www.ameyem.com/asdp/',
             'queue' => 'default',
             'retry_after' => 90,
         ],
