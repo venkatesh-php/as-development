@@ -71,7 +71,7 @@
                                         <a style="text-decoration:none;" href="{{ route('AdminTasks.index') }}">
                                             <div class="alert alert-success">                                     
                                                 <i class="fa fa-pencil-square-o fa-3x"></i>
-                                                <h3>Create New Tasks</h3>
+                                                <h3>Tasks (Create/Edit)</h3>
                                             </div>
                                         </a> 
                                         <div class="panel-footer">

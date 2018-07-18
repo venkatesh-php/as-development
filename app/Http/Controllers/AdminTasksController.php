@@ -153,12 +153,21 @@ class AdminTasksController extends Controller
     public function edit($id)
     {
         $admin_tasks = AdminTasks::find($id);
-        // return $admin_tasks;
-        
-        $subjects = DB::table('subjects')
-                    ->where('subjects.user_id',Auth::user()->id)
-                    ->select('subjects.*')->get();
-        $work_nature = DB::table('work_nature')->get();
+        // return $admin_tasks->subject;
+        $s=array();
+        $ss = DB::table('subjects')
+                    ->where('user_id',Auth::user()->id)
+                    ->pluck('subject')->toArray();
+            foreach($ss as $s){
+                $subjects[$s]=$s;
+            }
+
+
+        $wns = DB::table('work_nature')->pluck('work_nature');
+        foreach($wns as $wn){
+            $work_nature[$wn]=$wn;
+        }
+        // return compact('subjects','work_nature');
         return view('AdminTasks.edit',compact('admin_tasks','subjects','work_nature'));
     }
 

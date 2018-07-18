@@ -299,6 +299,7 @@ class mentorController extends Controller
 
     /*handle a new chapter request*/
     public  function updateChapter($id,Request $request){
+        // return $request->All();
         // $course = course::findOrFail($id);
         $chapter = chapter::findOrFail(hd($id));
         // $chapter = new chapter();
@@ -486,7 +487,7 @@ class mentorController extends Controller
      /*update the task */
      public function updateTask($id,Request $request){
         /*find the chapter*/
-        // return $request->all();
+        
         $this->validate($request, [
             'institutes_id' =>'required',
             'user_id' => 'required',
@@ -512,18 +513,36 @@ class mentorController extends Controller
         $task->usercredits = $request->usercredits;
         $task->guidecredits = $request->guidecredits;
         $task->reviewercredits = $request->reviewercredits;
-
+            // return substr($task->uploads,1);
         if(isset($request->uploads)){
-            if(isset( $task->uploads )){
-            Storage::disk('uploads')->delete($task->uploads);
+
+            // $file_path = storage_path('../public/'.substr($task->uploads,3));
+            $file_path = storage_path('app/public/uploads/'.substr($task->uploads,3));
+            // $file_path = storage_path('app/public/uploads/'.$task->uploads);
+        // return $file_path;
+         if(file_exists($file_path)) {
+                Storage::disk('uploads')->delete(substr($task->uploads,3));
             }
-            $uploads = storeFile($request->uploads,'uploads');
+            else
+            {
+                Storage::disk('uploads')->delete($task->uploads);
+            }
+            
+
+        
+      }
+
+      $task->uploads = storeFile($request->uploads,'uploads');
+            
+        //    return[$request->uploads, $uploads];
             /*update admintask instance*/
-            $request['uploads'] = $uploads;
-            $task->uploads=$uploads;
-        }
+            // $request['uploads'] = $uploads;
+            // return $request->all();
+            // $task->uploads=$uploads;
+        // }
 
         $task->update();
+        // AdminTasks::where('id', $id)->update($request->except(['_token','files']));
 
         return redirect()->route('AdminTasks.index')
                         ->with('success','AdminTasks Updated successfully');
