@@ -552,6 +552,12 @@ class mentorController extends Controller
         return view('online_quiz_questions.addquestion')->with('quiz_id',$quiz_id);
     }
 
+    public function addques($id)
+    {
+        $chapter_id = $id;
+        return view('quiz.addquestion')->with('chapter_id',$chapter_id);
+    }
+
 
     public function savequestion($id,Request $request )
     {

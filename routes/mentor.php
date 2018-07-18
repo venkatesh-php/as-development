@@ -107,6 +107,9 @@ Route::group(['prefix' => 'mentor'], function () {
         Route::get('quiz/edit/{id}/add','mentor\mentorController@addquestion')
             ->name('addquestion');
 
+        Route::get('chapter/{id}/quiz/add','mentor\mentorController@addques')
+            ->name('addques');
+
         Route::post('quiz/edit/{id}/add','mentor\mentorController@savequestion')
             ->name('savequestion');
 
