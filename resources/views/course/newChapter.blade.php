@@ -15,6 +15,11 @@
 <head>
 
 @section('content')
+@if ($message = Session::get('alert'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
 
 <body>
 

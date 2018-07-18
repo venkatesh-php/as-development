@@ -293,7 +293,8 @@ class mentorController extends Controller
         ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
         ->select('admin_tasks.*','coursetasks.id as coursetask_id')
         ->get();
-        return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
+        // return view('course.viewChapter')->with('chapter',$chapter)->with('tasks',$tasks);
+        return redirect()->route('manageCourse',['id'=>he($id)]); 
         // return view('course.viewChapter')->with('chapter',$chapter);
     }
 
@@ -346,7 +347,9 @@ class mentorController extends Controller
         ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
         ->select('admin_tasks.*','coursetasks.id as coursetask_id')
         ->get();
-        return view('course.viewChapterMentor')->with('chapter',$chapter)->with('tasks',$tasks);
+
+        return redirect()->back()->with('alert','Your chapter is saved')->with('id',$id);
+        // return view('course.viewChapterMentor')->with('chapter',$chapter)->with('tasks',$tasks);
         // return view('course.viewChapter')->with('chapter',$chapter);
     }
 
@@ -566,6 +569,12 @@ class mentorController extends Controller
     {
         $quiz_id = $id;
         return view('online_quiz_questions.addquestion')->with('quiz_id',$quiz_id);
+    }
+
+    public function addques($id)
+    {
+        $chapter_id = $id;
+        return view('quiz.addquestion')->with('chapter_id',$chapter_id);
     }
 
 

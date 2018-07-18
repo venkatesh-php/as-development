@@ -49,11 +49,11 @@ Route::group(['prefix' => 'mentor'], function () {
             ->name('manageCourse');
 
         /*create a chapter for a course*/
-        Route::get('course/{id}/chapter/','mentor\mentorController@createChapter')
+        Route::get('courses/manage/{id}/chapter/','mentor\mentorController@createChapter')
             ->name('createChapter');
 
         /*create a chapter for a course*/
-        Route::post('course/{id}/chapter/','mentor\mentorController@postChapter')
+        Route::post('courses/manage/{id}/chapter/','mentor\mentorController@postChapter')
             ->name('postChapter');
         /*Update a chapter for a course*/
         Route::post('course/chapter/{id}','mentor\mentorController@updateChapter')
@@ -106,6 +106,9 @@ Route::group(['prefix' => 'mentor'], function () {
 
         Route::get('quiz/edit/{id}/add','mentor\mentorController@addquestion')
             ->name('addquestion');
+
+        Route::get('chapter/{id}/quiz/add','mentor\mentorController@addques')
+            ->name('addques');
 
         Route::post('quiz/edit/{id}/add','mentor\mentorController@savequestion')
             ->name('savequestion');
