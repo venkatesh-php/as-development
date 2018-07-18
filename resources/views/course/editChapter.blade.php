@@ -12,6 +12,11 @@
 </style>
 
 @section('content')
+@if ($message = Session::get('alert'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
 
 <body>
 
@@ -21,6 +26,8 @@
 
     <div class="container" id="course-wrapper">
         <span class="alert alert-red">- Edit chapter -</span>
+        <a  class="btn btn-primary pull-right" href="{{ url('mentor/courses/manage',['course_id'=>he($chapter->course_id)]) }}">Back</a> 
+       
         <hr>
 
         {{--chapter form--}}

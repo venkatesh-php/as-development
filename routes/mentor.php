@@ -49,11 +49,11 @@ Route::group(['prefix' => 'mentor'], function () {
             ->name('manageCourse');
 
         /*create a chapter for a course*/
-        Route::get('course/{id}/chapter/','mentor\mentorController@createChapter')
+        Route::get('courses/manage/{id}/chapter/','mentor\mentorController@createChapter')
             ->name('createChapter');
 
         /*create a chapter for a course*/
-        Route::post('course/{id}/chapter/','mentor\mentorController@postChapter')
+        Route::post('courses/manage/{id}/chapter/','mentor\mentorController@postChapter')
             ->name('postChapter');
         /*Update a chapter for a course*/
         Route::post('course/chapter/{id}','mentor\mentorController@updateChapter')
