@@ -66,4 +66,9 @@
 
     Route::get('quizzes/{id}','student\studentController@viewResult')
         ->name('viewResult');
+
+
+
+    Route::get('RunningCourses','student\studentController@RunningCourses')
+        ->name('RunningCourses');
 // });

@@ -106,7 +106,9 @@ class AdminTasksController extends Controller
         $task->usercredits = $request->usercredits;
         $task->guidecredits = $request->guidecredits;
         $task->reviewercredits = $request->reviewercredits;
+        if($request->hasFile('uploads')) {
         $task->uploads = storeFile($request->uploads,'uploads');
+        }
         // return $task;
         $task->save();
 
