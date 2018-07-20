@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => env('APP_ENV', 'devopment'),
 
     /*
     |--------------------------------------------------------------------------
@@ -217,7 +217,7 @@ return [
         App\Providers\LocalEnvironmentServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         jeremykenedy\laravelexceptionnotifier\LaravelExceptionNotifier::class,
-        jeremykenedy\LaravelLogger\LaravelLoggerServiceProvider::class,
+        // jeremykenedy\LaravelLogger\LaravelLoggerServiceProvider::class,
         // Jorenvh\Share\Providers\ShareServiceProvider::class,
 
 
