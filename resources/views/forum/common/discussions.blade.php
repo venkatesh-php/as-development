@@ -13,8 +13,8 @@
                 </div>
                 <div class="panel-footer">
                     <P class="post_user text-right">
-                        <i>Posted by</i> <span>{{$feed->user->name}}</span>
-                        On <span> {{$feed->created_at->format('F j, Y')}} </span></p>
+                        <i>Posted by</i> <b style="color:orange">{{$feed->user->first_name}} {{$feed->user->last_name}}</b>
+                        On <span style="color:green"> {{$feed->created_at->format('F j, Y')}} </span></p>
                 </div>
             </div>
         @endforeach

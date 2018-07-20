@@ -59,7 +59,7 @@
 
 <div class="container-fluid">
 <div class="row">
-    <!-- <h2 class="text-center">Ameyem Coins Stock : <span style="color:red">{{$coins}} coins</span></h2> -->
+
     <div id="social-links">
 
         <div class="col-md-8 col-md-offset-2">

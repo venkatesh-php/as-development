@@ -153,6 +153,13 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ route('RunningCourses') }}">
+                    <i class="fa fa-book"></i>
+                    <span class="title"><b>Courses doing by students</b></span>
+                </a>
+            </li>
+
             <li class="{{ $request->segment(1) == 'forumFeed' ? 'active' : '' }}">
                 <a href="{{ route('forumFeed') }}">
                     
