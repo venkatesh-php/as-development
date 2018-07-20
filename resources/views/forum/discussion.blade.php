@@ -8,7 +8,7 @@
                 <h3 class="text-center" style="color:#006699">{{$question->question}}</h3>
                 <hr>
                 <P class="post_user text-right">
-                    <i>Posted by</i> <span style="color:red">{{$question->user->name}}</span>
+                    <i>Posted by</i> <b style="color:orange">{{$question->user->first_name}} {{$question->user->last_name}}</b>
                     On <span style="color:green"> {{$question->created_at->format('F j, Y')}} </span></p>
             </div>
         </div>
