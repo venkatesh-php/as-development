@@ -6,7 +6,7 @@
             </div>
             <div class="panel-content">
                 <p>
-                <b style="color:orange">{{$reply->user->name}}</b> : {{ $reply->message }} (<b style="color:green"><i>{{$reply->created_at->format('j-F-Y')}}</i></b>)
+                <b style="color:orange">{{$reply->user->first_name}} {{$reply->user->last_name}}</b> : {{ $reply->message }} (<b style="color:green"><i>{{$reply->created_at->format('j-F-Y')}}</i></b>)
                 </p>
             </div>
         </div>

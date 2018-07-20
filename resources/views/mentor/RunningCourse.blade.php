@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <style>
     .course_header h3, .course_header .button{
         display: inline-block;
@@ -49,70 +52,65 @@
    }
             
     </script>
-    <div class="container">
-    @if(!count($studentData->enrollment)>0)
-    <div class="row text-center">
-    <h2>You have not enrolled any course yet.</h2>
-    <h3> Please enroll from library </h3>
-   
-    </div>
-    @else
-    <h2 class="text-center">Current Enrolled Courses</h2>
-    @endif
+    <div class="container-fluid">
+  
+    <h2 class="text-center">Current Running Courses</h2>
     <div class="row">
-            @foreach($studentData->enrollment as $enrollment)
+            @foreach($guideEnrolls as $enrollment)
                 @if($enrollment->status == 1)
                     
-                        <a href="{{route('viewCourse',['id'=>he($enrollment->course->id)])}}" role="button">
-                            <div class="col-sm-4 col-sm-offset-1 panel" >
+                        <a role="button">
+                            <div class="col-sm-3 panel" >
                                 <div class="course_header">
-                                    <h3>{{ $enrollment->course->name}} </h3>
+                                    <h4>{{ $enrollment->name}}</h4>
+                                    <h5> {{ $enrollment->first_name}} </h5>
                                     @if($enrollment->ch_completed>0)
-                                        <span href="#" class="label btn-ongoing">In Progress</span>
+                                        <span class="label btn-ongoing">In Progress</span>
                                         @else
-                                        <span href="#" class="label btn-danger">Enrolled</span>
+                                        <span class="label btn-danger">Enrolled</span>
                                     @endif
                                 </div>
-                                <hr>
+                                <!-- <hr> -->
                                 <h4>{{$enrollment->creds_earned}} credits earned</h4>
                                 <div class="extStatus">
-                                <div id="intStatus{{he($enrollment->course->id)}}">
+                                    <div id="intStatus{{he($enrollment->course->id)}}">
+                                    </div>
                                 </div>
-                                </div>
-                                <!-- <p>{{ $enrollment->course->description}}</p> -->
                             </div>
+                           
                          </a>
-                    
+
                 @else
                 
                     {{--  <h1 class="text-center">Past courses</h1>  --}}
-                     <a href="{{route('viewCourse',['id'=>he($enrollment->course->id)])}}" role="button">
-                    <div class="col-sm-4 col-sm-offset-1 panel past-courses">
+                     <!-- <a role="button">
+                    <div class="col-sm-3 panel past-courses">
                         <div class="course_header">
-                            <h3>{{ $enrollment->course->name}}</h3>
+                            <h4>{{ $enrollment->name}}</h4>
+                            <h5> {{ $enrollment->first_name}} </h5>
                             <span href="#" class="label btn-failed">Completed</span>
-                            <a href="{{route('Certificate',['id'=>he($enrollment->course->id)])}}" target="_blank"class="label btn-ongoing">Certificate</a>
                         </div>
-                        <hr>
-                        <h4>{{$enrollment->creds_earned}} credits earned</h4>
+                        <!-- <hr> -->
+                       <!-- <h4>{{$enrollment->creds_earned}} credits earned</h4>
                         <div class="extStatus">
                             <div class="hunded">100%
                             </div>
                         </div>
-                        {{--  <p>{{ $enrollment->course->description}}</p>   --}}
                     </div>
-                    </a>
+                    </a> -->
                 
                 @endif
+
                 @if($enrollment->ch_outof>0)
-                <script>statusBar('intStatus{{he($enrollment->course->id)}}',
+                <script>statusBar('intStatus{{he($enrollment->course_id)}}',
                  {{$enrollment->ch_completed/$enrollment->ch_outof}})
                 </script>
+               
                 @endif
 
             @endforeach
             </div>
     </div>
 
-    
+ @endsection   
 
