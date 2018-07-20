@@ -71,4 +71,7 @@
 
     Route::get('RunningCourses','student\studentController@RunningCourses')
         ->name('RunningCourses');
+
+    Route::get('Certificate','student\studentController@Certificate')
+        ->name('Certificate');
 // });

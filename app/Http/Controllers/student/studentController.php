@@ -866,6 +866,53 @@ public function postFeedback(Request $request,$id){
         return view('mentor.RunningCourse')->with('guideEnrolls',$guideEnrolls);
     }
 
+/*######################################################################################################################################################*/
+
+public  function Certificate(Request $request){
+
+    $course_id = hd($request->id);
+
+    $courses = course::findorFail($course_id);
+   
+
+    // return $courses;
+
+    $guideEnrolls = enrollment::orderBy('id','DESC')
+    // ->join('courses','enrollments.course_id','=','courses.id')
+    ->where('enrollments.course_id',$courses->id)
+    ->where('enrollments.student_id',Auth::user()->id)
+    ->join('users as users_u','users_u.id','enrollments.student_id')
+    ->select('enrollments.*','users_u.first_name as first_name','users_u.last_name as last_name')->get();
+
+        // return $guideEnrolls;
+        // return $courses;
+        foreach($guideEnrolls as $enroll){
+            $chapters=chapter::where('course_id',$enroll->course_id)->select('id')->get();
+            // foreach($guidCourses as $course){
+                
+                $coursestatuses=chapterstatuses::whereIn('chapter_id',$chapters->toArray())->where('user_id',$enroll->student_id)->select('chapterstatuses.*')->get();
+                $enroll->ch_completed=$coursestatuses->sum('status');
+                $enroll->ch_outof=count($chapters);
+                $enroll->creds_earned=$coursestatuses->sum('task_credits')+$coursestatuses->sum('quiz_score')*constants::max_credits_each_chapter/100;
+               
+                // foreach($courses as $course){
+                    if($enroll->course_id == $courses->id)
+                    {
+                        $enroll->subject_name = $courses->name;
+                    }
+                // }
+
+            // return $chapters;
+            // return $enroll->creds_earned;
+        }
+        // return $enroll;
+        // return $guideData;
+        // $enrollments = enrollment::where('guide_id',Auth::user()->id)->get();
+// return $guideEnrolls;
+// return $enroll;
+
+    return view('mentor.Certificate_of_Achievement')->with('guideEnrolls',$guideEnrolls);
+}
 
 }
 
