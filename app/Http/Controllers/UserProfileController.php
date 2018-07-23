@@ -68,8 +68,10 @@ class UserProfileController extends Controller
     public function store(Request $request)
     {
         $id = Auth::user()->id;
+        // $user_id = hd($request->user_id);
+        // return $user_id;
         $this->validate($request, [
-            'user_id' => '',
+            'user_id' => 'required',
             'profilepic' => 'image | mimes:jpeg,bmp,png,jpg| max:1024',
            
         ]);
@@ -85,8 +87,8 @@ class UserProfileController extends Controller
             Storage::disk('profilepic')->delete(Auth::user()->profilepic);
         } 
 
-
-        return redirect()->route('UserProfile.show',compact('id'))
+        $encripted_user_id = he($profile->user_id);
+        return redirect()->route('UserProfile.show',compact('encripted_user_id'))
                         ->with('success','Profile created successfully');
     }
 

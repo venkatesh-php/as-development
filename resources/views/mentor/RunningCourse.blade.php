@@ -63,7 +63,7 @@
                             <div class="col-sm-3 panel" >
                                 <div class="course_header">
                                     <h4>{{ $enrollment->name}}</h4>
-                                    <h5> {{ $enrollment->first_name}} </h5>
+                                    <h5> {{ $enrollment->first_name}} {{ $enrollment->last_name }} </h5>
                                     @if($enrollment->ch_completed>0)
                                         <span class="label btn-ongoing">In Progress</span>
                                         @else
