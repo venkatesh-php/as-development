@@ -57,7 +57,7 @@
     <h2 class="text-center">Current Running Courses</h2>
     <div class="row">
             @foreach($guideEnrolls as $enrollment)
-                @if($enrollment->status == 1)
+                @if($enrollment->status == 1 && $enrollment->creds_earned > 0 )
                     
                         <a role="button">
                             <div class="col-sm-3 panel" >

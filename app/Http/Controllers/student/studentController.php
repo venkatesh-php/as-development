@@ -824,15 +824,12 @@ public function postFeedback(Request $request,$id){
    public  function RunningCourses(){
 
         $guidCourses = course::orderBy('id','DESC')
-        // ->join('enrollments','courses.id','=','enrollments.course_id')
-        // ->where('enrollments.guide_id',Auth::user()->id)
         ->select('courses.*')->get();
 
         // return $guidCourses;
 
         $guideEnrolls = enrollment::orderBy('id','DESC')
         ->join('courses','enrollments.course_id','=','courses.id')
-        // ->where('enrollments.guide_id',Auth::user()->id)
         ->join('users as users_u','users_u.id','enrollments.student_id')
         ->select('enrollments.*','users_u.first_name as first_name','users_u.last_name as last_name')->get();
 
@@ -853,15 +850,7 @@ public function postFeedback(Request $request,$id){
                             $enroll->name = $course->name;
                         }
                     }
-
-                // return $chapters;
-                // return $enroll->creds_earned;
             }
-            // return $enroll->student_id;
-            // return $guideData;
-            // $enrollments = enrollment::where('guide_id',Auth::user()->id)->get();
-// return $guideEnrolls;
-// return $enroll;
 
         return view('mentor.RunningCourse')->with('guideEnrolls',$guideEnrolls);
     }
