@@ -35,6 +35,11 @@
                                     <td>
                                         <p>{{$course->created_at}}</p>
                                     </td>
+
+                                    <td>
+                                        <a  class="btn btn-primary"
+                                            href="{{ route('manageCourse',['id'=>he($course->id)]) }}">View Course</a>
+                                    </td>
                                     @if($course->status==0)
                                         <td>
                                                 <span class="label label-warning"> New

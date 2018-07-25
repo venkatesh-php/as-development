@@ -57,13 +57,13 @@
     <h2 class="text-center">Current Running Courses</h2>
     <div class="row">
             @foreach($guideEnrolls as $enrollment)
-                @if($enrollment->status == 1)
+                @if($enrollment->status == 1 && $enrollment->creds_earned > 0 )
                     
                         <a role="button">
                             <div class="col-sm-3 panel" >
                                 <div class="course_header">
                                     <h4>{{ $enrollment->name}}</h4>
-                                    <h5> {{ $enrollment->first_name}} </h5>
+                                    <h5> {{ $enrollment->first_name}} {{ $enrollment->last_name }} </h5>
                                     @if($enrollment->ch_completed>0)
                                         <span class="label btn-ongoing">In Progress</span>
                                         @else
@@ -83,21 +83,21 @@
                 @else
                 
                     {{--  <h1 class="text-center">Past courses</h1>  --}}
-                     <!-- <a role="button">
+                     <a role="button">
                     <div class="col-sm-3 panel past-courses">
                         <div class="course_header">
                             <h4>{{ $enrollment->name}}</h4>
-                            <h5> {{ $enrollment->first_name}} </h5>
+                            <h5> {{ $enrollment->first_name}} {{ $enrollment->last_name }}</h5>
                             <span href="#" class="label btn-failed">Completed</span>
                         </div>
                         <!-- <hr> -->
-                       <!-- <h4>{{$enrollment->creds_earned}} credits earned</h4>
+                        <h4>{{$enrollment->creds_earned}} credits earned</h4>
                         <div class="extStatus">
                             <div class="hunded">100%
                             </div>
                         </div>
                     </div>
-                    </a> -->
+                    </a> 
                 
                 @endif
 
