@@ -57,7 +57,7 @@
     <h2 class="text-center">Current Running Courses</h2>
     <div class="row">
             @foreach($guideEnrolls as $enrollment)
-                @if($enrollment->status == 1 && $enrollment->creds_earned > 0 )
+                @if($enrollment->status == 1 && $enrollment->ch_completed > 0 )
                     
                         <a role="button">
                             <div class="col-sm-3 panel" >
@@ -72,15 +72,15 @@
                                 </div>
                                 <!-- <hr> -->
                                 <h4>{{$enrollment->creds_earned}} credits earned</h4>
-                                <div class="extStatus">
-                                    <div id="intStatus{{he($enrollment->course->id)}}">
-                                    </div>
-                                </div>
+                                <!-- <div class="extStatus"> -->
+                                    <!-- <div id="intStatus{{he($enrollment->course->id)}}">
+                                    </div> -->
+                                <!-- </div> -->
                             </div>
                            
                          </a>
 
-                @else
+                @elseif($enrollment->status == 2 )
                 
                     {{--  <h1 class="text-center">Past courses</h1>  --}}
                      <a role="button">
@@ -101,12 +101,12 @@
                 
                 @endif
 
-                @if($enrollment->ch_outof>0)
+               {{-- @if($enrollment->ch_outof>0)
                 <script>statusBar('intStatus{{he($enrollment->course_id)}}',
                  {{$enrollment->ch_completed/$enrollment->ch_outof}})
                 </script>
                
-                @endif
+                @endif--}}
 
             @endforeach
             </div>
