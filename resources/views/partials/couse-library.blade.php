@@ -119,7 +119,12 @@ function makeColor(){
                                     <p style="height:100px;overflow-y:scroll;">{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
                                     <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p><br>
+                                    @if($course->status == 1)
                                     <a href="{{route('enroll',['id'=>he($course->id)])}}" class="btn button pull-right clear btn-enroll center-block btn-primary">Enroll</a>
+                                    @else
+                                    <a class="btn button pull-right clear btn-enroll center-block btn-primary">Course Is Not Ready At</a>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>

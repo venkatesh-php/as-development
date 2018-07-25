@@ -62,6 +62,34 @@
                     <a  id = "FormDeleteTime" class="btn btn-danger"
                        href="{{ route('deleteCourse',['id' =>he($course->id)]) }}">Delete</a>
                 </td> -->
+                <td>
+
+                    @if($course->status==0)
+                        <td>
+                                <span class="label label-warning"> New
+                                &nbsp;
+                                <a  class="btn btn-primary"
+                                    href="{{ route('publishCourse',['id'=>he($course->id)]) }}"> Publish</a>
+                                </span>
+                        </td>
+                    @elseif($course->status==1)
+                        <td>
+                                <span class="label label-success"> Published
+                                &nbsp;
+                                <a  class="btn btn-danger"
+                                    href="{{ route('UnpublishCourse',['id'=>he($course->id)]) }}">Un-Publish</a>
+                                    </span>
+                        </td>
+
+                    @elseif($course->status==2)
+                        <td>
+                                <span class="btn btn-danger">Changes Required
+                                    &nbsp;
+                                </span>
+                        </td>
+                    @endif
+                
+                </td>
             </tr>
             @endforeach
         </table>

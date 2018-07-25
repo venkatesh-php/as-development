@@ -127,6 +127,12 @@ Route::group(['prefix' => 'mentor'], function () {
         /* Un - Publish Quiz*/
         Route::get('quiz/{id}/unpublish','mentor\mentorController@UnpublishQuiz')
         ->name('UnpublishQuiz');
+        /* Publish Course*/
+        Route::get('Course/{id}/publish','mentor\mentorController@publishCourse')
+        ->name('publishCourse');
+        /* Un - Publish Course*/
+        Route::get('Course/{id}/unpublish','mentor\mentorController@UnpublishCourse')
+        ->name('UnpublishCourse');
     });
 
 });
