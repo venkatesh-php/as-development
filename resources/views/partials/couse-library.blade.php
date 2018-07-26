@@ -103,11 +103,11 @@ function makeColor(){
                                 {{--course details--}}
                                 <div class="caption">
                                     <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
-                                    <h5>Created By : <b>{{$course->f_name}}</b>
+                                    <h5>Created By : 
                         
                                         @foreach($cvs as $cv)
                                             @if($course->user_id == $cv->user_id)
-                                                <a href="{{route('cvs',$cv->path)}}" target="_blank"><button type="button" class="btn btn-primary btn-xs">CV</button></a>
+                                                <a href="{{route('cvs',$cv->path)}}" target="_blank"><b>{{$course->f_name}}</b></a>
                                             @endif
                                         @endforeach
                                     </h5>
@@ -126,11 +126,11 @@ function makeColor(){
                                 {{--course details--}}
                                 <div class="caption">
                                     <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
-                                    <h5>Created By :<b>{{$course->f_name}}</b>
+                                    <h5>Created By :
 
                                         @foreach($cvs as $cv)
                                             @if($course->user_id == $cv->user_id)
-                                                <a href="{{route('cvs',$cv->path)}}" target="_blank"><button type="button" class="btn btn-primary btn-xs">CV</button></a>
+                                                <a href="{{route('cvs',$cv->path)}}" target="_blank"><b>{{$course->f_name}}</b></a>
                                             @endif
                                         @endforeach
                                         
