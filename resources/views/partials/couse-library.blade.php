@@ -67,6 +67,10 @@ function makeColor(){
         background: rgba(160, 222, 71, 0.56);
     }
 </style>
+<?php 
+    use App\cv;
+    $cvs = cv::all();
+?>
 
 
     <script>
@@ -99,7 +103,14 @@ function makeColor(){
                                 {{--course details--}}
                                 <div class="caption">
                                     <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
-                                    <h5>Created By : <b>{{$course->f_name}}</b></h5>
+                                    <h5>Created By : <b>{{$course->f_name}}</b>
+                        
+                                        @foreach($cvs as $cv)
+                                            @if($course->user_id == $cv->user_id)
+                                                <a href="{{route('cvs',$cv->path)}}" target="_blank"><button type="button" class="btn btn-primary btn-xs">CV</button></a>
+                                            @endif
+                                        @endforeach
+                                    </h5>
                                     <p style="height:100px;overflow-y:scroll;">{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
                                     <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p><br>
@@ -115,7 +126,15 @@ function makeColor(){
                                 {{--course details--}}
                                 <div class="caption">
                                     <h3>{{$course->name}}<small>( {{ $course->cost}} Coins)</small></h3>
-                                    <h5>Created By :<b>{{$course->f_name}}</b></h5>
+                                    <h5>Created By :<b>{{$course->f_name}}</b>
+
+                                        @foreach($cvs as $cv)
+                                            @if($course->user_id == $cv->user_id)
+                                                <a href="{{route('cvs',$cv->path)}}" target="_blank"><button type="button" class="btn btn-primary btn-xs">CV</button></a>
+                                            @endif
+                                        @endforeach
+                                        
+                                    </h5>
                                     <p style="height:100px;overflow-y:scroll;">{{$course->description}}</p>
                                     <p>Max Credits: {{$course->max_credits}}</p>
                                     <p>Bonus Credits: {{$course->bonus_credits}} (if you complete in 10days)</p><br>

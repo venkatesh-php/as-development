@@ -132,6 +132,8 @@
         Route::get('profilepic/{id}','mentor\mentorController@profileImage')
         ->name('profileImage');
 
+        Route::get('cvs/{id}','mentor\mentorController@cvs')
+        ->name('cvs');
 
         /*serve a course's video lesson */
         Route::get('videos/{id}','mentor\mentorController@serveVideo')
