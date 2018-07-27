@@ -53,10 +53,10 @@
 		<tr>
 			<td class="paragraph" colspan="2">
 				
-					@include('beautymail::templates.minty.button', ['text' => 'How to Use this Portal? -Students', 'link' => 'http://asdp.ameyem.com/download/ASDP-Welcome-StudentGuide.pdf'])
+					@include('beautymail::templates.minty.button', ['text' => 'How to Use this Portal? -Students', 'link' => 'https://www.ameyem.com/asdp/download/ASDP-Welcome-StudentGuide.pdf'])
 				</td>
 				<td class="paragraph" colspan="2">
-					@include('beautymail::templates.minty.button', ['text' => 'How to Use this Portal? -Teacher', 'link' => 'http://asdp.ameyem.com/download/ASDP-Welcome-TeacherGuide.pdf'])
+					@include('beautymail::templates.minty.button', ['text' => 'How to Use this Portal? -Teacher', 'link' => 'https://www.ameyem.com/asdp/download/ASDP-Welcome-TeacherGuide.pdf'])
 				</td>
 
 		</tr>
@@ -76,7 +76,7 @@
 		</tr>
 		<tr>
 			<td colspan="4">
-				@include('beautymail::templates.minty.button', ['text' => 'Register', 'link' => 'http://asdp.ameyem.com/register'])
+				@include('beautymail::templates.minty.button', ['text' => 'Register', 'link' => 'https://www.ameyem.com/asdp/register'])
 			</td>
 		</tr>
 		<tr>
@@ -94,19 +94,19 @@
 		<tr>
 
 				<td class="paragraph" >
-				@include('beautymail::templates.minty.button', ['text' => 'Facebook', 'link' => 'https://www.facebook.com/sharer/sharer.php?u=http://www.asdp.ameyem.com'])
+				@include('beautymail::templates.minty.button', ['text' => 'Facebook', 'link' => 'https://www.facebook.com/sharer/sharer.php?u=https://www.ameyem.com/asdp'])
 				</td>
 
 				<td class="paragraph">
-				@include('beautymail::templates.minty.button', ['text' => 'Twitter', 'link' => 'https://twitter.com/intent/tweet?text=Excellent portal I found for learning Computer courses. Want to share with you. &amp;url=http://www.asdp.ameyem.com'])
+				@include('beautymail::templates.minty.button', ['text' => 'Twitter', 'link' => 'https://twitter.com/intent/tweet?text=Excellent portal I found for learning Computer courses. Want to share with you. &amp;url=https://www.ameyem.com/asdp'])
 				</td>
 
 				<td class="paragraph">			
-					@include('beautymail::templates.minty.button', ['text' => 'Google+', 'link' => 'https://plus.google.com/share?url=http://www.asdp.ameyem.com'])
+					@include('beautymail::templates.minty.button', ['text' => 'Google+', 'link' => 'https://plus.google.com/share?url=https://www.ameyem.com/asdp'])
 				</td>
 
 				<td class="paragraph">
-					@include('beautymail::templates.minty.button', ['text' => 'LinkedIn', 'link' => 'http://www.linkedin.com/shareArticle?mini=true&amp;url=http://www.asdp.ameyem.com&amp;title=Excellent portal I found for learning Computer courses. Want to share with you. &amp;summary=dit is de linkedin summary'])
+					@include('beautymail::templates.minty.button', ['text' => 'LinkedIn', 'link' => 'http://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ameyem.com/asdp&amp;title=Excellent portal I found for learning Computer courses. Want to share with you. &amp;summary=dit is de linkedin summary'])
 				</td>
 
 		</tr>

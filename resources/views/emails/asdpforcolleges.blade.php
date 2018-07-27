@@ -80,7 +80,7 @@
 		</tr>
 		<tr>
 			<td>
-				@include('beautymail::templates.minty.button', ['text' => 'Register', 'link' => 'http://asdp.ameyem.com/register'])
+				@include('beautymail::templates.minty.button', ['text' => 'Register', 'link' => 'https://www.ameyem.com/asdp/register'])
 			</td>
 		</tr>
 		<tr>

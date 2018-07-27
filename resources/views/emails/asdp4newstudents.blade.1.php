@@ -59,7 +59,7 @@
 		</tr>
 		<tr>
 			<td class="paragraph">
-				You can look at the downloads section at http://asdp.ameyem.com for 'how to use this portal as student' 
+				You can look at the downloads section at https://www.ameyem.com/asdp for 'how to use this portal as student' 
 				and the presentation we have given on that day in your college.
 			Hope you will gain immensely with association with us. Feel free to contact (0866-2470778) for guidance on your career. It is obsolutely free. 
 			We also plan to conduct free seminars in future, which will be informed in the same mail.
@@ -71,7 +71,7 @@
 		</tr>
 		<tr>
 			<td>
-				@include('beautymail::templates.minty.button', ['text' => 'Register', 'link' => 'http://asdp.ameyem.com/register'])
+				@include('beautymail::templates.minty.button', ['text' => 'Register', 'link' => 'https://www.ameyem.com/asdp/register'])
 			</td>
 		</tr>
 		<tr>
