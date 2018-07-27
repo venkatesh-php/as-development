@@ -30,7 +30,7 @@
                     
                     <div class="row">
                         @if($users->id == Auth::user()->id)
-                            <a class="btn btn-primary btn-xs" href="{{ route('UserProfile.create',$users->id) }}"> Update Profile pic</a>
+                            <a class="btn btn-primary btn-xs" href="{{ route('UserProfile.create') }}"> Update Profile pic</a>
                         @endif
                    </div>
             </div>

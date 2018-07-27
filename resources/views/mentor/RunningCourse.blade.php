@@ -81,7 +81,7 @@
                            
                          
 
-                @else
+                @elseif($enrollment->status == 2 )
                 
                     {{--  <h1 class="text-center">Past courses</h1>  --}}
                    
@@ -105,12 +105,12 @@
                 
                 @endif
 
-                @if($enrollment->ch_outof>0)
+               {{-- @if($enrollment->ch_outof>0)
                 <script>statusBar('intStatus{{he($enrollment->course_id)}}',
                  {{$enrollment->ch_completed/$enrollment->ch_outof}})
                 </script>
                
-                @endif
+                @endif--}}
 
             @endforeach
             </div>

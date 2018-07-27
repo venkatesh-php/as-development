@@ -647,7 +647,7 @@ class mentorController extends Controller
         return redirect()->back();
 
     }
-    /*block a user*/
+    /*block a quiz*/
     public function publishQuiz($id){
         $id = hd($id);
         $quiz = online_quizzes::where('id',$id)->get()->first();
@@ -656,7 +656,7 @@ class mentorController extends Controller
         return redirect()->back();
     }
 
-    /*unblock user*/
+    /*unblock quiz*/
     public function UnpublishQuiz($id){
         $id = hd($id);
         $quiz = online_quizzes::where('id',$id)->get()->first();
@@ -690,6 +690,24 @@ class mentorController extends Controller
     'total_reviewer_credits' => $total_reviewer_coursecredits
     ]);
         
+    }
+
+    /*block a course*/
+    public function publishCourse($id){
+        $id = hd($id);
+        $quiz = course::where('id',$id)->get()->first();
+            $quiz->status = 1;
+            $quiz->save();
+        return redirect()->back();
+    }
+
+    /*unblock course*/
+    public function UnpublishCourse($id){
+        $id = hd($id);
+        $quiz = course::where('id',$id)->get()->first();
+            $quiz->status = 0;
+            $quiz->save();
+        return redirect()->back();
     }
 
 }
