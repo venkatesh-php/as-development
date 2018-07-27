@@ -44,6 +44,7 @@
 <script>
    function statusBar(id,width){
        var elem= document.getElementById(id);
+       console.log(elem);
             elem.style.height="20px";
             barwidth=Math.round(width*100)+"%"
                 elem.style.width=barwidth;
@@ -54,50 +55,53 @@
     </script>
     <div class="container-fluid">
   
-    <h2 class="text-center">Current Running Courses</h2>
+    <h2 class="text-center">Progress of Your Classmates </h2>
     <div class="row">
             @foreach($guideEnrolls as $enrollment)
-                @if($enrollment->status == 1)
+                @if($enrollment->status <2)
                     
-                        <a role="button">
+                       
                             <div class="col-sm-3 panel" >
                                 <div class="course_header">
-                                    <h4>{{ $enrollment->name}}</h4>
-                                    <h5> {{ $enrollment->first_name}} </h5>
+                                    <h4>{{ $enrollment->name}}
+                                     <small>({{ $enrollment->first_name}}) </small>
+                                     Score: {{$enrollment->creds_earned}}</h4>
                                     @if($enrollment->ch_completed>0)
                                         <span class="label btn-ongoing">In Progress</span>
                                         @else
                                         <span class="label btn-danger">Enrolled</span>
                                     @endif
-                                </div>
-                                <!-- <hr> -->
-                                <h4>{{$enrollment->creds_earned}} credits earned</h4>
+                                </div>                                 
                                 <div class="extStatus">
                                     <div id="intStatus{{he($enrollment->course->id)}}">
                                     </div>
                                 </div>
+
                             </div>
                            
-                         </a>
+                         
 
                 @else
                 
                     {{--  <h1 class="text-center">Past courses</h1>  --}}
-                     <!-- <a role="button">
+                   
                     <div class="col-sm-3 panel past-courses">
                         <div class="course_header">
-                            <h4>{{ $enrollment->name}}</h4>
-                            <h5> {{ $enrollment->first_name}} </h5>
-                            <span href="#" class="label btn-failed">Completed</span>
-                        </div>
-                        <!-- <hr> -->
-                       <!-- <h4>{{$enrollment->creds_earned}} credits earned</h4>
+                           <h4>{{ $enrollment->name}}
+                                     <small>({{ $enrollment->first_name}}) </small>
+                                     Score: {{$enrollment->creds_earned}}</h4>
+                            <span class="label btn-failed">Completed</span>
+                            @if(isMentor())
+                            <a href="{{route('Certificate',['id'=>he($enrollment->course->id),'user_id'=>he(Auth::user()->id)])}}" target="_blank"class="label btn-ongoing">Certificate</a>
+                            @endif
+                        </div>                    
+                    
                         <div class="extStatus">
                             <div class="hunded">100%
                             </div>
-                        </div>
+                        </div> 
                     </div>
-                    </a> -->
+                   
                 
                 @endif
 

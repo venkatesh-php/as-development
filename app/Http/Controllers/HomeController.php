@@ -59,7 +59,7 @@ class HomeController extends Controller
             $coinsinout->save();
         }
        
-        if(isMentor()){
+    if(isMentor()){
             // return  
         $mentor_courses = Auth::user()->course()->get();
         /*render course list page*/
@@ -155,7 +155,8 @@ class HomeController extends Controller
         elseif(isStudent()){
             $courses = course::all();
             // return
-            $users = User::all();
+            // $users = User::all();
+            // return
             $studentData = Auth::user()->load('enrollment.course');
             // return $studentData->enrollment;
             foreach($studentData->enrollment as $course ){
@@ -196,18 +197,19 @@ class HomeController extends Controller
                    $course->bonus_credits=
                    $course->max_credits*constants::perc_cred_bonus_on_coursecompletion/constants::ndays_assumed_4course_completion;
                 // } 
-                foreach( $users as $user){
-                    if($course->user_id==$user->id){
-                        $course->f_name=$user->first_name;
-                        $course->l_name=$user->last_name;
-                    }
-                }
-                foreach($enrollments as $enrollment){
-                    if($course->id==$enrollment->course_id){
-                        $course->enrolled=true;
-                        }
+                //The following two llops are blunder done by venkatesh
+                // foreach( $users as $user){
+                //     if($course->user_id==$user->id){
+                //         $course->f_name=$user->first_name;
+                //         $course->l_name=$user->last_name;
+                //     }
+                // }
+                // foreach($enrollments as $enrollment){
+                //     if($course->id==$enrollment->course_id){
+                //         $course->enrolled=true;
+                //         }
                     
-                }
+                // }
             }
             // return $chapters_ids;
 

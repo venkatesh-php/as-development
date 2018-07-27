@@ -824,28 +824,27 @@ public function postFeedback(Request $request,$id){
    public  function RunningCourses(){
 
         $guidCourses = course::orderBy('id','DESC')
-        // ->join('enrollments','courses.id','=','enrollments.course_id')
-        // ->where('enrollments.guide_id',Auth::user()->id)
         ->select('courses.*')->get();
-
-        // return $guidCourses;
-
-        $guideEnrolls = enrollment::orderBy('id','DESC')
+        $inst_ids=array(Auth::user()->institutes_id);
+        if(Auth::user()->institutes_id==1){
+            array_push($inst_ids,1,2,3,4,5,6,7,8,9,10);
+        }
+        // return $inst_ids;
+        $guideEnrolls = enrollment::orderBy('enrollments.course_credits','DESC')
+        ->whereIn('users_u.institutes_id',$inst_ids)
         ->join('courses','enrollments.course_id','=','courses.id')
-        // ->where('enrollments.guide_id',Auth::user()->id)
         ->join('users as users_u','users_u.id','enrollments.student_id')
         ->select('enrollments.*','users_u.first_name as first_name')->get();
-
-            // return $guideEnrolls;
-            // return $guidCourses;
             foreach($guideEnrolls as $enroll){
                 $chapters=chapter::where('course_id',$enroll->course_id)->select('id')->get();
-                // foreach($guidCourses as $course){
                     
-                    $coursestatuses=chapterstatuses::whereIn('chapter_id',$chapters->toArray())->where('user_id',$enroll->student_id)->select('chapterstatuses.*')->get();
+                    $coursestatuses=
+                    chapterstatuses::whereIn('chapter_id',$chapters->toArray())
+                    ->where('user_id',$enroll->student_id)->select('chapterstatuses.*')->get();
                     $enroll->ch_completed=$coursestatuses->sum('status');
                     $enroll->ch_outof=count($chapters);
-                    $enroll->creds_earned=$coursestatuses->sum('task_credits')+$coursestatuses->sum('quiz_score')*constants::max_credits_each_chapter/100;
+                    $enroll->creds_earned=$enroll->course_credits*1;
+                    // $coursestatuses->sum('task_credits')+$coursestatuses->sum('quiz_score')*constants::max_credits_each_chapter/100;
                    
                     foreach($guidCourses as $course){
                         if($enroll->course_id == $course->id)
@@ -853,16 +852,8 @@ public function postFeedback(Request $request,$id){
                             $enroll->name = $course->name;
                         }
                     }
-
-                // return $chapters;
-                // return $enroll->creds_earned;
             }
-            // return $enroll->student_id;
-            // return $guideData;
-            // $enrollments = enrollment::where('guide_id',Auth::user()->id)->get();
 // return $guideEnrolls;
-// return $enroll;
-
         return view('mentor.RunningCourse')->with('guideEnrolls',$guideEnrolls);
     }
 
@@ -871,47 +862,22 @@ public function postFeedback(Request $request,$id){
 public  function Certificate(Request $request){
 
     $course_id = hd($request->id);
-
-    $courses = course::findorFail($course_id);
-   
-
-    // return $courses;
-
-    $guideEnrolls = enrollment::orderBy('id','DESC')
-    // ->join('courses','enrollments.course_id','=','courses.id')
-    ->where('enrollments.course_id',$courses->id)
-    ->where('enrollments.student_id',Auth::user()->id)
+    $user_id = hd($request->user_id);
+    $studentcourse_info = enrollment::    
+    where('enrollments.course_id',$course_id)
+    ->join('courses','enrollments.course_id','=','courses.id')
+    ->where('enrollments.student_id',$user_id)
     ->join('users as users_u','users_u.id','enrollments.student_id')
-    ->select('enrollments.*','users_u.first_name as first_name','users_u.last_name as last_name')->get();
+    ->select('enrollments.*','courses.name','courses.total_user_credits as total_course_credits',
+    'users_u.first_name as first_name','users_u.last_name as last_name')->first();
 
-        // return $guideEnrolls;
-        // return $courses;
-        foreach($guideEnrolls as $enroll){
-            $chapters=chapter::where('course_id',$enroll->course_id)->select('id')->get();
-            // foreach($guidCourses as $course){
-                
-                $coursestatuses=chapterstatuses::whereIn('chapter_id',$chapters->toArray())->where('user_id',$enroll->student_id)->select('chapterstatuses.*')->get();
-                $enroll->ch_completed=$coursestatuses->sum('status');
-                $enroll->ch_outof=count($chapters);
-                $enroll->creds_earned=$coursestatuses->sum('task_credits')+$coursestatuses->sum('quiz_score')*constants::max_credits_each_chapter/100;
-               
-                // foreach($courses as $course){
-                    if($enroll->course_id == $courses->id)
-                    {
-                        $enroll->subject_name = $courses->name;
-                    }
-                // }
-
-            // return $chapters;
-            // return $enroll->creds_earned;
-        }
-        // return $enroll;
-        // return $guideData;
-        // $enrollments = enrollment::where('guide_id',Auth::user()->id)->get();
-// return $guideEnrolls;
-// return $enroll;
-
-    return view('mentor.Certificate_of_Achievement')->with('guideEnrolls',$guideEnrolls);
+    $chapters=chapter::where('course_id',$studentcourse_info->course_id)->select('id')->get();
+        
+    $coursestatuses=chapterstatuses::whereIn('chapter_id',$chapters->toArray())->where('user_id',$studentcourse_info->student_id)->select('chapterstatuses.*')->get();
+    
+    $studentcourse_info->ch_completed=$coursestatuses->sum('status');
+    $studentcourse_info->ch_outof=count($chapters);
+    return view('mentor.Certificate_of_Achievement')->with('studentcourse_info',$studentcourse_info);
 }
 
 }

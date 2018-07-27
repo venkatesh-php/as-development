@@ -2149,11 +2149,10 @@ ul
 </head>
 
 <body lang=EN-US link="#59AEDB" vlink="#356280">
-@foreach($guideEnrolls as $enrollment)
 	<div class=text-align=center style="width:1200px; height:800px; padding:20px; text-align:center; border: 10px solid #787878">
 		<div class=WordSection1>
 			<div align=center>
-				<p class=MsoNormal><img width=180 height=90 id="Picture 48" src="{{route('profileImage',['name'=>'logo.png'])}}" alt="Placeholder logo"></p>
+				<p class=MsoNormal><img width=180 height=70 id="Picture 48" src="{{route('profileImage',['name'=>'logo.png'])}}" alt="Placeholder logo"></p>
 				<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 summary="Layout table" width="100%" style='width:100.0%;border-collapse:collapse'>
  					<tr>
   						<td width="100%" valign=top style='width:100.0%;padding:0in 0in 0in 0in;'>
@@ -2163,7 +2162,7 @@ ul
   								<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 summary="Recipient name" style='border-collapse:collapse;border:none'>
    									<tr style='height:0.25in'>
     									<td valign=top style='border-top:double #6E6E6E 3.75pt;border-left:none;border-bottom:double #6E6E6E 3.75pt;border-right:none;padding:0in .75in 0in .75in;height:1.25in'>
-    										<p class=Name>{{$enrollment->first_name}} {{$enrollment->last_name}}</p>
+    										<p class=Name>{{$studentcourse_info->first_name}} {{$studentcourse_info->last_name}}</p>
     									</td>
    									</tr>
   								</table>
@@ -2176,7 +2175,7 @@ ul
     										<p class=MsoNormal align=left style='text-align:left'><img width=126 height=30 id="Freeform 46" src="{{route('profileImage',['name'=>'image001.png'])}}" alt="Title: Left filigree accent shape"></p>
     									</td>
     									<td style='padding:0in 0in 0in 0in;height:0.25in'>
-    										<p class=MsoNormal1>{{ $enrollment->subject_name}} Course</p>
+    										<p class=MsoNormal1>{{ $studentcourse_info->name}} Course</p>
     									</td>
     									<td style='padding:0in 0in 0in .35in;height:0.25in'>
     										<p class=MsoNormal align=right style='text-align:right'><img width=126 height=30 id="Freeform 47" src="{{route('profileImage',['name'=>'image002.png'])}}" alt="Title: Right filigree accent shape"></p>
@@ -2186,17 +2185,18 @@ ul
 									<table>
 									<tr>
 										<?php
-											$month = $enrollment->updated_at->format('F');
+											$month = $studentcourse_info->updated_at->format('F');
 										?>
 										<td style='padding:0in 3in 0in 0in;height:0.25in;'>
-											<p class=MsoNormal align=left style='text-align:left'>{{strtoupper($month)}} {{$enrollment->updated_at->format('j')}}</p>
-											<p class=MsoNormal align=left style='text-align:left'>{{$enrollment->updated_at->format('Y')}}</p>	
+											<p class=MsoNormal align=left style='text-align:left'>{{strtoupper($month)}} {{$studentcourse_info->updated_at->format('j')}}</p>
+											<p class=MsoNormal align=left style='text-align:left'>{{$studentcourse_info->updated_at->format('Y')}}</p>	
 										</td>
 										<td style='padding:0in 0in 0in .45in;height:0.25in'>
-											<p class=MsoNormal>score:{{ $enrollment->creds_earned}}/{{ $enrollment->course_credits}}</p>
+											<p class=MsoNormal>score:{{ $studentcourse_info->course_credits}}/{{ $studentcourse_info->total_course_credits}} 
+											&amp; Bonus:{{ $studentcourse_info->bonus_credits}}</p>
 										</td>
 										<td style='padding:0in 0in 0in 3in;height:0.25in'>
-											<p class=MsoNormal align=right style='text-align:right'><img width=120 height=60 id="Picture 48" src="{{route('profileImage',['name'=>'logo.png'])}}" alt="Placeholder logo"></p>
+											<p class=MsoNormal align=right style='text-align:right'><img width=120 height=40 id="Picture 48" src="{{route('profileImage',['name'=>'logo.png'])}}" alt="Placeholder logo"></p>
 										</td>
 									</tr>
   								</table>
@@ -2243,7 +2243,7 @@ ul
 			</div>
 		</div>
 	</div>
-	@endforeach
+
 </body>
 
 </html>
