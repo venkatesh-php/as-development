@@ -20,7 +20,7 @@
     <!--Copyright-->
     <div class="footer-copyright py-3 text-center">
         © 2018 Copyright:
-        <a href="https://skill.ameyem.com"> <b style="color:#aaa">ameyem.com </b></a>
+        <a href="https://www.ameyem.com" target="_blank"> <b style="color:#aaa">ameyem.com </b></a>
     </div>
     <!--/.Copyright-->
 
