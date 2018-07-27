@@ -92,7 +92,7 @@
                                      Score: {{$enrollment->creds_earned}}</h4>
                             <span class="label btn-failed">Completed</span>
                             @if(isMentor())
-                            <a href="{{route('Certificate',['id'=>he($enrollment->course->id),'user_id'=>he(Auth::user()->id)])}}" target="_blank"class="label btn-ongoing">Certificate</a>
+                            <a href="{{route('Certificate',['id'=>he($enrollment->course->id),'user_id'=>he($enrollment->student_id)])}}" target="_blank"class="label btn-ongoing">Certificate</a>
                             @endif
                         </div>                    
                     
