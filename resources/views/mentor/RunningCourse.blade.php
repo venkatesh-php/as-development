@@ -71,6 +71,7 @@
                                         @else
                                         <span class="label btn-danger">Enrolled</span>
                                     @endif
+                                    {{$enrollment->ch_completed}}/{{$enrollment->ch_outof}}
                                 </div>                                 
                                 <div class="extStatus">
                                     <div id="intStatus{{he($enrollment->course->id)}}">
