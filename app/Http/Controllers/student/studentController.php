@@ -758,10 +758,13 @@ class studentController extends Controller
                         }
                     }
             }
-return $guideEnrolls;
+//return $guideEnrolls;
+/*
             if(isMentor()){
-                foreach($guideEnrolls as $ge){
-                    if($ge->status==1){
+              //i return $guideEnrolls; 
+               foreach($guideEnrolls as $ge){
+                //return $ge;    
+		if($ge->status==1){
                         self::UpdateScore($ge->course_id,$ge->student_id,1);
                     }
                     
@@ -770,7 +773,8 @@ return $guideEnrolls;
 
                 
             }
-        return view('mentor.RunningCourse')->with('guideEnrolls',$guideEnrolls);
+  */
+      return view('mentor.RunningCourse')->with('guideEnrolls',$guideEnrolls);
     }
 
 /*######################################################################################################################################################*/
