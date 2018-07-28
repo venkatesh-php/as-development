@@ -759,12 +759,12 @@ class studentController extends Controller
                     }
             }
 //return $guideEnrolls;
-/*
+
             if(isMentor()){
               //i return $guideEnrolls; 
                foreach($guideEnrolls as $ge){
                 //return $ge;    
-		if($ge->status==1){
+		            if($ge->status==1){
                         self::UpdateScore($ge->course_id,$ge->student_id,1);
                     }
                     
@@ -773,7 +773,7 @@ class studentController extends Controller
 
                 
             }
-  */
+ /* */
       return view('mentor.RunningCourse')->with('guideEnrolls',$guideEnrolls);
     }
 
@@ -907,7 +907,7 @@ public function UpdateFinalScore_Coins($course_id,$student_id){
                 // return constants::marks_for_currect_answer;
     $ch_statuses=chapterstatuses::
             whereIn('chapter_id',$chids)->where('user_id',$student_id)
-                ->select('task_credits')->get();
+                ->select('task_credits','status')->get();
                 // var_dump($chids);
                 // echo(')))))*****************************');
     // return [$chids,$course_id, $chids,$ch_statuses, constants::max_credits_each_chapter*count($chids),
@@ -921,7 +921,7 @@ public function UpdateFinalScore_Coins($course_id,$student_id){
         ->where('quizstatuses.result','true')->count();
         
     $course_credits=$ch_statuses->sum('task_credits')+
-        constants::max_credits_each_chapter*count($chids)+
+        constants::max_credits_each_chapter*$ch_statuses->sum('status')+
         $nquestions_true*constants::marks_for_currect_answer;
     if($status==2){
         $hours4completion = (new Carbon($ch_statuses->first()->created_at))
