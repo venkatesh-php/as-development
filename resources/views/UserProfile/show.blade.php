@@ -23,9 +23,9 @@
                 <!-- <div class="container"> -->
                     <!-- <img src="/public/share.png" class="img-rounded" alt="http://www.skills.ameyem.com/images/logo.png" width="304" height="236"> -->
                     @if($users->profilepic == Null)
-                    <img src="{{route('profileImage',['name'=>'dummy_pic.jpg'])}}" alt="" height="150" width="150">   
+                    <img src="{{route('profileImage',['name'=>'dummy_pic.jpg'])}}" alt="" class="img-thumbnail" height="150" width="150">   
                     @else
-                    <img src="{{route('profileImage',['name'=>$users->profilepic])}}" alt="" height="150" width="150">
+                    <img src="{{route('profileImage',['name'=>$users->profilepic])}}" alt="" class="img-thumbnail" height="150" width="150">
                     @endif
                     
                     <div class="row">

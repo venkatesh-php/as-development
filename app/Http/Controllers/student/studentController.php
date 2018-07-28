@@ -426,6 +426,10 @@ class studentController extends Controller
             //  [$chapter_id,$course_id,$chids ];
             $ch_statuses=chapterstatuses::whereIn('chapter_id',$chids)->where('user_id',Auth::user()->id)->select('id')->get();
 
+            // This updates course score after quiz submission
+            self::UpdateScore($course_id->course_id,Auth::user()->id);
+
+
             if(count($chids)==count($ch_statuses)){
                 // return
                 // $course_id;
@@ -766,11 +770,7 @@ public  function Certificate(Request $request){
     // self::UpdateFinalScore_Coins($course_id,$student_id);
     // *****************************************************************************************************************
 
-    //self::UpdateFinalScore_Coins($course_id,$student_id);
-
-
-
-
+  // self::UpdateFinalScore_Coins($course_id,$student_id);
         // *******************************************************************************
 
     $studentcourse_info = enrollment::    
@@ -830,99 +830,16 @@ public function postFeedback(Request $request,$id){
 
 
     }
-public function UpdateFinalScore_Coins($course_id,$student_id){  
-    
+public function UpdateFinalScore_Coins($course_id,$student_id){   
 
-    $course=course::where('courses.id',$course_id)
-    ->where('enrollments.student_id',$student_id)
-    ->join('enrollments','enrollments.course_id','courses.id')
-    ->join('users as users_g','users_g.id','enrollments.guide_id')
-    ->join('users as users_r','users_r.id','enrollments.reviewer_id')
-    ->select('courses.*','enrollments.student_id','enrollments.guide_id','enrollments.reviewer_id',
-    'users_g.first_name as guide_name','users_r.first_name as reviewer_name')
-    ->first();
-// var_dump($course);
-        $chids=chapter::where('course_id',$course_id)
-            ->select('id')->get()->toArray();
-            // return constants::marks_for_currect_answer;
-        $ch_statuses=chapterstatuses::
-        // where()
-        whereIn('chapter_id',$chids)->where('user_id',$student_id)
-            ->select('*')->get();
-            // var_dump($chids);
-            // echo(')))))*****************************');
-// return [$chids,$course_id, $chids,$ch_statuses, constants::max_credits_each_chapter*count($chids),
-// $ch_statuses->sum('quiz_score')*constants::marks_for_currect_answer];
-// return
-$nquestions_true=quiz::whereIn('chapter_id',$chids)
-    ->where('quizstatuses.user_id',$student_id )
-    ->join('questions','questions.quiz_id','=','quizzes.id')
-    ->join('quizstatuses','quizstatuses.question_id','questions.id')
-    // ->select(DB::raw('select sum(result = 1) as yes, sum(my_bool = 0) as no'));
-    ->where('quizstatuses.result','true')->count();
-    // $questions_results ->count();
-
-    // $getData = DB::table('tablename')
-    //              ->select('account_id', DB::raw('count(*) as total'))
-    //              ->groupBy('account_id')
-    //              ->get();
-    // ->select()
-    // ->pluck('quizstatuses.result');
-    // return ->toArray()
-    // $keyed = $questions_results->map(function ($item) {
-// foreach($questions_results as $k,$y){
-
-// }
-// return 
-// array_count_values((array)$questions_results);
-// $mycount=0;
-// foreach ($questions_results as $qr) {
-//     if ($qr==true){
-//         $mycount +=1;
-//     }
-//  // process element here;
-// }
-        // return [$questions_results,$mycount];
-    // });
-    // $keyed=(array) $keyed;
-    // array_push($keyed,True,False);
-    // $wrongs=count(array_filter((array)$questions_results));
-    // $total=count($questions_results);
-
-    $course_credits=$ch_statuses->sum('task_credits')+
-    constants::max_credits_each_chapter*count($chids)+
-    $nquestions_true*constants::marks_for_currect_answer;
-    // return [$nquestions_true,
-    // $ch_statuses->sum('task_credits'),
-    // constants::max_credits_each_chapter*count($chids),
-    // $nquestions_true*constants::marks_for_currect_answer,
-    // $course_credits];
-
-
-        // $ch_statuses->sum('quiz_score')/(count($chids)*100);
-        //devided by 10 as the quiz score was set 10 mulitples of currect answers
-        
-        // $bonus_credits =array_column($ch_statuses->toArray(),'created_at');
-        $hours4completion = (new Carbon($ch_statuses->first()->created_at))
-        ->diffInHours(new Carbon($ch_statuses->last()->created_at));
-            $days=$hours4completion/24.0;
-            if($days<1) $days=1;
-        $bonus_credits= $course_credits*constants::perc_cred_bonus_on_coursecompletion/$days;
-        
-
-
-        enrollment::where('course_id',$course_id)
-        ->where('student_id',$student_id )
-        ->update(['status'=>2,'course_credits'=>$course_credits,'bonus_credits'=>$bonus_credits]);
-    
+    $course= self::UpdateScore($course_id,$student_id);
     // return
         $all_task_credits=AssignTasks::where('assign_tasks.user_id',$student_id)
         ->whereIn('course_chapter_id',$chids)
         ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
         ->select('assign_tasks.*','admin_tasks.usercredits','admin_tasks.guidecredits','admin_tasks.reviewercredits')
         ->get();
-        // return
-        // $course=course::findOrFail($course_id);
+
          
         $usercoins=$course->cost*constants::share_student*($course_credits/($all_task_credits->sum('usercredits')
         +constants::max_credits_each_chapter*count($chids)));
@@ -961,95 +878,54 @@ $nquestions_true=quiz::whereIn('chapter_id',$chids)
             // var_dump($coinsinout_);
             // echo("******************************************");
         }
-
-   
-
-//         // return
-//     $course=course::where('courses.id',$course_id)
-//     ->where('enrollments.student_id',$student_id)
-//     ->join('enrollments','enrollments.course_id','courses.id')
-//     ->join('users as users_g','users_g.id','enrollments.guide_id')
-//     ->join('users as users_r','users_r.id','enrollments.reviewer_id')
-//     ->select('courses.*','enrollments.student_id','enrollments.guide_id','enrollments.reviewer_id',
-//     'users_g.first_name as guide_name','users_r.first_name as reviewer_name')
-//     ->first();
-// // var_dump($course);
-//         $chids=chapter::where('course_id',$course_id)
-//             ->select('id')->get()->toArray();
-//         $ch_statuses=chapterstatuses::
-//         // where()
-//         whereIn('chapter_id',$chids)
-//             ->select('*')->get();
-//             var_dump($chids);
-//             echo(')))))*****************************');
-// var_dump( ['*****************************',$course_id, $chids,$ch_statuses->sum('task_credits'), constants::max_credits_each_chapter*count($chids),
-// $ch_statuses->sum('quiz_score')*constants::marks_for_currect_answer]);
-//         $course_credits=$ch_statuses->sum('task_credits')+
-//         constants::max_credits_each_chapter*count($chids)+
-//         $ch_statuses->sum('quiz_score')*constants::marks_for_currect_answer;
-        
-//         // $bonus_credits =array_column($ch_statuses->toArray(),'created_at');
-//         $hours4completion = (new Carbon($ch_statuses->first()->created_at))
-//         ->diffInHours(new Carbon($ch_statuses->last()->created_at));
-//             $days=$hours4completion/24.0;
-//             if($days<1) $days=1;
-//         $bonus_credits= $course_credits*constants::perc_cred_bonus_on_coursecompletion/$days;
-        
-
-
-//         enrollment::where('course_id',$course_id)
-//         ->where('student_id',$student_id )
-//         ->update(['status'=>2,'course_credits'=>$course_credits,'bonus_credits'=>$bonus_credits]);
+    }
+    public function UpdateScore($course_id,$student_id){
+    $course=course::where('courses.id',$course_id)
+        ->where('enrollments.student_id',$student_id)
+        ->join('enrollments','enrollments.course_id','courses.id')
+        ->join('users as users_g','users_g.id','enrollments.guide_id')
+        ->join('users as users_r','users_r.id','enrollments.reviewer_id')
+        ->select('courses.*','enrollments.student_id','enrollments.guide_id','enrollments.reviewer_id')
+        ->first();
     
-//     // return
-//         $all_task_credits=AssignTasks::where('assign_tasks.user_id',$student_id)
-//         ->whereIn('course_chapter_id',$chids)
-//         ->join('admin_tasks','assign_tasks.task_id','admin_tasks.id')
-//         ->select('assign_tasks.*','admin_tasks.usercredits','admin_tasks.guidecredits','admin_tasks.reviewercredits')
-//         ->get();
-//         // return
-//         // $course=course::findOrFail($course_id);
-         
-//         $usercoins=$course->cost*constants::share_student*($course_credits/($all_task_credits->sum('usercredits')
-//         +constants::max_credits_each_chapter*count($chids)));
-//         $guidecoins=$course->cost*constants::share_guide*($all_task_credits->sum('guide_credits')/$all_task_credits->sum('guidecredits'));
-//         $reviewercoins=$course->cost*constants::share_reviewer*($all_task_credits->sum('reviewer_credits')/$all_task_credits->sum('reviewercredits'));
+    $chids=chapter::where('course_id',$course_id)
+                ->select('id')->get()->toArray();
+                // return constants::marks_for_currect_answer;
+            $ch_statuses=chapterstatuses::
+            // where()
+            whereIn('chapter_id',$chids)->where('user_id',$student_id)
+                ->select('*')->get();
+                // var_dump($chids);
+                // echo(')))))*****************************');
+    // return [$chids,$course_id, $chids,$ch_statuses, constants::max_credits_each_chapter*count($chids),
+    // $ch_statuses->sum('quiz_score')*constants::marks_for_currect_answer];
+    // return
+    $nquestions_true=quiz::whereIn('chapter_id',$chids)
+        ->where('quizstatuses.user_id',$student_id )
+        ->join('questions','questions.quiz_id','=','quizzes.id')
+        ->join('quizstatuses','quizstatuses.question_id','questions.id')
+        // ->select(DB::raw('select sum(result = 1) as yes, sum(my_bool = 0) as no'));
+        ->where('quizstatuses.result','true')->count();
         
-//         $course_owner_coins=$course->cost*constants::share_course_creator;
-//         $company_coins=$course->cost-($usercoins+$guidecoins+$reviewercoins+$course_owner_coins);
-//         // return 
-
-        
-//        $coinsinout_array= array(
-//         [$course->student_id,6,$usercoins,],
-//         [$course->guide_id,4,$guidecoins,],
-//         [$course->reviewer_id,5,$reviewercoins,],
-//         [$course->user_id,3,$course_owner_coins,],
-//         [2,7,$company_coins,],
-//        );
-//        $enroll_id=enrollment::where('student_id', $student_id)
-//        ->where('course_id' , $course->id)->first()->id;
-//         // DB::table('coinsinouts')->insert([
-//         //     'user_id'=> Auth::user()->id,
-//         //     'nature_id'=>2,
-//         //     'enrollment_id'=>$enrollment->id(),
-//         //     'coins'=>-$coinsrequired,
-//         //     "created_at" =>  \Carbon\Carbon::now(), # \Datetime()
-//         //     "updated_at" => \Carbon\Carbon::now(),  # \Datetime()
-//         //     ]); 
-//         foreach($coinsinout_array as $coinsinout_){
-//             $coinsinout = new  coinsinout();                
-//             $coinsinout->nature_id = $coinsinout_[1];
-//             $coinsinout->user_id = $coinsinout_[0];
-//             $coinsinout->enrollment_id = $enroll_id;
-//             $coinsinout->coins = $coinsinout_[2];
-//             $coinsinout->save();
-//             // var_dump($coinsinout_);
-//             // echo("******************************************");
-//         }
-
-
-}
+    $course_credits=$ch_statuses->sum('task_credits')+
+        constants::max_credits_each_chapter*count($chids)+
+        $nquestions_true*constants::marks_for_currect_answer;
+    
+    $hours4completion = (new Carbon($ch_statuses->first()->created_at))
+            ->diffInHours(new Carbon($ch_statuses->last()->created_at));
+                $days=$hours4completion/24.0;
+                if($days<1) $days=1;
+    $bonus_credits= $course_credits*constants::perc_cred_bonus_on_coursecompletion/$days;
+            
+    
+    
+    enrollment::where('course_id',$course_id)
+            ->where('student_id',$student_id )
+            ->update(['status'=>2,'course_credits'=>$course_credits,'bonus_credits'=>$bonus_credits]);
+    
+            return $course;
+    }
+   
 
 }
 

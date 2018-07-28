@@ -65,10 +65,10 @@
         <div class="col-md-8 col-md-offset-2">
             <ul>        
                 <label style="font-size:1em">Share with friends...</label>        
-                <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.asdp.ameyem.com" img="/public/share.png" class="social-button " id=""><span class="fa fa-facebook-official" style="font-size:24px"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="https://twitter.com/intent/tweet?text=Excellent portal I found for learning new courses. Want to share with you. &amp;url=http://www.asdp.ameyem.com" class="social-button " id=""><span class="fa fa-twitter" style="font-size:24px"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="https://plus.google.com/share?url=http://www.asdp.ameyem.com" class="social-button " id=""><span class="fa fa-google-plus" style="font-size:24px"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://www.asdp.ameyem.com&amp;title=Excellent portal I found for learning new courses. Want to share with you. &amp;summary=dit is de linkedin summary" class="social-button " id=""><span class="fa fa-linkedin" style="font-size:24px"></span></a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.ameyem.com/asdp" img="/public/share.png" class="social-button " id=""><span class="fa fa-facebook-official" style="font-size:24px"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://twitter.com/intent/tweet?text=Excellent portal I found for learning new courses. Want to share with you. &amp;url=https://www.ameyem.com/asdp" class="social-button " id=""><span class="fa fa-twitter" style="font-size:24px"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://plus.google.com/share?url=https://www.ameyem.com/asdp" class="social-button " id=""><span class="fa fa-google-plus" style="font-size:24px"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ameyem.com/asdp&amp;title=Excellent portal I found for learning new courses. Want to share with you. &amp;summary=dit is de linkedin summary" class="social-button " id=""><span class="fa fa-linkedin" style="font-size:24px"></span></a>
             </ul>
         </div>
     </div>

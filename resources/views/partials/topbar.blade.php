@@ -50,7 +50,18 @@
                
                             @if (Auth::check())
                                 <!-- <li><a href="{{ route('forumFeed') }}"><b>Forum</b></a></li> -->
-                                <li><a href=""><b>Welcome {{Auth::user()->first_name}} {{Auth::user()->last_name}}</b></a></li>
+                                <li>
+                                    <a href="{{ route('UserProfile.show',he(Auth::user()->id)) }}">
+                                    <b>Welcome</b>
+                                    @if(Auth::user()->profilepic == Null)
+                                        <!-- <i class="fa fa-user"></i> -->
+                                        <img src="{{route('profileImage',['name'=>'dummy_pic.jpg'])}}" alt="" class="img-rounded" height="25" width="25">
+                                    @else
+                                        <img src="{{route('profileImage',['name'=>Auth::user()->profilepic])}}" alt="" class="img-rounded" height="25" width="25">
+                                    @endif
+                                    <span class="title"><b></b></span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="#logout" onclick="$('#logout').submit();">
                                         <span class="title"><b>Logout</b></span>

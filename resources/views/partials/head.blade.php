@@ -5,16 +5,16 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@myameyem" />
 <meta name="twitter:creator" content="@myameyem" />
-<meta name="twitter:url" content="https://asdp.ameyem.com/register">
+<meta name="twitter:url" content="https://www.ameyem.com/asdp/register">
 <meta name="twitter:title" content="Ameyem Skill Development Program - Improve your Computer Skills">
 <meta name="twitter:description" content="ASDP Online and offline trainings in Web Development, Software Development, Mobile App Development including Java, Python, C, C++, PHP, JavaScript languages">
-<meta name="twitter:image" content="https://asdp.ameyem.com/images/Free%20coins%20Introductory%20web%20development.png">
+<meta name="twitter:image" content="https://www.ameyem.com/asdp/public/share.png">
 
 <meta property="og:title" content="Ameyem Skill Development Program - Improve your Computer Skills" />
-<meta property="og:image" content="https://asdp.ameyem.com/images/Free%20coins%20Introductory%20web%20development.png" />
+<meta property="og:image" content="https://www.ameyem.com/asdp/public/share.png" />
 <meta property="og:description" content="ASDP Online and offline trainings in Web Development, Software Development, Mobile App Development including Java, Python, C, C++, PHP, JavaScript languages" />
-<meta property="og:url" content="https://asdp.ameyem.com/register" />
-{{--  <meta http-equiv="refresh" content="0; url=http://asdp.ameyem.com" />  --}}
+<meta property="og:url" content="https://www.ameyem.com/asdp/register" />
+{{--  <meta http-equiv="refresh" content="0; url=https://www.ameyem.com/asdp/" />  --}}
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport">

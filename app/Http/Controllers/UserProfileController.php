@@ -28,22 +28,42 @@ class UserProfileController extends Controller
      */
     public function index(Request $request)
     {
-        if(Auth::user()->institutes_id == 1){
+        if(Auth::user()->institutes_id == 1)
+        {
 
-            $users = User::orderBy('id','asc')
-                ->paginate(50);
+            $userss = User::orderBy('id','asc')->get();
 
-            return view('UserProfile.index',compact('users'))
-                ->with('i', ($request->input('page', 1) - 1) * 50);
+            foreach($userss as $user)
+            {
+                $completedtasks = DB::table('assign_tasks')
+                                    ->where('assign_tasks.user_id',$user->id)
+                                    ->where('assign_tasks.status','approved')
+                                    ->orderBy('assign_tasks.updated_at')->get();
+                $user->totalcredits = $completedtasks->sum('user_credits');
+            }
+                $users = $userss->sortByDesc('totalcredits');
+
+            return view('UserProfile.index',compact('users'));
 
         }
-        else{
-            $users = User::orderBy('id','asc')
-                ->where('users.institutes_id',Auth::user()->institutes_id)
-                ->paginate(50);
 
-        return view('UserProfile.index',compact('users'))
-            ->with('i', ($request->input('page', 1) - 1) * 50);
+        else
+        {
+            $userss = User::orderBy('id','asc')
+                ->where('users.institutes_id',Auth::user()->institutes_id)->get();
+
+            foreach($userss as $user)
+            {
+                $completedtasks = DB::table('assign_tasks')
+                                    ->where('assign_tasks.user_id',$user->id)
+                                    ->where('assign_tasks.status','approved')
+                                    ->orderBy('assign_tasks.updated_at')->get();
+                $user->totalcredits = $completedtasks->sum('user_credits');
+            }
+                $users = $userss->sortByDesc('totalcredits');
+
+        return view('UserProfile.index',compact('users'));
+            // ->with('i', ($request->input('page', 1) - 1) * 50);
 
         }
         
