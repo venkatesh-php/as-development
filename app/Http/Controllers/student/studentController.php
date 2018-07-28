@@ -729,6 +729,7 @@ class studentController extends Controller
 
         $guidCourses = course::orderBy('id','DESC')
         ->select('courses.*')->get();
+        // return Auth::user();
         $inst_ids=array(Auth::user()->institutes_id);
         if(Auth::user()->institutes_id==1){
             array_push($inst_ids,1,2,3,4,5,6,7,8,9,10);
@@ -758,6 +759,9 @@ class studentController extends Controller
                     }
             }
 // return $guideEnrolls;
+            if(isMentor()){
+                
+            }
         return view('mentor.RunningCourse')->with('guideEnrolls',$guideEnrolls);
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\UserTasks;
 use App\AdminTasks;
 use App\AssignTasks;
+use App\coursetask;
 use DB;
 use Auth;
 use App\User;
@@ -140,7 +141,8 @@ class TaskMigrateController extends Controller
         $course_id= coursetask::where('task_id','assign_tasks.task_id')
          ->join('chapters','chapters.id','coursetasks.chapter_id')
          ->find('chapters.course_id');
-         StudentController::UpdateScore($course_id,Auth::user()->id);
+         $sc=StudentController();
+         $sc::UpdateScore($course_id,Auth::user()->id);
  
     return redirect()->route('TaskMigrate.index');
                    
