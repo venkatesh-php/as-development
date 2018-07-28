@@ -15,6 +15,7 @@ use App\TaskMigrate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\View;
 use Carbon\Carbon;
+use App\Http\Controllers\student\StudentController;
 
 class TaskMigrateController extends Controller
 {
@@ -134,6 +135,12 @@ class TaskMigrateController extends Controller
         unset($task->rating_to_guide);
 
         $task->save();
+
+        // This updates course score after quiz submission
+        $course_id= coursetask::where('task_id','assign_tasks.task_id')
+         ->join('chapters','chapters.id','coursetasks.chapter_id')
+         ->find('chapters.course_id');
+         StudentController::UpdateScore($course_id,Auth::user()->id);
  
     return redirect()->route('TaskMigrate.index');
                    
