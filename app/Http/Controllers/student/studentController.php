@@ -758,7 +758,7 @@ class studentController extends Controller
                         }
                     }
             }
-// return $guideEnrolls;
+return $guideEnrolls;
             if(isMentor()){
                 foreach($guideEnrolls as $ge){
                     if($ge->status==1){
