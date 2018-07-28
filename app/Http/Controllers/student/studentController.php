@@ -774,11 +774,7 @@ public  function Certificate(Request $request){
     // self::UpdateFinalScore_Coins($course_id,$student_id);
     // *****************************************************************************************************************
 
-    // self::UpdateFinalScore_Coins($course_id,$student_id);
-
-
-
-
+  // self::UpdateFinalScore_Coins($course_id,$student_id);
         // *******************************************************************************
 
     $studentcourse_info = enrollment::    
