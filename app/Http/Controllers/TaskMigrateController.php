@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\UserTasks;
 use App\AdminTasks;
 use App\AssignTasks;
+use App\coursetask;
 use DB;
 use Auth;
 use App\User;
@@ -15,7 +16,18 @@ use App\TaskMigrate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\View;
 use Carbon\Carbon;
-use App\Http\Controllers\student\StudentController;
+
+//to be deleted
+use App\quiz;
+use App\constants;
+use App\course;
+use App\chapter;
+use App\coinsinout;
+use App\questions;
+use App\enrollment;
+use App\quizstatuses;
+use App\chapterstatuses;
+
 
 class TaskMigrateController extends Controller
 {
@@ -124,6 +136,20 @@ class TaskMigrateController extends Controller
             ->update(['user_credits' => $task->rating_to_user * $reserved_credits/10,'guide_credits' => $task->rating_to_guide * $reserved_guide_credits/10,
             'reviewer_credits' => 10*$reserved_guide_credits/10,
             'status' => $task->request_for,'completed_at' => Carbon::now('Asia/Kolkata')]); 
+
+
+             // This updates course score after quiz submission
+        // return
+            $task_details=AssignTasks::where('assign_tasks.id', $task->assigntask_id)   
+            ->join('chapters','chapters.id','assign_tasks.course_chapter_id')
+            ->select('chapters.course_id','assign_tasks.user_id')
+            ->first();
+
+            $course_id=$task_details->course_id;
+
+            $student_id=$task_details->user_id;
+            $status=1;
+        self::UpdateScore($course_id,Auth::user()->id,1); //1 is status of the course. it needs to be 1
         }
 
         DB::table('assign_tasks')->where('id', $task->assigntask_id)  
@@ -136,11 +162,7 @@ class TaskMigrateController extends Controller
 
         $task->save();
 
-        // This updates course score after quiz submission
-        $course_id= coursetask::where('task_id','assign_tasks.task_id')
-         ->join('chapters','chapters.id','coursetasks.chapter_id')
-         ->find('chapters.course_id');
-         StudentController::UpdateScore($course_id,Auth::user()->id);
+       
  
     return redirect()->route('TaskMigrate.index');
                    
@@ -279,4 +301,93 @@ class TaskMigrateController extends Controller
     {
         //
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function UpdateScore($course_id,$student_id,$status){
+       
+        
+
+        $course=course::where('courses.id',$course_id)
+        ->where('enrollments.student_id',$student_id)
+        ->join('enrollments','enrollments.course_id','courses.id')
+        // ->join('users as users_g','users_g.id','enrollments.guide_id')
+        // ->join('users as users_r','users_r.id','enrollments.reviewer_id')
+        ->select('courses.*','enrollments.student_id','enrollments.guide_id','enrollments.reviewer_id')
+        ->first();
+    
+    $chids=chapter::where('course_id',$course_id)
+                ->select('id')->get()->toArray();
+                // return constants::marks_for_currect_answer;
+            $ch_statuses=chapterstatuses::
+            // where()
+            whereIn('chapter_id',$chids)->where('user_id',$student_id)
+                ->select('*')->get();
+                // var_dump($chids);
+                // echo(')))))*****************************');
+    // return [$chids,$course_id, $chids,$ch_statuses, constants::max_credits_each_chapter*count($chids),
+    // $ch_statuses->sum('quiz_score')*constants::marks_for_currect_answer];
+    // return
+    $nquestions_true=quiz::whereIn('chapter_id',$chids)
+        ->where('quizstatuses.user_id',$student_id )
+        ->join('questions','questions.quiz_id','=','quizzes.id')
+        ->join('quizstatuses','quizstatuses.question_id','questions.id')
+        // ->select(DB::raw('select sum(result = 1) as yes, sum(my_bool = 0) as no'));
+        ->where('quizstatuses.result','true')->count();
+        
+    $course_credits=$ch_statuses->sum('task_credits')+
+        constants::max_credits_each_chapter*count($chids)+
+        $nquestions_true*constants::marks_for_currect_answer;
+    if($status==2){
+        $hours4completion = (new Carbon($ch_statuses->first()->created_at))
+            ->diffInHours(new Carbon($ch_statuses->last()->created_at));
+                $days=$hours4completion/24.0;
+                if($days<1) $days=1;
+    $bonus_credits= $course_credits*constants::perc_cred_bonus_on_coursecompletion/$days;
+    }else{
+        $bonus_credits=null;
+    }
+    
+            
+    // return [$course_credits,$bonus_credits];
+    
+    enrollment::where('course_id',$course_id)
+    ->where('student_id',$student_id )
+    ->update(['status'=>$status,'course_credits'=>$course_credits,'bonus_credits'=>$bonus_credits]);
+
+    
+            return $course;
+
+
+
+        }
+       
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
