@@ -727,52 +727,54 @@ class studentController extends Controller
 
    public  function RunningCourses(){
 
-        $guidCourses = course::orderBy('id','DESC')
-        ->select('courses.*')->get();
+        // $guidCourses = course::orderBy('id','DESC')
+        // ->select('name')->get();
         // return Auth::user();
+
+
+
         $inst_ids=array(Auth::user()->institutes_id);
         if(Auth::user()->institutes_id==1){
             array_push($inst_ids,1,2,3,4,5,6,7,8,9,10);
         }
+
+
         // return $inst_ids;
         $guideEnrolls = enrollment::orderBy('enrollments.course_credits','DESC')
         ->whereIn('users_u.institutes_id',$inst_ids)
         ->join('courses','enrollments.course_id','=','courses.id')
         ->join('users as users_u','users_u.id','enrollments.student_id')
-        ->select('enrollments.*','users_u.first_name as first_name')->get();
+        ->select('enrollments.*','users_u.first_name as first_name','courses.name')->get();
             foreach($guideEnrolls as $enroll){
                 $chapters=chapter::where('course_id',$enroll->course_id)->select('id')->get();
-                    
-                    $coursestatuses=
-                    chapterstatuses::whereIn('chapter_id',$chapters->toArray())
-                    ->where('user_id',$enroll->student_id)->select('chapterstatuses.*')->get();
+                // $chids=chapter::where('course_id',$course_id)
+                // ->select('id')->get()->toArray();                    
+                $coursestatuses=chapterstatuses::whereIn('chapter_id',$chapters->toArray())
+                    ->where('user_id',$enroll->student_id)->select('task_credits','status')->get();
+
+                    // $ch_statuses=chapterstatuses:: whereIn('chapter_id',$chids)
+                    // ->where('user_id',$student_id)->select('task_credits','status')->get();
+
                     $enroll->ch_completed=$coursestatuses->sum('status');
                     $enroll->ch_outof=count($chapters);
                     $enroll->creds_earned=$enroll->course_credits*1;
-                    // $coursestatuses->sum('task_credits')+$coursestatuses->sum('quiz_score')*constants::max_credits_each_chapter/100;
-                   
-                    foreach($guidCourses as $course){
-                        if($enroll->course_id == $course->id)
-                        {
-                            $enroll->name = $course->name;
-                        }
-                    }
+
             }
 //return $guideEnrolls;
 
-            if(isMentor()){
-              //i return $guideEnrolls; 
-               foreach($guideEnrolls as $ge){
-                //return $ge;    
-		            if($ge->status==1){
-                        self::UpdateScore($ge->course_id,$ge->student_id,1);
-                    }
+            // if(isMentor()){
+            //   //i return $guideEnrolls; 
+            //    foreach($guideEnrolls as $ge){
+            //     //return $ge;    
+		    //         if($ge->status==1){
+            //             self::UpdateScore($ge->course_id,$ge->student_id,1);
+            //         }
                     
 
-                }
+            //     }
 
                 
-            }
+            // }
  /* */
       return view('mentor.RunningCourse')->with('guideEnrolls',$guideEnrolls);
     }

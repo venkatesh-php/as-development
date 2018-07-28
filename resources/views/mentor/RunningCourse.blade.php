@@ -105,12 +105,13 @@
                 
                 @endif
 
-               {{-- @if($enrollment->ch_outof>0)
+                @if($enrollment->ch_completed>0)
                 <script>statusBar('intStatus{{he($enrollment->course_id)}}',
                  {{$enrollment->ch_completed/$enrollment->ch_outof}})
                 </script>
                
-                @endif--}}
+                @endif
+                {{----}}
 
             @endforeach
             </div>
