@@ -810,14 +810,16 @@ $questions_results=quiz::whereIn('chapter_id',$chids)
     // array_push($keyed,True,False);
     $wrongs=count(array_filter((array)$questions_results));
     $total=count($questions_results);
+    $course_credits=$ch_statuses->sum('task_credits')+
+    constants::max_credits_each_chapter*count($chids)+
+    ($total-$wrongs)*constants::marks_for_currect_answer;
     return [$questions_results,$wrongs,$total,
     $ch_statuses->sum('task_credits'),
     constants::max_credits_each_chapter*count($chids),
-    ($total-$wrongs)*constants::marks_for_currect_answer];
+    ($total-$wrongs)*constants::marks_for_currect_answer,
+    $course_credits];
 
-        $course_credits=$ch_statuses->sum('task_credits')+
-        constants::max_credits_each_chapter*count($chids)+
-        ($total-$wrongs)*constants::marks_for_currect_answer;
+
         // $ch_statuses->sum('quiz_score')/(count($chids)*100);
         //devided by 10 as the quiz score was set 10 mulitples of currect answers
         
