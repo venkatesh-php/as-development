@@ -786,7 +786,7 @@ public  function Certificate(Request $request){
             // return constants::marks_for_currect_answer;
         $ch_statuses=chapterstatuses::
         // where()
-        whereIn('chapter_id',$chids)
+        whereIn('chapter_id',$chids)->where('user_id',$student_id)
             ->select('*')->get();
             // var_dump($chids);
             // echo(')))))*****************************');
