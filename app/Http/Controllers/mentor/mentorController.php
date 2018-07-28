@@ -417,6 +417,14 @@ class mentorController extends Controller
         return $response;
     }
 
+    /*serve the users cv */
+    public function cvs($name){
+        $cv = Storage::disk('cv')->get($name);
+        $response = Response::make($cv, 200);
+        $response->header('Content-Type', 'application/pdf');
+        return $response;
+    }
+
     /*serve  a specified chapters video tutorial*/
     public function serveVideo($id){
         $video = Storage::disk('videos')->get($id);

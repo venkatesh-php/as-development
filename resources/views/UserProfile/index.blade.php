@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+<?php 
+$i =1;
+?>
 
 <div class="container-fluid">
     <div class="row">
@@ -31,6 +34,7 @@
                         <th>ID</th>
                         <th>Name</th><br>
                         <th>College Name</th>
+                        <th>Branch</th>
                         <th>No.of Tasks Assigned</th>
                         <th>No.of Tasks Completed</th>
                         <th>Total Credits</th>
@@ -38,7 +42,7 @@
                     </tr>
                     @foreach ($users as $key => $details)
                         <tr>
-                            <td>{{ ++$i }}</td>
+                            <td>{{ $i++ }}</td>
                             <td>{{ $details->id }}</td> 
                             <td>{{ $details->first_name }} {{ $details->last_name }}</td>
                             <td>
@@ -53,11 +57,20 @@
                                  @foreach($institute_name as $ii)
                                     {{$ii->name}}
                                 @endforeach
-
-
-                            
+                            </td>
+                            <td>
+                            <?php
+                                $b_name = DB::table('branches')
+                                ->join('users','branches.id','=','users.branch_id')
+                                ->where('users.id',$details->id)
+                                ->select('branches.*')->get();
+                            ?>
+                            @foreach($b_name as $bb)
+                                    {{$bb->name}}
+                                @endforeach
                             
                             </td>
+
                             <td>
                                 <?php
 
@@ -81,17 +94,7 @@
                             </td>
 
                             <td>
-
-                                <?php
-
-                                    $completedtasks = DB::table('assign_tasks')
-                                    ->where('assign_tasks.user_id',$details->id)
-                                    ->where('assign_tasks.status','approved')
-                                    ->orderBy('assign_tasks.updated_at')->get();
-                                                        
-                                    $totalcredits = $completedtasks->sum('user_credits'); 
-                                ?>
-                                {{ $totalcredits }}
+                                {{ $details->totalcredits }}
                             </td>
                             
                             <td>
@@ -107,7 +110,7 @@
                     @endforeach
                 </table>
 
-                {!!$users->render()!!}
+              {{-- {!!$users->render()!!}  --}}
 
             </div>
         </div>

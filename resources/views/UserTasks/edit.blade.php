@@ -171,9 +171,9 @@ input:focus{
                                     <div class="container">
                                         <div class="row">
                                             @if(Auth::user()->profilepic == Null) 
-                                                <img src="{{route('profileImage',['name'=>'dummy_pic.jpg'])}}" class="img-circle" alt="Cinque Terre" width="70" height="60">
+                                                <img src="{{route('profileImage',['name'=>'dummy_pic.jpg'])}}" class="img-circle" width="60" height="60">
                                             @else
-                                                <img src="{{route('profileImage',['name'=>Auth::user()->profilepic])}}" class="img-circle" alt="Cinque Terre" width="70" height="60">
+                                                <img src="{{route('profileImage',['name'=>Auth::user()->profilepic])}}" class="img-circle" width="60" height="60">
                                             @endif
                                         </div> 
                                         <div class="row">
@@ -207,9 +207,9 @@ input:focus{
                                     <div class="container">
                                         <div class="row">
                                             @if($task->profilepic == Null) 
-                                                <img src="{{route('profileImage',['name'=>'dummy_pic.jpg'])}}" class="img-circle" alt="Cinque Terre" width="70" height="60">
+                                                <img src="{{route('profileImage',['name'=>'dummy_pic.jpg'])}}" class="img-circle" width="60" height="60">
                                             @else
-                                                <img src="{{route('profileImage',['name'=>$task->profilepic])}}" class="img-circle" alt="Cinque Terre" width="70" height="60">
+                                                <img src="{{route('profileImage',['name'=>$task->profilepic])}}" class="img-circle" width="60" height="60">
                                             @endif
                                         </div> 
                                         <div class="row">
