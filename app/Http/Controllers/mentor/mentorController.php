@@ -9,6 +9,7 @@ use App\question;
 use App\questions;
 use App\quiz;
 use App\coursetask;
+use App\constants;
 use Auth;
 use DB;
 use App\AdminTasks;
@@ -59,6 +60,7 @@ class mentorController extends Controller
         $task = coursetask::firstOrCreate($input);
       $c=chapter::where('id',$request->chapter_id)
        -> select('course_id')->first();
+       self::UpdatetotalCoursecredits($c->course_id);
        return redirect()->route('manageCourse',['id'=>he($c->course_id)]) ;
 
     }
@@ -241,8 +243,53 @@ class mentorController extends Controller
           foreach ($course->chapter as $cch ){
             $cch->tasks=getTaskIds($cch->id,$tasks);
           }
-          
-        //   return             $course;
+
+        // This following update needs to be deleted after updating tables
+        // self::UpdatetotalCoursecredits($id);
+
+
+
+
+        $course_id=$id;
+
+
+
+
+
+
+        $chids=chapter::where('course_id',$course_id)
+        ->select('id')->get()->toArray();
+          $tasks_ids=coursetask::whereIn('chapter_id',$chids)
+    ->join('admin_tasks','admin_tasks.id','=','coursetasks.task_id')
+    ->select('task_id','usercredits','guidecredits','reviewercredits')->get();
+    // return
+    $no_of_questions=quiz::whereIn('chapter_id',$chids)
+    ->join('questions','questions.quiz_id','=','quizzes.id')
+    ->select('questions.id')->count();
+    
+    $total_user_coursecredits=count($chids)*constants::max_credits_each_chapter
+    +$no_of_questions*constants::marks_for_currect_answer
+    +$tasks_ids->sum('usercredits') ;
+
+    $total_guide_coursecredits=$tasks_ids->sum('guidecredits') ;
+
+    $total_reviewer_coursecredits=$tasks_ids->sum('reviewercredits') ;
+
+    course::where('id', $course_id)
+    ->update(['total_user_credits' => $total_user_coursecredits,
+    'total_guide_credits' => $total_guide_coursecredits,
+    'total_reviewer_credits' => $total_reviewer_coursecredits
+    ]);
+        
+
+
+
+
+
+
+
+
+
 
             return view('course.manage')->with('course',$course); 
         // }
@@ -285,6 +332,7 @@ class mentorController extends Controller
         /*dd($chapter);*/
         // return $chapter;
         $chapter->save();
+        self::UpdatetotalCoursecredits($id);
         // return $chapter;
 
         //TODO: redirect to course view instead of courses view
@@ -300,6 +348,7 @@ class mentorController extends Controller
 
     /*handle a new chapter request*/
     public  function updateChapter($id,Request $request){
+        // return $request->All();
         // $course = course::findOrFail($id);
         $chapter = chapter::findOrFail(hd($id));
         // $chapter = new chapter();
@@ -436,7 +485,8 @@ class mentorController extends Controller
     public function createQuiz($chapter_id,Request $request){
         /*find the chapter*/
         $chapter_id = hd($chapter_id);
-        $chapter = chapter::findOrFail($chapter_id);
+        // return
+        $chapter = chapter::select('course_id')->findOrFail($chapter_id);
 
         /*select the quiz associated with the chapter*/
         $quiz = quiz::firstOrCreate(['chapter_id'=>$chapter_id]);
@@ -449,12 +499,16 @@ class mentorController extends Controller
         $question->answer = $request->answer;
         $question->quiz_id = $quiz->id;
         $question->save();
+        self::UpdatetotalCoursecredits($chapter ->course_id);
         return redirect()->route('createQuiz',['id'=>he($chapter_id)]);
     }
     public function qstnDelete($chapter_id,$question_id){
         // return [hd($chpter_id),hd($question_id)];
+        
         question::where('id',  hd($question_id))
         ->delete();
+        $chapter = chapter::select('course_id')->findOrFail(hd($chpter_id));
+        self::UpdatetotalCoursecredits($chapter ->course_id);
         return redirect()->back();
     }
 
@@ -497,7 +551,7 @@ class mentorController extends Controller
      /*update the task */
      public function updateTask($id,Request $request){
         /*find the chapter*/
-        // return $request->all();
+        
         $this->validate($request, [
             'institutes_id' =>'required',
             'user_id' => 'required',
@@ -523,18 +577,44 @@ class mentorController extends Controller
         $task->usercredits = $request->usercredits;
         $task->guidecredits = $request->guidecredits;
         $task->reviewercredits = $request->reviewercredits;
-
+            // return substr($task->uploads,1);
         if(isset($request->uploads)){
-            if(isset( $task->uploads )){
-            Storage::disk('uploads')->delete($task->uploads);
+
+            // $file_path = storage_path('../public/'.substr($task->uploads,3));
+            $file_path = storage_path('app/public/uploads/'.substr($task->uploads,3));
+            // $file_path = storage_path('app/public/uploads/'.$task->uploads);
+        // return $file_path;
+         if(file_exists($file_path)) {
+                Storage::disk('uploads')->delete(substr($task->uploads,3));
             }
-            $uploads = storeFile($request->uploads,'uploads');
+            else
+            {
+                Storage::disk('uploads')->delete($task->uploads);
+            }
+            
+
+        
+      }
+
+      $task->uploads = storeFile($request->uploads,'uploads');
+            
+        //    return[$request->uploads, $uploads];
             /*update admintask instance*/
-            $request['uploads'] = $uploads;
-            $task->uploads=$uploads;
-        }
+            // $request['uploads'] = $uploads;
+            // return $request->all();
+            // $task->uploads=$uploads;
+        // }
 
         $task->update();
+
+        $chapters = coursetask::where('task_id',$task->id)
+        ->join('chapter','chapter.id','coursetasks.chapter_id')->select('course_id')
+        ->get();
+        foreach($chapters as $chapter){
+            self::UpdatetotalCoursecredits($chapter ->course_id);
+        }
+        
+        // AdminTasks::where('id', $id)->update($request->except(['_token','files']));
 
         return redirect()->route('AdminTasks.index')
                         ->with('success','AdminTasks Updated successfully');
@@ -637,6 +717,32 @@ class mentorController extends Controller
         return redirect()->back();
     }
     
+    public function UpdatetotalCoursecredits($course_id){
+        $chids=chapter::where('course_id',$course_id)
+        ->select('id')->get()->toArray();
+    $tasks_ids=coursetask::whereIn('chapter_id',$chids)
+    ->join('admin_tasks','admin_tasks.id','=','coursetasks.task_id')
+    ->select('task_id','usercredits','guidecredits','reviewercredits')->get();
+
+    $no_of_questions=quiz::whereIn('chapter_id',$chids)
+    ->join('questions','questions.quiz_id','=','quizzes.id')
+    ->select('questions.id')->count();
+    
+    $total_user_coursecredits=count($chids)*constants::max_credits_each_chapter
+    +$no_of_questions*constants::marks_for_currect_answer
+    +$tasks_ids->sum('usercredits') ;
+
+    $total_guide_coursecredits=$tasks_ids->sum('guidecredits') ;
+
+    $total_reviewer_coursecredits=$tasks_ids->sum('reviewercredits') ;
+
+    course::where('id', $course_id)
+    ->update(['total_user_credits' => $total_user_coursecredits,
+    'total_guide_credits' => $total_guide_coursecredits,
+    'total_reviewer_credits' => $total_reviewer_coursecredits
+    ]);
+        
+    }
 
     /*block a course*/
     public function publishCourse($id){

@@ -85,7 +85,24 @@
                             {!! Form::close() !!}  --}}
                         </td>
                         @if ($task->uploads)
-                        <td><a class="btn btn-info btn-xs" href="{{ route('download',$task->uploads) }}">FileLinks</a></td>
+
+                            <?php
+                            if(substr($task->uploads,0,3)=='../'){
+                                
+                                $mystr= str_replace("/", "_", substr($task->uploads,3));
+                            }else{
+                                $mystr= $task->uploads;
+                            }
+                            
+                            
+
+                            ?>
+
+                        <td><a class="btn btn-info btn-xs" href="{{ route('download',$mystr) }}">FileLinks</a></td>
+
+
+                        
+
                         @else
                         <td>Nill</td>
                         @endif

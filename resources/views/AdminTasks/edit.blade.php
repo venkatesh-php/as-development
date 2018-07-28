@@ -57,21 +57,14 @@
                             <div class="col-xs-12 col-sm-12 col-md-12" style="color:#006699">
                                 <div class="form-group">
                                     <strong>Work Nature:</strong>
-                                        <select name="worknature" class="form-control">
-                                            @foreach ($work_nature as $work)
-                                                <option value="{{$work->work_nature}}">{{$work->work_nature}}</option>                
-                                            @endforeach
-                                        </select> 
+                                    {!! Form::select('worknature', $work_nature, $admin_tasks->worknature, ['class' => 'form-control']);!!}
+                                        
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12" style="color:#006699">
                                 <div class="form-group">
-                                <strong>Subject or Language:</strong>
-                                    <select name="subject" class="form-control">
-                                        @foreach ($subjects as $subject)
-                                            <option value="{{$subject->subject}}">{{$subject->subject}}</option>                
-                                        @endforeach
-                                    </select>
+                                    <strong>Subject or Language:</strong>
+                                    {!! Form::select('subject', $subjects,$admin_tasks->subject,['class' => 'form-control']);!!}
                                     
                                 </div>
                             </div>

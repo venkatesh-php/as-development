@@ -156,7 +156,7 @@
             <li>
                 <a href="{{ route('RunningCourses') }}">
                     <i class="fa fa-book"></i>
-                    <span class="title"><b>Courses doing by students</b></span>
+                    <span class="title"><b>Progress of Your Classmates</b></span>
                 </a>
             </li>
 

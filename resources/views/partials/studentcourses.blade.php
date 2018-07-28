@@ -91,7 +91,7 @@
                         <div class="course_header">
                             <h3>{{ $enrollment->course->name}}</h3>
                             <span href="#" class="label btn-failed">Completed</span>
-                            <a href="{{route('Certificate',['id'=>he($enrollment->course->id)])}}" target="_blank"class="label btn-ongoing">Certificate</a>
+                            <a href="{{route('Certificate',['id'=>he($enrollment->course->id),'user_id'=>Auth::user()->id])}}" target="_blank"class="label btn-ongoing">Certificate</a>
                         </div>
                         <hr>
                         <h4>{{$enrollment->creds_earned}} credits earned</h4>
