@@ -262,7 +262,7 @@ class mentorController extends Controller
           $tasks_ids=coursetask::whereIn('chapter_id',$chids)
     ->join('admin_tasks','admin_tasks.id','=','coursetasks.task_id')
     ->select('task_id','usercredits','guidecredits','reviewercredits')->get();
-    return
+    // return
     $no_of_questions=quiz::whereIn('chapter_id',$chids)
     ->join('questions','questions.quiz_id','=','quizzes.id')
     ->select('questions.id')->count();
