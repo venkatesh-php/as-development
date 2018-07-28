@@ -245,7 +245,51 @@ class mentorController extends Controller
           }
 
         // This following update needs to be deleted after updating tables
-        self::UpdatetotalCoursecredits($id);
+        // self::UpdatetotalCoursecredits($id);
+
+
+
+
+        $course_id=$id;
+
+
+
+
+
+
+        $chids=chapter::where('course_id',$course_id)
+        ->select('id')->get()->toArray();
+          $tasks_ids=coursetask::whereIn('chapter_id',$chids)
+    ->join('admin_tasks','admin_tasks.id','=','coursetasks.task_id')
+    ->select('task_id','usercredits','guidecredits','reviewercredits')->get();
+    return
+    $no_of_questions=quiz::whereIn('chapter_id',$chids)
+    ->join('questions','questions.quiz_id','=','quizzes.id')
+    ->select('questions.id')->count();
+    
+    $total_user_coursecredits=count($chids)*constants::max_credits_each_chapter
+    +$no_of_questions*constants::marks_for_currect_answer
+    +$tasks_ids->sum('usercredits') ;
+
+    $total_guide_coursecredits=$tasks_ids->sum('guidecredits') ;
+
+    $total_reviewer_coursecredits=$tasks_ids->sum('reviewercredits') ;
+
+    course::where('id', $course_id)
+    ->update(['total_user_credits' => $total_user_coursecredits,
+    'total_guide_credits' => $total_guide_coursecredits,
+    'total_reviewer_credits' => $total_reviewer_coursecredits
+    ]);
+        
+
+
+
+
+
+
+
+
+
 
             return view('course.manage')->with('course',$course); 
         // }
@@ -677,7 +721,7 @@ class mentorController extends Controller
     ->select('questions.id')->count();
     
     $total_user_coursecredits=count($chids)*constants::max_credits_each_chapter
-    +$no_of_questions
+    +$no_of_questions*constants::marks_for_currect_answer
     +$tasks_ids->sum('usercredits') ;
 
     $total_guide_coursecredits=$tasks_ids->sum('guidecredits') ;
