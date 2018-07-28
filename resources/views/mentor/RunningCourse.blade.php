@@ -1,7 +1,13 @@
+
+
+
+<!-- @inject('request', 'Illuminate\Http\Request') -->
+{{--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>  --}}
 @extends('layouts.app')
 
 @section('content')
 <style>
+
     .course_header h3, .course_header .button{
         display: inline-block;
     }
@@ -44,7 +50,6 @@
 <script>
    function statusBar(id,width){
        var elem= document.getElementById(id);
-       console.log(elem);
             elem.style.height="20px";
             barwidth=Math.round(width*100)+"%"
                 elem.style.width=barwidth;
@@ -71,10 +76,10 @@
                                         @else
                                         <span class="label btn-danger">Enrolled</span>
                                     @endif
-                                    {{$enrollment->ch_completed}}/{{$enrollment->ch_outof}}
+                                    
                                 </div>                                 
                                 <div class="extStatus">
-                                    <div id="intStatus{{he($enrollment->course->id)}}">
+                                    <div id="intStatus{{he($enrollment->course_id+$enrollment->student_id)}}">
                                     </div>
                                 </div>
 
@@ -106,11 +111,10 @@
                 
                 @endif
 
-                @if($enrollment->ch_completed>0)
-                <script>statusBar('intStatus{{he($enrollment->course_id)}}',
+                @if($enrollment->ch_outof>0)
+                <script>statusBar('intStatus{{he($enrollment->course_id+$enrollment->student_id)}}',
                  {{$enrollment->ch_completed/$enrollment->ch_outof}})
                 </script>
-               
                 @endif
                 {{----}}
 

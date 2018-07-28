@@ -776,6 +776,7 @@ class studentController extends Controller
                 
             // }
  /* */
+//  return  $guideEnrolls;
       return view('mentor.RunningCourse')->with('guideEnrolls',$guideEnrolls);
     }
 
