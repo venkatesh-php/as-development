@@ -63,7 +63,7 @@
     <h2 class="text-center">Progress of Your Classmates </h2>
     <div class="row">
             @foreach($guideEnrolls as $enrollment)
-                @if($enrollment->status <2)
+                @if($enrollment->status <2 && $enrollment->ch_completed>=1)
                     
                        
                             <div class="col-sm-3 panel" >
@@ -106,6 +106,9 @@
                             <div class="hunded">100%
                             </div>
                         </div> 
+                        @if(isMentor())
+                        <h5>Comment: {{$enrollment->comment}}</h5>
+                        @endif
                     </div>
                    
                 
