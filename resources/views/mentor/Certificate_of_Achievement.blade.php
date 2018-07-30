@@ -1911,12 +1911,12 @@ span.TitleChar
 	text-transform:uppercase;}
 p.Name, li.Name, div.Name
 	{mso-style-name:Name;
-	margin-top:12.0pt;
+	margin-top:25.0pt;
 	margin-right:0in;
-	margin-bottom:12.0pt;
+	margin-bottom:0.0pt;
 	margin-left:0in;
 	text-align:center;
-	font-size:37.0pt;
+	font-size:27.0pt;
 	font-family:"Georgia",serif;
 	color:#332411;
 	letter-spacing:.75pt;}
@@ -2162,7 +2162,7 @@ ul
   								<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 summary="Recipient name" style='border-collapse:collapse;border:none'>
    									<tr style='height:0.25in'>
     									<td valign=top style='border-top:double #6E6E6E 3.75pt;border-left:none;border-bottom:double #6E6E6E 3.75pt;border-right:none;padding:0in .75in 0in .75in;height:1.25in'>
-    										<p class=Name>{{$studentcourse_info->first_name}} {{$studentcourse_info->last_name}}</p>
+    										<p class=Name>{{strtoupper($studentcourse_info->first_name)}} {{strtoupper($studentcourse_info->last_name)}}</p>
     									</td>
    									</tr>
   								</table>
