@@ -787,7 +787,7 @@ public  function Certificate(Request $request){
 
     $course_id = hd($request->id);
     $student_id = hd($request->user_id);
-    self::UpdateScore($course_id,$student_id,2);
+    return self::UpdateScore($course_id,$student_id,2);
     $studentcourse_info = enrollment::    
     where('enrollments.course_id',$course_id)
     ->join('courses','enrollments.course_id','=','courses.id')
