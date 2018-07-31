@@ -62,68 +62,90 @@
   
     <h2 class="text-center">Progress of Your Classmates </h2>
     <div class="row">
+        
+        @if(isMentor())
             @foreach($guideEnrolls as $enrollment)
-                @if($enrollment->status <2 && $enrollment->ch_completed>=1)
-                    
-                       
-                            <div class="col-sm-3 panel" >
-                                <div class="course_header">
-                                    <h4>{{ $enrollment->name}}
-                                     <small>({{ $enrollment->first_name}}) </small>
-                                     Score: {{$enrollment->creds_earned}}</h4>
-                                    @if($enrollment->ch_completed>0)
-                                        <span class="label btn-ongoing">In Progress</span>
-                                        @else
-                                        <span class="label btn-danger">Enrolled</span>
-                                    @endif
-                                    
-                                </div>                                 
-                                <div class="extStatus">
-                                    <div id="intStatus{{he($enrollment->course_id+$enrollment->student_id)}}">
-                                    </div>
-                                </div>
-
+                @if($enrollment->status <2)      
+                    <div class="col-sm-3 panel" >
+                        <div class="course_header">
+                            <h4>{{ $enrollment->name}}
+                             <small>({{ $enrollment->first_name}}{{$enrollment->ph_number}}) </small>
+                             Score: {{$enrollment->creds_earned}}</h4>
+                            @if($enrollment->ch_completed>0)
+                                <span class="label btn-ongoing">In Progress</span>
+                                @else
+                                <span class="label btn-danger">Enrolled</span>
+                            @endif   
+                        </div>                                 
+                        <div class="extStatus">
+                            <div id="intStatus{{he($enrollment->course_id+$enrollment->student_id)}}">
                             </div>
-                           
-                         
-
+                        </div>
+                    </div>
                 @elseif($enrollment->status == 2 )
-                
-                    {{--  <h1 class="text-center">Past courses</h1>  --}}
-                   
                     <div class="col-sm-3 panel past-courses">
                         <div class="course_header">
-                           <h4>{{ $enrollment->name}}
-                                     <small>({{ $enrollment->first_name}}) </small>
-                                     Score: {{$enrollment->creds_earned}}</h4>
+                        <h4>{{ $enrollment->name}}
+                                    <small>[{{ $enrollment->first_name}}{{$enrollment->ph_number}}] </small>
+                                    Score: {{$enrollment->creds_earned}}</h4>
                             <span class="label btn-failed">Completed</span>
-                            @if(isMentor())
                             <a href="{{route('Certificate',['id'=>he($enrollment->course->id),'user_id'=>he($enrollment->student_id)])}}" target="_blank"class="label btn-ongoing">Certificate</a>
-                            @endif
                         </div>                    
-                    
                         <div class="extStatus">
                             <div class="hunded">100%
                             </div>
                         </div> 
-                        @if(isMentor())
                         <h5>Comment: {{$enrollment->comment}}</h5>
-                        @endif
                     </div>
-                   
-                
                 @endif
-
                 @if($enrollment->ch_outof>0)
                 <script>statusBar('intStatus{{he($enrollment->course_id+$enrollment->student_id)}}',
                  {{$enrollment->ch_completed/$enrollment->ch_outof}})
                 </script>
                 @endif
-                {{----}}
-
             @endforeach
-            </div>
+        @else
+            @foreach($guideEnrolls as $enrollment)
+                @if($enrollment->status <2 && $enrollment->ch_completed>=1)
+                    <div class="col-sm-3 panel" >
+                        <div class="course_header">
+                            <h4>{{ $enrollment->name}}
+                             <small>({{ $enrollment->first_name}}) </small>
+                             Score: {{$enrollment->creds_earned}}</h4>
+                            @if($enrollment->ch_completed>0)
+                                <span class="label btn-ongoing">In Progress</span>
+                                @else
+                                <span class="label btn-danger">Enrolled</span>
+                            @endif  
+                        </div>                                 
+                        <div class="extStatus">
+                            <div id="intStatus{{he($enrollment->course_id+$enrollment->student_id)}}">
+                            </div>
+                        </div>
+                    </div>       
+                @elseif($enrollment->status == 2 )
+                    <div class="col-sm-3 panel past-courses">
+                        <div class="course_header">
+                        <h4>{{ $enrollment->name}}
+                                    <small>({{ $enrollment->first_name}}) </small>
+                                    Score: {{$enrollment->creds_earned}}</h4>
+                            <span class="label btn-failed">Completed</span> 
+                        </div>                    
+                        <div class="extStatus">
+                            <div class="hunded">100%
+                            </div>
+                        </div> 
+                    </div>
+                @endif
+                @if($enrollment->ch_outof>0)
+                <script>statusBar('intStatus{{he($enrollment->course_id+$enrollment->student_id)}}',
+                 {{$enrollment->ch_completed/$enrollment->ch_outof}})
+                </script>
+                @endif
+            @endforeach
+        @endif
     </div>
+</div>
 
  @endsection   
 
