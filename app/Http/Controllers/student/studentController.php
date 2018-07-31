@@ -929,14 +929,14 @@ public function UpdateFinalScore_Coins($course_id,$student_id){
         $nquestions_true*constants::marks_for_currect_answer;
     if($status==2){
         $hours4completion = (new Carbon($ch_statuses->first()->created_at))
-            ->diffInHours(new Carbon($ch_statuses->last()->created_at));
+            ->diffInHours(new Carbon($ch_statuses->last()->updated_at));
                 $days=$hours4completion/24.0;
                 if($days<1) $days=1;
     $bonus_credits= $course_credits*constants::perc_cred_bonus_on_coursecompletion/$days;
     }else{
         $bonus_credits=null;
     }
-    return [$days,$course_credits,constants::perc_cred_bonus_on_coursecompletion,$bonus_credits ];
+    return [$ch_statuses,$hours4completion,$days,$course_credits,constants::perc_cred_bonus_on_coursecompletion,$bonus_credits ];
             
     // return [$course_credits,$bonus_credits];
     
