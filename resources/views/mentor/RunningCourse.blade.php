@@ -79,7 +79,7 @@
                                     
                                 </div>                                 
                                 <div class="extStatus">
-                                    <div id="intStatus{{he($enrollment->course_id+$enrollment->student_id)}}">
+                                    <div id="intStatus{{he($enrollment->student_id)}}">
                                     </div>
                                 </div>
 
@@ -115,7 +115,7 @@
                 @endif
 
                 @if($enrollment->ch_outof>0)
-                <script>statusBar('intStatus{{he($enrollment->course_id+$enrollment->student_id)}}',
+                <script>statusBar('intStatus{{he($enrollment->student_id)}}',
                  {{$enrollment->ch_completed/$enrollment->ch_outof}})
                 </script>
                 @endif
