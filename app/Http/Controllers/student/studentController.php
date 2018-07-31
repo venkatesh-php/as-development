@@ -758,7 +758,7 @@ class studentController extends Controller
                     $enroll->ch_completed=$coursestatuses->sum('status');
                     $enroll->ch_outof=count($chapters);
                     $enroll->creds_earned=$enroll->course_credits*1;
-                    $enroll->ph_number = User::where('id',$enroll->student_id)->pluck('phone_number');
+                    $enroll->ph_number = User::where('id',$enroll->student_id)->pluck('phone_number')[0];
 
             }
 //return $guideEnrolls;
@@ -936,7 +936,7 @@ public function UpdateFinalScore_Coins($course_id,$student_id){
     }else{
         $bonus_credits=null;
     }
-    
+    return [$days,$course_credits,constants::perc_cred_bonus_on_coursecompletion,$bonus_credits ]
             
     // return [$course_credits,$bonus_credits];
     

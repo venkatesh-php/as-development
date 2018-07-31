@@ -70,7 +70,7 @@
                     <div class="col-sm-3 panel" >
                         <div class="course_header">
                             <h4>{{ $enrollment->name}}
-                             <small>({{ $enrollment->first_name}}{{$enrollment->ph_number}}) </small>
+                             <small>({{ $enrollment->first_name}}: {{$enrollment->ph_number}}) </small>
                              Score: {{$enrollment->creds_earned}}</h4>
                             @if($enrollment->ch_completed>0)
                                 <span class="label btn-ongoing">In Progress</span>
@@ -79,7 +79,7 @@
                             @endif   
                         </div>                                 
                         <div class="extStatus">
-                            <div id="intStatus{{he($enrollment->course_id+$enrollment->student_id)}}">
+                            <div id="intStatus{{he($enrollment->student_id)}}">
 
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                     <div class="col-sm-3 panel past-courses">
                         <div class="course_header">
                         <h4>{{ $enrollment->name}}
-                                    <small>[{{ $enrollment->first_name}}{{$enrollment->ph_number}}] </small>
+                                    <small>({{ $enrollment->first_name}}: {{$enrollment->ph_number}}) </small>
                                     Score: {{$enrollment->creds_earned}}</h4>
                             <span class="label btn-failed">Completed</span>
                             <a href="{{route('Certificate',['id'=>he($enrollment->course->id),'user_id'=>he($enrollment->student_id)])}}" target="_blank"class="label btn-ongoing">Certificate</a>
@@ -121,7 +121,7 @@
                             @endif  
                         </div>                                 
                         <div class="extStatus">
-                            <div id="intStatus{{he($enrollment->course_id+$enrollment->student_id)}}">
+                            <div id="intStatus{{he($enrollment->student_id)}}">
                             </div>
                         </div>
                     </div>       
@@ -140,7 +140,7 @@
                     </div>
                 @endif
                 @if($enrollment->ch_outof>0)
-                <script>statusBar('intStatus{{he($enrollment->course_id+$enrollment->student_id)}}',
+                <script>statusBar('intStatus{{he($enrollment->student_id)}}',
                  {{$enrollment->ch_completed/$enrollment->ch_outof}})
                 </script>
                 @endif
