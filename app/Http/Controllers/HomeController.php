@@ -26,22 +26,13 @@ use App\Http\Controllers\DateTime;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
        $coins = coinsinout::where('user_id',
@@ -154,9 +145,7 @@ class HomeController extends Controller
 
         elseif(isStudent()){
             $courses = course::all();
-            // return
-            // $users = User::all();
-            // return
+
             $studentData = Auth::user()->load('enrollment.course');
             // return $studentData->enrollment;
             foreach($studentData->enrollment as $course ){
@@ -169,10 +158,9 @@ class HomeController extends Controller
             $course->ch_outof=count($chapters);
             $course->creds_earned=$coursestatuses->sum('task_credits')
             +$coursestatuses->sum('quiz_score')*constants::max_credits_each_chapter/100;
-            // $course->creds_outof=40;
-            // $course->bonus_creds=20;
+
             }
-            // return $studentData;
+
             $enrollments = enrollment::where('student_id',Auth::user()->id)->get();
             $ongoingtasks = AssignTasks::orderBy('id','DESC')
             ->where('assign_tasks.user_id',Auth::user()->id)
@@ -183,36 +171,27 @@ class HomeController extends Controller
             ->join('courses as cname','cname.id','courses.id')
             ->join('chapters as cpname','cpname.id','chapters.id')
             ->select('assign_tasks.*','chapters.course_id','coursetasks.chapter_id','cname.name as course_name','cpname.name as chapter_name')->get();
-            // return $ongoingtasks;
-            // return constants::perc_cred_bonus_on_coursecompletion;
+
             foreach($courses as $course){
                 $chapters_ids = chapter::where('course_id',$course->id)->select('id')->get();
                 // foreach($chapters_ids as $chapters_id){
                    $chapter_tasks= coursetask::whereIn('chapter_id',$chapters_ids)
                    ->join('admin_tasks','admin_tasks.id','coursetasks.task_id')
-                   ->select('usercredits')->get();
+                   ->pluck('usercredits');
                    $course->no_tasks=count($chapter_tasks);
-                //    return
+                   $course->f_name=User::where('id',$course->user_id)->pluck('first_name')[0];
+
                    $course->max_credits=$chapter_tasks->sum('usercredits')+count($chapters_ids)*constants::max_credits_each_chapter;
                    $course->bonus_credits=
                    $course->max_credits*constants::perc_cred_bonus_on_coursecompletion/constants::ndays_assumed_4course_completion;
-                // } 
-                //The following two llops are blunder done by venkatesh
-                // foreach( $users as $user){
-                //     if($course->user_id==$user->id){
-                //         $course->f_name=$user->first_name;
-                //         $course->l_name=$user->last_name;
-                //     }
-                // }
-                // foreach($enrollments as $enrollment){
-                //     if($course->id==$enrollment->course_id){
-                //         $course->enrolled=true;
-                //         }
-                    
-                // }
-            }
-            // return $chapters_ids;
 
+                foreach($enrollments as $enrollment){
+                    if($course->id==$enrollment->course_id){
+                        $course->enrolled=true;
+                        }
+                    
+                }
+            }
         return view('home')->with('studentData',$studentData)
         ->with('coins',$coins)->with('ongoingtasks',$ongoingtasks)
         ->with('courses', $courses);
