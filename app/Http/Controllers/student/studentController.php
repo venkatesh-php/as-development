@@ -758,7 +758,7 @@ class studentController extends Controller
                     $enroll->ch_completed=$coursestatuses->sum('status');
                     $enroll->ch_outof=count($chapters);
                     $enroll->creds_earned=$enroll->course_credits*1;
-                    $enroll->ph_number = User::where('id',$enroll->student_id)->pluck('phone_number');
+                    $enroll->ph_number = User::where('id',$enroll->student_id)->pluck('phone_number')[0];
 
             }
 //return $guideEnrolls;

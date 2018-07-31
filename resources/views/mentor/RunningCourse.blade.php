@@ -70,7 +70,7 @@
                     <div class="col-sm-3 panel" >
                         <div class="course_header">
                             <h4>{{ $enrollment->name}}
-                             <small>({{ $enrollment->first_name}}{{$enrollment->ph_number}}) </small>
+                             <small>({{ $enrollment->first_name}}: {{$enrollment->ph_number}}) </small>
                              Score: {{$enrollment->creds_earned}}</h4>
                             @if($enrollment->ch_completed>0)
                                 <span class="label btn-ongoing">In Progress</span>
@@ -88,7 +88,7 @@
                     <div class="col-sm-3 panel past-courses">
                         <div class="course_header">
                         <h4>{{ $enrollment->name}}
-                                    <small>[{{ $enrollment->first_name}}{{$enrollment->ph_number}}] </small>
+                                    <small>({{ $enrollment->first_name}}: {{$enrollment->ph_number}}) </small>
                                     Score: {{$enrollment->creds_earned}}</h4>
                             <span class="label btn-failed">Completed</span>
                             <a href="{{route('Certificate',['id'=>he($enrollment->course->id),'user_id'=>he($enrollment->student_id)])}}" target="_blank"class="label btn-ongoing">Certificate</a>
