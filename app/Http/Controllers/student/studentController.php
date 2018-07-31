@@ -787,7 +787,7 @@ public  function Certificate(Request $request){
 
     $course_id = hd($request->id);
     $student_id = hd($request->user_id);
-    self::UpdateScore($course_id,$student_id,2);
+    // self::UpdateScore($course_id,$student_id,2);
     $studentcourse_info = enrollment::    
     where('enrollments.course_id',$course_id)
     ->join('courses','enrollments.course_id','=','courses.id')
@@ -911,7 +911,7 @@ public function UpdateFinalScore_Coins($course_id,$student_id){
                 // return constants::marks_for_currect_answer;
     $ch_statuses=chapterstatuses::
             whereIn('chapter_id',$chids)->where('user_id',$student_id)
-                ->select('task_credits','status')->get();
+                ->select('task_credits','created_at','updated_at','status')->get();
                 // var_dump($chids);
                 // echo(')))))*****************************');
     // return [$chids,$course_id, $chids,$ch_statuses, constants::max_credits_each_chapter*count($chids),
@@ -929,14 +929,14 @@ public function UpdateFinalScore_Coins($course_id,$student_id){
         $nquestions_true*constants::marks_for_currect_answer;
     if($status==2){
         $hours4completion = (new Carbon($ch_statuses->first()->created_at))
-            ->diffInHours(new Carbon($ch_statuses->last()->created_at));
+            ->diffInHours(new Carbon($ch_statuses->last()->updated_at));
                 $days=$hours4completion/24.0;
                 if($days<1) $days=1;
     $bonus_credits= $course_credits*constants::perc_cred_bonus_on_coursecompletion/$days;
     }else{
         $bonus_credits=null;
     }
-    return [$days,$course_credits,constants::perc_cred_bonus_on_coursecompletion,$bonus_credits ]
+    // return [$ch_statuses,$hours4completion,$days,$course_credits,constants::perc_cred_bonus_on_coursecompletion,$bonus_credits ];
             
     // return [$course_credits,$bonus_credits];
     

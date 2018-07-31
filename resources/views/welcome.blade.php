@@ -75,9 +75,9 @@ $students = DB::table('enrollments')
                 <marquee direction="left" scrolldelay="50">
                     <h3>Congratulations 
                     @foreach($students as $student)
-                    {{$student->fname}},
+                    {{ucfirst($student->fname)}},
                     @endforeach
-                    successfully completed the course </h3>
+                    on successfully completing the course </h3>
                 </marquee>
             </div>        
         </div>
