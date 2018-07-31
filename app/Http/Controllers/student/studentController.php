@@ -936,7 +936,7 @@ public function UpdateFinalScore_Coins($course_id,$student_id){
     }else{
         $bonus_credits=null;
     }
-    return [$days,$course_credits,constants::perc_cred_bonus_on_coursecompletion,$bonus_credits ]
+    return [$days,$course_credits,constants::perc_cred_bonus_on_coursecompletion,$bonus_credits ];
             
     // return [$course_credits,$bonus_credits];
     
